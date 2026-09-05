@@ -12,6 +12,15 @@ mind: the *mechanical / touch-physics* findings transfer directly to iOS, but th
 | `05-ai-agent-architecture-notes.md` | Perception→planning→action loop for a phone-driving agent | Loop design: **yes**. droidrun specifics: no (Android). | Barely started |
 | `android-control-survey.md` | 88 KB survey of Android software/USB control (ADB, scrcpy, accessibility, UHID/AOA) | **Mostly no** — iOS has no equivalent open control surface | Legacy background |
 
+## Reusable parts & resources
+
+- **`reusable-parts-and-resources.md`** — the shopping list of off-the-shelf
+  ecosystems to reuse per layer (CAD libraries, OpenBuilds/ACRO mechanics, GRBL/
+  FluidNC firmware, Tapsterbot's full stack, OpenCV homography, UGround/OmniParser
+  grounding models, YouTubers/communities), each mapped to our specs. Key
+  takeaway: the mechanics/motion are commodity — the real work is calibration +
+  the command/credential agent.
+
 ## Why `android-control-survey.md` is kept but demoted
 
 It documents *why software control of a stock phone is hard*, which is the core
