@@ -90,10 +90,17 @@ had to add a ground wire before touches worked at all.
 - **Goal:** an overhead camera lets the laptop map a **screen pixel → robot (x, y)**,
   so software can say "tap *there*" from an image.
 - **Build:**
-  - Fixed overhead camera (hardware spec §2).
-  - **Calibration:** OpenCV homography (camera px → screen rect → gantry XY), plus
-    steal Tapster's **browser calibration page** for the screen↔robot mapping
-    (software spec §5, §2).
+  - Fixed overhead camera — **just a USB webcam** with locked focus + a rigid mount
+    (hardware spec §9.1; camera specs barely matter, mount rigidity + glare do).
+  - **Software-first (do before the rig is finished):** prototype the OpenCV
+    homography against a **static photo** of the phone on the bench — proves the
+    screen-pixel → coordinate math with zero moving parts.
+  - **Build the target-practice trainer app here** (software spec §5.1): a local web
+    page flashes a target, the robot taps, the page reports where the tap actually
+    landed. It *is* your calibration data source **and** your accuracy score. No app
+    install — it runs in mobile Safari (Tapster's browser-calibration trick).
+  - **Calibration:** OpenCV homography (camera px → screen rect → gantry XY) refined
+    from the trainer app's hits (software spec §5, §5.1).
 - **Reuse:** OpenCV `findHomography`; Tapster calibration page; CV-robot references.
 - **DoD:** click a point in the camera feed on the laptop → the stylus taps that
   exact point on the phone. Closed loop is *human-in-the-loop* here (you pick the

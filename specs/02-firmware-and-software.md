@@ -158,6 +158,42 @@ are stock **OpenCV**:
   Mowbray-R-V/**Gantry_control-pose_estimation** · the Rubik's-cube-solver CAD in
   hardware §5.1 is this same class of CV-guided multi-motor rig.
 
+### 5.1 Target-practice trainer app (calibration + benchmark + optional reward) ⭐
+
+A tiny app that flashes a target on the phone, lets the robot try to tap it, and
+**measures where the tap actually landed** — the single most useful test harness in
+the whole project. It does triple duty:
+
+1. **Calibration data** — a known displayed target + the measured touch point is
+   exactly the correspondence needed to solve/refine the screen↔robot homography (§5).
+2. **Accuracy benchmark** — score = how close the tap was; track it across builds.
+3. **Optional training reward** — the same score can drive learning (see note).
+
+**Build it the lazy way — a web page, not a native app:**
+- A local page (served from the laptop) shows a dot/square at a known coordinate.
+- Capture the real touch with standard JS **`touchstart`/`touchend` → `Touch`
+  clientX/clientY** (MDN Touch events) and send it back to the host over
+  WebSocket/HTTP.
+- **No App Store, no install, works in mobile Safari** — this is precisely Tapster/
+  Tappy's browser calibration page (§2). Reuse theirs as a starting point.
+
+**Scoring rubric (your idea, made concrete):**
+```
+error = distance(tap_point, target_center)      # in screen mm/px
+score = max(0, 1 - error / target_radius)        # 1.0 = dead center, 0 at edge
+if tap outside phone screen bounds:  score = large negative  # "missed the phone"
+```
+Loop: show target → robot taps → measure → score → (refine transform) → next target,
+across a grid of positions. Median score = the rig's calibration quality.
+
+> **Honest note on "reinforcement learning":** full RL (reward-driven policy
+> training) is *more machinery than this needs* and is hard to get working. The same
+> hit/score loop gets you 95% of the value as **plain closed-loop calibration**:
+> measure the systematic error and update the homography / add a small correction
+> offset. Start there. Treat RL as an optional later layer only if nonlinear or
+> position-dependent errors remain after calibration. (`ponytail:` deliberately
+> avoiding an RL framework until a simpler correction is proven insufficient.)
+
 ---
 
 ## 6. Perception / UI grounding — reuse models before training
@@ -281,6 +317,7 @@ High-level intents expanded into primitive sequences:
 - Perspective warp / homography — https://thelinuxcode.com/perspective-warp-in-python-with-opencv-homography-four-point-mapping-and-real-time-camera-views/
 - OpenCV calib3d — https://docs.opencv.org/4.x/d9/d0c/group__calib3d.html · camera calibration — https://docs.opencv.org/4.x/dc/dbb/tutorial_py_calibration.html
 - OpenCV_Position — https://github.com/RaubCamaioni/OpenCV_Position · detecting a smartphone screen — https://forum.opencv.org/t/detecting-a-smartphone-screen/6829
+- Trainer app touch capture: MDN Touch events — https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Using_Touch_Events
 
 **CV-robot reference builds**
 - Petri-Dish-Gantry — https://github.com/Shen-Kev/Petri-Dish-Gantry · Delta-Robot-Project (EmguCV) — https://github.com/tunmaker/Delta-Robot-Project

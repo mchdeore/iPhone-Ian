@@ -195,6 +195,48 @@ spec §4), not on exotic motors.
 
 ## 9. Bill of materials (direction, not final)
 
+### 9.1 Recommended starter parts — "does the motor/controller/camera matter?"
+
+**Short answer: mostly no.** Because (a) an overhead camera **closes the loop** and
+corrects positioning error, and (b) iOS touch targets are large (~44 pt ≈ 8 mm),
+**open-loop precision barely matters.** Pick parts for cost and convenience, not
+spec. Concretely:
+
+**Camera — just use a USB webcam. ✅**
+- Any UVC 1080p webcam is plenty (a Logitech C920-class cam is the easy default).
+- What *actually* matters, in order: **(1) rigid mount** (camera must not move
+  relative to the phone — this preserves calibration); **(2) locked focus** — set
+  manual focus once, or lock autofocus, since the geometry is fixed ("set-and-lock
+  holds calibration"); **(3) glare control** — a glossy screen reflects; angle the
+  cam slightly and diffuse the lighting. Resolution, fps, and shutter type are
+  non-issues (static scene, we act on still frames).
+- Don't buy a machine-vision camera — overkill.
+
+**Motors — two easy tiers:**
+- ⭐ **NEMA 17 stepper + A4988 driver** — the known-good, robust, universally
+  documented standard (200 steps/rev + microstepping = far finer than we need).
+  Recommended default; matches the Screen Tapping Robot / OpenBuilds path.
+- **28BYJ-48 geared stepper (~$2)** — dirt-cheap, tiny, ~5% step accuracy
+  (non-cumulative), low torque. "Fine for very light, low-precision tasks (toy
+  plotters)" — which, with vision closing the loop and a featherweight stylus, is
+  *exactly us*. Great for the cheapest possible MVP; there's even a GRBL fork for it
+  (see sw spec §3). Trade-off: slower, some backlash.
+- **SG90 micro servo** — for the **tap (Z)** on either tier.
+- *Why precision is a non-issue:* microstepping smooths but isn't super-accurate;
+  true open-loop precision needs encoders/gearing — but we don't need it, the camera
+  measures where we actually landed and corrects (sw spec §5.1).
+
+**Controller — the cheap standard stack:**
+- ⭐ **Arduino Uno + CNC Shield V3 + A4988 drivers, running GRBL**, driven from the
+  **laptop over USB** (G-code). Industry-standard, ~$30–40 bare, endlessly
+  documented. Put the tap **servo on a spare pin with its own 5V supply** (don't
+  power a servo off the Uno's 5V).
+- The Raspberry Pi is optional and belongs on the **host** side (running vision +
+  agent), *not* as the motor controller — keep the Uno+GRBL as the dumb,
+  deterministic motion box (sw spec §4.1).
+
+### 9.2 Rough cost (direction)
+
 | Class | Approx. cost | Basis |
 |---|---|---|
 | SoT printed frame (delta/gantry + servos/steppers + stylus) | ~$80–150 | TestDevLab Tappy / SoT |
@@ -242,3 +284,10 @@ A sourced, quantized BOM is a Phase-1 deliverable once §4's frame decision is m
 **CAD tools & libraries**
 - FreeCAD https://www.freecad.org · OpenSCAD https://openscad.org · Onshape https://www.onshape.com
 - Printables https://www.printables.com · GrabCAD https://grabcad.com · Thingiverse https://www.thingiverse.com · Thangs https://thangs.com
+
+**Parts selection (§9.1)**
+- Webcam focus: set-and-lock manual focus holds calibration — https://commonlands.com/blogs/technical/autofocus-machine-vision · lock UVC autofocus — https://stackoverflow.com/questions/55923443/how-to-lock-autofocus
+- 28BYJ-48 suitability / accuracy (~5% non-cumulative) — https://www.quora.com/Is-a-28BYJ-48-stepper-motor-good-for-a-CNC-application · https://www.rajguruelectronics.com/Product/1467/28BYJ-48%20-%205V%20Stepper%20Motor.pdf
+- Microstepping smooths but isn't precise — https://forum.pololu.com/t/inconsistent-step-size-with-nema-17-motor-and-tic-t825/21499
+- NEMA 17 + A4988 wiring guide — https://racheldebarros.com/arduino-projects/control-nema17-with-a4988-arduino-wiring-and-code-guide/
+- Arduino Uno + CNC Shield V3 + GRBL — https://www.diyengineers.com/2023/01/05/grbl-with-arduino-cnc-shield-complete-guide/ · servo on CNC shield — https://forum.arduino.cc/t/4-stepper-and-2-servo-with-cnc-shield/984330
