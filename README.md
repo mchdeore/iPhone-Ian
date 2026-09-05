@@ -33,6 +33,7 @@ is the most general way to automate an arbitrary device. See
 ```
 iPhone-Ian/
 ├── README.md                      # this file
+├── DEVELOPMENT.md                 # staged build pipeline (start here to build)
 ├── specs/                         # the two authoritative specifications
 │   ├── 00-charter.md              # scope, decisions, security, roadmap
 │   ├── 01-hardware.md             # HARDWARE: build, CAD library, all links/citations
