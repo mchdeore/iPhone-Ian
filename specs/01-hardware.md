@@ -212,28 +212,50 @@ spec. Concretely:
   non-issues (static scene, we act on still frames).
 - Don't buy a machine-vision camera — overkill.
 
-**Motors — two easy tiers:**
-- ⭐ **NEMA 17 stepper + A4988 driver** — the known-good, robust, universally
-  documented standard (200 steps/rev + microstepping = far finer than we need).
-  Recommended default; matches the Screen Tapping Robot / OpenBuilds path.
-- **28BYJ-48 geared stepper (~$2)** — dirt-cheap, tiny, ~5% step accuracy
-  (non-cumulative), low torque. "Fine for very light, low-precision tasks (toy
-  plotters)" — which, with vision closing the loop and a featherweight stylus, is
-  *exactly us*. Great for the cheapest possible MVP; there's even a GRBL fork for it
-  (see sw spec §3). Trade-off: slower, some backlash.
-- **SG90 micro servo** — for the **tap (Z)** on either tier.
-- *Why precision is a non-issue:* microstepping smooths but isn't super-accurate;
-  true open-loop precision needs encoders/gearing — but we don't need it, the camera
-  measures where we actually landed and corrects (sw spec §5.1).
+**Motors & drivers — "quiet" is a *driver* choice, not a motor choice:**
+- ⭐ **NEMA 17 stepper + TMC2209 "silent" driver** — the pick for your priorities.
+  TMC2209's **StealthChop2** drives a smooth sinusoidal current instead of the
+  A4988's harsh on/off chopping, eliminating the classic stepper whine (it's *the*
+  standard silent-3D-printer upgrade). It's a **pin-compatible drop-in** for the
+  A4988 slot on the CNC Shield and runs with GRBL in standalone step/dir mode.
+  ~$4–9 per driver.
+- **Avoid the 28BYJ-48 for this build.** It's the cheapest motor but the **janky**
+  one — geared backlash, low build quality, less reliable. You said you'd pay to
+  avoid jank; skipping it is step one.
+- **SG90 micro servo for the tap (Z)** — cheap, but servos **buzz** while holding.
+  Silence it by (a) powering the servo from its **own 5V supply** (never the Uno's
+  5V rail), and (b) **detaching / cutting the PWM signal when idle** so it's quiet
+  between taps. A metal-gear micro servo (MG90S) also helps.
+- *Why precision is a non-issue:* microstepping smooths motion but isn't
+  super-accurate; real open-loop precision needs encoders/gearing we don't need,
+  because the camera measures where we actually landed and corrects (sw spec §5.1).
 
 **Controller — the cheap standard stack:**
-- ⭐ **Arduino Uno + CNC Shield V3 + A4988 drivers, running GRBL**, driven from the
-  **laptop over USB** (G-code). Industry-standard, ~$30–40 bare, endlessly
-  documented. Put the tap **servo on a spare pin with its own 5V supply** (don't
-  power a servo off the Uno's 5V).
+- ⭐ **Arduino Uno + CNC Shield V3 + TMC2209 (silent) drivers, running GRBL**, driven
+  from the **laptop over USB** (G-code). Industry-standard, endlessly documented; the
+  TMC2209s drop straight into the A4988 slots. Put the tap **servo on a spare pin
+  with its own 5V supply** (don't power a servo off the Uno's 5V).
 - The Raspberry Pi is optional and belongs on the **host** side (running vision +
   agent), *not* as the motor controller — keep the Uno+GRBL as the dumb,
   deterministic motion box (sw spec §4.1).
+
+### 9.1.1 Tuned build: cheap + quiet + not-janky (your call, +~$50)
+
+Spend the extra exactly where it buys **silence + reliability**, in priority order:
+
+1. **TMC2209 silent drivers ×2** (~$10–18/pair vs ~$3 for A4988) — the biggest quiet
+   win; drop-in on the CNC shield. **Do this one for sure.**
+2. **Quality linear motion** — a pair of **MGN9 mini linear rails** (or good V-slot
+   wheels) instead of cheap 8 mm rod + LM8UU bushings, which rattle/bind. ~$20–30.
+   Removes most of the "jank."
+3. **Small regulated 12 V PSU** (~$8) — steady power = less coil whine and more
+   reliable than a random wall-wart.
+
+Extra ≈ **$40–55**. Everything else stays rock-bottom (Uno, CNC shield, 2× NEMA 17,
+GT2 belt or lead screw, SG90, printed parts). Result: a small rig that homes
+reliably, moves near-silently (StealthChop), and doesn't rattle — exactly "quiet,
+reliable, easy to work with, not powerful, not high-accuracy." The vision loop
+(sw spec §5.1) covers the accuracy you're intentionally not paying for.
 
 ### 9.2 Rough cost (direction)
 
@@ -242,7 +264,8 @@ spec. Concretely:
 | SoT printed frame (delta/gantry + servos/steppers + stylus) | ~$80–150 | TestDevLab Tappy / SoT |
 | OpenBuilds ACRO XY gantry (steppers + extrusion + plates) | ~$150–300 | Inferred from kit pricing |
 | + overhead camera (USB webcam) + printed phone clamp | +$20–60 | Inference |
-| Electronics (Arduino/ESP32 + stepper drivers + servo) | ~$25–60 | A4988/DRV8825 + Uno/ESP32 |
+| Electronics (Arduino Uno + CNC Shield + drivers + servo) | ~$30–70 | TMC2209 (silent) or A4988; + SG90 |
+| ⭐ **Quiet/reliable upgrades** (TMC2209 ×2 + MGN9 rails + regulated PSU) | +$40–55 | §9.1.1 — your +$50 budget |
 
 A sourced, quantized BOM is a Phase-1 deliverable once §4's frame decision is made.
 
@@ -291,3 +314,5 @@ A sourced, quantized BOM is a Phase-1 deliverable once §4's frame decision is m
 - Microstepping smooths but isn't precise — https://forum.pololu.com/t/inconsistent-step-size-with-nema-17-motor-and-tic-t825/21499
 - NEMA 17 + A4988 wiring guide — https://racheldebarros.com/arduino-projects/control-nema17-with-a4988-arduino-wiring-and-code-guide/
 - Arduino Uno + CNC Shield V3 + GRBL — https://www.diyengineers.com/2023/01/05/grbl-with-arduino-cnc-shield-complete-guide/ · servo on CNC shield — https://forum.arduino.cc/t/4-stepper-and-2-servo-with-cnc-shield/984330
+- TMC2209 silent driver (StealthChop2, drop-in for A4988) — https://www.digikey.com/en/product-highlight/t/trinamic/tmc2209-ultra-silent-motor-driver-ic · silent-upgrade explainer — https://blog.uavmodel.com/3d-printer-silent-board-upgrade-tmc2209-drivers-stealthchop-and-noise-reduction-2026/
+- SG90 servo buzz (external supply + don't hold against end stops) — https://forum.arduino.cc/t/sg90-servo-motor-mkaing-buzzing-noise/615492 · https://forum.arduino.cc/t/buzzing-sg90-servo/562799
