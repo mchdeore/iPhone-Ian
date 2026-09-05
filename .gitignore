@@ -1,0 +1,33 @@
+# --- Secrets: never commit (see specs/00-charter.md §6) ---
+.env
+.env.*
+secrets/
+*.key
+*.pem
+*.secret
+*.sops.yaml
+*.age
+vault/
+credentials*.json
+
+# --- Training data that may contain screen captures of secrets ---
+datasets/
+captures/
+*.raw-capture
+
+# --- OS / editor cruft ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# --- Python (training rig, when it exists) ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# --- Node (if any tooling) ---
+node_modules/
