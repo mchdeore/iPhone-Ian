@@ -22,7 +22,7 @@ These are fixed for now. Everything else is open for iteration.
 | D1 | **Target is iPhone / iOS only.** | No Android. The Android research is demoted to background. |
 | D2 | **Physical actuation** — the robot touches the glass. | No jailbreak, no MDM, no developer provisioning, nothing installed on the phone. Black box. |
 | D3 | **Base platform: the Instructables "Screen Tapping Robot" — 3D-printed.** | Design source of truth. A stepper-driven Cartesian XY gantry; 3D-print all printable parts, buy motors cheap. Tappy is demoted to a lessons reference. See `01-hardware.md`. |
-| D4 | **An ML training rig / data-collection app is a first-class deliverable.** | We explicitly invest in training the agent to perform well, not just scripting it. See `02-training-and-control.md`. |
+| D4 | **An ML training rig / data-collection app is a first-class deliverable.** | We explicitly invest in training the agent to perform well, not just scripting it. See `02-firmware-and-software.md`. |
 | D5 | **Command-driven, credential-aware.** | Accepts intents like `login`/`enter`/`exit`; retrieves credentials automatically so the human never hand-types them. |
 
 ## 3. Scope boundary vs. HomeLab

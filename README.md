@@ -21,21 +21,22 @@ is the most general way to automate an arbitrary device. See
 
 1. **Target device: iPhone, 100%.** iOS-only. (The Android survey in
    `research/` is legacy background — see note below.)
-2. **Actuation: a Tappy-class tap robot, improved.** Start from the ~$80
-   TestDevLab "Tappy" build and stiffen/upgrade it. See
-   [`specs/01-hardware.md`](specs/01-hardware.md).
+2. **Actuation: a tap robot, borrowing heavily from Tapster + the Instructables
+   "Screen Tapping Robot."** Reuse existing open designs (Tapster's Push Button
+   Robot / Sidekick lineage, the 3D-printable Cartesian gantry) rather than
+   reinventing. See [`specs/01-hardware.md`](specs/01-hardware.md).
 3. **Training: an ML rig / data-collection app** so the agent learns to drive
-   the phone reliably. See [`specs/02-training-and-control.md`](specs/02-training-and-control.md).
+   the phone reliably. See [`specs/02-firmware-and-software.md`](specs/02-firmware-and-software.md).
 
 ## Repository layout
 
 ```
 iPhone-Ian/
 ├── README.md                      # this file
-├── specs/                         # concrete decisions & design
+├── specs/                         # the two authoritative specifications
 │   ├── 00-charter.md              # scope, decisions, security, roadmap
-│   ├── 01-hardware.md             # the robot (Tappy-based, iPhone-specific)
-│   └── 02-training-and-control.md # ML training rig, agent loop, commands, credentials
+│   ├── 01-hardware.md             # HARDWARE: build, CAD library, all links/citations
+│   └── 02-firmware-and-software.md# FIRMWARE + SOFTWARE + ML: code, control, CV, agent
 └── research/                      # background research notes
     ├── README.md                  # index + status of each note
     ├── 01-prior-art-notes.md
@@ -43,6 +44,11 @@ iPhone-Ian/
     ├── 05-ai-agent-architecture-notes.md
     └── android-control-survey.md  # LEGACY: Android software-control survey
 ```
+
+> The research is split into two parts, matching the two specs: **hardware /
+> physical build** (`01-hardware.md`) and **firmware / software / ML**
+> (`02-firmware-and-software.md`). All reusable-parts research and citations now
+> live inside those two docs.
 
 ## Relationship to HomeLab
 
