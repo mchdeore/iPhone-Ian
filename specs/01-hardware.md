@@ -1,14 +1,44 @@
 # 01 — Hardware Spec (the robot)
 
-**Decision (D3):** start from the TestDevLab **"Tappy"** build (~$80) and improve
-it for our iPhone-only, credential-typing use case.
+## 🎯 Design source of truth (current)
+
+**Instructables — "Screen Tapping Robot"**
+👉 https://www.instructables.com/Screen-Tapping-Robot/
+
+This build is our **mechanical design source of truth for now.** It's a
+3D-printable, stepper-driven **Cartesian XY gantry** — exactly the architecture
+this spec had flagged as the target (see §2) — and the maker reports it working.
+Plan: **3D-print every printable piece and source the motors cheaply.**
+
+**Verified from the build (via its own description):**
+- **X-axis:** a **NEMA 17 stepper** driving a **lead screw**, riding on **two
+  8 mm × 300 mm stainless precision shafts** with **linear ball bearings**. The
+  X-axis carries the rest of the machine (Y-axis + stylus system), which is why
+  it's built stiff on dual shafts.
+- Cartesian (lead-screw) motion — not a delta, not a belt/CoreXY.
+
+**To extract from the build page (couldn't fully scrape — Instructables blocks
+automated fetch; pull these by hand):**
+- [ ] Y-axis mechanism (lead screw vs belt) and its motor.
+- [ ] Z / stylus actuation (servo? solenoid? passive spring?).
+- [ ] Controller + firmware (Arduino + GRBL? custom?).
+- [ ] Whether **stylus grounding** is addressed (our known must-have — see §1).
+- [ ] Full bill of materials + the STL/CAD files.
+- [ ] Work-area dimensions vs. an iPhone screen + on-screen keyboard.
+
+> **Relationship to Tappy:** Tappy is now demoted to a **prior-art / lessons**
+> reference (grounding, calibration, joint-slop fixes — §1 below), *not* the base
+> build. The Screen Tapping Robot supersedes it as the mechanical starting point
+> because its Cartesian stepper design matches our target and is 3D-printable.
 
 See `research/02-mechanical-architecture-notes.md` for the underlying
 capacitive-touch physics — all of it applies to iPhone unchanged.
 
 ---
 
-## 1. What Tappy is (baseline)
+## 1. Prior-art lessons we still inherit (from Tappy)
+
+**What Tappy is (baseline reference):**
 
 - A **delta robot** using 3× hobby servos (Hitec HS-311).
 - A **spring-loaded, pen-style capacitive stylus** as the end effector (passive Z:

@@ -24,7 +24,9 @@ supporting evidence, not as an implementation guide.
 ## Biggest open research gaps (carried into `specs/00-charter.md`)
 
 - **Cartesian XY-gantry reference build** with a passive spring-Z capacitive
-  stylus — no directly-sourced build found yet (highest-value hardware search).
+  stylus — **FOUND:** Instructables "Screen Tapping Robot"
+  (https://www.instructables.com/Screen-Tapping-Robot/), now the design source of
+  truth (`specs/01-hardware.md`). Remaining: extract its Y-axis/Z/controller/BOM.
 - **iOS-specific control constraints** — Face ID / passkey / autofill behavior
   when a robot (not a human) is driving; what "login" can and cannot mean.
 - **Vision grounding for iOS screens** — the agent sees the screen through a
