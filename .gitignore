@@ -31,3 +31,8 @@ env/
 
 # --- Node (if any tooling) ---
 node_modules/
+
+# --- Generated CAD outputs (regenerate from parts/*.py) ---
+parts/*.stl
+parts/*.step
+parts/*.3mf
