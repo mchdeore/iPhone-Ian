@@ -25,3 +25,9 @@ SPRING_TRAVEL = 4.0 # sprung-tip over-travel: absorbs height error + sets a gent
 # --- Fasteners ---
 M3_FREE   = 3.4
 HEATSET_D = 4.2
+
+# --- Reinforcement / print standard (quality build = solid parts) ---
+# Print standard: PETG, 4-5 perimeters, 100% infill (parts are small), orient for load.
+WALL     = 3.0    # minimum solid material around any bore
+FILLET   = 2.0    # internal-corner radius to relieve stress
+GRUB_TAP = 2.6    # M3 grub-screw tap hole (clamps the X rods into the brackets)
