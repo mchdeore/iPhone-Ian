@@ -9,6 +9,82 @@ mount, the camera, and the CAD files to build it all. Firmware and code live in
 
 ---
 
+## 0. FINAL LOCKED DESIGN — v1 (2026-09-09)
+
+**Locked by the owner.** Priorities: **quiet, small, easy to work on** (not powerful,
+not high-accuracy — the camera closes the loop, §8). This section supersedes any
+conflicting option below; the multi-touch / two-arm (Sidekick) path and the
+**lead-screw** drive are **retired** for v1. §§1–11 are retained as research/rationale.
+
+### 0.1 Architecture
+
+A **belt-driven Cartesian gantry** with a single effector. One motor per axis — maps
+directly onto GRBL, zero custom firmware.
+
+- **Y axis** (long, ~150 mm reach): two 8 mm smooth steel rods along the phone's
+  length carry a cross-beam on **printed bushings**; Y motor is fixed to the frame.
+- **X axis** (short, ~72 mm reach): two short 8 mm rods on the beam; a **pancake**
+  NEMA 17 rides here on printed bushings (minimizes moving mass → quieter, smaller).
+- **Z / tap:** MG90S metal-gear servo on the X carriage, stylus arm on the horn.
+- Grounded capacitive stylus tip (ground wire to controller GND — mandatory, §3.1).
+
+### 0.2 Print-max BOM — buy only precision-critical parts
+
+**Philosophy:** 3D-print everything structural (free); buy only what carries precision
+or can't be printed. The **running surface is a bought 8 mm smooth steel rod**; the
+bushings that ride it are **printed** (steel rod = the precision, plastic-on-steel
+bushing = free and quiet — no stick-slip). `ponytail:` printed bushings wear under
+continuous use — ceiling is finite service life; upgrade path is drop-in IGUS DryLin
+bushings of the same 8 mm bore, no redesign.
+
+**Buy (precision-critical / unprintable):**
+
+| Part | Qty | Why bought |
+|---|---|---|
+| NEMA 17 pancake stepper, 0.9–1.0 A | 2 | Electromagnetic |
+| MG90S metal-gear micro servo (tap/Z) | 1 | Electromechanical |
+| Arduino Uno + CNC Shield V3 | 1 | Electronics |
+| TMC2209 "silent" driver (StealthChop2) | 2 | Quiet stepping |
+| 12 V regulated PSU (~2 A) + 12→5 V buck | 1 | Clean power, servo isolation |
+| **8 mm smooth steel rod** (2×~200 mm Y, 2×~120 mm X) | 4 | **The precision running surface** |
+| GT2 6 mm belt | 1 | Reinforced — can't print |
+| 20T bore-5 GT2 pulleys + 623 idler bearings | set | Precision tooth mesh / rolling |
+| Microswitch endstops (X-min, Y-min) | 2 | Repeatable `$H` homing |
+| M3 heat-set inserts + M3/M5 fasteners | set | Serviceable printed joints |
+| Capacitive stylus tip + ground wire | 1 | The effector |
+| Rubber/sorbothane feet (or print in TPU) | 4 | Isolate base = biggest quiet win |
+
+**Print (free):** baseplate, Y cross-beam, X carriage, **the linear bushings**, all
+motor/idler/endstop mounts, belt clamps + tensioner, phone cradle (tripod-clamp
+model, §5.1), camera arm, stylus arm. Optionally print GT2 pulleys, but bought metal
+ones avoid tooth backlash for ~$2.
+
+**Controller/software link:** USB serial to GRBL now; ESP32 + FluidNC is the drop-in
+upgrade if USB-C / wireless is wanted later (sw spec §4.1).
+
+### 0.3 Reused CAD (from §5.1) / retired items
+
+- **Reuse:** parametric NEMA 14/17 mount (→ motor mounts), SG90 model (→ MG90S mount
+  fit), tripod phone clamp v2 (→ phone cradle), **linear sliding system + DSLR slider
+  (→ rod + printed-bushing carriage reference — now directly relevant)**.
+- **Retired (lead-screw):** screw+stepper coupling, MK4 Z-screw motor cover.
+
+### 0.4 Approximate cost (print-max; excl. phone / camera / laptop; printing free)
+
+| Group | Items | ~USD |
+|---|---|---|
+| Core electronics + motors | Uno+shield, 2× TMC2209, 2× pancake NEMA 17, MG90S, 12 V PSU, buck | **~$79** |
+| Precision motion | 4× 8 mm steel rod, GT2 belt + pulleys + 623 idlers, 2× endstops | **~$23** |
+| Fasteners + effector + feet | heat-set inserts/screws, stylus tip + wire, rubber feet, USB cable | **~$18** |
+| **Total** | | **~$120** |
+
+Low–high range **≈ $100–150** depending on source (AliExpress budget ↔ Amazon/genuine).
+Down from the ~$155 MGN9 build by **printing the bushings + structure** and letting a
+cheap steel rod carry the precision. Figures are approximate hobby-market estimates,
+not live quotes — a sourced, link-by-link list is the next deliverable.
+
+---
+
 ## 🎯 1. Design source of truth (current)
 
 **Instructables — "Screen Tapping Robot"** → https://www.instructables.com/Screen-Tapping-Robot/
