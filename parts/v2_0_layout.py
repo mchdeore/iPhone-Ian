@@ -23,7 +23,7 @@ PHONE = (77.6, 163.0, 8.25)               # iPhone Pro Max body (worst case)
 TRAY_T = 2
 RAIL_Y = 105                              # long rails at y = +/- this
 RISER = (20, 10)                          # aluminium flat bar 20 wide x 10 tall under each long rail
-LONG_RAIL_L, BRIDGE_RAIL_L, BRIDGE_L = 420, 220, 240
+LONG_RAIL_L, BRIDGE_RAIL_L, BRIDGE_L = 420, 230, 240
 MGN9_RAIL_W, MGN9_RAIL_H = 9, 6.5
 MGN9H_L, MGN9H_W, MGN9H_TOP = 39.9, 20, 10   # carriage length, width, top above rail base
 BRIDGE_W = BRIDGE_H = 20                  # 2020 extrusion
@@ -34,6 +34,7 @@ R = GT2_PD / 2
 FLANGE_R, PULLEY_H = 8, 8                 # pulley/idler flange radius, toothed-section height
 BELT_W, BELT_T = 6, 1.5
 LIFT = 3                                  # stylus tip clearance above glass when up
+CAP_T = 3                                 # top plates that clamp idler bolts from above (double support)
 
 glass_z = BASE_T + TRAY_T + PHONE[2]
 rail_base_z = BASE_T + RISER[1]
@@ -114,13 +115,24 @@ for name, sy, zp, rise in (("A", 1, ZA, 0), ("B", -1, ZB, MOTOR_B_RISE)):
     add(static, box(XM, my, z_bot + (MOTOR[2] - 3) / 2, MOTOR[0], MOTOR[1], MOTOR[2] - 3), "stator", f"NEMA17 pancake {name}")
     add(static, box(XM, my, z_bot + MOTOR[2] - 1.5, MOTOR[0], MOTOR[1], 3), "alu", f"NEMA17 {name} end cap")
     add(static, cyl(XM, my, z_bot + MOTOR[2], zp - PULLEY_H / 2, 6.5), "alu", f"pulley {name} hub")
+    # motor clamp: two bars over the face-hole pairs (belts + pulley pass between them), legs to the base
+    top = z_bot + MOTOR[2]
+    for side in (-1, 1):
+        by = my + side * 15.5
+        add(static, box(XM + 2, by, top + 1.5, 46, 8, 3), "cf", f"motor {name} clamp bar (CF-PETG)")
+        add(static, box(XM + 23, by, BASE_T + (top + 3 - BASE_T) / 2, 4, 8, top + 3 - BASE_T), "cf",
+            f"motor {name} clamp leg (CF-PETG)")
     pulley(static, XM, my, zp, f"GT2 20T pulley {name} (motor)")
 
 for sy in (-1, 1):
     cy = sy * YC
     add(static, box(-XM, cy, BASE_T + (ZA - PULLEY_H / 2 - 1 - BASE_T) / 2, 16, 16, ZA - PULLEY_H / 2 - 1 - BASE_T),
         "cf", "corner idler post (CF-PETG)")
-    add(static, cyl(-XM, cy, BASE_T, ZB + PULLEY_H / 2 + 1, 1.5), "steel", "M3 idler shaft")
+    cap_z0 = ZB + PULLEY_H / 2 + 1
+    add(static, cyl(-XM, cy, BASE_T, cap_z0 + CAP_T, 1.5), "steel", "M3 idler bolt (clamped both ends)")
+    add(static, box(-XM - 4, cy, cap_z0 + CAP_T / 2, 24, 20, CAP_T), "cf", "corner idler top plate (CF-PETG)")
+    add(static, box(-XM - 14.5, cy, BASE_T + (cap_z0 + CAP_T - BASE_T) / 2, 3, 20, cap_z0 + CAP_T - BASE_T), "cf",
+        "corner idler side wall (CF-PETG, outside the belt)")
     pulley(static, -XM, cy, ZA, "idler A (corner)")
     pulley(static, -XM, cy, ZB, "idler B (corner)")
 
@@ -140,9 +152,12 @@ def gantry(bx, ty):
     # bridge end blocks carry the 4 bridge-end idlers (one per belt per end)
     for sy in (-1, 1):
         add(p, box(bx + 6.5, sy * 124.5, bridge_z0 + 1.5, 53, 33, 3), "cf", "bridge end block (CF-PETG)")
+        cz0 = ZB + PULLEY_H / 2 + 1                    # top plate rests on the bridge via a 1 mm spacer
+        add(p, box(bx + 12, sy * 125, cz0 + CAP_T / 2, 44, 32, CAP_T), "cf", "bridge end top plate (CF-PETG)")
+        add(p, box(bx, sy * 115, (bridge_z1 + cz0) / 2, BRIDGE_W, 10, cz0 - bridge_z1), "cf", "top plate spacer")
     for x, y, z, lab in ((x0 + R, YI - R, ZA, "A+"), (x0 - R, YO - R, ZB, "B+"),
                          (x0 - R, -(YO - R), ZA, "A-"), (x0 + R, -(YI - R), ZB, "B-")):
-        add(p, cyl(x, y, bridge_z0 + 3, z + PULLEY_H / 2 + 0.5, 1.5), "steel", "M3 idler shaft")
+        add(p, cyl(x, y, bridge_z0 + 3, ZB + PULLEY_H / 2 + 1 + CAP_T, 1.5), "steel", "M3 idler bolt (clamped both ends)")
         pulley(p, x, y, z, f"idler {lab} (bridge end)")
     # toolhead: carriage on the bridge rail, plate, servo, lever, sprung stylus, belt clamp
     fx = bx - BRIDGE_W / 2 - MGN9_RAIL_H               # front face of the bridge rail

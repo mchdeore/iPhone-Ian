@@ -64,7 +64,7 @@ It fits the height, but it's slower and makes the OCR harder.
 - **Controller:** MKS DLC32 (ESP32) running **FluidNC**: CoreXY kinematics and RC-servo Z are set in a config file, with
   no custom firmware. TMC2209 drivers (StealthChop) keep it quiet. (Uno + stock GRBL would need
   two patched firmware forks merged to do CoreXY + servo.)
-- **Size:** ~53 × 32 cm footprint, **~4.9 cm tall** (checked in `parts/v2_0_layout.py`: 10 mm under-bridge clearance, every screen corner reachable, no collisions). The minimum height is set by the phones (~9 mm), clearance under
+- **Size:** ~53 × 32 cm footprint, **~5.0 cm tall** (checked in `parts/v2_0_layout.py`: 10 mm under-bridge clearance, every screen corner reachable, no collisions). The minimum height is set by the phones (~9 mm), clearance under
   the bridge, and the bridge itself, so it's thicker than a laptop but fits a deep drawer.
 
 ### 3.1 Software ↔ hardware hand-off
@@ -99,39 +99,65 @@ The `parts/` scaffold (build123d) is a good pipeline, but the design doesn't clo
 **Carries over:** the code-CAD workflow, `params.py` as the single source of dimensions, and the spring-stylus idea.
 **Retired:** the rod/bushing gantry parts (1, 3, 4) and the assembly preview.
 
-## 5. Parts to buy (AliExpress / JLCMC, approximate CAD)
+## 5. Parts to buy: verified listings (checked 2026-10-01, CAD, before tax)
 
-| Part | Qty | ~$ |
+Every listing was opened and its option and price checked. **Choose the variant shown in "Pick".**
+
+### AliExpress
+
+| Part | Link | Pick | C$ |
+|---|---|---|---|
+| Controller | [MKS DLC32 V2.1](https://www.aliexpress.com/item/1005003528786927.html) | "MKS DLC32 V2.1" (board only) | 26.85 |
+| Drivers | [BIGTREETECH TMC2209 (official)](https://www.aliexpress.com/item/33028050145.html) | 4PCS | 23.21 |
+| Motors | [STEPPERONLINE 17HE08-1004S (official)](https://www.aliexpress.com/item/1005004708155105.html) | 1PC ×2 (23 mm, 1 A, 20 mm shaft) | 24.16 |
+| Servo | [MG90S](https://www.aliexpress.com/item/1005008626768357.html) | 2 pcs, **180°** (360° = continuous, useless) | 5.89 |
+| PSU | [24 V adapter](https://www.aliexpress.com/item/4000521124523.html) | 3A, US Plug, 24V | 10.93 |
+| 5 V buck (servo) | [Mini560 **PRO**](https://www.aliexpress.com/item/1005006537133858.html) | 5 V (PRO = 6–30 V in; plain Mini560 can't take 24 V) | 5.07 |
+| Endstops | [mechanical, with cable](https://www.aliexpress.com/item/1005007505049085.html) | 3 pcs | 3.97 |
+| Rails | [MGN9 (Magic Dragon)](https://www.aliexpress.com/item/1005002721523331.html) | MGN9H: 420mm ×2, 230mm ×1 | 50.07 |
+| Bridge | [2020 V-slot (same store)](https://www.aliexpress.com/item/1005003311298946.html) | 240mm, 2020V | 6.39 |
+| Belt | [GT2 rubber/aramid](https://www.aliexpress.com/item/1005008463979470.html) | 6mm, 5 meters | 6.16 |
+| Motor pulleys | [Mellow 20T 5 mm bore (official)](https://www.aliexpress.com/item/33023279793.html) | For 6mm, 2Pcs | 6.86 |
+| Idlers | [GT2 20T 3 mm bore](https://www.aliexpress.com/item/32817328238.html) | "20T W6 B3 GT2 T" ×6, "20T W6 B3 without T" ×4 | 25.62 |
+| Heat-set inserts | [M3 brass](https://www.aliexpress.com/item/1005010325121347.html) | M3 | 7.54 |
+| Screws | [M3 DIN912](https://www.aliexpress.com/item/1005001785690381.html) | M3 × 8, 12, 16, 20, 25, and 50 (×2, corner idler bolts) | ~14 |
+| Nyloc nuts | [M3](https://www.aliexpress.com/item/32798773566.html) | M3 | 2.83 |
+| Shim washers | [M3 0.5 mm](https://www.aliexpress.com/item/1005002046188859.html) | M3, 0.5 mm (idler spacing, inner race only) | 2.38 |
+| T-nuts | [M3 for 2020](https://www.aliexpress.com/item/4000726230157.html) | M3 | 2.94 |
+| Brass tube | [0.25 mm wall](https://www.aliexpress.com/item/1005005307061739.html) | 5 mm OD (4.5 ID fits the stylus tip stem) | ~7.41 |
+| Springs | [0.5 mm wire](https://www.aliexpress.com/item/1005005312536098.html) | ~7 mm OD × 20 mm (over the tube) | ~5.28 |
+| Wire | [silicone](https://www.aliexpress.com/item/1005006250522147.html) | 26AWG, 5 m | 3.78 |
+| Servo extension | [listing](https://www.aliexpress.com/item/1005008268927795.html) | 1to1, 50 cm | 2.29 |
+| DC jack adapter | [listing](https://www.aliexpress.com/item/1005007895939239.html) | female 5.5×2.5 | 2.04 |
+| **AliExpress total** | | | **~246** (~278 with HST) |
+
+### Elsewhere
+
+| Part | Where | C$ |
 |---|---|---|
-| MKS DLC32 V2.1 controller | 1 | 35 |
-| TMC2209 drivers | 3 (1 spare) | 15 |
-| NEMA 17 pancake stepper, ~23 mm, ~1 A | 2 | 25 |
-| MG90S servo | 2 (1 spare) | 8 |
-| 24 V 2–3 A PSU + 5 V 3 A buck converter (servo supply) | 1 + 1 | 18 |
-| MGN9H rail + carriage: 420 mm ×2 (long), 220 mm ×1 (bridge) | 3 | 45 |
-| 2020 extrusion, 240 mm (bridge) | 1 | 5 |
-| Aluminium flat bar 20×10 mm, 430 mm (rail risers, local hardware store) | 2 | 12 |
-| GT2 6 mm belt 5 m (~3.2 m used), 20T pulleys 5 mm bore ×2, 20T idlers 3 mm bore ×10 (8 used) | set | 15 |
-| Mechanical endstops | 3 | 4 |
-| Conductive stylus tips (fibre-mesh), compression spring kit, brass tube | set | 10 |
-| M3 heat-set inserts, M3 screws 6–30 mm, 2020 T-nuts | set | 20 |
-| 4-core flexible silicone cable, ~1.5 m | 1 | 5 |
-| Base plate: 3 mm aluminium 530×320 mm, laser-cut with all holes (JLCCNC) | 1 | 40 |
-| **Total** | | **~$255** |
+| Stylus tips, 6 mm mesh with threaded metal stem | [Amazon.ca PATIKIL 5-pack](https://www.amazon.ca/dp/B0FNX4LB7H) (AliExpress only has Apple Pencil nibs, which are active and won't work) | 8.49 |
+| Rail risers, 6061 10×20 mm ×2 cut to 430 mm | Metal Supermarkets (Kitchener), or [Amazon.ca COYOUCO 10×20×500](https://www.amazon.ca/dp/B0GS1P1J79) ×2 | ~25–59 |
+| Base plate, 3 mm aluminium 530×320 with slotted holes | JLCCNC quote **after** the plate CAD exists | ~60 incl. shipping |
 
-Budget variant ~$190: 8 mm rods instead of MGN9 rails.
+**Whole build ≈ C$340–375 before tax.** Filament is on hand.
 
-**Printed (Centauri, CF-PETG / TPU):** corner idler posts, motor B spacer, bridge end blocks, toolhead plate + lever + stylus sleeve,
-belt clamps, endstop mounts, 4 phone slots, cable guides, feet, controller box.
+**Printed (Centauri, CF-PETG / TPU):** corner idler posts + top plates + side walls, motor clamp bars + legs, motor B spacer,
+bridge end blocks + top plates, toolhead plate + lever + stylus sleeve, belt clamp, endstop mounts, 4 phone slots,
+cable guides, feet, controller box.
 
-**Check before ordering:** which DLC32 pin drives the servo and which USB connector it has (listings vary), and genuine TMC2209 parts
-(they're often mislabeled).
+**Assembly notes:**
+- Mount motor pulleys **hub-up** (teeth toward the motor) so they line up with the belts.
+- Every idler bolt is clamped **top and bottom**. Shim washers touch only the bearing's inner race.
+- Confirm on arrival which pin on the DLC32 drives the servo and how the board takes power (barrel jack vs screw terminal).
+
+**Security:** run the controller over USB only, with its Wi-Fi off. Remote access goes through the host (SSH / WireGuard / Tailscale).
+FluidNC's network control has no real authentication.
 
 ## 6. Sourcing
 
 - **JLCCNC** is the default for metal (price). Bundle the JLCMC rails, pulleys and fasteners into the same order.
 - **SendCutSend** only for rush parts.
-- **AliExpress** for electronics and motors.
+- **AliExpress** for electronics, motors, motion parts and hardware (one order; rails + extrusion ship together from Magic Dragon).
 - **Base from day one is a 3 mm aluminium plate cut by JLCCNC.** Rail-riser, motor and slot holes are **slots, not round holes**,
   so a few mm of CAD error is adjusted out instead of forcing a reorder. Order it only after the assembly is checked in Onshape.
   Later upgrades: a bent aluminium tray (base + raised rail ledges in one part), a bent-channel bridge, motor plates.
@@ -145,3 +171,4 @@ belt clamps, endstop mounts, 4 phone slots, cable guides, feet, controller box.
 3. OK for me to take over the CAD branch and replace the rod gantry with CoreXY?
 4. Budget ceiling and how we split it.
 5. Is the hand-off in §3.1 enough for your side?
+6. Security: OK with USB-only to the controller and all remote access through the host?
