@@ -1,35 +1,5 @@
 # DEVLOG — development stage
 
-## 2026-10-01 — Aria (hardware lead): v2 proposal, supersedes the design below
-
-Hardware is now owned by Aria, software by Marc. The full write-up is in **`docs/hardware-concept-v2.md`**.
-
-- **Requirements:**
-  - up to 4 iPhones of any model
-  - screen inputs only (tap, long-press, swipe)
-  - typing at 2–3 taps/s
-  - quiet, drawer-height
-  - mostly 3D printed, low cost
-- **Design:**
-  - CoreXY gantry on MGN9 rails over a row of 4 phone slots
-  - MKS DLC32 board running FluidNC
-  - MG90S servo tap with a spring-loaded, grounded stylus
-  - 3 mm aluminium base (JLCCNC)
-  - ~53 × 32 × 5.0 cm
-- **No overhead camera** (it would need ~28 cm of height). The proposal is screen capture over USB/AirPlay; **Marc to confirm**.
-- **Model:** `parts/v2_0_layout.py`. It models both belt paths, idlers bolted top and bottom, and motor clamps. Checks: every
-  screen corner is reachable with the carriages on their rails, and nothing collides. Run it from `parts/` with the repo `.venv`.
-- **Parts:** verified AliExpress / Amazon.ca links and prices are in doc §5. About C$246 on AliExpress, ~C$340–375 for the
-  whole build.
-- **Retired:** the v1 rod/oilite gantry parts (1, 3, 4) and `0_assembly_preview.py`, because the heights didn't fit and
-  the one-sided Y drive would jam. See doc §4.
-- **Next:**
-  - base plate CAD with slotted holes, then a JLCCNC quote
-  - real printable parts (toolhead, end blocks, idler posts, motor clamps, phone slots)
-  - Marc's answers to the doc §7 questions
-
----
-
 Snapshot for resuming later. Last updated **2026-09-13**.
 Branch: `design/hardware-v1-and-cad-scaffold` → PR #1.
 

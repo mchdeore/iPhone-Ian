@@ -30,21 +30,29 @@ is the most general way to automate an arbitrary device. See
 
 ## Repository layout
 
+Split by owner so each of us can find the other's work. Shared material stays at the top.
+
+| Who | Owns | Start here |
+|---|---|---|
+| **Aria** | Hardware: CAD, parts + sourcing, assembly | [`aria/README.md`](aria/README.md) |
+| **Marc** | Software: OCR/vision, training loop, agent, host control, credentials | [`marc/README.md`](marc/README.md) |
+
 ```
 iPhone-Ian/
 ├── README.md                      # this file
-├── STATUS.md                      # handoff / where we left off (read to continue)
-├── DEVELOPMENT.md                 # staged build pipeline (start here to build)
-├── specs/                         # the two authoritative specifications
+├── DEVELOPMENT.md                 # staged build pipeline (shared)
+├── specs/                         # original specifications (shared)
 │   ├── 00-charter.md              # scope, decisions, security, roadmap
-│   ├── 01-hardware.md             # HARDWARE: build, CAD library, all links/citations
-│   └── 02-firmware-and-software.md# FIRMWARE + SOFTWARE + ML: code, control, CV, agent
-└── research/                      # background research notes
-    ├── README.md                  # index + status of each note
-    ├── 01-prior-art-notes.md
-    ├── 02-mechanical-architecture-notes.md   # capacitive-touch physics (transfers to iOS)
-    ├── 05-ai-agent-architecture-notes.md
-    └── android-control-survey.md  # LEGACY: Android software-control survey
+│   ├── 01-hardware.md             # hardware research + citations (v2 design: aria/)
+│   └── 02-firmware-and-software.md# firmware + software + ML
+├── research/                      # background research notes (shared)
+├── aria/                          # HARDWARE (Aria)
+│   ├── hardware-concept-v2.md     # requirements, design, parts list w/ links, open questions
+│   ├── LOG.md                     # dated decisions + to-dos
+│   └── cad/v2_0_layout.py         # CoreXY layout model (build123d)
+└── marc/                          # SOFTWARE (Marc)
+    ├── DEVLOG.md                  # Marc's dev log
+    └── parts-v1/                  # v1 gantry CAD (retired by v2)
 ```
 
 > The research is split into two parts, matching the two specs: **hardware /
@@ -62,5 +70,6 @@ live here, on their own.
 
 ## Status
 
-Early research + spec stage. No hardware built and no code written yet. The
-immediate open questions are called out in `specs/00-charter.md` §Roadmap.
+Design stage (2026-10-02). Hardware v2 is proposed: a 2-phone CoreXY gantry, ~34 × 32 × 5 cm, ~C$325 + tax, with
+1 phone first for testing. See `aria/hardware-concept-v2.md`. Software planning is under way in `marc/`.
+Nothing is built yet.

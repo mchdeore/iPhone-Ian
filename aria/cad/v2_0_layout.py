@@ -16,14 +16,15 @@ Run:  ../.venv/Scripts/python.exe v2_0_layout.py   -> v2_0_layout.step / .stl
 from build123d import *
 
 # ---------------- envelope (mm) ----------------
-BASE_X, BASE_Y, BASE_T = 530, 320, 3      # base: 3 mm aluminium plate, laser-cut at JLCCNC (slotted holes)
+BASE_Y, BASE_T = 320, 3                   # base: 3 mm aluminium plate, laser-cut at JLCCNC (slotted holes); X derived below
 FEET = 3
-PITCH, N_PHONES = 95, 4
+PITCH, N_PHONES = 95, 2                   # phones in the row: change this and the frame resizes
 PHONE = (77.6, 163.0, 8.25)               # iPhone Pro Max body (worst case)
 TRAY_T = 2
 RAIL_Y = 105                              # long rails at y = +/- this
 RISER = (20, 10)                          # aluminium flat bar 20 wide x 10 tall under each long rail
-LONG_RAIL_L, BRIDGE_RAIL_L, BRIDGE_L = 420, 230, 240
+BRIDGE_RAIL_L, BRIDGE_L = 230, 240
+STOCK_RAILS = (200, 215, 230, 250, 260, 280, 300, 320, 330, 350, 360, 380, 400, 420, 440, 450, 470, 490, 500)
 MGN9_RAIL_W, MGN9_RAIL_H = 9, 6.5
 MGN9H_L, MGN9H_W, MGN9H_TOP = 39.9, 20, 10   # carriage length, width, top above rail base
 BRIDGE_W = BRIDGE_H = 20                  # 2020 extrusion
@@ -46,7 +47,11 @@ ZA, ZB = bridge_z0 + 8, bridge_z0 + 16    # belt plane centers (A low, B high), 
 YI = 125.0                                # inner strand: bridge-end idler -> its motor
 YO = YI + GT2_PD                          # outer strand: motor -> far corner (one pitch diameter out)
 YC = (YI + YO) / 2                        # motor pulley / corner idler centers
-XM = 240.0                                # motor pulleys at +XM, corner idlers at -XM
+# frame sized from the phone count: stylus reach -> long-rail length (stock size, +10 mm margin) -> motors -> base
+REACH = (N_PHONES - 1) / 2 * PITCH + PHONE[0] / 2          # stylus half-travel along X
+LONG_RAIL_L = min(L for L in STOCK_RAILS if L >= 2 * (REACH + MGN9H_L / 2) + 10)
+XM = LONG_RAIL_L / 2 + 9 + MOTOR[0] / 2   # motor pulleys at +XM (motors clear the rail risers), corner idlers at -XM
+BASE_X = 2 * (XM + MOTOR[0] / 2 + 4)
 X_BACK = 19.0                             # belts run along the BACK of the bridge at x = bridge + X_BACK
 CLAMP_HALF = 15                           # toolhead belt clamp half-length (belts end on its faces)
 
@@ -221,7 +226,7 @@ if __name__ == "__main__":
     print(f"glass z {glass_z:.1f} | bridge underside {bridge_z0:.1f} | belt planes A {ZA} B {ZB} | top {top:.1f}")
     print(f"overall height incl. feet {top + FEET:.1f} mm | footprint {BASE_X} x {BASE_Y} mm")
     print("corners the carriages can't reach:", off_rail or "none")
-    print("clashes with stylus at all 16 screen corners:", sorted(set(bad)) or "none")
+    print(f"clashes with stylus at all {len(corners)} screen corners:", sorted(set(bad)) or "none")
     asm = Compound(children=all_parts, label="iPhone-Ian v2 layout")
     export_step(asm, "v2_0_layout.step")
     export_stl(asm, "v2_0_layout.stl")
