@@ -64,7 +64,7 @@ It fits the height, but it's slower and makes the OCR harder.
 - **Controller:** MKS DLC32 (ESP32) running **FluidNC**: CoreXY kinematics and RC-servo Z are set in a config file, with
   no custom firmware. TMC2209 drivers (StealthChop) keep it quiet. (Uno + stock GRBL would need
   two patched firmware forks merged to do CoreXY + servo.)
-- **Size:** ~52 × 32 cm footprint, **~4.8 cm tall** (checked in `parts/v2_0_layout.py`: 10 mm under-bridge clearance, no collisions with the stylus at every screen corner). The minimum height is set by the phones (~9 mm), clearance under
+- **Size:** ~53 × 32 cm footprint, **~4.9 cm tall** (checked in `parts/v2_0_layout.py`: 10 mm under-bridge clearance, every screen corner reachable, no collisions). The minimum height is set by the phones (~9 mm), clearance under
   the bridge, and the bridge itself, so it's thicker than a laptop but fits a deep drawer.
 
 ### 3.1 Software ↔ hardware hand-off
@@ -108,19 +108,20 @@ The `parts/` scaffold (build123d) is a good pipeline, but the design doesn't clo
 | NEMA 17 pancake stepper, ~23 mm, ~1 A | 2 | 25 |
 | MG90S servo | 2 (1 spare) | 8 |
 | 24 V 2–3 A PSU + 5 V 3 A buck converter (servo supply) | 1 + 1 | 18 |
-| MGN9H rail + carriage: 450 mm ×2, 250 mm ×1 | 3 | 50 |
-| 2020 extrusion (v1 frame + bridge): ~480 mm ×2, ~260 mm ×3 | 5 | 20 |
-| GT2 6 mm belt 5 m, 20T pulleys (5 mm bore) ×2, idlers (6 toothed + 4 smooth) | set | 15 |
+| MGN9H rail + carriage: 420 mm ×2 (long), 220 mm ×1 (bridge) | 3 | 45 |
+| 2020 extrusion, 240 mm (bridge) | 1 | 5 |
+| Aluminium flat bar 20×10 mm, 430 mm (rail risers, local hardware store) | 2 | 12 |
+| GT2 6 mm belt 5 m (~3.2 m used), 20T pulleys 5 mm bore ×2, 20T idlers 3 mm bore ×10 (8 used) | set | 15 |
 | Mechanical endstops | 3 | 4 |
 | Conductive stylus tips (fibre-mesh), compression spring kit, brass tube | set | 10 |
 | M3 heat-set inserts, M3 screws 6–30 mm, 2020 T-nuts | set | 20 |
 | 4-core flexible silicone cable, ~1.5 m | 1 | 5 |
-| v1 base: 5 mm plywood ~480×300 mm (local) | 1 | 15 |
-| **Total** | | **~$240** |
+| Base plate: 3 mm aluminium 530×320 mm, laser-cut with all holes (JLCCNC) | 1 | 40 |
+| **Total** | | **~$255** |
 
 Budget variant ~$190: 8 mm rods instead of MGN9 rails.
 
-**Printed (Centauri, CF-PETG / TPU):** frame corners, motor and idler mounts, bridge end blocks, stylus carriage + lever,
+**Printed (Centauri, CF-PETG / TPU):** corner idler posts, motor B spacer, bridge end blocks, toolhead plate + lever + stylus sleeve,
 belt clamps, endstop mounts, 4 phone slots, cable guides, feet, controller box.
 
 **Check before ordering:** which DLC32 pin drives the servo and which USB connector it has (listings vary), and genuine TMC2209 parts
@@ -131,8 +132,9 @@ belt clamps, endstop mounts, 4 phone slots, cable guides, feet, controller box.
 - **JLCCNC** is the default for metal (price). Bundle the JLCMC rails, pulleys and fasteners into the same order.
 - **SendCutSend** only for rush parts.
 - **AliExpress** for electronics and motors.
-- **Order of work:** v1 on a hand-drilled plywood base. Once the assembly is validated in Onshape and the hole positions are proven,
-  order v2 metal: a bent aluminium tray (base + raised rail ledges in one part), a bent-channel bridge, and motor plates.
+- **Base from day one is a 3 mm aluminium plate cut by JLCCNC.** Rail-riser, motor and slot holes are **slots, not round holes**,
+  so a few mm of CAD error is adjusted out instead of forcing a reorder. Order it only after the assembly is checked in Onshape.
+  Later upgrades: a bent aluminium tray (base + raised rail ledges in one part), a bent-channel bridge, motor plates.
   Later, possibly a JLC flex-PCB ribbon to the carriage.
 - Keep precision holes on flat sections, not ones that depend on a bend's position.
 
