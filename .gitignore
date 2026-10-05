@@ -15,6 +15,15 @@ datasets/
 captures/
 *.raw-capture
 
+# --- Obsidian: keep config, ignore workspace/cache ---
+research/.obsidian/workspace.json
+research/.obsidian/workspace-mobile.json
+research/.obsidian/plugins/
+research/.obsidian/themes/
+research/.obsidian/*.json.bak
+research/.trash/
+research/.smart-env/
+
 # --- OS / editor cruft ---
 .DS_Store
 Thumbs.db

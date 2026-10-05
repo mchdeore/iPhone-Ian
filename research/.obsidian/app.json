@@ -1,0 +1,27 @@
+{
+  "newFileLocation": "current",
+  "newFileFolderPath": "",
+  "attachmentFolderPath": "attachments",
+  "showUnsupportedFiles": true,
+  "promptDelete": true,
+  "alwaysUpdateLinks": true,
+  "showLineNumber": false,
+  "readableLineLength": false,
+  "spellcheck": false,
+  "spellcheckLanguages": null,
+  "strictLineBreaks": false,
+  "tabSize": 4,
+  "useTab": false,
+  "defaultViewMode": "source",
+  "livePreview": true,
+  "foldHeading": false,
+  "foldIndent": false,
+  "showInlineTitle": true,
+  "propertiesInDocument": "visible",
+  "trashOption": "local",
+  "userIgnoreFilters": [
+    ".git/",
+    "node_modules/",
+    "attachments/"
+  ]
+}
