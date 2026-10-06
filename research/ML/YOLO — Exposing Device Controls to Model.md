@@ -3,11 +3,7 @@ tags: [control, agent, GRBL, iOS, action-space, MCP, accessibility, AssistiveTou
 status: answered
 date: 2026-10-05
 related:
-  - "[[AI Agent Architecture and Perception Loop]]"
-  - "[[VLM GUI Agents and Vision Grounding Survey]]"
-  - "[[iOS Control Constraints — Face ID, Autofill, Accessibility]]"
-  - "[[XY Gantry Builds and Microcontroller Choice]]"
-  - "[[YOLO — Raspberry Pi Input Converter]]"
+ - ""
 ---
 
 # 13 — Exposing device controls to the model/agent
@@ -19,9 +15,9 @@ actions through screen → camera → gantry → GRBL, wrap them as tool/functio
 safely, and — crucially — can stock-iOS accessibility (mouse pointer, hardware keyboard,
 Switch/Voice Control) drive the phone *without the gantry at all*?
 
-Builds on the agent loop (`[[AI Agent Architecture and Perception Loop]]`), VLM action-space
-survey (`[[VLM GUI Agents and Vision Grounding Survey]]`), iOS constraints (`[[iOS Control Constraints — Face ID, Autofill, Accessibility]]`),
-GRBL mechanics (`[[XY Gantry Builds and Microcontroller Choice]]`), firmware contract (`specs/02` §4–§8).
+Builds on the agent loop (``), VLM action-space
+survey (``), iOS constraints (``),
+GRBL mechanics (``), firmware contract (`specs/02` §4–§8).
 
 ## Key findings
 
@@ -32,7 +28,7 @@ GRBL mechanics (`[[XY Gantry Builds and Microcontroller Choice]]`), firmware con
 | **UI-TARS** mobile | raw pixels `point='x y'` | `click`, `long_press`, `type`, `scroll`, `drag`, `open_app`, `press_home`, `press_back`, `finished` | `[Documented]` prompt.py |
 | **UI-TARS** desktop | raw pixels | adds `left_double`, `right_single`, `hotkey`, **`wait()`** | `[Documented]` |
 | **AppAgent** | **element index** (set-of-marks numbers overlaid) | `Tap`, `Long_Press`, `Swipe(elem,dir,dist)`, `Text` | `[Documented]` 2312.13771 §3.1 |
-| **OS-Atlas / UGround** | normalized grounding → pixel | grounding emits the point; action layer is thin | `[Benchmark]` (see `[[VLM GUI Agents and Vision Grounding Survey]]`) |
+| **OS-Atlas / UGround** | normalized grounding → pixel | grounding emits the point; action layer is thin | `[Benchmark]` (see ``) |
 | **Anthropic / OpenAI computer-use** | pixels | `screenshot`, `click`, `type`, `key`, `scroll`, `wait` + "hybrid GUI+API" | `[Community]` emergentmind |
 
 Takeaway: **6–9 primitives cover every GUI agent.** AppAgent's element-index style
@@ -42,19 +38,19 @@ whose `wait()` *is* the did-screen-change check (§6).
 ### 2. Proposed action API (backend-agnostic — this is the deliverable)
 
 Observation = camera frame rectified to a flat **screen image** via the fiducial
-homography (`[[YOLO — Synthetic Data and Flash Training App]]`). **Every coordinate the agent emits
+homography (``). **Every coordinate the agent emits
 is a SCREEN coordinate (CSS px or normalized 0–1);** the backend hides camera pixels
 and gantry mm — the model never sees them.
 
 ```
-tap(x, y)                      # down → dwell ≥100 ms → up (iOS touch latency 40–75 ms, note 07)
-long_press(x, y, ms=600)       # context menus, app wiggle
-swipe(x1,y1, x2,y2, ms=300)    # single contact; also expresses scroll + edge gestures
-type(text)                     # per-key taps on iOS keyboard (software path: HID keystrokes)
-press_home()                   # Face-ID models have NO home button → swipe-up from bottom edge
-press_back()                   # tap top-left chevron OR left-edge swipe-in (app-dependent)
-wait(ms=1000)                  # dwell, then re-observe
-done(summary) / fail(reason)   # terminal
+tap(x, y)           # down → dwell ≥100 ms → up (iOS touch latency 40–75 ms, note 07)
+long_press(x, y, ms=600)    # context menus, app wiggle
+swipe(x1,y1, x2,y2, ms=300)  # single contact; also expresses scroll + edge gestures
+type(text)           # per-key taps on iOS keyboard (software path: HID keystrokes)
+press_home()          # Face-ID models have NO home button → swipe-up from bottom edge
+press_back()          # tap top-left chevron OR left-edge swipe-in (app-dependent)
+wait(ms=1000)         # dwell, then re-observe
+done(summary) / fail(reason)  # terminal
 ```
 
 iPhone system gestures expand to single-point edge swipes (safe; multi-touch is
@@ -65,36 +61,36 @@ swipe-down-top-right, Back = left-edge swipe-in. No `hotkey`/`open_app` on the g
 ### 3. Coordinate pipeline — two independent homographies
 
 ```
-PERCEPTION:  camera px --H_cam→screen (fiducials, per-frame)--> screen px --> VLM
-ACTION:      VLM tap(sx,sy) --H_screen→gantry (session, calibrated)--> (X,Y) mm --> GRBL
+PERCEPTION: camera px --H_cam→screen (fiducials, per-frame)--> screen px --> VLM
+ACTION:   VLM tap(sx,sy) --H_screen→gantry (session, calibrated)--> (X,Y) mm --> GRBL
 ```
 
 - `H_cam→screen` is re-solved **every frame** from the 4 flash-app fiducials — a
-  drifting mount silently corrupts it (`[[YOLO — Efficient Dataset Recipe]]`). DPR cancels in CSS px.
+ drifting mount silently corrupts it (``). DPR cancels in CSS px.
 - `H_screen→gantry` is fit by **closed-loop calibration**, not vision: flash a target
-  at known screen px → command gantry XY → measure the landed tap via `touchstart` →
-  solve affine/homography (`specs/02` §5.1). Converges in dozens of samples; the only
-  transform the actuator uses. `[Documented]`
+ at known screen px → command gantry XY → measure the landed tap via `touchstart` →
+ solve affine/homography (`specs/02` §5.1). Converges in dozens of samples; the only
+ transform the actuator uses. `[Documented]`
 
 ### 4. GRBL motion backend over serial `[Documented]`
 
 - **pyserial** 115200 8-N-1; stream a line, wait for `ok` (buffer-aware streamer,
-  `specs/02` §4). States via real-time `?` → `<Idle|MPos:0.000,0.000,0.000|FS:0,0>`
-  (poll **≤5 Hz**); states: Idle/Run/Jog/Hold/Alarm/Home/Door.
+ `specs/02` §4). States via real-time `?` → `<Idle|MPos:0.000,0.000,0.000|FS:0,0>`
+ (poll **≤5 Hz**); states: Idle/Run/Jog/Hold/Alarm/Home/Door.
 - **Move:** `G90 G0 X.. Y..` (rapid) **or** prefer `$J=X.. Y.. F..` **jog** — cancellable
-  (`0x85`), purges the queue, and with soft-limits on **errors instead of alarming** on
-  out-of-range → ideal for agent moves. `F` is mm/min (G94); jog never changes modal state.
+ (`0x85`), purges the queue, and with soft-limits on **errors instead of alarming** on
+ out-of-range → ideal for agent moves. `F` is mm/min (G94); jog never changes modal state.
 - **Tap (servo-Z):** laser mode `$32=1`; `M3 S<down>` → `G4 P0.12` dwell → `M5`/`S0`
-  up (`[[XY Gantry Builds and Microcontroller Choice]]`).
+ up (``).
 - **Homing:** `$H` (needs limit switches, `$22=1`); set phone-corner origin with `G10 L20`.
 
 ### 5. Tool-calling / MCP exposure
 
 Two ways to let the model act, both over the SAME API §2:
 - **(a) Text DSL** emitted by a native GUI model and parsed host-side (UI-TARS:
-  `click(point='x y')`). Zero schema overhead; best with a fine-tuned model.
+ `click(point='x y')`). Zero schema overhead; best with a fine-tuned model.
 - **(b) MCP tools** with JSON-schema args (`tap`,`swipe`,`type`,`screenshot`,`wait`) —
-  many mobile-automation MCP servers already expose this exact set (`mobile-next/mobile-mcp`, `open-mobile-mcp`). `[Community]`
+ many mobile-automation MCP servers already expose this exact set (`mobile-next/mobile-mcp`, `open-mobile-mcp`). `[Community]`
 
 MCP is the better fit: identical tool signatures over a **swappable backend** —
 GRBL-gantry **or** Pi-HID (§7) **or** a simulator — and a `screenshot` tool that
@@ -106,48 +102,48 @@ returns the rectified frame. Per MCP best-practice, annotate each tool
 ### 6. Safety
 
 - **Workspace limits** = the phone's bounding box → GRBL soft limits (`$20=1`) **and**
-  host-side rejection of off-screen `(x,y)` (flash-app scores "missed the phone" ≪ 0, §5.1).
+ host-side rejection of off-screen `(x,y)` (flash-app scores "missed the phone" ≪ 0, §5.1).
 - **E-stop:** real-time soft-reset `Ctrl-X` (`0x18`) + hardware button; feed hold `!`,
-  resume `~`, jog-cancel `0x85`.
+ resume `~`, jog-cancel `0x85`.
 - **Rate limiting:** host min interval between actions (≥ tap dwell + settle), `?` poll
-  ≤5 Hz; never fire a move before `Idle`.
+ ≤5 Hz; never fire a move before `Idle`.
 - **Confirm-before-destructive:** agent gates irreversible UI (send/delete/pay/logout/
-  erase) behind a confirmation step (`destructiveHint:true`); secrets typed only from
-  the vault at point of use, never logged (`specs/02` §9).
+ erase) behind a confirmation step (`destructiveHint:true`); secrets typed only from
+ the vault at point of use, never logged (`specs/02` §9).
 
 ### 7. Feedback / verification
 
 - After **every** action: capture the next frame → **did-screen-change** (frame diff /
-  perceptual hash over the screen ROI) → if the expected change is absent, retry
-  (re-perceive, nudge offset) then escalate/abort (loop in `specs/02` §7, note 05).
+ perceptual hash over the screen ROI) → if the expected change is absent, retry
+ (re-perceive, nudge offset) then escalate/abort (loop in `specs/02` §7, note 05).
 - UI-TARS formalizes this: `wait()` = "sleep 5 s, screenshot, check for changes." `[Documented]`
 - Calibration-time verification = the flash-app **tap score** (1 − error/radius).
 
 ### 8. Software-side alternative — drive a STOCK iPhone with NO gantry
 
-This re-opens what `[[iOS Control Constraints — Face ID, Autofill, Accessibility]]` dismissed *for a tapping
+This re-opens what `` dismissed *for a tapping
 robot*: used as the **actuator itself**, stock-iOS accessibility is powerful.
 
 - **Pointer + AssistiveTouch** (iOS 13+): a plain **USB or Bluetooth mouse acts as a
-  finger** — clicks tap what you'd tap; the AssistiveTouch menu reaches Home, App
-  Switcher, Control Center, Siri, and **recorded custom gestures** (incl. multi-touch).
-  `[Documented]` Apple 111775 / iph96b21954.
+ finger** — clicks tap what you'd tap; the AssistiveTouch menu reaches Home, App
+ Switcher, Control Center, Siri, and **recorded custom gestures** (incl. multi-touch).
+ `[Documented]` Apple 111775 / iph96b21954.
 - **Full Keyboard Access** (hardware keyboard, iOS 13.4+): Tab/arrows move a focus
-  ring, Space/Return activate; whole UI drivable from keys, no pointer. `[Documented]` ipha4375873f.
+ ring, Space/Return activate; whole UI drivable from keys, no pointer. `[Documented]` ipha4375873f.
 - **Switch Control → Point Mode:** a scanning crosshair (stop X, then Y) hits
-  **arbitrary coordinates with no vision and no menu** — exact but slow; USB/BLE switches. `[Documented]`
+ **arbitrary coordinates with no vision and no menu** — exact but slow; USB/BLE switches. `[Documented]`
 - **Voice Control:** numbered / named / grid overlay ("Tap 23"), "Swipe down", "Long
-  press <app>", custom commands, + iOS 27 Apple-Intelligence natural-language element
-  reference; drivable by synthesized speech but brittle/slow. `[Documented]`
+ press <app>", custom commands, + iOS 27 Apple-Intelligence natural-language element
+ reference; drivable by synthesized speech but brittle/slow. `[Documented]`
 - **The bridge** (how a computer presents as HID): a **Raspberry Pi Zero / Zero 2 W in
-  Linux USB-gadget mode** emulates a composite keyboard+mouse (or BLE-HID), connected
-  over USB-C/Lightning (powered adapter) or Bluetooth → `[[YOLO — Raspberry Pi Input Converter]]`.
-  Many turnkey repos exist (`bluetooth_2_usb`, `zero_hid`, `keybird`). `[Community]`
+ Linux USB-gadget mode** emulates a composite keyboard+mouse (or BLE-HID), connected
+ over USB-C/Lightning (powered adapter) or Bluetooth → ``.
+ Many turnkey repos exist (`bluetooth_2_usb`, `zero_hid`, `keybird`). `[Community]`
 
 **Limits / honest caveats:**
 1. HID replaces only the **actuator** — perception still needs the camera (or AirPlay/HDMI capture).
 2. Requires a one-time **on-device Settings toggle** (accessibility). Arguably still
-   "stock/unmodified" (no jailbreak, no app install) but **not an untouched phone**.
+  "stock/unmodified" (no jailbreak, no app install) but **not an untouched phone**.
 3. Plain mouse = single pointer; true pinch needs AssistiveTouch/Switch gestures.
 4. Face ID / passcode behavior unchanged (note 07) — keyboard can type the passcode.
 5. iOS synthesizes **real touch events** from the pointer, so apps can't tell it from a finger.

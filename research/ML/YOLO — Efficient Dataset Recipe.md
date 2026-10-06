@@ -3,8 +3,7 @@ tags: [YOLO, training, dataset, ML, computer-vision]
 status: answered
 date: 2026-10-04
 related:
-  - "[[YOLO — Synthetic Data and Flash Training App]]"
-  - "[[YOLO — Training Hardware and Capture Rig]]"
+ - ""
 ---
 
 # 01 — What makes an efficient YOLO training set
@@ -53,9 +52,9 @@ perspective**. Diversity of conditions beats raw count.
 
 - Default `imgsz=640`; many small objects benefit from **1280**; train and infer at the **same** size. `[Documented]`
 - A tall phone screen letterboxed into 640² shrinks icons to ~15–25 px. Mitigations:
-  1. **Crop to the screen region** before training (biggest, cheapest win).
-  2. Train at **960–1280** (cost: ~2.25–4× memory/time vs 640 — see `03-hardware.md`).
-  3. **SAHI** tiled inference as fallback (+38% small-object mAP in one YOLOv5 study). `[Benchmark]`
+ 1. **Crop to the screen region** before training (biggest, cheapest win).
+ 2. Train at **960–1280** (cost: ~2.25–4× memory/time vs 640 — see `03-hardware.md`).
+ 3. **SAHI** tiled inference as fallback (+38% small-object mAP in one YOLOv5 study). `[Benchmark]`
 - Prior art: ScreenParser, a YOLO UI detector with 55 classes. `[Documented]`
 
 ## Q: Which augmentations to keep vs disable?
@@ -119,7 +118,7 @@ existing note in `specs/02-firmware-and-software.md` §5.1.
 
 ```bash
 yolo detect train model=yolo11n.pt data=flash.yaml imgsz=640 epochs=100 patience=20 batch=-1 \
-  fliplr=0 flipud=0 degrees=0 mosaic=0.3 close_mosaic=10 perspective=0.0005 translate=0.1 scale=0.3
+ fliplr=0 flipud=0 degrees=0 mosaic=0.3 close_mosaic=10 perspective=0.0005 translate=0.1 scale=0.3
 ```
 
 **Phase 1 — UI vocabulary**: 5–8 coarse classes (button, text_field, icon,

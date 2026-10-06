@@ -3,12 +3,10 @@ tags: [sports-research, tennis, player-modeling, priors, signals]
 status: answered
 date: 2026-10-01
 source: "SpinSight repo (Freddy Kruger), docs/TENNIS_PLAYER_MODELING.md @ bf2fb9a"
-related:
-  - "[[../sports-research/tennis-research]]"
-  - "[[../_side-projects/README]]"
+related: []
 ---
 
-> Imported verbatim from SpinSight `docs/TENNIS_PLAYER_MODELING.md`. The canonical copy lives in SpinSight; this is a snapshot. Strategy spec: [[../sports-research/tennis-research]].
+> Imported verbatim from SpinSight `docs/TENNIS_PLAYER_MODELING.md`. The canonical copy lives in SpinSight; this is a snapshot. Strategy spec: .
 
 # Freddy Kruger — Player & Matchup Modeling Notes
 
@@ -28,7 +26,7 @@ Everything in tennis collapses to two numbers per match: **p** = server-A's poin
 
 Organized by whether it's **predictive** (it *is* p/q, or moves it), **contextual** (matters conditionally), or **noise** (market reacts to it, we shouldn't).
 
-### 1a. The single most predictive stat: Dominance Ratio (DR)  **[PRIOR]**
+### 1a. The single most predictive stat: Dominance Ratio (DR) **[PRIOR]**
 - **Definition:** (return points won %) ÷ (service points *lost* % = opponent's return points won %). It's essentially a signal-to-noise ratio for a performance — points won relative to points lost, normalized.
 - **Why it matters:** In a Random Forest on ATP match outcomes, DR carried **~76% of the feature importance** — it dominates every other box-score stat. DR > 1.0 almost always means you won; the rare DR>1 losses are the "played well, lost anyway" matches.
 - **The deep insight for us:** DR captures the *break-conversion efficiency* that raw serve/return percentages miss. A player can win 65% of service points and still lose if their return game collapses at the wrong moment — DR exposes that. **Modeling use:** a DR-based in-match estimate is a cleaner "who's actually winning independent of scoreline" number than the score itself — exactly the kind of thing that tells us a break was *deserved* (don't fade) vs. *a blip* (fade).
@@ -42,7 +40,7 @@ Organized by whether it's **predictive** (it *is* p/q, or moves it), **contextua
 - **Return points won %** — the return half of q, and per the ATP predictive-variable work, **return performance is a fundamental driver of outcomes across all players**, not just returners. Underweighted by casual markets that fixate on serving.
 - **Return depth / return aggression** — the best return strategy is to *induce an unforced error*, and it's surface-sensitive: works ~17% of the time on clay vs ~15% grass vs ~13% hard. Return quality is where clay upsets are born.
 
-### 1d. Pressure / clutch stats  **[SIGNAL] [FILTER]**
+### 1d. Pressure / clutch stats **[SIGNAL] [FILTER]**
 This is the richest vein for us because it's where the market's momentum-overreaction and reality diverge most.
 - **Break point conversion %** — tour avg ~40%; elite returners >45%. High single-match variance → **use shrinkage** (a 3/4 BP-conversion day is mostly luck).
 - **Break points saved %** — the serving-side clutch mirror.
@@ -67,7 +65,7 @@ The through-line: **elite tennis is far more predictable than it looks.** Sinner
 ### 2a. Serve — best-in-category
 Not speed. It's **Serve+1 setup + placement + unpredictability**. The best servers win free-ish points not with raw pace but by making the return defensive, then ending it on the next ball. Measurable proxy: 2nd-serve points won and Serve+1 conversion, not ace count.
 
-### 2b. Return — best-in-category  **[interesting, novel-signal-adjacent]**
+### 2b. Return — best-in-category **[interesting, novel-signal-adjacent]**
 The differentiator is **anticipation / visual search**, and it's *measurable in research settings*: international-level returners adjust their visual-search strategy to each server, reading the ball toss and the final phase of the service motion; national-level players don't adapt as well. ML models can classify return quality from gaze fixation location/duration. → This is a genuine best-in-class differentiator that is *biomechanical and pre-contact*, which rhymes with the CV/pose signal bench in `TENNIS_RESEARCH.md §5` (a returner whose split-step/movement-initiation timing degrades is tiring — potential **[SIGNAL]**).
 
 ### 2c. Movement — best-in-category
@@ -99,7 +97,7 @@ This is arguably the biggest **[PRIOR]** upgrade available: **matchup interactio
 - **Flat hitter vs. heavy topspin:** high topspin to a one-handed backhand (Nadal-Federer) is a known kryptonite; low slice to a topspin grinder can be too.
 - **Grinder vs. grinder:** high variance, long matches, fatigue-signal-rich (good for our fatigue bench).
 
-### 3d. Surface as a matchup modifier (huge)  **[PRIOR] [FILTER]**
+### 3d. Surface as a matchup modifier (huge) **[PRIOR] [FILTER]**
 Surface doesn't just change p/q levels — it changes *variance*, which is central to our fade thesis:
 - **Clay: ~15% MORE upsets than grass.** Long rallies + physical demands give underdogs more paths to drag favorites into trouble. Serve is a weaker weapon (aces 41% less frequent than grass). → On clay, a break "means more" (harder to get, harder to break back) → **the overreaction may be LESS wrong** → fade more cautiously.
 - **Grass: fewest upsets, serve-dominated, first 4 shots decide 67% of points.** Breaks are rarer and more decisive, but a single break of a big server is often quickly answered → **classic fade territory when a favorite big-server drops one break.**
@@ -124,27 +122,27 @@ Crucially, each has a *player-trait* dimension (a stable fingerprint you know be
 >
 > **They work together:** Lens A sets the prior expectation; Lens B reads the live evidence; the trade is the combination. A boom-bust player (Lens A: high variance) showing scattered directionless errors (Lens B: noise) = maximum-confidence fade. A metronome (Lens A: low variance) showing a monotonic serve-speed downtrend (Lens B: drift) = do not fade. Both lenses must stay in the spec — dropping either collapses the decision.
 
-### 4a. Shot-placement variance as a player trait  **[PRIOR][FILTER]**
+### 4a. Shot-placement variance as a player trait **[PRIOR][FILTER]**
 
 Some players are inherently **high-variance ball-strikers** — they hit closer to the lines, take more risk, go for more, and so their error rate and their winner rate are *both* high (boom-or-bust). Others are **low-variance metronomes** — high margin over the net, safe targets, low unforced-error rate, grind. This is a stable, measurable style, not a mood.
 
 - **How to measure it:** dispersion of shot landing location (Match Charting Project has shot direction/depth), unforced-error rate, winner:UE ratio *shape* (a high-variance player has fat tails — lots of winners AND lots of UEs; a low-variance player is tight around the middle). Also rally-length distribution: high-variance players end points early (their way or the error), grinders sit in long rallies.
 - **Why it's decisive for the fade:** *a bad patch means completely different things for the two types.*
-  - **High-variance player gets broken after spraying 3 errors** → that's *within his normal distribution*. It reverts. **FADE — this is exactly the overreaction.** The market saw "he's falling apart"; the truth is "that's just his variance, and it regresses."
-  - **Low-variance metronome suddenly sprays 3 errors** → that's *far outside his normal distribution*. Something changed (fatigue, injury, tightness). **DON'T fade — the break may be real.** For a grinder, unusual errors are a genuine signal, not noise.
+ - **High-variance player gets broken after spraying 3 errors** → that's *within his normal distribution*. It reverts. **FADE — this is exactly the overreaction.** The market saw "he's falling apart"; the truth is "that's just his variance, and it regresses."
+ - **Low-variance metronome suddenly sprays 3 errors** → that's *far outside his normal distribution*. Something changed (fatigue, injury, tightness). **DON'T fade — the break may be real.** For a grinder, unusual errors are a genuine signal, not noise.
 - **The elegant part:** the *same observation* (a break preceded by errors) flips from "fade hard" to "don't fade" depending purely on the player's variance fingerprint. This is a clean, pre-computable prior that directly gates the fade rule.
 
-### 4b. Stamina / fatigue-resistance as a player trait  **[PRIOR][FILTER]**
+### 4b. Stamina / fatigue-resistance as a player trait **[PRIOR][FILTER]**
 
 Separately, some players **tire fast** (their level drops in long matches / third sets / heat) and others are **physical monsters** who hold level deep into five-setters. This is also stable and measurable.
 
 - **How to measure it:** historical performance split by set number and match duration — does the player's serve%/DR/hold% decline in set 3+ vs set 1? Performance in matches over 3 hours. Age and injury history feed it. Fitness reputation is a weak prior; the *data* split by set/duration is the real one.
 - **Why it's decisive for the fade:** it tells you **which direction to expect the true level to drift** as the match goes long.
-  - Fade-prone player gets broken late in a long match → if he's a **known fader**, the decline may be real → *don't fade, or fade small*. The overreaction might actually be *correct* this time.
-  - Same break, but the guy is a **fitness monster** → the late-match break is more likely variance → *fade with confidence*.
+ - Fade-prone player gets broken late in a long match → if he's a **known fader**, the decline may be real → *don't fade, or fade small*. The overreaction might actually be *correct* this time.
+ - Same break, but the guy is a **fitness monster** → the late-match break is more likely variance → *fade with confidence*.
 - **Interaction with weather (see 4d):** heat *accelerates* the fatigue drift and *widens* the gap between faders and monsters. On a hot day, trust the fatigue read earlier.
 
-### 4c. Live variance vs. live fatigue — the in-match discriminator  **[SIGNAL]**
+### 4c. Live variance vs. live fatigue — the in-match discriminator **[SIGNAL]**
 
 The player-trait priors (4a, 4b) set expectations; the **live signal bench decides which is actually happening right now.** The whole "creative signals" apparatus from `TENNIS_RESEARCH.md §5` exists to answer one question: *is the observed dip variance (reverts → fade) or fatigue (real → don't)?*
 

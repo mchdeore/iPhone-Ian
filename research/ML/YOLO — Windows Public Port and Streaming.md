@@ -3,9 +3,7 @@ tags: [networking, security, windows, streaming, infrastructure, YOLO]
 status: answered
 date: 2026-10-05
 related:
-  - "[[YOLO — Efficient Dataset Recipe]]"
-  - "[[YOLO — Training Hardware and Capture Rig]]"
-  - "[[YOLO — Synthetic Data and Flash Training App]]"
+ - ""
 ---
 
 # 14 — Exposing a Windows robot host + low-latency streaming
@@ -54,11 +52,11 @@ UI, not for heavy sustained video. `[Documented]/[Community]`
 ## Never expose these (fail-closed)
 
 - **Raw GRBL / USB serial** — it is a local USB device; it must **never** be a network
-  socket. The agent talks serial locally; only the agent's high-level API crosses the
-  wire (`specs/02` §4 contract: `move/tap/swipe/type`). `[Documented]`
+ socket. The agent talks serial locally; only the agent's high-level API crosses the
+ wire (`specs/02` §4 contract: `move/tap/swipe/type`). `[Documented]`
 - **Flask dev server** — Flask's own docs: not for production/exposure. Run behind
-  **waitress** (pure-Python, Windows-friendly WSGI) and bind to `127.0.0.1`/`tailscale0`
-  only; let the VPN/tunnel be the sole ingress. `[Documented]`
+ **waitress** (pure-Python, Windows-friendly WSGI) and bind to `127.0.0.1`/`tailscale0`
+ only; let the VPN/tunnel be the sole ingress. `[Documented]`
 - Bind every service to loopback or the tailnet interface, not `0.0.0.0`.
 - Credential vault (`specs/02` §9) stays host-side; never reachable over the stream API.
 
@@ -91,56 +89,56 @@ frame if the send buffer isn't drained. `[Community]`
 ## Running it 24/7 on Windows
 
 - **As a service:** wrap the Python app with **NSSM** — `nssm install robotstream
-  python app.py`, then `AppExit Default Restart`, `AppThrottle`, `AppStdout/AppStderr`
-  logs. `[Community]` Caddy/`cloudflared`/Tailscale can run the same way; `cloudflared`
-  and Tailscale ship **native service installers** (`cloudflared service install`,
-  Tailscale auto-registers `tailscaled`). `sc.exe failure` sets restart actions if you
-  skip NSSM. `[Documented]`
+ python app.py`, then `AppExit Default Restart`, `AppThrottle`, `AppStdout/AppStderr`
+ logs. `[Community]` Caddy/`cloudflared`/Tailscale can run the same way; `cloudflared`
+ and Tailscale ship **native service installers** (`cloudflared service install`,
+ Tailscale auto-registers `tailscaled`). `sc.exe failure` sets restart actions if you
+ skip NSSM. `[Documented]`
 - **Watchdog:** a scheduled task every N min that hits a `/health` endpoint and
-  `Restart-Service` on failure — covers hangs NSSM won't catch.
+ `Restart-Service` on failure — covers hangs NSSM won't catch.
 - **Keep it awake:** `powercfg /change standby-timeout-ac 0`, `hibernate-timeout-ac 0`,
-  `monitor-timeout-ac 0`; **disable USB selective suspend** (else the webcam / GRBL
-  serial drop out). A service process can also hold `SetThreadExecutionState`. `[Documented]`
+ `monitor-timeout-ac 0`; **disable USB selective suspend** (else the webcam / GRBL
+ serial drop out). A service process can also hold `SetThreadExecutionState`. `[Documented]`
 - **Windows Update reboots:** set **Active Hours** + enable **"No auto-restart with
-  logged on users for scheduled automatic updates installations"** (gpedit → Windows
-  Update, or `HKLM\...\WindowsUpdate\AU\NoAutoRebootWithLoggedOnUsers=1`). Active Hours
-  caps at 18 h; for 24/7 use the **rolling-active-hours scheduled task** that rewrites
-  `ActiveHoursStart/End` hourly. `[Documented]/[Community]` Expect occasional forced
-  reboots anyway → set all services **Automatic (Delayed Start)** so the rig self-heals.
+ logged on users for scheduled automatic updates installations"** (gpedit → Windows
+ Update, or `HKLM\...\WindowsUpdate\AU\NoAutoRebootWithLoggedOnUsers=1`). Active Hours
+ caps at 18 h; for 24/7 use the **rolling-active-hours scheduled task** that rewrites
+ `ActiveHoursStart/End` hourly. `[Documented]/[Community]` Expect occasional forced
+ reboots anyway → set all services **Automatic (Delayed Start)** so the rig self-heals.
 
 ## Default architecture — exact steps
 
 1. **Install Tailscale** on robot host + trainer/agent; sign both into one tailnet
-   (auto-starts as a Windows service).
+  (auto-starts as a Windows service).
 2. **Lock the ACL:** default-deny; allow only `trainer → robot:<stream port>`. Turn on
-   device approval; disable key-expiry for these two nodes (or script re-auth).
+  device approval; disable key-expiry for these two nodes (or script re-auth).
 3. **Bind to loopback/tailnet only:** Flask-under-waitress for the flash app (LAN);
-   stream server on the tailscale interface. GRBL stays on USB serial.
+  stream server on the tailscale interface. GRBL stays on USB serial.
 4. **Video:** `aiortc` WebRTC track for frames; **commands over a WebRTC datachannel**
-   (or a parallel WebSocket) — both over the tailnet, so no public exposure. Depth-1
-   drop-old-frames queue; encode cropped Q≈70 JPEG/VP8 at `imgsz` 640.
+  (or a parallel WebSocket) — both over the tailnet, so no public exposure. Depth-1
+  drop-old-frames queue; encode cropped Q≈70 JPEG/VP8 at `imgsz` 640.
 5. **Service-ify** the Python app with NSSM (restart-on-exit + logs). Add the `/health`
-   watchdog task.
+  watchdog task.
 6. **powercfg** timeouts → 0 on AC; USB selective suspend off.
 7. **Windows Update:** Active Hours + no-auto-restart policy (or rolling task); services
-   Automatic.
+  Automatic.
 8. **Only if a non-Tailscale public client is required:** add **Cloudflare Tunnel +
-   Access** (service token / mTLS) for the control UI — but **keep video on WebRTC P2P**
-   and route only signaling/commands through the tunnel, dodging the CDN video ToS.
-   Tailscale **Funnel** is the simpler alternative for a quick public 443 web entry.
+  Access** (service token / mTLS) for the control UI — but **keep video on WebRTC P2P**
+  and route only signaling/commands through the tunnel, dodging the CDN video ToS.
+  Tailscale **Funnel** is the simpler alternative for a quick public 443 web entry.
 
 ## Key takeaways
 
 - Default = **Tailscale private mesh**, no public port, full bandwidth, WireGuard+ACL. ⭐
 - Public ingress only for un-trusted clients → **Cloudflare Tunnel + Access**; never
-  stream heavy video *through the CDN* (ToS) — keep media on **WebRTC P2P**.
+ stream heavy video *through the CDN* (ToS) — keep media on **WebRTC P2P**.
 - **ngrok free (1 GB/mo)** and **Tailscale Funnel (443/8443/10000, relayed)** can't carry
-  a constant camera feed; port-forward + Caddy is the highest-risk last resort.
+ a constant camera feed; port-forward + Caddy is the highest-risk last resort.
 - Transport: **WebRTC** for sub-200 ms adaptive video (backpressure built-in); JPEG/WS
-  or ZeroMQ-CONFLATE as the lazy drop-old-frames path; gRPC/WS for commands.
+ or ZeroMQ-CONFLATE as the lazy drop-old-frames path; gRPC/WS for commands.
 - Never expose raw GRBL serial or the Flask dev server; bind to loopback/tailnet.
 - On Windows: NSSM service + watchdog, `powercfg` no-sleep + USB-suspend off, and tame
-  Windows Update reboots (Active Hours + no-auto-restart; Automatic services self-heal).
+ Windows Update reboots (Active Hours + no-auto-restart; Automatic services self-heal).
 
 ## Sources
 

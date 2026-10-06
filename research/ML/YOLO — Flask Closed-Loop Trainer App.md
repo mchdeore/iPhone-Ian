@@ -3,15 +3,12 @@ tags: [YOLO, flask, flash-app, trainer, active-learning, ML, computer-vision]
 status: answered
 date: 2026-10-05
 related:
-  - "[[YOLO — Synthetic Data and Flash Training App]]"
-  - "[[YOLO — Efficient Dataset Recipe]]"
-  - "[[YOLO — Training Hardware and Capture Rig]]"
-  - "[[YOLO — Exposing Device Controls to Model]]"
+ - ""
 ---
 
 # 06 — Flask trainer app: the closed-loop flash app
 
-Extends the passive labeler in [[YOLO — Synthetic Data and Flash Training App]] into a **trainer** that also
+Extends the passive labeler in into a **trainer** that also
 *requests an action* ("tap the blue button", "swipe left"), *observes* it, *scores* it, and *logs
 labeled samples*. Builds on `specs/02-firmware-and-software.md` §5.1 (scoring + RL honesty); 02 owns
 CSS px/DPR, fiducials, homography, flash→hold→capture. Core framing: **two observations/episode** —
@@ -35,15 +32,15 @@ WebSocket latency buys nothing. `ponytail:` upgrade to WS only if swipe navigati
 ## Q: Capturing touch in mobile Safari (+ hiding chrome)?
 
 - **Pointer Events, not Touch Events:** `pointerdown/move/up` unify finger+stylus, give
-  `clientX/clientY` in CSS px (same frame as targets/fiducials → DPR cancels, 02), plus
-  `pressure`, `pointerId`, `timeStamp`. `[Documented]`
+ `clientX/clientY` in CSS px (same frame as targets/fiducials → DPR cancels, 02), plus
+ `pressure`, `pointerId`, `timeStamp`. `[Documented]`
 - **Swipes = trajectories:** on `pointermove` call **`getCoalescedEvents()`** for merged sub-frame
-  samples. Caveat: UAs may cap it (Chromium stylus 1/frame); `pointerrawupdate` is higher-rate but secure-context-only, thin on Safari. `[Documented]`/`[Community]`
+ samples. Caveat: UAs may cap it (Chromium stylus 1/frame); `pointerrawupdate` is higher-rate but secure-context-only, thin on Safari. `[Documented]`/`[Community]`
 - **Claim the gesture:** `touch-action:none` + `-webkit-user-select/callout:none` + `preventDefault()`
-  on `touchmove`/`gesturestart` (`{passive:false}`). **`user-scalable=no` is ignored** by iOS Safari — don't rely on it. `[Community]`
+ on `touchmove`/`gesturestart` (`{passive:false}`). **`user-scalable=no` is ignored** by iOS Safari — don't rely on it. `[Community]`
 - **No iPhone Fullscreen API** (status bar always shows) → hide chrome via **standalone PWA**
-  (Add-to-Home-Screen + manifest `"display":"standalone"`): bar-free *and* kills pinch/double-tap
-  zoom; detect `navigator.standalone===true`. Install is manual; EU iOS 17.4+ falls back to a Safari tab. `[Documented]`
+ (Add-to-Home-Screen + manifest `"display":"standalone"`): bar-free *and* kills pinch/double-tap
+ zoom; detect `navigator.standalone===true`. Install is manual; EU iOS 17.4+ falls back to a Safari tab. `[Documented]`
 
 ## Q: Flash-to-capture timing for an *action*?
 
@@ -59,7 +56,7 @@ CPU box. `images/`+`labels/` stay **pure Ultralytics** (`yolo train` ingests unt
 ```jsonl
 {"episode":"1696550000123","ts":1696550000.42,
  "request":{"instruction":"tap the blue button","action":"tap",
-   "targets":[{"cls":"button","x":120,"y":430,"w":120,"h":48,"color":"#2d7"}]},  // CSS px
+  "targets":[{"cls":"button","x":120,"y":430,"w":120,"h":48,"color":"#2d7"}]}, // CSS px
  "frame_id":"1696550000123","image":"images/....jpg","label":"labels/....txt",
  "homography_reproj_px":0.7,"fiducials":4,"robot":{"gantry_xy":[88.1,142.6]},
  "observed":{"type":"tap","points":[{"t":0.0,"x":121,"y":452}]},"score":0.93,"split":"train"}
@@ -102,56 +99,56 @@ from flask import Flask, Response, request, send_file
 
 app = Flask(__name__)
 LOG = pathlib.Path("data/episodes.jsonl"); LOG.parent.mkdir(parents=True, exist_ok=True)
-bus, pending = queue.Queue(), {}      # ponytail: single client, in-memory; upgrade = per-session queue/Redis
+bus, pending = queue.Queue(), {}   # ponytail: single client, in-memory; upgrade = per-session queue/Redis
 
 def new_episode():
-    eid = str(int(time.time() * 1000))
-    tgt = {"cls": "button", "x": random.randint(40, 320), "y": random.randint(120, 760),
-           "w": 120, "h": 48, "color": "#2d7"}                 # CSS px (DPR cancels, note 02)
-    req = {"episode_id": eid, "frame_id": eid, "action": "tap",
-           "instruction": "tap the blue button", "targets": [tgt]}
-    pending[eid] = req; return req
+  eid = str(int(time.time() * 1000))
+  tgt = {"cls": "button", "x": random.randint(40, 320), "y": random.randint(120, 760),
+      "w": 120, "h": 48, "color": "#2d7"}         # CSS px (DPR cancels, note 02)
+  req = {"episode_id": eid, "frame_id": eid, "action": "tap",
+      "instruction": "tap the blue button", "targets": [tgt]}
+  pending[eid] = req; return req
 
-def score_tap(t, p):                   # spec §5.1 rubric, CSS px
-    cx, cy, r = t["x"] + t["w"]/2, t["y"] + t["h"]/2, max(t["w"], t["h"])/2
-    return max(0.0, 1.0 - ((p["x"]-cx)**2 + (p["y"]-cy)**2) ** 0.5 / r)
+def score_tap(t, p):          # spec §5.1 rubric, CSS px
+  cx, cy, r = t["x"] + t["w"]/2, t["y"] + t["h"]/2, max(t["w"], t["h"])/2
+  return max(0.0, 1.0 - ((p["x"]-cx)**2 + (p["y"]-cy)**2) ** 0.5 / r)
 
-@app.get("/")                          # pointer-capture page (touch-action:none, standalone PWA)
+@app.get("/")             # pointer-capture page (touch-action:none, standalone PWA)
 def index(): return send_file("static/index.html")
 
-@app.get("/stream")                    # SSE: host -> browser command channel
+@app.get("/stream")          # SSE: host -> browser command channel
 def stream():
-    def gen():
-        bus.put(new_episode())         # kick off first episode
-        while True: yield f"data: {json.dumps(bus.get())}\n\n"
-    return Response(gen(), mimetype="text/event-stream")
+  def gen():
+    bus.put(new_episode())     # kick off first episode
+    while True: yield f"data: {json.dumps(bus.get())}\n\n"
+  return Response(gen(), mimetype="text/event-stream")
 
-@app.post("/touch")                    # browser -> host: observed touch (ground truth)
+@app.post("/touch")          # browser -> host: observed touch (ground truth)
 def touch():
-    obs = request.get_json(force=True) # {episode_id, frame_id, type, points:[{t,x,y}]}
-    req = pending.pop(obs.get("episode_id"), None)
-    if req is None: return {"ok": False}, 409
-    score = score_tap(req["targets"][0], obs["points"][-1])
-    rec = {**req, "observed": obs, "score": score,
-           "image": f"images/{req['frame_id']}.jpg",           # camera thread writes it
-           "label": f"labels/{req['frame_id']}.txt"}           # homography -> YOLO txt (note 02)
-    with LOG.open("a") as f: f.write(json.dumps(rec) + "\n")
-    bus.put(new_episode()); return {"ok": True, "score": round(score, 3)}   # close the loop
+  obs = request.get_json(force=True) # {episode_id, frame_id, type, points:[{t,x,y}]}
+  req = pending.pop(obs.get("episode_id"), None)
+  if req is None: return {"ok": False}, 409
+  score = score_tap(req["targets"][0], obs["points"][-1])
+  rec = {**req, "observed": obs, "score": score,
+      "image": f"images/{req['frame_id']}.jpg",      # camera thread writes it
+      "label": f"labels/{req['frame_id']}.txt"}      # homography -> YOLO txt (note 02)
+  with LOG.open("a") as f: f.write(json.dumps(rec) + "\n")
+  bus.put(new_episode()); return {"ok": True, "score": round(score, 3)}  # close the loop
 
-assert score_tap({"x":0,"y":0,"w":100,"h":100}, {"x":50,"y":50}) == 1.0     # self-check: centre==1.0
+assert score_tap({"x":0,"y":0,"w":100,"h":100}, {"x":50,"y":50}) == 1.0   # self-check: centre==1.0
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, threaded=True)          # SECURITY: no auth; LAN only unless tunneled
+  app.run(host="0.0.0.0", port=5000, threaded=True)     # SECURITY: no auth; LAN only unless tunneled
 ```
 
 ## Constraints tie-in
 
 - **CPU-only ≤16 GB box:** **no online learning** — the app only serves + logs; training is a
-  separate periodic `yolo train` elsewhere (Colab T4 / offline, 03). "Closed loop" = collect →
-  retrain offline → copy weights back → resume; a human/cron closes it.
+ separate periodic `yolo train` elsewhere (Colab T4 / offline, 03). "Closed loop" = collect →
+ retrain offline → copy weights back → resume; a human/cron closes it.
 - **Windows public port:** phone reaches the host on LAN (`http://host:5000`); if blocked, a tunnel
-  (ngrok/cloudflared) exposes a public **HTTPS** port → [[YOLO — Exposing Device Controls to Model]] (HTTPS = secure
-  context for PWA service workers / `pointerrawupdate`). **Security: the skeleton binds `0.0.0.0` with
-  no auth** — a public endpoint logging camera frames and driving a robot MUST get token/basic-auth and bind narrowly first.
+ (ngrok/cloudflared) exposes a public **HTTPS** port → (HTTPS = secure
+ context for PWA service workers / `pointerrawupdate`). **Security: the skeleton binds `0.0.0.0` with
+ no auth** — a public endpoint logging camera frames and driving a robot MUST get token/basic-auth and bind narrowly first.
 
 ## Key takeaways
 
@@ -174,6 +171,6 @@ if __name__ == "__main__":
 
 ## Open questions / follow-ups
 
-- Public-port auth + HTTPS for a robot-driving endpoint → own it in [[YOLO — Exposing Device Controls to Model]].
+- Public-port auth + HTTPS for a robot-driving endpoint → own it in .
 - Swipe scoring: path similarity (Fréchet/DTW) vs endpoint-only — needed before any swipe RL.
 - Does Safari `getCoalescedEvents` give >1 sample/frame for *touch* (vs Chromium's stylus cap)? Measure on-device.

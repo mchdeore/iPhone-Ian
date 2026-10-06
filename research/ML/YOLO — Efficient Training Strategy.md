@@ -3,10 +3,7 @@ tags: [YOLO, training, strategy, ML, computer-vision]
 status: answered
 date: 2026-10-05
 related:
-  - "[[YOLO — Efficient Dataset Recipe]]"
-  - "[[YOLO — Synthetic Data and Flash Training App]]"
-  - "[[YOLO — Training Hardware and Capture Rig]]"
-  - "[[YOLO — Training on Different Hardware]]"
+ - ""
 ---
 
 # 12 — Quickest-to-train, minimal-overhead training strategy
@@ -103,13 +100,13 @@ Assumes `01`/`02` dataset conventions (crop-to-screen, split-by-session, `flash.
 
 1. **Env** (Colab/Kaggle or local): `pip install ultralytics` — **0.1 h**.
 2. **Phase 0 smoke test** (1 class, ~500 frames) — **0.5 h prep + ~0.5–1 h train on T4**:
-   ```bash
-   yolo detect train model=yolo11n.pt data=flash.yaml imgsz=640 epochs=100 \
-     patience=20 batch=-1 cache=ram freeze=11 \
-     fliplr=0 flipud=0 degrees=0 mosaic=0.3 close_mosaic=10 \
-     perspective=0.0005 translate=0.1 scale=0.3
-   ```
-   Gate: on **real-iOS** val, `mAP50 > 0` and boxes land on targets. (Watch the MPS zero-mAP bug, `03`.)
+  ```bash
+  yolo detect train model=yolo11n.pt data=flash.yaml imgsz=640 epochs=100 \
+   patience=20 batch=-1 cache=ram freeze=11 \
+   fliplr=0 flipud=0 degrees=0 mosaic=0.3 close_mosaic=10 \
+   perspective=0.0005 translate=0.1 scale=0.3
+  ```
+  Gate: on **real-iOS** val, `mAP50 > 0` and boxes land on targets. (Watch the MPS zero-mAP bug, `03`.)
 3. **If backbone-frozen mAP lags**, re-run without `freeze` (full fine-tune) — **~1 h**. Optional A/B: same command with `model=icon_detect/model.pt`.
 4. **Phase 1** (~10 classes, pooled synthetic + 5–20 % real), same command + new `data=` — **~1 h train**. Keep `fliplr=0` permanently (`01`).
 5. **Validate + mine hard frames**: `yolo val model=runs/detect/train/weights/best.pt data=flash.yaml`; keep frames with low conf / failed taps (the tap score, `01`) and add to the pool.

@@ -3,9 +3,7 @@ tags: [agent, VLM, perception, planning, action-loop, droidrun]
 status: answered
 date: 2026-10-05
 related:
-  - "[[Prior Art — Touchscreen Robots and Software Agents]]"
-  - "[[VLM GUI Agents and Vision Grounding Survey]]"
-  - "[[iOS Control Constraints — Face ID, Autofill, Accessibility]]"
+ - ""
 ---
 
 # AI agent architecture — perception→planning→action loop
@@ -24,27 +22,27 @@ Architecturally a perception→planning→action loop in software-only form. The
 
 ### Architecture for our physical agent
 
-See full survey in [[VLM GUI Agents and Vision Grounding Survey]]. Summary:
+See full survey in . Summary:
 
 ```
 Camera photo of iPhone screen
-        │
-        ▼
-  [Perception] — UGround / OmniParser (Phase 2) → ZonUI-3B fine-tuned (Phase 3)
-        │  bounding boxes + element descriptions
-        ▼
-  [Planning] — VLM (GPT-4V / Claude / Gemini) reasons over UI state
-        │  "Tap the login button" → action: tap(x=342, y=518)
-        ▼
-  [Action] — screen coordinate → gantry coordinate → G-code → tap
-        │
-        ▼
-  [Verification] — next camera frame → did it work? → retry or continue
+    │
+    ▼
+ [Perception] — UGround / OmniParser (Phase 2) → ZonUI-3B fine-tuned (Phase 3)
+    │ bounding boxes + element descriptions
+    ▼
+ [Planning] — VLM (GPT-4V / Claude / Gemini) reasons over UI state
+    │ "Tap the login button" → action: tap(x=342, y=518)
+    ▼
+ [Action] — screen coordinate → gantry coordinate → G-code → tap
+    │
+    ▼
+ [Verification] — next camera frame → did it work? → retry or continue
 ```
 
 **Perception and planning are separate concerns.** Perception benefits from fine-tuning on our domain (iPhone camera photos). Planning works fine with off-the-shelf VLMs.
 
-### Key references (full details in [[VLM GUI Agents and Vision Grounding Survey]])
+### Key references (full details in )
 
 - Mobile-Agent v3.5 / GUI-Owl-1.5 — 56.5 OSWorld, multi-agent architecture
 - OS-Atlas — open-source GUI grounding foundation model
@@ -60,4 +58,4 @@ Camera photo of iPhone screen
 ## Sources
 
 - https://github.com/droidrun/mobilerun
-- See [[VLM GUI Agents and Vision Grounding Survey]] for full VLM/grounding sources
+- See for full VLM/grounding sources

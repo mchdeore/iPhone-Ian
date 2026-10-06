@@ -3,10 +3,7 @@ tags: [YOLO, taxonomy, grouping, dataset, ML, computer-vision]
 status: answered
 date: 2026-10-05
 related:
-  - "[[YOLO — Efficient Dataset Recipe]]"
-  - "[[YOLO — Synthetic Data and Flash Training App]]"
-  - "[[YOLO — Training Hardware and Capture Rig]]"
-  - "[[VLM GUI Agents and Vision Grounding Survey]]"
+ - ""
 ---
 
 # 09 — Grouping methods (taxonomy, structure, data splits, compression)
@@ -51,12 +48,12 @@ free: the flash app already knows each target's label string (`02`), so an OCR s
 stage is trained/validated at no labeling cost.
 
 - **Text identity** (which button, which field label) → OCR the detected box (Apple
-  SR does this in §5.2 "Recognizing UI Content") `[Documented]`. Vision OCR / Tesseract
-  / EasyOCR on the crop — cheap on CPU.
+ SR does this in §5.2 "Recognizing UI Content") `[Documented]`. Vision OCR / Tesseract
+ / EasyOCR on the crop — cheap on CPU.
 - **Icon identity** (135 Rico icon classes) → a small classifier or template/embedding
-  match on the icon crop, **not** 135 YOLO classes `[Documented]`.
+ match on the icon crop, **not** 135 YOLO classes `[Documented]`.
 - **Keyboard keys** → one `keyboard_key` class; read the letter by OCR **or** by grid
-  position (Q4), never 26–40 per-letter classes.
+ position (Q4), never 26–40 per-letter classes.
 
 This keeps the detector at ~1–7 classes while still answering "tap the *Submit*
 button" — the agent's real need (`specs/02 §6–8`).
@@ -98,45 +95,45 @@ Lazy, dependency-free recipe (runs host-side in NumPy / `sklearn.cluster.DBSCAN`
 zero training, zero added VRAM):
 
 - **Rows / columns** — 1-D cluster box centers with `DBSCAN` (or sort+gap) on
-  **y-centers** → rows, **x-centers** → columns. A known layout trick (Agombar et al.
-  2020; EasyOCR issue #121) `[Documented]/[Community]`.
+ **y-centers** → rows, **x-centers** → columns. A known layout trick (Agombar et al.
+ 2020; EasyOCR issue #121) `[Documented]/[Community]`.
 - **Reading order** — classic **XY-cut** (recursive projection cuts) gives
-  top-left→bottom-right order cheaply `[Documented]`.
+ top-left→bottom-right order cheaply `[Documented]`.
 - **Keyboard** — a **fixed grid** in a known region: don't cluster, fit the keyboard
-  rectangle once (homography exists, `02`) and index keys by row/col. `ponytail:`
-  template beats clustering; add DBSCAN only if layouts vary (emoji/numeric/languages).
+ rectangle once (homography exists, `02`) and index keys by row/col. `ponytail:`
+ template beats clustering; add DBSCAN only if layouts vary (emoji/numeric/languages).
 - **Forms / lists** — proximity + alignment of `text_field`/`cell_row`/`text_button`; a
-  label is the nearest `text` left/above a field.
+ label is the nearest `text` left/above a field.
 
 ## Q5: Grouping training data — splits, sampling, dedup
 
 `01` already says "split by session, not frame" and "de-duplicate bursts". Concretely:
 
 - **Group-aware split** so near-identical frames can't straddle train/val (the classic
-  mAP-inflation trap): `GroupShuffleSplit` for one split, `GroupKFold` /
-  **`StratifiedGroupKFold`** for CV, with **group key = session / app / screen-id**.
-  StratifiedGroupKFold keeps class balance *and* non-overlapping groups `[Documented]`.
+ mAP-inflation trap): `GroupShuffleSplit` for one split, `GroupKFold` /
+ **`StratifiedGroupKFold`** for CV, with **group key = session / app / screen-id**.
+ StratifiedGroupKFold keeps class balance *and* non-overlapping groups `[Documented]`.
 - **Dedupe before splitting.** Perceptual hash (`imagededup`/`imgdupes`) is cheap but
-  weak on near-dups and geometric shifts; CNN-embedding dedup is robust but costlier
-  (MDPI 2026) `[Benchmark]`. Run **pHash first** (static camera → near-dups are
-  near-identical); fall back to embeddings only for subtle cases.
+ weak on near-dups and geometric shifts; CNN-embedding dedup is robust but costlier
+ (MDPI 2026) `[Benchmark]`. Run **pHash first** (static camera → near-dups are
+ near-identical); fall back to embeddings only for subtle cases.
 - **Stratified sampling** when oversampling rare classes / hard examples (tap-score miss
-  set, `01`) — keep per-class proportions matched across splits.
+ set, `01`) — keep per-class proportions matched across splits.
 - Order matters: **dedupe → assign groups → stratified-group split**; a random split
-  after dedupe re-introduces leakage.
+ after dedupe re-introduces leakage.
 
 ## Q6: Group-wise compression (brief)
 
 Relevant because training/inference may be CPU-only ≤16 GB (`03`):
 
 - **Grouped / depthwise-separable convs** cut FLOPs/params and are already in YOLO
-  backbones — nothing to add, just prefer the light `n` model `[Documented]`.
+ backbones — nothing to add, just prefer the light `n` model `[Documented]`.
 - **Group / per-channel quantization** gives each channel group its own scale and keeps
-  far more accuracy than per-tensor at INT8 (Quantizing-YOLOv7 granularity study; GroupQ
-  clusters kernels into bit-precision groups) `[Benchmark]/[Documented]`. Matters when
-  exporting to **ONNX/NCNN/OpenVINO** for CPU inference on the rig host; Ultralytics
-  `export(..., int8=True)` applies per-channel quant for free. `ponytail:` use the
-  exporter, don't hand-roll it.
+ far more accuracy than per-tensor at INT8 (Quantizing-YOLOv7 granularity study; GroupQ
+ clusters kernels into bit-precision groups) `[Benchmark]/[Documented]`. Matters when
+ exporting to **ONNX/NCNN/OpenVINO** for CPU inference on the rig host; Ultralytics
+ `export(..., int8=True)` applies per-channel quant for free. `ponytail:` use the
+ exporter, don't hand-roll it.
 
 ## Key takeaways
 

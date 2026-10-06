@@ -3,14 +3,12 @@ tags: [YOLO, hardware, training, CPU, MPS, GPU, Colab, ML]
 status: answered
 date: 2026-10-05
 related:
-  - "[[YOLO — Training Hardware and Capture Rig]]"
-  - "[[YOLO — Efficient Dataset Recipe]]"
-  - "[[YOLO — Efficient Dataset Recipe]]"
+ - ""
 ---
 
 # 04 — Training YOLO on different hardware
 
-Companion to [[YOLO — Training Hardware and Capture Rig]] (which **ranks and prices** hardware). This note is the
+Companion to (which **ranks and prices** hardware). This note is the
 operational **how**: exact Ultralytics args per device, RAM/VRAM budgets, measured
 epoch times, and a verdict on the user's question — **is a CPU-only, ≤16 GB box a
 viable training server?**
@@ -50,7 +48,7 @@ common late-stage OOM; drop `batch` or `val=False` for exploratory runs.
 
 ## Per-device playbook
 
-Times are for **nano, ~1–5 k images @640** (our Phase 0 is smaller — see [[YOLO — Efficient Dataset Recipe]]); ranges swing 2–3× with dataset/`imgsz`/`workers`.
+Times are for **nano, ~1–5 k images @640** (our Phase 0 is smaller — see ); ranges swing 2–3× with dataset/`imgsz`/`workers`.
 
 | Device | Launch args | Budget | Est. s–min/epoch | Verdict |
 |---|---|---|---|---|
@@ -63,14 +61,14 @@ Times are for **nano, ~1–5 k images @640** (our Phase 0 is smaller — see [[Y
 
 ### CPU thread tuning `[Community]`
 - PyTorch defaults to **all physical cores** for intra-op (OpenMP) math. Don't set
-  `OMP_NUM_THREADS=1` (cripples it); leave unset or `= physical cores`.
+ `OMP_NUM_THREADS=1` (cripples it); leave unset or `= physical cores`.
 - Beware **oversubscription**: `workers` (dataloader procs) × OpenMP threads can
-  exceed cores and thrash. On an 8-core box, ~`workers=4–6` + default threads is a
-  safe start; benchmark 1 epoch each way.
+ exceed cores and thrash. On an 8-core box, ~`workers=4–6` + default threads is a
+ safe start; benchmark 1 epoch each way.
 - `torch.set_num_threads(n)` / `set_num_interop_threads(n)` for fine control.
 - CPU wins: `rect=True` (less padding), `deterministic=False`, `imgsz=320`,
-  `cache='disk'` (RAM-safe), nano model, `amp` gives nothing (expect FP32; `'bf16'`
-  autocast only helps on very recent AVX-512-BF16/AMX CPUs).
+ `cache='disk'` (RAM-safe), nano model, `amp` gives nothing (expect FP32; `'bf16'`
+ autocast only helps on very recent AVX-512-BF16/AMX CPUs).
 
 ### NVIDIA low-VRAM extras `[Documented]`/`[Community]` (markaicode, Jun 2026)
 - Order of levers: **`imgsz=320` first** (∝²), then `batch=-1`/`4`, keep `amp=True`.
@@ -82,17 +80,17 @@ Times are for **nano, ~1–5 k images @640** (our Phase 0 is smaller — see [[Y
 **Qualified yes, as an always-on fallback — not as the iteration machine.** `[Community]`/reasoning
 
 - **Phase 0** (1 class, 300–800 auto-labeled frames, `yolo26n`, `imgsz=640`,
-  `epochs=100 patience=20`): est. **~2–7 min/epoch ⇒ a few hours**, i.e. a clean
-  overnight run. 16 GB is enough if you use **`cache='disk'`** (not `'ram'`) and
-  modest `workers`; the process itself is only ~3–5 GB.
+ `epochs=100 patience=20`): est. **~2–7 min/epoch ⇒ a few hours**, i.e. a clean
+ overnight run. 16 GB is enough if you use **`cache='disk'`** (not `'ram'`) and
+ modest `workers`; the process itself is only ~3–5 GB.
 - **Where it breaks:** fast flash→train→evaluate iteration (minutes matter), and
-  **Phase 1 scaling** toward Ultralytics' 1,500 img / 10 k inst per class across
-  5–8 classes — that's many hours to days per CPU run.
+ **Phase 1 scaling** toward Ultralytics' 1,500 img / 10 k inst per class across
+ 5–8 classes — that's many hours to days per CPU run.
 - **Lazy call:** keep the CPU box as the always-available retrain/cron server, but
-  push anything time-sensitive or multi-class to **free Colab/Kaggle T4** (≈10–40×
-  faster), then a used **RTX 3060 12 GB** when HomeLab lands (per [[YOLO — Training Hardware and Capture Rig]]).
-  Use `time=<hours>` to fit CPU/Colab runs into a window. `ponytail:` the CPU box is
-  the "it'll finish by morning" tier; the GPU is the "iterate" tier.
+ push anything time-sensitive or multi-class to **free Colab/Kaggle T4** (≈10–40×
+ faster), then a used **RTX 3060 12 GB** when HomeLab lands (per ).
+ Use `time=<hours>` to fit CPU/Colab runs into a window. `ponytail:` the CPU box is
+ the "it'll finish by morning" tier; the GPU is the "iterate" tier.
 
 ### Windows / remote-training note
 If the CPU/Windows box is also the training host: **multi-GPU DDP is broken on
@@ -128,4 +126,4 @@ a raw public port on a training/control box is an unauthenticated-RCE risk.
 - Actual CPU epoch time on the specific 16 GB target box? → benchmark 1 epoch of the real Phase-0 set at `imgsz` 320 vs 640 before committing to it as the server.
 - Does `cache='ram'` + many `workers` still OOM/hang (hist. Ultralytics #1010)? Confirm on 16 GB; prefer `cache='disk'` until verified.
 - Does `compile=True` net-help a CPU nano run after warm-up, or does compile overhead eat a short-run's budget?
-- Cropping to screen (per [[YOLO — Efficient Dataset Recipe]]) shrinks images — re-estimate CPU time and whether `cache='ram'` then fits 16 GB.
+- Cropping to screen (per ) shrinks images — re-estimate CPU time and whether `cache='ram'` then fits 16 GB.

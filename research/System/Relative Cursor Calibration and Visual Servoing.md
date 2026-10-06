@@ -3,12 +3,7 @@ tags: [control, iOS, AssistiveTouch, HID, relative-pointer, visual-servoing, cal
 status: answered
 date: 2026-10-05
 related:
-  - "[[AssistiveTouch Pointer Mechanics for Robot Control]]"
-  - "[[YOLO — Exposing Device Controls to Model]]"
-  - "[[YOLO — Raspberry Pi Input Converter]]"
-  - "[[iOS Control Constraints — Face ID, Autofill, Accessibility]]"
-  - "[[XY Gantry Builds and Microcontroller Choice]]"
-  - "[[YOLO — Detection Grouping and Class Taxonomy]]"
+ - ""
 ---
 
 # 03 — Closed-loop cursor control with a RELATIVE-only iOS pointer
@@ -16,7 +11,7 @@ related:
 ## Question
 
 iOS AssistiveTouch accepts **only relative** pointer deltas `(dX,dY)` — there is no absolute
-digitizer HID (`[[YOLO — Raspberry Pi Input Converter]]`). Given a known screen
+digitizer HID (``). Given a known screen
 target `(sx,sy)`, how do we land the cursor there and click, using (a) corner/edge reset,
 (b) linearizing the iOS acceleration curve, and (c) camera visual-servoing — and how does
 per-tap accuracy/latency compare to the gantry?
@@ -26,15 +21,15 @@ per-tap accuracy/latency compare to the gantry?
 ### 1. The core problem: relative pointer + hidden, accelerated mapping
 
 - **Relative only, position unknown to the device.** VK **DeviceHub** (production iOS farm, ESP32-BLE):
-  *"the mouse is a relative pointing device… we convert the absolute target… into mouse events with
-  relative deltas… setting the highest possible sensitivity… and keep track of the current (guessed)
-  position of the iOS cursor."* So you must *estimate* the cursor (dead-reckon) or *see* it (camera); an
-  absolute HID descriptor is consumed as relative anyway (`[[YOLO — Raspberry Pi Input Converter]]`). `[Documented]`
+ *"the mouse is a relative pointing device… we convert the absolute target… into mouse events with
+ relative deltas… setting the highest possible sensitivity… and keep track of the current (guessed)
+ position of the iOS cursor."* So you must *estimate* the cursor (dead-reckon) or *see* it (camera); an
+ absolute HID descriptor is consumed as relative anyway (``). `[Documented]`
 - **The mapping is nonlinear & unobservable.** iOS applies a pointer-accel (gain) curve: pointer
-  velocity = f(input velocity), input velocity = `delta × report_rate`. The same displacement sent as
-  **one big delta** lands farther (high-gain) than **many small deltas** (near-linear) — the Arduino
-  relative-mouse note: *"position did not reflect… expected… due to 'mouse acceleration'. The
-  workaround… only move small distances at a time."* `[Community]`
+ velocity = f(input velocity), input velocity = `delta × report_rate`. The same displacement sent as
+ **one big delta** lands farther (high-gain) than **many small deltas** (near-linear) — the Arduino
+ relative-mouse note: *"position did not reflect… expected… due to 'mouse acceleration'. The
+ workaround… only move small distances at a time."* `[Community]`
 
 ### 2. iOS tuning: flatten, don't disable (you cannot fully disable it)
 
@@ -46,10 +41,10 @@ per-tap accuracy/latency compare to the gantry?
 | **Trackpad Inertia → OFF** | Settings → Accessibility → Pointer Control | kills coast/glide after a move `[Documented]` |
 
 - **No iOS switch disables pointer acceleration** (unlike macOS Mouse → Advanced, or `defaults write
-  .GlobalPreferences com.apple.mouse.scaling -1`): you can only **flatten** (max speed) + **remove
-  inertia**; the curve persists → closed-loop or careful dead-reckoning is mandatory. `[Documented]`
+ .GlobalPreferences com.apple.mouse.scaling -1`): you can only **flatten** (max speed) + **remove
+ inertia**; the curve persists → closed-loop or careful dead-reckoning is mandatory. `[Documented]`
 - **HID delta caps the "slam":** boot-protocol reports signed **8-bit** X/Y (−127..+127/report) →
-  crossing a ~1200 px screen needs *many* reports (16-bit descriptors exist but assume 8-bit, loop). `[Documented]`
+ crossing a ~1200 px screen needs *many* reports (16-bit descriptors exist but assume 8-bit, loop). `[Documented]`
 
 ### 3. Method A — Corner/edge reset (homing a relative pointer) `[Community]`
 
@@ -57,12 +52,12 @@ The one trick that gives an **absolute** origin from a relative device: drive ha
 OS **clamps** the cursor at the physical edge, so position becomes known (0,0) regardless of prior
 drift. Canonical statement: *"move the pointer enough in each direction that it is certain it is now
 located at one of the corners… a reference point from which to base all relative movements."* It is the
-HID analogue of GRBL `$H` homing (`[[XY Gantry Builds and Microcontroller Choice]]`). The `per1234/MouseTo` Arduino library
+HID analogue of GRBL `$H` homing (``). The `per1234/MouseTo` Arduino library
 packages exactly this: home-to-corner + incremental move + position tracking.
 
 - **Slam** = burst of max reports (e.g. 15–25× `(−127,−127)`) until two frames show no motion → pinned
-  at (0,0). **Re-zero policy** (Arduino thread): *home once then dead-reckon* (fast, slip corrupts all
-  later moves) vs *home every move* (robust, costs a slam). We **home once/session + on drift**, camera as detector (§5).
+ at (0,0). **Re-zero policy** (Arduino thread): *home once then dead-reckon* (fast, slip corrupts all
+ later moves) vs *home every move* (robust, costs a slam). We **home once/session + on drift**, camera as detector (§5).
 
 ### 4. Method B — Linearize the acceleration curve (calibrate px-per-unit) `[Benchmark]`-plan
 
@@ -70,20 +65,20 @@ Gain depends on `delta × rate`: fix a **small per-report delta** in the near-li
 distance by **report count** at **fixed rate** → `px ≈ k·n`, a clean invertible model. Measure `k` per Tracking-Speed setting:
 
 ```
-calibrate_scale():                      # run once per device/settings profile
-    assert AssistiveTouch on; sensitivity+speed maxed; inertia off   # manual, §2
-    corner_reset()                       # known origin (0,0)
-    d, rate = 20, 100                    # small delta (units/report), reports/sec
-    samples = []
-    for n in [5,10,20,40,80]:
-        corner_reset()
-        send_n_reports(dx=d, dy=0, n=n, rate=rate); sleep(SETTLE)
-        px = detect_cursor().x           # camera-measured displacement from origin
-        samples.append((n*d, px))
-    k = slope(linregress(samples))       # px per mouse-unit (near-linear region)
-    # control check: ONE delta of 400 units lands FARther than k*400 (accel) ->
-    # proves "many small" beats "one big"; keep per-report delta <= ~110 units.
-    return k                             # dead-reckoning gain; servo gain Kp ~ 1/k
+calibrate_scale():           # run once per device/settings profile
+  assert AssistiveTouch on; sensitivity+speed maxed; inertia off  # manual, §2
+  corner_reset()            # known origin (0,0)
+  d, rate = 20, 100          # small delta (units/report), reports/sec
+  samples = []
+  for n in [5,10,20,40,80]:
+    corner_reset()
+    send_n_reports(dx=d, dy=0, n=n, rate=rate); sleep(SETTLE)
+    px = detect_cursor().x      # camera-measured displacement from origin
+    samples.append((n*d, px))
+  k = slope(linregress(samples))    # px per mouse-unit (near-linear region)
+  # control check: ONE delta of 400 units lands FARther than k*400 (accel) ->
+  # proves "many small" beats "one big"; keep per-report delta <= ~110 units.
+  return k               # dead-reckoning gain; servo gain Kp ~ 1/k
 ```
 
 Lower Tracking Speed → smaller `k` (finer, more reports/screen); store `k` with the settings profile, re-run if a slider changes.
@@ -93,45 +88,45 @@ Lower Tracking Speed → smaller `k` (finer, more reports/screen); store `k` wit
 Dead-reckoning alone drifts (accel residual + packet loss); the **camera already sees the screen**, so
 close the loop on the **cursor** itself. Detect the AssistiveTouch pointer (a ~size-adjustable grey
 circle) as a dedicated **YOLO class** or by **template match** on the rectified screen image
-(`[[YOLO — Detection Grouping and Class Taxonomy]]`), then proportional/PID-correct until within `TOL` px.
+(``), then proportional/PID-correct until within `TOL` px.
 This **removes the gantry's `H_screen→gantry` calibration and mount-drift problem** entirely
-(`[[YOLO — Exposing Device Controls to Model]]`): screen px map straight to pointer deltas.
+(``): screen px map straight to pointer deltas.
 
 ```
-servo_to(target_sx, target_sy):          # closed-loop; returns on success/giveup
-    TOL, Kp, MAX_IT, CAP = 8, 0.9/k, 8, 110        # px, units/px, iters, per-report cap
-    integ = (0,0)
-    for i in range(MAX_IT):
-        frame  = camera.grab()                      # 33 ms @30fps (16 @60)
-        screen = rectify(frame, H_cam2screen)       # per-frame fiducial homography
-        cur    = detect_cursor(screen)              # YOLO 'cursor' class / template match
-        if cur is None:                             # off-screen or occluded
-            corner_reset(); continue
-        ex, ey = target_sx-cur.x, target_sy-cur.y
-        if hypot(ex,ey) <= TOL: break               # converged
-        integ = clamp(integ + (ex,ey)*Ki)           # small Ki only if steady-state bias
-        dux   = clamp(Kp*ex + integ.x, -CAP, CAP)   # P(+I); D rarely needed, 1 contact
-        duy   = clamp(Kp*ey + integ.y, -CAP, CAP)
-        send_relative(dux, duy, rate=100)           # 1+ reports, fixed rate (near-linear)
-        sleep(SETTLE)                               # ~1 frame + iOS render (40-75 ms, note 07)
-    click()                                         # HID button down -> >=50-100 ms -> up
+servo_to(target_sx, target_sy):     # closed-loop; returns on success/giveup
+  TOL, Kp, MAX_IT, CAP = 8, 0.9/k, 8, 110    # px, units/px, iters, per-report cap
+  integ = (0,0)
+  for i in range(MAX_IT):
+    frame = camera.grab()           # 33 ms @30fps (16 @60)
+    screen = rectify(frame, H_cam2screen)    # per-frame fiducial homography
+    cur  = detect_cursor(screen)       # YOLO 'cursor' class / template match
+    if cur is None:               # off-screen or occluded
+      corner_reset(); continue
+    ex, ey = target_sx-cur.x, target_sy-cur.y
+    if hypot(ex,ey) <= TOL: break        # converged
+    integ = clamp(integ + (ex,ey)*Ki)      # small Ki only if steady-state bias
+    dux  = clamp(Kp*ex + integ.x, -CAP, CAP)  # P(+I); D rarely needed, 1 contact
+    duy  = clamp(Kp*ey + integ.y, -CAP, CAP)
+    send_relative(dux, duy, rate=100)      # 1+ reports, fixed rate (near-linear)
+    sleep(SETTLE)                # ~1 frame + iOS render (40-75 ms, note 07)
+  click()                     # HID button down -> >=50-100 ms -> up
 ```
 
 - **Convergence** ~**3–6 iters** to `TOL≤8 px` with `Kp≈0.9/k` (`<1` avoids overshoot into the
-  high-gain band); D unneeded (single contact, inertia off), tiny I only for constant bias. **Accuracy
-  floor** = cursor centroid (~1–3 px) + homography (few px) → **a few px regardless of the accel
-  curve**, enough for keyboard/passcode keys that dead-reckoning alone misses (`[[YOLO — Raspberry Pi Input Converter]]` open Q). `[Community]`
+ high-gain band); D unneeded (single contact, inertia off), tiny I only for constant bias. **Accuracy
+ floor** = cursor centroid (~1–3 px) + homography (few px) → **a few px regardless of the accel
+ curve**, enough for keyboard/passcode keys that dead-reckoning alone misses (`` open Q). `[Community]`
 
 ### 6. Prior art & KVM-over-IP relative-mode lessons
 
 - **DeviceHub:** relative→delta + max sensitivity + guessed-position tracking over **BLE** (ESP32-C6
-  best, C3 close); paired with WebDriverAgent **screencapture**, not a camera. `[Documented]`
+ best, C3 close); paired with WebDriverAgent **screencapture**, not a camera. `[Documented]`
 - **PiKVM:** relative mode "exclusively captures" the cursor and *"generates a huge number of events…
-  optimized using a vector sum"* (**"Squash mouse moves"**, toggle off if accel misbehaves) — prior art
-  for taming relative streams; rel unsupported on mobile browsers/VNC. **TinyPilot** added rel only in **v3.1 (Jul 2026)**. `[Documented]`
+ optimized using a vector sum"* (**"Squash mouse moves"**, toggle off if accel misbehaves) — prior art
+ for taming relative streams; rel unsupported on mobile browsers/VNC. **TinyPilot** added rel only in **v3.1 (Jul 2026)**. `[Documented]`
 - **Gotchas:** GL.iNet's relative mode **broke tap-to-click on touchscreens** (we click via a separate
-  HID **button**, so unaffected). **Mouse-jiggler** (PiKVM: 1 px nudge/~60 s) is the trivial relative
-  baseline + our anti-sleep keep-alive — proves iOS accepts tiny deltas reliably. `[Community]/[Documented]`
+ HID **button**, so unaffected). **Mouse-jiggler** (PiKVM: 1 px nudge/~60 s) is the trivial relative
+ baseline + our anti-sleep keep-alive — proves iOS accepts tiny deltas reliably. `[Community]/[Documented]`
 
 ### 7. Latency & accuracy per tap vs the gantry `[Benchmark]`-estimate (not yet benched on our rig)
 
@@ -148,7 +143,7 @@ Component budget: HID report **USB 1–8 ms / BLE 15–30 ms**; camera obs **33 
 **Verdict:** both paths share the **same camera observation floor**, so HID is *comparable*, not
 dramatically faster. HID's real wins: the **click is electronic/instant** vs the gantry's Z-lower +
 ≥100 ms capacitive dwell; no mechanical traverse; and it **deletes `H_screen→gantry` calibration and
-mount-drift** — at the cost of cursor-estimation and a one-time accessibility toggle (`[[iOS Control Constraints — Face ID, Autofill, Accessibility]]`). Keep the camera loop either way; the phone is a black box.
+mount-drift** — at the cost of cursor-estimation and a one-time accessibility toggle (``). Keep the camera loop either way; the phone is a black box.
 
 ## Sources
 
@@ -162,13 +157,13 @@ mount-drift** — at the cost of cursor-estimation and a one-time accessibility 
 ## Open questions / follow-ups
 
 - **Bench the estimates in §7** on the actual ESP32-BLE + camera rig (per-tap time, iters-to-converge,
-  landed px error) → promote `[Benchmark]`-plan to measured; resolves the `hid-vs-gantry` open row and
-  note-15's "corner-reset dead-reckoning vs camera-servo for passcode-pad accuracy" in `questions.md`.
+ landed px error) → promote `[Benchmark]`-plan to measured; resolves the `hid-vs-gantry` open row and
+ note-15's "corner-reset dead-reckoning vs camera-servo for passcode-pad accuracy" in `questions.md`.
 - Is the AssistiveTouch pointer **reliably detectable** through the camera (grey circle, user-set size,
-  low contrast on light UIs)? Needs a dedicated YOLO `cursor` class + synthetic data (`[[YOLO — Detection Grouping and Class Taxonomy]]`).
+ low contrast on light UIs)? Needs a dedicated YOLO `cursor` class + synthetic data (``).
 - Does the HID **click** register as a tap without a dwell, or does iOS require a minimum touch
-  duration like the capacitive stylus (≥100 ms, note 07)? → bench.
+ duration like the capacitive stylus (≥100 ms, note 07)? → bench.
 - Multi-touch (pinch/rotate) is **out of reach** for a single relative pointer — needs AssistiveTouch
-  custom-gesture recording or Switch Control; track separately.
+ custom-gesture recording or Switch Control; track separately.
 - Does enabling AssistiveTouch + max sensitivity violate the charter's "stock, untouched phone"
-  premise? → `specs/00-charter.md` (ties to `hid-vs-gantry`).
+ premise? → `specs/00-charter.md` (ties to `hid-vs-gantry`).

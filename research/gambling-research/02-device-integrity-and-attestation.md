@@ -2,12 +2,7 @@
 tags: [ios, gambling, app-attest, devicecheck, attestation, secure-enclave, jailbreak-detection, RASP, anti-tamper, debugger, simulator, risk-score]
 status: answered
 date: 2026-10-05
-related:
-  - "[[../gambling-research/01-geolocation-compliance]]"
-  - "[[../gambling-research/01-geolocation-compliance]]"
-  - "[[03-device-fingerprinting-and-identity]]"
-  - "[[../gambling-research/04-behavioral-and-automation-detection]]"
-  - "[[../gambling-research/05-regulatory-and-responsible-gambling]]"
+related: []
 ---
 
 # 02 — Device integrity & attestation — how do iOS betting apps decide a device is trustworthy?
@@ -23,24 +18,24 @@ do those signals feed a server-side risk score? (Descriptive/educational; no byp
 ### 1. Why gambling apps care, and the layered model
 
 Money-adjacent threats drive this: **bonus/promo abuse** (one free bet per device),
-**multi-accounting / collusion**, **location spoofing** (with geo, `[[../gambling-research/01-geolocation-compliance]]`),
-**bots/automation** (`[[../gambling-research/04-behavioral-and-automation-detection]]`), and reverse-engineered
+**multi-accounting / collusion**, **location spoofing** (with geo, ``),
+**bots/automation** (``), and reverse-engineered
 clients that forge API calls. No client check is a trust boundary — each is a *signal* fed to a
-server-side score (§10); identity/fingerprint signals live in `[[03-device-fingerprinting-and-identity]]`.
+server-side score (§10); identity/fingerprint signals live in ``.
 
 ### 2. Apple App Attest — the cryptographic core `[Documented]`
 
 `DCAppAttestService.shared` (iOS 14+) proves *this app binary* runs on *genuine Apple hardware*.
 
 - **Key generation:** `generateKey()` creates an **ECC P-256 key pair inside the Secure
-  Enclave**; the private key is **non-exportable**. The returned `keyId` ≈ SHA-256 of the pubkey.
+ Enclave**; the private key is **non-exportable**. The returned `keyId` ≈ SHA-256 of the pubkey.
 - **Challenge → attest:** server issues a random **one-time challenge** (anti-replay); app calls
-  `attestKey(keyId, clientDataHash=SHA256(challenge))` → an **attestation object**.
+ `attestKey(keyId, clientDataHash=SHA256(challenge))` → an **attestation object**.
 - **Attestation object** (CBOR, WebAuthn-shaped): `fmt:"apple-appattest"`,
-  `attStmt:{ x5c:[credCert,caCert], receipt }`, `authData`. Key `authData` fields: **RP ID**
-  (32B = SHA256 of App ID `TeamID.bundleID`), **counter** (0 at attest), **aaguid**
-  (`appattestdevelop` vs `appattest`+7×`0x00` = env), **credentialId** (= keyId), **COSE
-  public key** (77B), **extensions** (iOS 27, §4).
+ `attStmt:{ x5c:[credCert,caCert], receipt }`, `authData`. Key `authData` fields: **RP ID**
+ (32B = SHA256 of App ID `TeamID.bundleID`), **counter** (0 at attest), **aaguid**
+ (`appattestdevelop` vs `appattest`+7×`0x00` = env), **credentialId** (= keyId), **COSE
+ public key** (77B), **extensions** (iOS 27, §4).
 
 **Server validation** (the app can't self-attest): verify `x5c` chains to Apple's **App Attest
 root CA**; recompute `nonce=SHA256(authData ‖ clientDataHash)` and match the `credCert`
@@ -61,13 +56,13 @@ proves the payload was untampered in transit and came from the attested app inst
 
 The `authData` **extensions** CBOR dict now surfaces, in both attestation and assertion:
 - **`apple_validation_category_01`** — the app's **launch validation category** (how the
-  binary was signed/distributed): `1`=OS executable, `2`=TestFlight, `3`=development signing,
-  **`4`=App Store**, `5`=enterprise/ad-hoc, `6`=Developer ID, `10`=other. A store-distributed
-  app reporting TestFlight/dev category ⇒ **re-signed / tampered**.
+ binary was signed/distributed): `1`=OS executable, `2`=TestFlight, `3`=development signing,
+ **`4`=App Store**, `5`=enterprise/ad-hoc, `6`=Developer ID, `10`=other. A store-distributed
+ app reporting TestFlight/dev category ⇒ **re-signed / tampered**.
 - **`apple_bundle_version_01`** — the running bundle version; a version you never shipped ⇒
-  re-signed copy.
+ re-signed copy.
 - **`isSupported`** is itself a signal: a spike of "unsupported" from one user may indicate
-  tampering. App Attest now also covers **macOS 27+** and Action/SSO extensions.
+ tampering. App Attest now also covers **macOS 27+** and Action/SSO extensions.
 
 ### 5. Fraud / risk metric — the server-to-server receipt `[Documented]`
 
@@ -78,10 +73,10 @@ Apple returns a **new receipt** with the metric. Fields: `2` App ID, `3` atteste
 `6` type (**`ATTEST`** vs **`RECEIPT`**), `12` creation time, **`17` Risk Metric**, `19` Not
 Before, `21` Expiration.
 - **Field 17** ≈ **# attested keys for that device over the last 30 days** — only on `RECEIPT`
-  (server-requested), not `ATTEST`. **High count ⇒ one device serving many compromised app
-  instances**; expect low single digits.
+ (server-requested), not `ATTEST`. **High count ⇒ one device serving many compromised app
+ instances**; expect low single digits.
 - Metric **grows benignly** on reinstall / restore / device transfer (SE keys don't survive),
-  so thresholds must be tuned. **Refresh** after field 19 (`304` if too early), before field 21.
+ so thresholds must be tuned. **Refresh** after field 19 (`304` if too early), before field 21.
 
 ### 6. DeviceCheck — 2 bits per device `[Documented]`
 
@@ -105,36 +100,36 @@ signal fused server-side**, never a sole gate. `[Community]` (Guardsquare, Appkn
 ### 8. Simulator & debugger & instrumentation detection `[Documented]`/`[Community]`
 
 - **Simulator:** compile-time `TARGET_OS_SIMULATOR`; runtime env `SIMULATOR_DEVICE_NAME`,
-  `SIMULATOR_MODEL_IDENTIFIER`, `SIMULATOR_ROOT`. A real betting account should never attest from one.
+ `SIMULATOR_MODEL_IDENTIFIER`, `SIMULATOR_ROOT`. A real betting account should never attest from one.
 - **Debugger:** `sysctl(KERN_PROC)` reading the **`P_TRACED`** flag (Apple QA1361 — detection,
-  non-destructive); `ptrace(PT_DENY_ATTACH)` to *refuse* attach (exit code 45); `getppid()!=1`.
+ non-destructive); `ptrace(PT_DENY_ATTACH)` to *refuse* attach (exit code 45); `getppid()!=1`.
 - **Instrumentation (Frida/hooks):** scan loaded modules for `frida-gadget`/`frida-agent`, default
-  port **27042**, odd named pipes/threads. Frida runs **without a jailbreak** (repackaged
-  `frida-gadget.dylib`), so JB ≠ hooks. `[Community]`
+ port **27042**, odd named pipes/threads. Frida runs **without a jailbreak** (repackaged
+ `frida-gadget.dylib`), so JB ≠ hooks. `[Community]`
 
 ### 9. RASP / anti-tamper vendors used in gaming & gambling `[Community]`
 
 These wrap §7–§8 into hardened, obfuscated, auto-updated SDKs (post-compile, little/no code):
 - **Promon SHIELD for Mobile** — post-compile shielding: RASP, anti-tamper, **anti-repackaging**,
-  obfuscation; "protects even on jailbroken devices" + autonomous response. Big in fintech/gambling.
+ obfuscation; "protects even on jailbroken devices" + autonomous response. Big in fintech/gambling.
 - **Guardsquare iXGuard** — **polymorphic obfuscation** + **injects endless integrity-check
-  variations** (no two builds alike); RASP detects JB, Frida/hooking, instrumentation, Apple-Silicon-Mac runs.
+ variations** (no two builds alike); RASP detects JB, Frida/hooking, instrumentation, Apple-Silicon-Mac runs.
 - **Appdome ONEShield** — no-code RASP: app-integrity scan, anti-tamper, debugger/code-manipulation
-  detection, **simulator/emulator prevention**, checksum validation, anti-hooking.
+ detection, **simulator/emulator prevention**, checksum validation, anti-hooking.
 - **Zimperium MAPS** — `zScan` (pre-release) + `zShield` (obfuscation/anti-tamper) + `zDefend`
-  (embedded on-device-AI SDK: device/network/app threat detection + **attestation**, binding
-  encrypted integrity signals into API messages validated server-side).
+ (embedded on-device-AI SDK: device/network/app threat detection + **attestation**, binding
+ encrypted integrity signals into API messages validated server-side).
 
 ### 10. How signals converge into a server-side risk score
 
 The **server is the trust boundary**; client checks are inputs. A gambling backend typically
 fuses: App Attest **attestation validity** + **assertion counter continuity** + **fraud risk
 metric** (§5); **DeviceCheck bits** (§6); RASP/JB/hook/debug/sim flags (often via the vendor
-SDK → vendor console or your API); plus **fingerprint** (`[[03-device-fingerprinting-and-identity]]`),
-**geolocation** (`[[../gambling-research/01-geolocation-compliance]]`), and **behavioral/automation**
-(`[[../gambling-research/04-behavioral-and-automation-detection]]`). Weighted rules or an ML model map these to
+SDK → vendor console or your API); plus **fingerprint** (``),
+**geolocation** (``), and **behavioral/automation**
+(``). Weighted rules or an ML model map these to
 tiers → **allow / step-up (KYC, 2FA, liveness) / limit (deposit & withdrawal caps) / block**,
-with regulatory and responsible-gambling gates layered on (`[[../gambling-research/05-regulatory-and-responsible-gambling]]`).
+with regulatory and responsible-gambling gates layered on (``).
 
 ### 11. What Apple's platform guarantees — and what it doesn't `[Documented]`
 
@@ -164,12 +159,12 @@ Enclave + its CA, but **app-and-hardware authenticity ≠ user intent** — henc
 ## Open questions / follow-ups
 
 - Does any US/UK/EU gambling regulator *mandate* App Attest or RASP, or is it purely
-  risk-driven? → cross-check `[[../gambling-research/05-regulatory-and-responsible-gambling]]`.
+ risk-driven? → cross-check ``.
 - How do apps weight App Attest (cryptographic, high-confidence) vs jailbreak heuristics
-  (low-confidence) in the composite score — hard-block only on the former? → `[[../gambling-research/04-behavioral-and-automation-detection]]`.
+ (low-confidence) in the composite score — hard-block only on the former? → ``.
 - A genuine, un-jailbroken, unmodified phone emitting *real* touch events presents as a fully
-  trusted device to all §2–§9 controls — which signals (if any) remain to flag *external
-  automation* of an otherwise-legitimate client? Ties the whole gambling track back to the
-  vault's premise and to `[[../gambling-research/04-behavioral-and-automation-detection]]`.
+ trusted device to all §2–§9 controls — which signals (if any) remain to flag *external
+ automation* of an otherwise-legitimate client? Ties the whole gambling track back to the
+ vault's premise and to ``.
 - What's the typical false-positive rate of jailbreak detection on stock devices (users
-  wrongly blocked), and how does that trade against fraud catch-rate?
+ wrongly blocked), and how does that trade against fraud catch-rate?

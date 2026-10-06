@@ -3,11 +3,7 @@ tags: [YOLO, distillation, knowledge-distillation, ML, computer-vision, CPU, edg
 status: answered
 date: 2026-10-05
 related:
-  - "[[YOLO — Efficient Dataset Recipe]]"
-  - "[[YOLO — Efficient Dataset Recipe]]"
-  - "[[YOLO — Synthetic Data and Flash Training App]]"
-  - "[[YOLO — Training Hardware and Capture Rig]]"
-  - "[[VLM GUI Agents and Vision Grounding Survey]]"
+ - ""
 ---
 
 # 10 — Knowledge distillation on low-VRAM / CPU-only hardware
@@ -24,13 +20,13 @@ Tags: `[Documented]` docs/papers · `[Benchmark]` measured · `[Community]` foru
 ## TL;DR decision
 
 - **Classic feature/logit KD on the CPU box: skip it.** It co-resides teacher+student
-  and adds a teacher forward *every batch* — pure cost on already-bottlenecked hardware,
-  for ~0.5–1.0 mAP. `[Benchmark]`
+ and adds a teacher forward *every batch* — pure cost on already-bottlenecked hardware,
+ for ~0.5–1.0 mAP. `[Benchmark]`
 - **The useful "distillation" here is offline pseudo-labeling**: a big model/VLM labels
-  what the flash app can't (real iOS screens, named UI classes); train a nano student
-  normally. Teacher runs **once, offline**, never co-resident → fits 16 GB CPU. Recommended.
+ what the flash app can't (real iOS screens, named UI classes); train a nano student
+ normally. Teacher runs **once, offline**, never co-resident → fits 16 GB CPU. Recommended.
 - **Want true KD cheaply?** Ultralytics now does it in one arg (`distill_model=`) — but
-  run it on the free Colab GPU, not the CPU box.
+ run it on the free Colab GPU, not the CPU box.
 
 ## Part 1 — Detection KD methods (what the literature offers)
 
@@ -60,40 +56,40 @@ YOLO("yolo26n.pt").train(data="flash.yaml", epochs=100, distill_model="yolo26s.p
 ```
 
 - One arg (`distill_model`), plus `dis` (loss weight, default 6.0). Exported model is
-  **student-only — zero inference overhead**. `[Documented]`
+ **student-only — zero inference overhead**. `[Documented]`
 - **Method:** feature KD from the **three neck layers feeding the Detect head**; a
-  projector (two 1×1 convs + ReLU) aligns student→teacher channels; **score-weighted
-  L2**, weighted by the teacher's class confidence (i.e. FGFI-style, foreground-focused).
-  Teacher is frozen/eval, forward-only; only student+projector backprop. `[Documented]`
+ projector (two 1×1 convs + ReLU) aligns student→teacher channels; **score-weighted
+ L2**, weighted by the teacher's class confidence (i.e. FGFI-style, foreground-focused).
+ Teacher is frozen/eval, forward-only; only student+projector backprop. `[Documented]`
 - **Supported:** detect/segment/pose/obb (only **detect** verified). Teacher must be
-  **same family** (YOLO11→YOLO11, YOLO26→YOLO26); **cross-family is blocked**. `[Documented]`
+ **same family** (YOLO11→YOLO11, YOLO26→YOLO26); **cross-family is blocked**. `[Documented]`
 - **COCO gains (val mAP50-95):** n 40.9→**41.5**, s 48.6→**49.2**, m 53.1→**53.9**,
-  l 55.0→**56.0**, x 57.5→**57.9**. Recommended pairs n←s, s←m, m←x, l←x. `[Benchmark]`
+ l 55.0→**56.0**, x 57.5→**57.9**. Recommended pairs n←s, s←m, m←x, l←x. `[Benchmark]`
 
 Other tooling:
 - **Community forks** (manual pre-hook on `YOLO(...).model` + adapter) predate the native
-  feature — now redundant. `[Community]`
+ feature — now redundant. `[Community]`
 - **Torch-Pruning** (VainF) — structural channel pruning for YOLOv8/11; **compression, not
-  KD** (often paired with a KD fine-tune to recover mAP). `[Documented]`
+ KD** (often paired with a KD fine-tune to recover mAP). `[Documented]`
 - **NNCF / OpenVINO** — INT8 PTQ/QAT + filter pruning → fast **CPU** inference via
-  Ultralytics' built-in OpenVINO export: the real CPU *deployment* win, orthogonal to KD.
-  **mmrazor** has CWD/FGD but targets mmdetection, not Ultralytics — not worth porting. `[Documented]`
+ Ultralytics' built-in OpenVINO export: the real CPU *deployment* win, orthogonal to KD.
+ **mmrazor** has CWD/FGD but targets mmdetection, not Ultralytics — not worth porting. `[Documented]`
 
 ## Part 3 — Memory cost, and the offline trick
 
 - **Co-resident cost:** KD needs **both** models in memory. The teacher is forward-only
-  (no grads/optimizer) so it's cheaper than the student, but still adds a full forward
-  per batch → **slower + more RAM**, scaling with the pair (n←s light, n←x not). For n/s
-  @640 weights are tiny (<100 MB) and activations×batch dominate — fits 16 GB, but on CPU
-  that extra forward is the cost, pushing `03`'s 10–40 min/epoch higher. `[Documented]`
+ (no grads/optimizer) so it's cheaper than the student, but still adds a full forward
+ per batch → **slower + more RAM**, scaling with the pair (n←s light, n←x not). For n/s
+ @640 weights are tiny (<100 MB) and activations×batch dominate — fits 16 GB, but on CPU
+ that extra forward is the cost, pushing `03`'s 10–40 min/epoch higher. `[Documented]`
 - **Precompute teacher outputs offline → soft labels.** Works for **response/logit** KD:
-  run the teacher once, cache per-image predictions, train with the teacher **absent from
-  RAM**. Big saver. `[Community]`
+ run the teacher once, cache per-image predictions, train with the teacher **absent from
+ RAM**. Big saver. `[Community]`
 - **Caveat:** *native feature* KD can't go offline — it matches dense neck features under
-  **random per-epoch augmentation**, so caching = storing/re-augmenting full feature
-  tensors per image → impractical. Offline = response/pseudo-label territory.
+ **random per-epoch augmentation**, so caching = storing/re-augmenting full feature
+ tensors per image → impractical. Offline = response/pseudo-label territory.
 - **So the RAM-free "distillation" here = pseudo-labeling (Part 4):** teacher writes tiny
-  `.txt` labels once; student trains as ordinary detection.
+ `.txt` labels once; student trains as ordinary detection.
 
 ## Part 4 — The cheap alternative: pseudo-labeling (recommended)
 
@@ -103,16 +99,16 @@ target model; `autodistill-yolov11` plugin exists). `[Documented]`
 
 Big labelers relevant to iPhone-Ian:
 - **OmniParser v2** (Microsoft) — *is itself a YOLOv8* trained on UI screenshots; outputs
-  bounding boxes for interactive elements (single "icon/clickable" class) + Florence-2
-  captions. Runs fine on CPU for a one-time pass → ideal **class-agnostic "tappable
-  region" labeler** for real iOS captures. `[Documented]`
+ bounding boxes for interactive elements (single "icon/clickable" class) + Florence-2
+ captions. Runs fine on CPU for a one-time pass → ideal **class-agnostic "tappable
+ region" labeler** for real iOS captures. `[Documented]`
 - **Grounding DINO / OWLv2** — open-vocabulary, **text-prompted** detection → gives
-  *named* boxes ("back button", "text field") for a real UI taxonomy the flash app can't
-  synthesize cleanly. `[Documented]`
+ *named* boxes ("back button", "text field") for a real UI taxonomy the flash app can't
+ synthesize cleanly. `[Documented]`
 - **YOLO11x / YOLO26x** — only useful here if first trained on our own data (COCO classes
-  don't include UI icons).
+ don't include UI icons).
 - **UGround** (`06`) outputs **points**, not boxes → weaker for box pseudo-labels; keep it
-  for the agent's grounding, not for YOLO supervision.
+ for the agent's grounding, not for YOLO supervision.
 
 Always **review/correct a sample** before training — VLMs miss, hallucinate, draw loose
 boxes. `[Documented]` And per `specs/02…§9`: never run a labeler over frames with real secrets.
@@ -120,17 +116,17 @@ boxes. `[Documented]` And per `specs/02…§9`: never run a labeler over frames 
 ## Decision + minimum-overhead recipe (16 GB CPU-only box)
 
 1. **Synthetic flash-target detector:** no KD. Train `yolo11n`/`yolo26n` normally on the
-   flash-app labels (`01` recipe). The free, abundant, perfect labels already give what
-   KD would approximate — distilling adds cost for ~0.5 mAP.
+  flash-app labels (`01` recipe). The free, abundant, perfect labels already give what
+  KD would approximate — distilling adds cost for ~0.5 mAP.
 2. **Real iOS screens + UI vocabulary:** **pseudo-label offline**, not KD. Run OmniParser
-   v2 (tappable regions) and/or Grounding DINO via `autodistill` (named classes) **once**
-   — on Colab or an accepted slow CPU pass — write YOLO `.txt`, hand-check a sample, then
-   train the nano student normally. Teacher never co-resident → fits 16 GB easily.
+  v2 (tappable regions) and/or Grounding DINO via `autodistill` (named classes) **once**
+  — on Colab or an accepted slow CPU pass — write YOLO `.txt`, hand-check a sample, then
+  train the nano student normally. Teacher never co-resident → fits 16 GB easily.
 3. **Only if nano hits a real accuracy wall** (small icons still missed after `01`'s
-   crop + higher `imgsz`): use Ultralytics' native `distill_model=` from a same-family
-   `s`/`m` teacher — **but run it on the free Colab T4** (`03`), not the CPU box.
+  crop + higher `imgsz`): use Ultralytics' native `distill_model=` from a same-family
+  `s`/`m` teacher — **but run it on the free Colab T4** (`03`), not the CPU box.
 4. **CPU deployment speed** (perception on HomeLab): export **OpenVINO INT8** (NNCF);
-   add Torch-Pruning only if latency still misses target. Separate from KD.
+  add Torch-Pruning only if latency still misses target. Separate from KD.
 
 `ponytail:` the lazy win is pseudo-labels, not a teacher-in-RAM loop. Ceiling: a nano
 can't beat its labeler on hard classes; upgrade path is the one-arg native KD on a GPU.
@@ -138,11 +134,11 @@ can't beat its labeler on hard classes; upgrade path is the one-arg native KD on
 ## Key takeaways
 
 - YOLO-KD gains are small (≤~1–3 mAP) and need a pre-existing good teacher; Ultralytics'
-  native `distill_model` is effortless but co-resident + teacher-forward/batch = wrong
-  fit for a slow CPU box (run it on Colab).
+ native `distill_model` is effortless but co-resident + teacher-forward/batch = wrong
+ fit for a slow CPU box (run it on Colab).
 - Feature KD can't be precomputed offline (augmentation); only response/pseudo-labels can.
 - Pseudo-labeling (autodistill + OmniParser/Grounding DINO) is the RAM-free, minimal-
-  overhead "distillation" that fits this project; use OpenVINO INT8 for CPU inference.
+ overhead "distillation" that fits this project; use OpenVINO INT8 for CPU inference.
 
 ## Sources
 

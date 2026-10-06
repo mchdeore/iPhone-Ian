@@ -3,9 +3,7 @@ tags: [ios, face-id, passcode, autofill, accessibility, voiceover, 2fa, passkey]
 status: answered
 date: 2026-10-05
 related:
-  - "[[Capacitive Touch Physics and Gantry Architecture]]"
-  - "[[AI Agent Architecture and Perception Loop]]"
-  - "[[VLM GUI Agents and Vision Grounding Survey]]"
+ - ""
 ---
 
 # iOS control constraints — Face ID, autofill, accessibility
@@ -30,8 +28,8 @@ What iOS-specific behaviors affect a robot physically tapping a stock iPhone? Fa
 - Credential fill happens via tapping the suggestion — NOT automatic.
 - Third-party managers (1Password, Bitwarden) register as AutoFill providers. Same mechanism.
 - **Two flows for robot:**
-  - Flow A (credentials saved in iCloud Keychain): tap username field → tap autofill suggestion → authenticate → done.
-  - Flow B (credentials not saved): tap username field → dismiss/ignore autofill bar → manually type username, tap password field, type password.
+ - Flow A (credentials saved in iCloud Keychain): tap username field → tap autofill suggestion → authenticate → done.
+ - Flow B (credentials not saved): tap username field → dismiss/ignore autofill bar → manually type username, tap password field, type password.
 - The QuickType bar above the keyboard is an extra UI element the robot's CV must recognize and either use or skip.
 
 ### Accessibility features: mostly a risk
@@ -60,10 +58,10 @@ Sources: https://support.apple.com/guide/iphone/use-switch-control-iph2c3a5acfc/
 - Email: Gmail/Outlook use password + 2FA. IMAP/SMTP always username + password (protocol limitation).
 - **"Sign in with Apple" buttons are dead ends.** Robot should tap "Other options" or go directly to password field.
 - **2FA is the hardest problem:**
-  - SMS-based: robot needs phone number access or SIM swap. Hardest case.
-  - TOTP-based: can be computed offline from shared secret. Preferred.
-  - Email-based: robot needs email access. Medium difficulty.
-  - **Prefer accounts without 2FA, or with TOTP 2FA** (can be pre-provisioned).
+ - SMS-based: robot needs phone number access or SIM swap. Hardest case.
+ - TOTP-based: can be computed offline from shared secret. Preferred.
+ - Email-based: robot needs email access. Medium difficulty.
+ - **Prefer accounts without 2FA, or with TOTP 2FA** (can be pre-provisioned).
 
 Sources: https://digitaldigest.com/passkey-adoption-reality-check-financial-services-2 · https://www.wultra.com/blog/passwordless-authentication-in-banking-a-guide-to-fido2-passkeys
 

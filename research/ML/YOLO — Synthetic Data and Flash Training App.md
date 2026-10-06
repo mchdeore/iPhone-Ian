@@ -3,8 +3,7 @@ tags: [YOLO, synthetic-data, flash-app, homography, ML, computer-vision]
 status: answered
 date: 2026-10-04
 related:
-  - "[[YOLO — Efficient Dataset Recipe]]"
-  - "[[YOLO — Training Hardware and Capture Rig]]"
+ - ""
 ---
 
 # 02 — Synthetic data and the "flash training app"
@@ -64,34 +63,34 @@ synthesizer.
 ### Architecture
 
 ```
-Host (Mac now / HomeLab later): Flask + OpenCV   (Flask already in .venv)
- ├─ GET  /flash  → fullscreen page in iPhone Safari (CSS px)
- │     · 4 ArUco/AprilTag fiducials at FIXED CSS positions
- │     · N targets (text|icon) at RANDOMIZED CSS x,y,w,h,color,label
- │     · visible frame_id patch (number / small QR)
- │     · touchstart → POST /tap {frame_id, clientX, clientY}
+Host (Mac now / HomeLab later): Flask + OpenCV  (Flask already in .venv)
+ ├─ GET /flash → fullscreen page in iPhone Safari (CSS px)
+ │   · 4 ArUco/AprilTag fiducials at FIXED CSS positions
+ │   · N targets (text|icon) at RANDOMIZED CSS x,y,w,h,color,label
+ │   · visible frame_id patch (number / small QR)
+ │   · touchstart → POST /tap {frame_id, clientX, clientY}
  ├─ camera thread: cv2.VideoCapture (locked focus/exposure)
  └─ labeler: detect fiducials → findHomography(CSS→cam px)
-             → perspectiveTransform(target corners) → YOLO txt
+       → perspectiveTransform(target corners) → YOLO txt
 ```
 
 ### Capture loop (pseudocode)
 
 ```python
-FIDUCIALS_CSS = ...                          # 4 fixed CSS corner points
+FIDUCIALS_CSS = ...             # 4 fixed CSS corner points
 for frame_id in range(N):
-    targets = randomize(pos, size, color, text, bg, brightness)
-    push_to_browser(targets, frame_id)       # websocket/SSE
-    sleep(0.4)                               # hold: let photons settle
-    img = camera.read()
-    if read_frame_id(img) != frame_id: continue      # latency guard
-    cam_pts = detect_fiducials(img)                  # cv2.aruco
-    if len(cam_pts) < 4: continue                    # fail closed, no bad labels
-    H, _ = cv2.findHomography(FIDUCIALS_CSS, cam_pts)
-    for t in targets:
-        box = cv2.perspectiveTransform(t.corners_css(), H)
-        write_yolo_line(t.cls, *normalize(box, img.shape))  # cls cx cy w h
-    # optional: await /tap, score = 1 - |tap - center| / radius
+  targets = randomize(pos, size, color, text, bg, brightness)
+  push_to_browser(targets, frame_id)    # websocket/SSE
+  sleep(0.4)                # hold: let photons settle
+  img = camera.read()
+  if read_frame_id(img) != frame_id: continue   # latency guard
+  cam_pts = detect_fiducials(img)         # cv2.aruco
+  if len(cam_pts) < 4: continue          # fail closed, no bad labels
+  H, _ = cv2.findHomography(FIDUCIALS_CSS, cam_pts)
+  for t in targets:
+    box = cv2.perspectiveTransform(t.corners_css(), H)
+    write_yolo_line(t.cls, *normalize(box, img.shape)) # cls cx cy w h
+  # optional: await /tap, score = 1 - |tap - center| / radius
 ```
 
 ### Q: CSS px vs physical px (devicePixelRatio)?

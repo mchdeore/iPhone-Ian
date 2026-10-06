@@ -3,10 +3,7 @@ tags: [YOLO, pruning, compression, edge, ML, computer-vision]
 status: answered
 date: 2026-10-05
 related:
-  - "[[YOLO — Efficient Dataset Recipe]]"
-  - "[[YOLO — Training Hardware and Capture Rig]]"
-  - "[[YOLO — Quantization]]"
-  - "[[YOLO — Knowledge Distillation]]"
+ - ""
 ---
 
 # 07 — Pruning YOLO — does it beat just picking a smaller model?
@@ -26,7 +23,7 @@ closed loop is dominated by camera capture + agent/grounding + gantry motion, no
 nano forward pass (`01`, `specs/02` §7). The cheap wins are already banked: **pick
 `yolo11n`** (2.6M params / 6.5 GFLOPs — already ~25% leaner than `yolov8n`'s
 3.2M / 8.7 GFLOPs for similar mAP `[Documented]`), **crop-to-screen @640** (`01`'s
-biggest lever), and if CPU latency bites, **INT8 via OpenVINO** (`[[YOLO — Quantization]]`)
+biggest lever), and if CPU latency bites, **INT8 via OpenVINO** (``)
 — a bigger, less fragile win than pruning. Keep **structured** pruning as a documented
 *fallback* only if, after quantization, the forward pass is *measured* to be the
 bottleneck or we must run on weaker hardware. **Never ship unstructured pruning on
@@ -36,12 +33,12 @@ CPU — it gives zero speedup.**
 
 ### Structured vs unstructured — only structured speeds up CPU/edge
 - **Unstructured** (zero out individual weights) keeps every tensor the same shape;
-  cuDNN/oneDNN still run a *dense* convolution over the zeros — "multiplying by zero
-  at full price." Needs a sparse kernel + special hardware (Ampere 2:4) to cash in. `[Community]`
+ cuDNN/oneDNN still run a *dense* convolution over the zeros — "multiplying by zero
+ at full price." Needs a sparse kernel + special hardware (Ampere 2:4) to cash in. `[Community]`
 - **Structured** (remove whole filters/channels) physically shrinks tensors → FLOPs
-  and memory traffic actually drop → real speedup on CPU/GPU/edge. `[Documented]`
+ and memory traffic actually drop → real speedup on CPU/GPU/edge. `[Documented]`
 - "Unstructured pruning … does not provide any benefits in model size. To obtain
-  smaller and faster networks, structured pruning needs to be applied." `[Documented]` (arXiv 2405.03715)
+ smaller and faster networks, structured pruning needs to be applied." `[Documented]` (arXiv 2405.03715)
 
 ### Measured results
 | Case | Method | Params | FLOPs | mAP Δ | Latency | Tag |
@@ -62,11 +59,11 @@ trying to avoid.
 ### Criteria (how to pick what to cut)
 - **L1-norm filter pruning** (Li et al. 2017): rank filters by Σ|w|, drop the smallest. Simplest. `[Documented]`
 - **BN-scaling / Network Slimming** (Liu et al. 2017): L1-penalize BatchNorm γ during
-  training, then prune channels with small γ. Natural for YOLO (every `Conv` has a BN);
-  exactly what the YOLOv8m edge paper used. `[Documented]`/`[Benchmark]`
+ training, then prune channels with small γ. Natural for YOLO (every `Conv` has a BN);
+ exactly what the YOLOv8m edge paper used. `[Documented]`/`[Benchmark]`
 - **Group importance** (Torch-Pruning `GroupNormImportance(p=2)`), plus Taylor / LAMP.
-  A YOLOv8 study found DepGraph compresses *intermediate* layers hard, LAMP prunes more
-  uniformly but loses high-frequency texture. `[Benchmark]`
+ A YOLOv8 study found DepGraph compresses *intermediate* layers hard, LAMP prunes more
+ uniformly but loses high-frequency texture. `[Benchmark]`
 
 ### prune → fine-tune cycle
 Standard loop (and Ultralytics' own forum advice): **train baseline → prune a small %
@@ -87,27 +84,27 @@ expensive here, which further argues against it.
 
 ### Pitfalls specific to YOLO
 - **Concat / C2f coupling:** removing one output channel forces removing the matching
-  input channels across residual adds, `Concat`s and `C2f` splits. Do it by hand → shape
-  hell. DepGraph auto-traces the group; arXiv 2405.03715 is purpose-built for
-  concatenation architectures (2× conv speedup, code released). `[Documented]`
+ input channels across residual adds, `Concat`s and `C2f` splits. Do it by hand → shape
+ hell. DepGraph auto-traces the group; arXiv 2405.03715 is purpose-built for
+ concatenation architectures (2× conv speedup, code released). `[Documented]`
 - **DFL / Detect head is sensitive:** pin it (`ignored_layers=[head...]`). Pruning the
-  head tanked rare-class recall in the Jetson run. `[Community]`
+ head tanked rare-class recall in the Jetson run. `[Community]`
 - **Half-precision checkpoints:** Ultralytics saves FP16 + `strip_optimizer`, so a pruned
-  model validates differently than it fine-tunes; the TP example monkey-patches
-  `train` / `save_model` / `final_eval` to full precision. `[Documented]`
+ model validates differently than it fine-tunes; the TP example monkey-patches
+ `train` / `save_model` / `final_eval` to full precision. `[Documented]`
 - **Re-export + re-quantize:** pruned (odd) channel counts must be re-exported to
-  ONNX/OpenVINO, and the **INT8 calibration cache from the dense model is useless** —
-  pruning fights quantization, budget re-calibration. `[Community]` (see `[[YOLO — Quantization]]`)
+ ONNX/OpenVINO, and the **INT8 calibration cache from the dense model is useless** —
+ pruning fights quantization, budget re-calibration. `[Community]` (see ``)
 - **Pruning-ratio cliff:** sweep per model; past ~0.45–0.60 small classes collapse
-  *irrecoverably*. No universal ratio. `[Community]`
+ *irrecoverably*. No universal ratio. `[Community]`
 - **Speedup is hardware-shaped:** FLOPs↓ only helps compute-bound layers; profile the
-  real target first (the same 9.4 GFLOPs model was 11.4 ms on Orin Nano, 4 ms on a 4070). `[Community]`
+ real target first (the same 9.4 GFLOPs model was 11.4 ms on Orin Nano, 4 ms on a 4070). `[Community]`
 
 ### Why this project is the rare "pruning could help" case — but still shouldn't bother
 A COCO nano carries capacity for 80 classes of natural images; our task is 1–8 flat UI
 classes on **one** phone → lots of redundant filters, so pruning *would* find slack.
 But that slack is cheaper to reclaim by **distillation into / training a smaller head**
-(`[[YOLO — Knowledge Distillation]]`), **quantization** (`[[YOLO — Quantization]]`), and simply
+(``), **quantization** (``), and simply
 **not over-sizing the model** in the first place. Pruning only earns its keep once those
 are done and the forward pass is proven to be the clock.
 
@@ -129,9 +126,9 @@ are done and the forward pass is proven to be the clock.
 ## Open questions / follow-ups
 
 - Measure the actual nano forward-pass share of the closed-loop budget on the chosen
-  host (Mac MPS / CPU / RTX 3060). If it's <10% of loop time, pruning is permanently off
-  the table. → candidate row in `questions.md`.
+ host (Mac MPS / CPU / RTX 3060). If it's <10% of loop time, pruning is permanently off
+ the table. → candidate row in `questions.md`.
 - Does our deploy path go through **OpenVINO** on CPU? If yes, NNCF filter-pruning +
-  INT8 in one pipeline may be lower-overhead than Torch-Pruning + separate quantization. → ties to `[[YOLO — Quantization]]`.
-- If model capacity ever becomes the issue, prefer **distillation** (`[[YOLO — Knowledge Distillation]]`)
-  over pruning for a fixed-architecture nano — compare both before committing.
+ INT8 in one pipeline may be lower-overhead than Torch-Pruning + separate quantization. → ties to ``.
+- If model capacity ever becomes the issue, prefer **distillation** (``)
+ over pruning for a fixed-architecture nano — compare both before committing.

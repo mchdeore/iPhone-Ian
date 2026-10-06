@@ -3,8 +3,7 @@ tags: [YOLO, hardware, GPU, training, ML, Colab]
 status: answered
 date: 2026-10-04
 related:
-  - "[[YOLO — Efficient Dataset Recipe]]"
-  - "[[YOLO — Synthetic Data and Flash Training App]]"
+ - ""
 ---
 
 # 03 — Hardware for YOLO training and the capture rig

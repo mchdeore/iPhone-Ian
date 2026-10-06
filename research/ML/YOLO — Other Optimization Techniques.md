@@ -3,10 +3,7 @@ tags: [YOLO, optimization, inference, deployment, ML, computer-vision]
 status: answered
 date: 2026-10-05
 related:
-  - "[[YOLO — Efficient Dataset Recipe]]"
-  - "[[YOLO — Efficient Dataset Recipe]]"
-  - "[[YOLO — Synthetic Data and Flash Training App]]"
-  - "[[YOLO — Training Hardware and Capture Rig]]"
+ - ""
 ---
 
 # 08 — Other ways to optimize YOLO (variant, runtime, pipeline)
@@ -18,8 +15,8 @@ cheap for a **closed-loop tapper watching a mostly-static phone screen**, on
 low-VRAM/CPU hardware, with minimal effort? Ranked by impact ÷ effort.
 
 **Scope / no-duplication.** Crop-to-screen, `imgsz`, SAHI, model size (nano),
-augments and pretrained/`freeze` already live in [[YOLO — Efficient Dataset Recipe]]; VRAM,
-`cache='ram'`, workers in [[YOLO — Training Hardware and Capture Rig]]; the perception loop in
+augments and pretrained/`freeze` already live in ; VRAM,
+`cache='ram'`, workers in ; the perception loop in
 `specs/02-firmware-and-software.md` §7. This note adds **variant choice, export
 runtimes, and the inference/camera pipeline**, and re-ranks the overlaps for the
 *deployment* loop (notes 01/03 were about *training*).
@@ -40,10 +37,10 @@ This is the top lever for *this* use case and beats per-frame tracking (ByteTrac
 which only helps when objects move — ours don't.
 
 **2. Crop to the screen ROI via the homography we already have. (impact HIGH, effort LOW)**
-The flash-app/calibration already gives `H` (CSS→camera, [[YOLO — Synthetic Data and Flash Training App]]).
+The flash-app/calibration already gives `H` (CSS→camera, ).
 Warp + crop to just the phone rectangle before inference: fewer input pixels → faster,
 *and* icons get bigger → better accuracy (the small-object win already argued in
-[[YOLO — Efficient Dataset Recipe]]). Double duty, near-zero effort because `H` exists. Do this
+). Double duty, near-zero effort because `H` exists. Do this
 at train **and** infer time so the distributions match.
 
 **3. Export to the host's native runtime. (impact HIGH on CPU, effort LOW)**
@@ -57,7 +54,7 @@ Pick by the box you actually deploy on; on a Windows/Intel mini-PC that's OpenVI
 
 **4. Model variant: prefer YOLO26n (NMS-free, DFL-free, STAL). (impact MED-HIGH, effort LOW)**
 YOLO26 (Ultralytics, Jan 2026) is the edge-first successor to the YOLO11n baseline
-in [[YOLO — Efficient Dataset Recipe]]. For us it hits three constraints at once: **up to 43%
+in . For us it hits three constraints at once: **up to 43%
 faster CPU ONNX inference than YOLO11n** (Intel Xeon), **native end-to-end NMS-free**
 inference (`nms=False` → one box per object, no NMS conf/iou tuning, lower and more
 *predictable* latency, simpler ONNX/TensorRT export), DFL removed (lighter head), and
@@ -74,12 +71,12 @@ infer at the **same** rectangular size.
 **6. Camera-pipeline latency, not just model latency. (impact MED-HIGH, effort MED)**
 Closed-loop lag is often a **stale capture buffer**, not inference. Fixes:
 - `cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)` — but it's **backend-specific and often
-  ignored** (V4L support only since 2018; may return `False`). `[Community]`
+ ignored** (V4L support only since 2018; may return `False`). `[Community]`
 - Robust fix: a **grabber thread** that keeps only the newest frame and drops the rest,
-  so the loop always reads "now." `[Community]`
+ so the loop always reads "now." `[Community]`
 - Force **MJPG** FOURCC (`CAP_PROP_FOURCC`) so a USB2 webcam delivers compressed 1080p30
-  instead of starving on raw YUY2 (~5 fps). `[Community]`
-- Lock focus/exposure (already in [[YOLO — Training Hardware and Capture Rig]]) — AF/AE hunting adds latency too.
+ instead of starving on raw YUY2 (~5 fps). `[Community]`
+- Lock focus/exposure (already in ) — AF/AE hunting adds latency too.
 
 **7. Lower `imgsz` after cropping. (impact MED, effort LOW)**
 Because the crop (#2) already enlarges icons, you can often drop `imgsz` 640→512/416
@@ -110,18 +107,18 @@ not CPU. Listed to say: skip them for the realtime path.
 
 ## Training-side speedups (CPU-only, ≤16 GB RAM)
 
-Builds on [[YOLO — Efficient Dataset Recipe]] / [[YOLO — Training Hardware and Capture Rig]]; prioritized for a weak box:
+Builds on / ; prioritized for a weak box:
 - **`cache='ram'`** (note 03) — biggest dataloader win; if RAM is tight at 16 GB use
-  `cache='disk'`. `[Documented]`
+ `cache='disk'`. `[Documented]`
 - **`rect=True`** training — fewer padded pixels per batch → faster epochs on portrait
-  crops (slight accuracy caveat historically, fine for fixed-aspect data). `[Community]`
+ crops (slight accuracy caveat historically, fine for fixed-aspect data). `[Community]`
 - **`freeze=10`** (freeze backbone) — fewer grads → faster epochs and less overfit on a
-  small synthetic set (note 01 raised freeze as optional; on a CPU it's worth it). `[Documented]`
+ small synthetic set (note 01 raised freeze as optional; on a CPU it's worth it). `[Documented]`
 - **Smaller `imgsz` first, then fine-tune** at target size — cheap early epochs, polish late.
 - **`patience=20–50`** early-stop (note 01) + `epochs` capped — stop paying for flat epochs.
 - **AMP** is CUDA-only; on CPU it does nothing — don't expect it to help the ≤16 GB box.
 - Reality check (note 03): CPU training is **~10–40 min/epoch**. For iteration, offload
-  to **free Colab T4** and keep the CPU box for the capture/agent loop.
+ to **free Colab T4** and keep the CPU box for the capture/agent loop.
 
 ## Impact ÷ effort summary (do these first)
 

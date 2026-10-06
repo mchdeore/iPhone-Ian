@@ -3,9 +3,7 @@ tags: [gantry, corexy, grbl, arduino, microcontroller, stepper, pen-plotter, mec
 status: answered
 date: 2026-10-05
 related:
-  - "[[Prior Art — Touchscreen Robots and Software Agents]]"
-  - "[[Capacitive Touch Physics and Gantry Architecture]]"
-  - "[[../specs/01-hardware]]"
+ - ""
 ---
 
 # XY gantry, CoreXY & microcontroller — phone-tapping builds
@@ -36,9 +34,9 @@ Source of truth for our build. By MasterGinger, July 2017. https://www.instructa
 - **Z-axis:** Custom pulley system, standard servo (not stepper). Author initially wanted linear actuator but found it too big/expensive.
 - **Electronics:** Raspberry Pi 3 + 2× A4988 stepper drivers. Servo on Pi PWM.
 - **Known problems:**
-  - Stylus grounding is the #1 problem. Commenter confirms: screen doesn't feel pen when attached to robot, feels it when human holds it. Fix: wire from pen to common 0V.
-  - No published code or wiring diagram — reverse-engineering from photos.
-  - Polar coordinate system was tried and abandoned ("much less stable").
+ - Stylus grounding is the #1 problem. Commenter confirms: screen doesn't feel pen when attached to robot, feels it when human holds it. Fix: wire from pen to common 0V.
+ - No published code or wiring diagram — reverse-engineering from photos.
+ - Polar coordinate system was tried and abandoned ("much less stable").
 
 **What's different from Tappy delta:** 2-motor Cartesian vs 3-motor delta. No kinematics math. Heavier gantry (X carries Y carries Z). Simpler calibration. Slower movement.
 

@@ -3,8 +3,7 @@ tags: [VLM, GUI-agent, vision-grounding, mobile-agent, fine-tuning, prompting, M
 status: answered
 date: 2026-10-05
 related:
-  - "[[AI Agent Architecture and Perception Loop]]"
-  - "[[YOLO — Efficient Dataset Recipe]]"
+ - ""
 ---
 
 # VLM GUI agents & vision grounding — literature survey
@@ -49,19 +48,19 @@ What's the state of the art in vision-language model GUI agents? How do they gro
 
 ```
 Camera photo of iPhone screen
-        │
-        ▼
-  [Perception] — UGround / OmniParser zero-shot (Phase 2)
-        │         → ZonUI-3B fine-tuned on our captures (Phase 3)
-        │  bounding boxes + element descriptions
-        ▼
-  [Planning] — VLM (GPT-4V / Claude / Gemini) reasons over UI state
-        │  "Tap the login button" → action: tap(x=342, y=518)
-        ▼
-  [Action] — screen coordinate → gantry coordinate → G-code → tap
-        │
-        ▼
-  [Verification] — next camera frame → did it work? → retry or continue
+    │
+    ▼
+ [Perception] — UGround / OmniParser zero-shot (Phase 2)
+    │     → ZonUI-3B fine-tuned on our captures (Phase 3)
+    │ bounding boxes + element descriptions
+    ▼
+ [Planning] — VLM (GPT-4V / Claude / Gemini) reasons over UI state
+    │ "Tap the login button" → action: tap(x=342, y=518)
+    ▼
+ [Action] — screen coordinate → gantry coordinate → G-code → tap
+    │
+    ▼
+ [Verification] — next camera frame → did it work? → retry or continue
 ```
 
 Key insight: perception (what's on screen, where) and planning (what to do) are separate. Perception benefits from fine-tuning on our domain (iPhone camera photos). Planning works fine with off-the-shelf VLMs.
