@@ -3,7 +3,7 @@ tags: [gambling, ios]
 status: answered
 date: 2026-10-05
 related:
-  - "[[Gambling Research]]"
+  - "[[Games Research]]"
 ---
 
 # 04 — Behavioral & automation detection — how betting apps profile *how* you tap, and what a tapping robot looks like

@@ -3,7 +3,7 @@ tags: [prior-art, touchscreen-robot, capacitive, delta, gantry, agent]
 status: answered
 date: 2026-10-05
 related:
-  - "[[Hardware Central]]"
+  - "[[== Hardware Central ==]]"
 ---
 
 # Prior art: touchscreen robots & software agents

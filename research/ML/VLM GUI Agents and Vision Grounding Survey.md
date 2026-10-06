@@ -3,7 +3,7 @@ tags: [VLM, GUI-agent, vision-grounding, mobile-agent, fine-tuning, prompting, M
 status: answered
 date: 2026-10-05
 related:
-  - "[[ML Central]]"
+  - "[[== ML Central ==]]"
 ---
 
 # VLM GUI agents & vision grounding — literature survey

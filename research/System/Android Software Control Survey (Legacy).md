@@ -3,7 +3,7 @@ tags: []
 status: answered
 date: 2026-10-05
 related:
-  - "[[Software Central]]"
+  - "[[== Software Central ==]]"
 ---
 
 <a id="part-1"></a>

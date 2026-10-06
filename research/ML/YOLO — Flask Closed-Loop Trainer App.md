@@ -3,7 +3,7 @@ tags: [YOLO, flask, flash-app, trainer, active-learning, ML, computer-vision]
 status: answered
 date: 2026-10-05
 related:
-  - "[[ML Central]]"
+  - "[[== ML Central ==]]"
 ---
 
 # 06 — Flask trainer app: the closed-loop flash app

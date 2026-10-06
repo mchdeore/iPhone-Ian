@@ -3,7 +3,7 @@ tags: [YOLO, optimization, inference, deployment, ML, computer-vision]
 status: answered
 date: 2026-10-05
 related:
-  - "[[ML Central]]"
+  - "[[== ML Central ==]]"
 ---
 
 # 08 — Other ways to optimize YOLO (variant, runtime, pipeline)

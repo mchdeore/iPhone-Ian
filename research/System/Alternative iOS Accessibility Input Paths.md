@@ -3,7 +3,7 @@ tags: [ios, accessibility, full-keyboard-access, switch-control, voice-control, 
 status: answered
 date: 2026-10-05
 related:
-  - "[[Software Central]]"
+  - "[[== Software Central ==]]"
 ---
 
 # 04 — Alternative accessibility input paths & the actuator decision

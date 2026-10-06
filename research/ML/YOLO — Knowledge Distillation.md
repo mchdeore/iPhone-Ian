@@ -3,7 +3,7 @@ tags: [YOLO, distillation, knowledge-distillation, ML, computer-vision, CPU, edg
 status: answered
 date: 2026-10-05
 related:
-  - "[[ML Central]]"
+  - "[[== ML Central ==]]"
 ---
 
 # 10 — Knowledge distillation on low-VRAM / CPU-only hardware

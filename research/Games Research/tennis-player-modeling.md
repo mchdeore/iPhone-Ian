@@ -3,7 +3,7 @@ tags: [sports, tennis]
 status: answered
 date: 2026-10-05
 related:
-  - "[[Sports Research]]"
+  - "[[Games Research]]"
 ---
 
 > Imported verbatim from SpinSight `docs/TENNIS_PLAYER_MODELING.md`. The canonical copy lives in SpinSight; this is a snapshot. Strategy spec: .
