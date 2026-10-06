@@ -3,7 +3,7 @@ tags: [ios-gambling-detection, behavioral-biometrics, bot-detection, accessibili
 status: answered
 date: 2026-10-05
 related:
-  - "[[README]]"
+  - "[[../gambling-research/01-geolocation-compliance]]"
   - "[[01-landscape-and-regulation]]"
   - "[[02-geolocation-and-location-integrity]]"
   - "[[03-device-integrity-and-anti-fraud-sdks]]"

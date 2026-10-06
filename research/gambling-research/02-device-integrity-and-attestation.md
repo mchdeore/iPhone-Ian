@@ -3,11 +3,11 @@ tags: [ios, gambling, app-attest, devicecheck, attestation, secure-enclave, jail
 status: answered
 date: 2026-10-05
 related:
-  - "[[README]]"
-  - "[[01-geolocation-compliance]]"
+  - "[[../gambling-research/01-geolocation-compliance]]"
+  - "[[../gambling-research/01-geolocation-compliance]]"
   - "[[03-device-fingerprinting-and-identity]]"
-  - "[[../ios-gambling-detection/04-behavioral-and-automation-detection]]"
-  - "[[05-regulatory-and-responsible-gambling]]"
+  - "[[../gambling-research/04-behavioral-and-automation-detection]]"
+  - "[[../gambling-research/05-regulatory-and-responsible-gambling]]"
 ---
 
 # 02 — Device integrity & attestation — how do iOS betting apps decide a device is trustworthy?
@@ -23,8 +23,8 @@ do those signals feed a server-side risk score? (Descriptive/educational; no byp
 ### 1. Why gambling apps care, and the layered model
 
 Money-adjacent threats drive this: **bonus/promo abuse** (one free bet per device),
-**multi-accounting / collusion**, **location spoofing** (with geo, `[[01-geolocation-compliance]]`),
-**bots/automation** (`[[../ios-gambling-detection/04-behavioral-and-automation-detection]]`), and reverse-engineered
+**multi-accounting / collusion**, **location spoofing** (with geo, `[[../gambling-research/01-geolocation-compliance]]`),
+**bots/automation** (`[[../gambling-research/04-behavioral-and-automation-detection]]`), and reverse-engineered
 clients that forge API calls. No client check is a trust boundary — each is a *signal* fed to a
 server-side score (§10); identity/fingerprint signals live in `[[03-device-fingerprinting-and-identity]]`.
 
@@ -131,10 +131,10 @@ The **server is the trust boundary**; client checks are inputs. A gambling backe
 fuses: App Attest **attestation validity** + **assertion counter continuity** + **fraud risk
 metric** (§5); **DeviceCheck bits** (§6); RASP/JB/hook/debug/sim flags (often via the vendor
 SDK → vendor console or your API); plus **fingerprint** (`[[03-device-fingerprinting-and-identity]]`),
-**geolocation** (`[[01-geolocation-compliance]]`), and **behavioral/automation**
-(`[[../ios-gambling-detection/04-behavioral-and-automation-detection]]`). Weighted rules or an ML model map these to
+**geolocation** (`[[../gambling-research/01-geolocation-compliance]]`), and **behavioral/automation**
+(`[[../gambling-research/04-behavioral-and-automation-detection]]`). Weighted rules or an ML model map these to
 tiers → **allow / step-up (KYC, 2FA, liveness) / limit (deposit & withdrawal caps) / block**,
-with regulatory and responsible-gambling gates layered on (`[[05-regulatory-and-responsible-gambling]]`).
+with regulatory and responsible-gambling gates layered on (`[[../gambling-research/05-regulatory-and-responsible-gambling]]`).
 
 ### 11. What Apple's platform guarantees — and what it doesn't `[Documented]`
 
@@ -164,12 +164,12 @@ Enclave + its CA, but **app-and-hardware authenticity ≠ user intent** — henc
 ## Open questions / follow-ups
 
 - Does any US/UK/EU gambling regulator *mandate* App Attest or RASP, or is it purely
-  risk-driven? → cross-check `[[05-regulatory-and-responsible-gambling]]`.
+  risk-driven? → cross-check `[[../gambling-research/05-regulatory-and-responsible-gambling]]`.
 - How do apps weight App Attest (cryptographic, high-confidence) vs jailbreak heuristics
-  (low-confidence) in the composite score — hard-block only on the former? → `[[../ios-gambling-detection/04-behavioral-and-automation-detection]]`.
+  (low-confidence) in the composite score — hard-block only on the former? → `[[../gambling-research/04-behavioral-and-automation-detection]]`.
 - A genuine, un-jailbroken, unmodified phone emitting *real* touch events presents as a fully
   trusted device to all §2–§9 controls — which signals (if any) remain to flag *external
   automation* of an otherwise-legitimate client? Ties the whole gambling track back to the
-  vault's premise and to `[[../ios-gambling-detection/04-behavioral-and-automation-detection]]`.
+  vault's premise and to `[[../gambling-research/04-behavioral-and-automation-detection]]`.
 - What's the typical false-positive rate of jailbreak detection on stock devices (users
   wrongly blocked), and how does that trade against fraud catch-rate?
