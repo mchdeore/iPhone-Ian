@@ -1,8 +1,9 @@
 ---
-tags: [ios, gambling, app-attest, devicecheck, attestation, secure-enclave, jailbreak-detection, RASP, anti-tamper, debugger, simulator, risk-score]
+tags: [gambling, ios]
 status: answered
 date: 2026-10-05
-related: []
+related:
+  - "[[Gambling Research]]"
 ---
 
 # 02 — Device integrity & attestation — how do iOS betting apps decide a device is trustworthy?

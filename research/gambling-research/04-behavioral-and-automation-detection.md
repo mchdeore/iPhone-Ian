@@ -1,8 +1,9 @@
 ---
-tags: [ios-gambling-detection, behavioral-biometrics, bot-detection, accessibility, ADA, screen-capture, betting-analytics, courtsiding, polymarket, matched-betting]
+tags: [gambling, ios]
 status: answered
 date: 2026-10-05
-related: []
+related:
+  - "[[Gambling Research]]"
 ---
 
 # 04 — Behavioral & automation detection — how betting apps profile *how* you tap, and what a tapping robot looks like

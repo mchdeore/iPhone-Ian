@@ -1,8 +1,9 @@
 ---
-tags: [gambling, regulation, compliance, responsible-gambling, AML, KYC, geolocation, prediction-markets, ios, app-store]
+tags: [gambling, ios]
 status: answered
 date: 2026-10-05
-related: []
+related:
+  - "[[Gambling Research]]"
 ---
 
 # Regulatory & responsible-gambling layer — why iOS betting apps run the detection stack

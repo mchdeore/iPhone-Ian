@@ -2,7 +2,7 @@
 tags: [development]
 ---
 
-# Development Central
+# == Development Central ==
 
 Project timeline. No research links here — this is planning only.
 

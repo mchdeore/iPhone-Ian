@@ -2,7 +2,7 @@
 tags: []
 ---
 
-# [Topic] — [One-line question]
+# [Topic]
 
 Status: Draft | Answered | Stale
 Date: YYYY-MM-DD

@@ -2,7 +2,7 @@
 tags: [system]
 ---
 
-# Software Central
+# == Software Central ==
 
 How software interacts with iPhone and gantry. iOS constraints, accessibility paths, HID alternatives.
 

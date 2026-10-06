@@ -1,8 +1,9 @@
 ---
-tags: [ios, gambling, geolocation, compliance, corelocation, geocomply, vpn-detection, anti-spoof, regulatory]
+tags: [gambling, ios]
 status: answered
 date: 2026-10-05
-related: []
+related:
+  - "[[Gambling Research]]"
 ---
 
 # Geolocation compliance — how do iOS gambling apps prove you're physically in a legal jurisdiction?
