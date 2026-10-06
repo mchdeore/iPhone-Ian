@@ -19,6 +19,19 @@ read the linked notes first — don't re-research.
 | `yolo-efficient-dataset` | What makes an efficient YOLO training set? | Answered | `yolo-training/01-efficient-dataset.md` |
 | `yolo-synthetic-data` | How to generate synthetic training data with a flash app? | Answered | `yolo-training/02-synthetic-data-and-flash-app.md` |
 | `yolo-training-hardware` | Bare-minimum hardware for training YOLO? | Answered | `yolo-training/03-hardware.md` |
+| `yolo-train-per-hardware` | How to train YOLO on CPU-only 16 GB / MPS / low-VRAM GPU / Pi? | Answered | `yolo-training/04-training-on-hardware.md` |
+| `yolo-quantization` | How to quantize YOLO weights? | Answered | `yolo-training/05-quantization.md` |
+| `flask-trainer-app` | Flask app that flashes synthetic data and requests actions to train the model | Answered | `yolo-training/06-flask-trainer-app.md` |
+| `yolo-pruning` | How to prune YOLO models, and is it worth it? | Answered | `yolo-training/07-pruning.md` |
+| `yolo-other-optimizations` | Other YOLO optimizations (runtime, ROI, change detection, variant) | Answered | `yolo-training/08-other-optimizations.md` |
+| `grouping-methods` | Class taxonomy / detection grouping / data grouping | Answered | `yolo-training/09-grouping-methods.md` |
+| `knowledge-distillation` | Should KD be used on low-VRAM hardware? | Answered | `yolo-training/10-knowledge-distillation.md` |
+| `quantization-by-hardware` | Which quantizations work on which hardware/tasks? | Answered | `yolo-training/11-quantization-by-hardware.md` |
+| `efficient-training-strategy` | Quickest, minimal-overhead training strategy | Answered | `yolo-training/12-efficient-training-strategy.md` |
+| `expose-device-controls` | How to expose device controls to the model? | Answered | `yolo-training/13-exposing-device-controls.md` |
+| `windows-public-port` | Safe, stable public port + low-latency stream on Windows | Answered | `yolo-training/14-windows-public-port-and-streaming.md` |
+| `pi-input-converter` | Raspberry Pi input converter for the device | Answered | `yolo-training/15-raspberry-pi-input-converter.md` |
+| `hid-vs-gantry` | Use AssistiveTouch + HID (needs one Settings toggle) or keep pure gantry? | Open | — tension between `13`/`15` and `07`; see `yolo-training/README.md` |
 | `capacitive-touch-physics` | PCAP touch physics, grounding, calibration for stylus-based robot | Answered | `02-mechanical-architecture-notes.md` |
 | `ai-agent-loop` | Perception→planning→action loop for phone-driving agent | Answered | `05-ai-agent-architecture-notes.md` + `06-vlm-gui-agent-survey.md` |
 | `android-software-control` | Software control surfaces for Android (ADB, scrcpy, accessibility) | Answered (legacy) | `android-control-survey.md` — kept for evidence that software-only iPhone control is not viable. |

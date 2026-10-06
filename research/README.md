@@ -29,6 +29,8 @@ mind: the *mechanical / touch-physics* findings transfer directly to iOS, but th
 | `07-ios-control-constraints.md` | iOS-specific: Face ID, autofill, accessibility, stylus behavior, app login landscape | **Yes** — iPhone-specific | Answered 2026-10-05 |
 | `08-xy-gantry-builds.md` | XY/CoreXY gantry builds, microcontroller choice (Arduino+GRBL), Instructables robot deep dive | **Yes** — mechanical | Answered 2026-10-05 |
 | [`yolo-training/`](yolo-training/README.md) | Efficient YOLO training: dataset recipe, synthetic flash-app data, training hardware | **Yes** — iOS-agnostic | Researched 2026-10-04 |
+| [`yolo-training/`](yolo-training/README.md) 04–15 | Training per hardware, quantization (+ by hardware), pruning, distillation, other optimizations, class grouping, efficient strategy, Flask closed-loop trainer, device-control API, Windows networking/streaming, Raspberry Pi/ESP32 HID input converter | **Yes** | Researched 2026-10-05 |
+| [`sports-research/`](sports-research/README.md) | Separate track: in-play tennis win-prob modeling (imported from SpinSight) | N/A — unrelated to the robot | Imported 2026-10-05 |
 | `android-control-survey.md` | 88 KB survey of Android software/USB control (ADB, scrcpy, accessibility, UHID/AOA) | **Mostly no** — iOS has no equivalent open control surface | Legacy background |
 
 ## Reusable parts & resources → now in the specs
