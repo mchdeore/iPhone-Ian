@@ -3,11 +3,11 @@ tags: [YOLO, distillation, knowledge-distillation, ML, computer-vision, CPU, edg
 status: answered
 date: 2026-10-05
 related:
-  - "[[README]]"
-  - "[[01-efficient-dataset]]"
-  - "[[02-synthetic-data-and-flash-app]]"
-  - "[[03-hardware]]"
-  - "[[agent-ml/02-vlm-gui-agent-survey]]"
+  - "[[YOLO — Efficient Dataset Recipe]]"
+  - "[[YOLO — Efficient Dataset Recipe]]"
+  - "[[YOLO — Synthetic Data and Flash Training App]]"
+  - "[[YOLO — Training Hardware and Capture Rig]]"
+  - "[[VLM GUI Agents and Vision Grounding Survey]]"
 ---
 
 # 10 — Knowledge distillation on low-VRAM / CPU-only hardware

@@ -3,17 +3,17 @@ tags: [ios, accessibility, full-keyboard-access, switch-control, voice-control, 
 status: answered
 date: 2026-10-05
 related:
-  - "[[02-hid-descriptors-and-firmware]]"
-  - "[[01-faceid-autofill-accessibility]]"
-  - "[[yolo-training/13-exposing-device-controls]]"
-  - "[[yolo-training/15-raspberry-pi-input-converter]]"
+  - "[[AssistiveTouch Pointer Mechanics for Robot Control]]"
+  - "[[iOS Control Constraints — Face ID, Autofill, Accessibility]]"
+  - "[[YOLO — Exposing Device Controls to Model]]"
+  - "[[YOLO — Raspberry Pi Input Converter]]"
 ---
 
 # 04 — Alternative accessibility input paths & the actuator decision
 
 ## Question
 
-Beyond pointer+AssistiveTouch (`[[yolo-training/13-exposing-device-controls]]` §8), which
+Beyond pointer+AssistiveTouch (`[[YOLO — Exposing Device Controls to Model]]` §8), which
 *other* stock-iOS input surfaces could drive an unmodified iPhone — Full Keyboard Access,
 Switch Control, Voice Control, Shortcuts/Back Tap, Guided Access — and, weighing reach /
 reliability / setup / app-detectability / VoiceOver-conflict (note 07), what's the verdict:
@@ -24,7 +24,7 @@ reliability / setup / app-detectability / VoiceOver-conflict (note 07), what's t
 ### 1. Full Keyboard Access (FKA) — a hardware keyboard drives the whole UI `[Documented]`
 
 - `Settings > Accessibility > Keyboards > Full Keyboard Access`; needs a connected USB/BT
-  keyboard — a Pi-HID keyboard (`[[02-hid-descriptors-and-firmware]]`) qualifies.
+  keyboard — a Pi-HID keyboard (`[[AssistiveTouch Pointer Mechanics for Robot Control]]`) qualifies.
 - **Tab / Shift-Tab** move a visible **focus ring** between elements; **arrows** move within
   a group; **Space/Return** activate. WWDC21: tab = significant areas, arrows = within area. `[Documented]`
 - A **customizable Commands list** (Navigation / Interaction / Device categories) reaches
@@ -130,7 +130,7 @@ reliability / setup / app-detectability / VoiceOver-conflict (note 07), what's t
 | **Guided Access** | — (containment) | n/a | Low | yes (`…GuidedAccessEnabled`) | complementary |
 
 **Recommendation (`ponytail:` build the hero, but bring up on the cheap one) — HYBRID behind the
-single MCP action API (`[[yolo-training/13-exposing-device-controls]]` §2/§5):**
+single MCP action API (`[[YOLO — Exposing Device Controls to Model]]` §2/§5):**
 
 1. **Gantry = the deliverable / hero path.** D2/D3 already commit to the 3D-printed build; it is
    the only actuator that honors §4's *untouched arbitrary phone* premise. Ship it.
@@ -160,7 +160,7 @@ Net: validate the entire stack on HID first; the gantry remains the demonstrable
 ## Open questions / follow-ups
 
 - Resolves `hid-vs-gantry` (questions.md): recommend **hybrid** — gantry hero + HID bring-up. Confirm with owner.
-- Does the External Switch Control source accept an arbitrary Pi-HID keycode, or only specific keys? Needs a bench test (ties to `[[02-hid-descriptors-and-firmware]]`).
-- Is flashing Voice Control's numbered grid as a grounding aid worth the audio stack, or does our own YOLO set-of-marks already cover it? → `[[yolo-training/13-exposing-device-controls]]`.
+- Does the External Switch Control source accept an arbitrary Pi-HID keycode, or only specific keys? Needs a bench test (ties to `[[AssistiveTouch Pointer Mechanics for Robot Control]]`).
+- Is flashing Voice Control's numbered grid as a grounding aid worth the audio stack, or does our own YOLO set-of-marks already cover it? → `[[YOLO — Exposing Device Controls to Model]]`.
 - Can FKA focus-ring be read reliably by the camera across apps (contrast/visibility), enabling near-vision-free navigation?
 - Does enabling AssistiveTouch/Switch Control (detectable flags) risk tripping any anti-automation checks in target banking/social apps? → ties to `human-typing-speed`.

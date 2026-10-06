@@ -3,10 +3,10 @@ tags: [YOLO, training, strategy, ML, computer-vision]
 status: answered
 date: 2026-10-05
 related:
-  - "[[01-efficient-dataset]]"
-  - "[[02-synthetic-data-and-flash-app]]"
-  - "[[03-hardware]]"
-  - "[[04-training-on-hardware]]"
+  - "[[YOLO — Efficient Dataset Recipe]]"
+  - "[[YOLO — Synthetic Data and Flash Training App]]"
+  - "[[YOLO — Training Hardware and Capture Rig]]"
+  - "[[YOLO — Training on Different Hardware]]"
 ---
 
 # 12 — Quickest-to-train, minimal-overhead training strategy

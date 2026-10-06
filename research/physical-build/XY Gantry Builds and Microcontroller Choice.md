@@ -3,8 +3,8 @@ tags: [gantry, corexy, grbl, arduino, microcontroller, stepper, pen-plotter, mec
 status: answered
 date: 2026-10-05
 related:
-  - "[[mechanical/01-prior-art]]"
-  - "[[mechanical/02-touch-physics-gantry]]"
+  - "[[Prior Art — Touchscreen Robots and Software Agents]]"
+  - "[[Capacitive Touch Physics and Gantry Architecture]]"
   - "[[../specs/01-hardware]]"
 ---
 

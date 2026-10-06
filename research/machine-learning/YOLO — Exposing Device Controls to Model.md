@@ -3,11 +3,11 @@ tags: [control, agent, GRBL, iOS, action-space, MCP, accessibility, AssistiveTou
 status: answered
 date: 2026-10-05
 related:
-  - "[[../agent-ml/01-agent-architecture]]"
-  - "[[agent-ml/02-vlm-gui-agent-survey]]"
-  - "[[../ios-control/01-faceid-autofill-accessibility]]"
-  - "[[../mechanical/03-xy-gantry-microcontroller]]"
-  - "[[15-raspberry-pi-input-converter]]"
+  - "[[AI Agent Architecture and Perception Loop]]"
+  - "[[VLM GUI Agents and Vision Grounding Survey]]"
+  - "[[iOS Control Constraints — Face ID, Autofill, Accessibility]]"
+  - "[[XY Gantry Builds and Microcontroller Choice]]"
+  - "[[YOLO — Raspberry Pi Input Converter]]"
 ---
 
 # 13 — Exposing device controls to the model/agent
@@ -19,9 +19,9 @@ actions through screen → camera → gantry → GRBL, wrap them as tool/functio
 safely, and — crucially — can stock-iOS accessibility (mouse pointer, hardware keyboard,
 Switch/Voice Control) drive the phone *without the gantry at all*?
 
-Builds on the agent loop (`[[../agent-ml/01-agent-architecture]]`), VLM action-space
-survey (`[[agent-ml/02-vlm-gui-agent-survey]]`), iOS constraints (`[[../ios-control/01-faceid-autofill-accessibility]]`),
-GRBL mechanics (`[[../mechanical/03-xy-gantry-microcontroller]]`), firmware contract (`specs/02` §4–§8).
+Builds on the agent loop (`[[AI Agent Architecture and Perception Loop]]`), VLM action-space
+survey (`[[VLM GUI Agents and Vision Grounding Survey]]`), iOS constraints (`[[iOS Control Constraints — Face ID, Autofill, Accessibility]]`),
+GRBL mechanics (`[[XY Gantry Builds and Microcontroller Choice]]`), firmware contract (`specs/02` §4–§8).
 
 ## Key findings
 
@@ -32,7 +32,7 @@ GRBL mechanics (`[[../mechanical/03-xy-gantry-microcontroller]]`), firmware cont
 | **UI-TARS** mobile | raw pixels `point='x y'` | `click`, `long_press`, `type`, `scroll`, `drag`, `open_app`, `press_home`, `press_back`, `finished` | `[Documented]` prompt.py |
 | **UI-TARS** desktop | raw pixels | adds `left_double`, `right_single`, `hotkey`, **`wait()`** | `[Documented]` |
 | **AppAgent** | **element index** (set-of-marks numbers overlaid) | `Tap`, `Long_Press`, `Swipe(elem,dir,dist)`, `Text` | `[Documented]` 2312.13771 §3.1 |
-| **OS-Atlas / UGround** | normalized grounding → pixel | grounding emits the point; action layer is thin | `[Benchmark]` (see `[[agent-ml/02-vlm-gui-agent-survey]]`) |
+| **OS-Atlas / UGround** | normalized grounding → pixel | grounding emits the point; action layer is thin | `[Benchmark]` (see `[[VLM GUI Agents and Vision Grounding Survey]]`) |
 | **Anthropic / OpenAI computer-use** | pixels | `screenshot`, `click`, `type`, `key`, `scroll`, `wait` + "hybrid GUI+API" | `[Community]` emergentmind |
 
 Takeaway: **6–9 primitives cover every GUI agent.** AppAgent's element-index style
@@ -42,7 +42,7 @@ whose `wait()` *is* the did-screen-change check (§6).
 ### 2. Proposed action API (backend-agnostic — this is the deliverable)
 
 Observation = camera frame rectified to a flat **screen image** via the fiducial
-homography (`[[02-synthetic-data-and-flash-app]]`). **Every coordinate the agent emits
+homography (`[[YOLO — Synthetic Data and Flash Training App]]`). **Every coordinate the agent emits
 is a SCREEN coordinate (CSS px or normalized 0–1);** the backend hides camera pixels
 and gantry mm — the model never sees them.
 
@@ -70,7 +70,7 @@ ACTION:      VLM tap(sx,sy) --H_screen→gantry (session, calibrated)--> (X,Y) m
 ```
 
 - `H_cam→screen` is re-solved **every frame** from the 4 flash-app fiducials — a
-  drifting mount silently corrupts it (`[[01-efficient-dataset]]`). DPR cancels in CSS px.
+  drifting mount silently corrupts it (`[[YOLO — Efficient Dataset Recipe]]`). DPR cancels in CSS px.
 - `H_screen→gantry` is fit by **closed-loop calibration**, not vision: flash a target
   at known screen px → command gantry XY → measure the landed tap via `touchstart` →
   solve affine/homography (`specs/02` §5.1). Converges in dozens of samples; the only
@@ -85,7 +85,7 @@ ACTION:      VLM tap(sx,sy) --H_screen→gantry (session, calibrated)--> (X,Y) m
   (`0x85`), purges the queue, and with soft-limits on **errors instead of alarming** on
   out-of-range → ideal for agent moves. `F` is mm/min (G94); jog never changes modal state.
 - **Tap (servo-Z):** laser mode `$32=1`; `M3 S<down>` → `G4 P0.12` dwell → `M5`/`S0`
-  up (`[[../mechanical/03-xy-gantry-microcontroller]]`).
+  up (`[[XY Gantry Builds and Microcontroller Choice]]`).
 - **Homing:** `$H` (needs limit switches, `$22=1`); set phone-corner origin with `G10 L20`.
 
 ### 5. Tool-calling / MCP exposure
@@ -125,7 +125,7 @@ returns the rectified frame. Per MCP best-practice, annotate each tool
 
 ### 8. Software-side alternative — drive a STOCK iPhone with NO gantry
 
-This re-opens what `[[../ios-control/01-faceid-autofill-accessibility]]` dismissed *for a tapping
+This re-opens what `[[iOS Control Constraints — Face ID, Autofill, Accessibility]]` dismissed *for a tapping
 robot*: used as the **actuator itself**, stock-iOS accessibility is powerful.
 
 - **Pointer + AssistiveTouch** (iOS 13+): a plain **USB or Bluetooth mouse acts as a
@@ -141,7 +141,7 @@ robot*: used as the **actuator itself**, stock-iOS accessibility is powerful.
   reference; drivable by synthesized speech but brittle/slow. `[Documented]`
 - **The bridge** (how a computer presents as HID): a **Raspberry Pi Zero / Zero 2 W in
   Linux USB-gadget mode** emulates a composite keyboard+mouse (or BLE-HID), connected
-  over USB-C/Lightning (powered adapter) or Bluetooth → `[[15-raspberry-pi-input-converter]]`.
+  over USB-C/Lightning (powered adapter) or Bluetooth → `[[YOLO — Raspberry Pi Input Converter]]`.
   Many turnkey repos exist (`bluetooth_2_usb`, `zero_hid`, `keybird`). `[Community]`
 
 **Limits / honest caveats:**

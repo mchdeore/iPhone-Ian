@@ -3,14 +3,14 @@ tags: [YOLO, hardware, training, CPU, MPS, GPU, Colab, ML]
 status: answered
 date: 2026-10-05
 related:
-  - "[[03-hardware]]"
-  - "[[01-efficient-dataset]]"
-  - "[[README]]"
+  - "[[YOLO — Training Hardware and Capture Rig]]"
+  - "[[YOLO — Efficient Dataset Recipe]]"
+  - "[[YOLO — Efficient Dataset Recipe]]"
 ---
 
 # 04 — Training YOLO on different hardware
 
-Companion to [[03-hardware]] (which **ranks and prices** hardware). This note is the
+Companion to [[YOLO — Training Hardware and Capture Rig]] (which **ranks and prices** hardware). This note is the
 operational **how**: exact Ultralytics args per device, RAM/VRAM budgets, measured
 epoch times, and a verdict on the user's question — **is a CPU-only, ≤16 GB box a
 viable training server?**
@@ -50,7 +50,7 @@ common late-stage OOM; drop `batch` or `val=False` for exploratory runs.
 
 ## Per-device playbook
 
-Times are for **nano, ~1–5 k images @640** (our Phase 0 is smaller — see [[01-efficient-dataset]]); ranges swing 2–3× with dataset/`imgsz`/`workers`.
+Times are for **nano, ~1–5 k images @640** (our Phase 0 is smaller — see [[YOLO — Efficient Dataset Recipe]]); ranges swing 2–3× with dataset/`imgsz`/`workers`.
 
 | Device | Launch args | Budget | Est. s–min/epoch | Verdict |
 |---|---|---|---|---|
@@ -90,7 +90,7 @@ Times are for **nano, ~1–5 k images @640** (our Phase 0 is smaller — see [[0
   5–8 classes — that's many hours to days per CPU run.
 - **Lazy call:** keep the CPU box as the always-available retrain/cron server, but
   push anything time-sensitive or multi-class to **free Colab/Kaggle T4** (≈10–40×
-  faster), then a used **RTX 3060 12 GB** when HomeLab lands (per [[03-hardware]]).
+  faster), then a used **RTX 3060 12 GB** when HomeLab lands (per [[YOLO — Training Hardware and Capture Rig]]).
   Use `time=<hours>` to fit CPU/Colab runs into a window. `ponytail:` the CPU box is
   the "it'll finish by morning" tier; the GPU is the "iterate" tier.
 
@@ -128,4 +128,4 @@ a raw public port on a training/control box is an unauthenticated-RCE risk.
 - Actual CPU epoch time on the specific 16 GB target box? → benchmark 1 epoch of the real Phase-0 set at `imgsz` 320 vs 640 before committing to it as the server.
 - Does `cache='ram'` + many `workers` still OOM/hang (hist. Ultralytics #1010)? Confirm on 16 GB; prefer `cache='disk'` until verified.
 - Does `compile=True` net-help a CPU nano run after warm-up, or does compile overhead eat a short-run's budget?
-- Cropping to screen (per [[01-efficient-dataset]]) shrinks images — re-estimate CPU time and whether `cache='ram'` then fits 16 GB.
+- Cropping to screen (per [[YOLO — Efficient Dataset Recipe]]) shrinks images — re-estimate CPU time and whether `cache='ram'` then fits 16 GB.

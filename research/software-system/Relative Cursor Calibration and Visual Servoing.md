@@ -3,12 +3,12 @@ tags: [control, iOS, AssistiveTouch, HID, relative-pointer, visual-servoing, cal
 status: answered
 date: 2026-10-05
 related:
-  - "[[02-hid-descriptors-and-firmware]]"
-  - "[[yolo-training/13-exposing-device-controls]]"
-  - "[[yolo-training/15-raspberry-pi-input-converter]]"
-  - "[[01-faceid-autofill-accessibility]]"
-  - "[[../mechanical/03-xy-gantry-microcontroller]]"
-  - "[[yolo-training/09-grouping-methods]]"
+  - "[[AssistiveTouch Pointer Mechanics for Robot Control]]"
+  - "[[YOLO — Exposing Device Controls to Model]]"
+  - "[[YOLO — Raspberry Pi Input Converter]]"
+  - "[[iOS Control Constraints — Face ID, Autofill, Accessibility]]"
+  - "[[XY Gantry Builds and Microcontroller Choice]]"
+  - "[[YOLO — Detection Grouping and Class Taxonomy]]"
 ---
 
 # 03 — Closed-loop cursor control with a RELATIVE-only iOS pointer
@@ -16,7 +16,7 @@ related:
 ## Question
 
 iOS AssistiveTouch accepts **only relative** pointer deltas `(dX,dY)` — there is no absolute
-digitizer HID (`[[yolo-training/15-raspberry-pi-input-converter]]`). Given a known screen
+digitizer HID (`[[YOLO — Raspberry Pi Input Converter]]`). Given a known screen
 target `(sx,sy)`, how do we land the cursor there and click, using (a) corner/edge reset,
 (b) linearizing the iOS acceleration curve, and (c) camera visual-servoing — and how does
 per-tap accuracy/latency compare to the gantry?
@@ -29,7 +29,7 @@ per-tap accuracy/latency compare to the gantry?
   *"the mouse is a relative pointing device… we convert the absolute target… into mouse events with
   relative deltas… setting the highest possible sensitivity… and keep track of the current (guessed)
   position of the iOS cursor."* So you must *estimate* the cursor (dead-reckon) or *see* it (camera); an
-  absolute HID descriptor is consumed as relative anyway (`[[yolo-training/15-raspberry-pi-input-converter]]`). `[Documented]`
+  absolute HID descriptor is consumed as relative anyway (`[[YOLO — Raspberry Pi Input Converter]]`). `[Documented]`
 - **The mapping is nonlinear & unobservable.** iOS applies a pointer-accel (gain) curve: pointer
   velocity = f(input velocity), input velocity = `delta × report_rate`. The same displacement sent as
   **one big delta** lands farther (high-gain) than **many small deltas** (near-linear) — the Arduino
@@ -57,7 +57,7 @@ The one trick that gives an **absolute** origin from a relative device: drive ha
 OS **clamps** the cursor at the physical edge, so position becomes known (0,0) regardless of prior
 drift. Canonical statement: *"move the pointer enough in each direction that it is certain it is now
 located at one of the corners… a reference point from which to base all relative movements."* It is the
-HID analogue of GRBL `$H` homing (`[[../mechanical/03-xy-gantry-microcontroller]]`). The `per1234/MouseTo` Arduino library
+HID analogue of GRBL `$H` homing (`[[XY Gantry Builds and Microcontroller Choice]]`). The `per1234/MouseTo` Arduino library
 packages exactly this: home-to-corner + incremental move + position tracking.
 
 - **Slam** = burst of max reports (e.g. 15–25× `(−127,−127)`) until two frames show no motion → pinned
@@ -93,9 +93,9 @@ Lower Tracking Speed → smaller `k` (finer, more reports/screen); store `k` wit
 Dead-reckoning alone drifts (accel residual + packet loss); the **camera already sees the screen**, so
 close the loop on the **cursor** itself. Detect the AssistiveTouch pointer (a ~size-adjustable grey
 circle) as a dedicated **YOLO class** or by **template match** on the rectified screen image
-(`[[yolo-training/09-grouping-methods]]`), then proportional/PID-correct until within `TOL` px.
+(`[[YOLO — Detection Grouping and Class Taxonomy]]`), then proportional/PID-correct until within `TOL` px.
 This **removes the gantry's `H_screen→gantry` calibration and mount-drift problem** entirely
-(`[[yolo-training/13-exposing-device-controls]]`): screen px map straight to pointer deltas.
+(`[[YOLO — Exposing Device Controls to Model]]`): screen px map straight to pointer deltas.
 
 ```
 servo_to(target_sx, target_sy):          # closed-loop; returns on success/giveup
@@ -120,7 +120,7 @@ servo_to(target_sx, target_sy):          # closed-loop; returns on success/giveu
 - **Convergence** ~**3–6 iters** to `TOL≤8 px` with `Kp≈0.9/k` (`<1` avoids overshoot into the
   high-gain band); D unneeded (single contact, inertia off), tiny I only for constant bias. **Accuracy
   floor** = cursor centroid (~1–3 px) + homography (few px) → **a few px regardless of the accel
-  curve**, enough for keyboard/passcode keys that dead-reckoning alone misses (`[[yolo-training/15-raspberry-pi-input-converter]]` open Q). `[Community]`
+  curve**, enough for keyboard/passcode keys that dead-reckoning alone misses (`[[YOLO — Raspberry Pi Input Converter]]` open Q). `[Community]`
 
 ### 6. Prior art & KVM-over-IP relative-mode lessons
 
@@ -148,7 +148,7 @@ Component budget: HID report **USB 1–8 ms / BLE 15–30 ms**; camera obs **33 
 **Verdict:** both paths share the **same camera observation floor**, so HID is *comparable*, not
 dramatically faster. HID's real wins: the **click is electronic/instant** vs the gantry's Z-lower +
 ≥100 ms capacitive dwell; no mechanical traverse; and it **deletes `H_screen→gantry` calibration and
-mount-drift** — at the cost of cursor-estimation and a one-time accessibility toggle (`[[01-faceid-autofill-accessibility]]`). Keep the camera loop either way; the phone is a black box.
+mount-drift** — at the cost of cursor-estimation and a one-time accessibility toggle (`[[iOS Control Constraints — Face ID, Autofill, Accessibility]]`). Keep the camera loop either way; the phone is a black box.
 
 ## Sources
 
@@ -165,7 +165,7 @@ mount-drift** — at the cost of cursor-estimation and a one-time accessibility 
   landed px error) → promote `[Benchmark]`-plan to measured; resolves the `hid-vs-gantry` open row and
   note-15's "corner-reset dead-reckoning vs camera-servo for passcode-pad accuracy" in `questions.md`.
 - Is the AssistiveTouch pointer **reliably detectable** through the camera (grey circle, user-set size,
-  low contrast on light UIs)? Needs a dedicated YOLO `cursor` class + synthetic data (`[[yolo-training/09-grouping-methods]]`).
+  low contrast on light UIs)? Needs a dedicated YOLO `cursor` class + synthetic data (`[[YOLO — Detection Grouping and Class Taxonomy]]`).
 - Does the HID **click** register as a tap without a dwell, or does iOS require a minimum touch
   duration like the capacitive stylus (≥100 ms, note 07)? → bench.
 - Multi-touch (pinch/rotate) is **out of reach** for a single relative pointer — needs AssistiveTouch

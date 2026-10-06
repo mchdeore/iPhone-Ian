@@ -3,9 +3,9 @@ tags: [networking, security, windows, streaming, infrastructure, YOLO]
 status: answered
 date: 2026-10-05
 related:
-  - "[[README]]"
-  - "[[03-hardware]]"
-  - "[[02-synthetic-data-and-flash-app]]"
+  - "[[YOLO — Efficient Dataset Recipe]]"
+  - "[[YOLO — Training Hardware and Capture Rig]]"
+  - "[[YOLO — Synthetic Data and Flash Training App]]"
 ---
 
 # 14 — Exposing a Windows robot host + low-latency streaming

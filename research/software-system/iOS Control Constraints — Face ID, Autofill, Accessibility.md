@@ -3,9 +3,9 @@ tags: [ios, face-id, passcode, autofill, accessibility, voiceover, 2fa, passkey]
 status: answered
 date: 2026-10-05
 related:
-  - "[[mechanical/02-touch-physics-gantry]]"
-  - "[[agent-ml/01-agent-architecture]]"
-  - "[[agent-ml/02-vlm-gui-agent-survey]]"
+  - "[[Capacitive Touch Physics and Gantry Architecture]]"
+  - "[[AI Agent Architecture and Perception Loop]]"
+  - "[[VLM GUI Agents and Vision Grounding Survey]]"
 ---
 
 # iOS control constraints — Face ID, autofill, accessibility

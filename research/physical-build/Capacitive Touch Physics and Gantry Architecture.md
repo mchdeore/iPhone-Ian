@@ -3,9 +3,9 @@ tags: [capacitive, PCAP, grounding, gantry, delta, stylus, calibration, mechanic
 status: answered
 date: 2026-10-05
 related:
-  - "[[mechanical/01-prior-art]]"
-  - "[[ios-control/01-faceid-autofill-accessibility]]"
-  - "[[mechanical/03-xy-gantry-microcontroller]]"
+  - "[[Prior Art — Touchscreen Robots and Software Agents]]"
+  - "[[iOS Control Constraints — Face ID, Autofill, Accessibility]]"
+  - "[[XY Gantry Builds and Microcontroller Choice]]"
 ---
 
 # Mechanical architecture: touch physics, gantry vs delta, grounding

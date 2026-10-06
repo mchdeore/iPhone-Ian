@@ -3,15 +3,15 @@ tags: [YOLO, flask, flash-app, trainer, active-learning, ML, computer-vision]
 status: answered
 date: 2026-10-05
 related:
-  - "[[02-synthetic-data-and-flash-app]]"
-  - "[[01-efficient-dataset]]"
-  - "[[03-hardware]]"
-  - "[[13-exposing-device-controls]]"
+  - "[[YOLO — Synthetic Data and Flash Training App]]"
+  - "[[YOLO — Efficient Dataset Recipe]]"
+  - "[[YOLO — Training Hardware and Capture Rig]]"
+  - "[[YOLO — Exposing Device Controls to Model]]"
 ---
 
 # 06 — Flask trainer app: the closed-loop flash app
 
-Extends the passive labeler in [[02-synthetic-data-and-flash-app]] into a **trainer** that also
+Extends the passive labeler in [[YOLO — Synthetic Data and Flash Training App]] into a **trainer** that also
 *requests an action* ("tap the blue button", "swipe left"), *observes* it, *scores* it, and *logs
 labeled samples*. Builds on `specs/02-firmware-and-software.md` §5.1 (scoring + RL honesty); 02 owns
 CSS px/DPR, fiducials, homography, flash→hold→capture. Core framing: **two observations/episode** —
@@ -149,7 +149,7 @@ if __name__ == "__main__":
   separate periodic `yolo train` elsewhere (Colab T4 / offline, 03). "Closed loop" = collect →
   retrain offline → copy weights back → resume; a human/cron closes it.
 - **Windows public port:** phone reaches the host on LAN (`http://host:5000`); if blocked, a tunnel
-  (ngrok/cloudflared) exposes a public **HTTPS** port → [[13-exposing-device-controls]] (HTTPS = secure
+  (ngrok/cloudflared) exposes a public **HTTPS** port → [[YOLO — Exposing Device Controls to Model]] (HTTPS = secure
   context for PWA service workers / `pointerrawupdate`). **Security: the skeleton binds `0.0.0.0` with
   no auth** — a public endpoint logging camera frames and driving a robot MUST get token/basic-auth and bind narrowly first.
 
@@ -174,6 +174,6 @@ if __name__ == "__main__":
 
 ## Open questions / follow-ups
 
-- Public-port auth + HTTPS for a robot-driving endpoint → own it in [[13-exposing-device-controls]].
+- Public-port auth + HTTPS for a robot-driving endpoint → own it in [[YOLO — Exposing Device Controls to Model]].
 - Swipe scoring: path similarity (Fréchet/DTW) vs endpoint-only — needed before any swipe RL.
 - Does Safari `getCoalescedEvents` give >1 sample/frame for *touch* (vs Chromium's stylus cap)? Measure on-device.

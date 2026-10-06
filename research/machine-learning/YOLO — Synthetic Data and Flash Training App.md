@@ -3,8 +3,8 @@ tags: [YOLO, synthetic-data, flash-app, homography, ML, computer-vision]
 status: answered
 date: 2026-10-04
 related:
-  - "[[01-efficient-dataset]]"
-  - "[[03-hardware]]"
+  - "[[YOLO — Efficient Dataset Recipe]]"
+  - "[[YOLO — Training Hardware and Capture Rig]]"
 ---
 
 # 02 — Synthetic data and the "flash training app"

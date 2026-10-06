@@ -3,10 +3,10 @@ tags: [YOLO, pruning, compression, edge, ML, computer-vision]
 status: answered
 date: 2026-10-05
 related:
-  - "[[01-efficient-dataset]]"
-  - "[[03-hardware]]"
-  - "[[05-quantization]]"
-  - "[[10-knowledge-distillation]]"
+  - "[[YOLO — Efficient Dataset Recipe]]"
+  - "[[YOLO — Training Hardware and Capture Rig]]"
+  - "[[YOLO — Quantization]]"
+  - "[[YOLO — Knowledge Distillation]]"
 ---
 
 # 07 — Pruning YOLO — does it beat just picking a smaller model?
@@ -26,7 +26,7 @@ closed loop is dominated by camera capture + agent/grounding + gantry motion, no
 nano forward pass (`01`, `specs/02` §7). The cheap wins are already banked: **pick
 `yolo11n`** (2.6M params / 6.5 GFLOPs — already ~25% leaner than `yolov8n`'s
 3.2M / 8.7 GFLOPs for similar mAP `[Documented]`), **crop-to-screen @640** (`01`'s
-biggest lever), and if CPU latency bites, **INT8 via OpenVINO** (`[[05-quantization]]`)
+biggest lever), and if CPU latency bites, **INT8 via OpenVINO** (`[[YOLO — Quantization]]`)
 — a bigger, less fragile win than pruning. Keep **structured** pruning as a documented
 *fallback* only if, after quantization, the forward pass is *measured* to be the
 bottleneck or we must run on weaker hardware. **Never ship unstructured pruning on
@@ -97,7 +97,7 @@ expensive here, which further argues against it.
   `train` / `save_model` / `final_eval` to full precision. `[Documented]`
 - **Re-export + re-quantize:** pruned (odd) channel counts must be re-exported to
   ONNX/OpenVINO, and the **INT8 calibration cache from the dense model is useless** —
-  pruning fights quantization, budget re-calibration. `[Community]` (see `[[05-quantization]]`)
+  pruning fights quantization, budget re-calibration. `[Community]` (see `[[YOLO — Quantization]]`)
 - **Pruning-ratio cliff:** sweep per model; past ~0.45–0.60 small classes collapse
   *irrecoverably*. No universal ratio. `[Community]`
 - **Speedup is hardware-shaped:** FLOPs↓ only helps compute-bound layers; profile the
@@ -107,7 +107,7 @@ expensive here, which further argues against it.
 A COCO nano carries capacity for 80 classes of natural images; our task is 1–8 flat UI
 classes on **one** phone → lots of redundant filters, so pruning *would* find slack.
 But that slack is cheaper to reclaim by **distillation into / training a smaller head**
-(`[[10-knowledge-distillation]]`), **quantization** (`[[05-quantization]]`), and simply
+(`[[YOLO — Knowledge Distillation]]`), **quantization** (`[[YOLO — Quantization]]`), and simply
 **not over-sizing the model** in the first place. Pruning only earns its keep once those
 are done and the forward pass is proven to be the clock.
 
@@ -132,6 +132,6 @@ are done and the forward pass is proven to be the clock.
   host (Mac MPS / CPU / RTX 3060). If it's <10% of loop time, pruning is permanently off
   the table. → candidate row in `questions.md`.
 - Does our deploy path go through **OpenVINO** on CPU? If yes, NNCF filter-pruning +
-  INT8 in one pipeline may be lower-overhead than Torch-Pruning + separate quantization. → ties to `[[05-quantization]]`.
-- If model capacity ever becomes the issue, prefer **distillation** (`[[10-knowledge-distillation]]`)
+  INT8 in one pipeline may be lower-overhead than Torch-Pruning + separate quantization. → ties to `[[YOLO — Quantization]]`.
+- If model capacity ever becomes the issue, prefer **distillation** (`[[YOLO — Knowledge Distillation]]`)
   over pruning for a fixed-architecture nano — compare both before committing.

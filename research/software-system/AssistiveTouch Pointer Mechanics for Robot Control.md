@@ -3,10 +3,10 @@ tags: [iOS, accessibility, AssistiveTouch, pointer, mouse, HID, control, actuato
 status: answered
 date: 2026-10-05
 related:
-  - "[[yolo-training/13-exposing-device-controls]]"
-  - "[[yolo-training/15-raspberry-pi-input-converter]]"
-  - "[[01-faceid-autofill-accessibility]]"
-  - "[[yolo-training/02-synthetic-data-and-flash-app]]"
+  - "[[YOLO — Exposing Device Controls to Model]]"
+  - "[[YOLO — Raspberry Pi Input Converter]]"
+  - "[[iOS Control Constraints — Face ID, Autofill, Accessibility]]"
+  - "[[YOLO — Synthetic Data and Flash Training App]]"
 ---
 
 # 01 — AssistiveTouch pointer mechanics (iOS 13→26), in depth
@@ -18,8 +18,8 @@ actuator for the iPhone-Ian agent — pointer behaviour, acceleration, clicking,
 button→action mapping, custom multi-touch replay, reachable system gestures,
 lock-screen/Face-ID behaviour, reboot persistence, and whether an app can tell?
 
-Deepens `[[yolo-training/13-exposing-device-controls]]` §8 (named the path) and
-`[[yolo-training/15-raspberry-pi-input-converter]]` (relative-pointer constraint, HID
+Deepens `[[YOLO — Exposing Device Controls to Model]]` §8 (named the path) and
+`[[YOLO — Raspberry Pi Input Converter]]` (relative-pointer constraint, HID
 bridge). This note is the *mechanics reference* for the software-actuator branch.
 
 ## Key findings
@@ -49,7 +49,7 @@ bridge). This note is the *mechanics reference* for the software-actuator branch
   Idle → the disc **fades out**; it reappears on movement. `[Documented]`
 - **Perception impact:** YOLO must detect a soft, size-configurable grey disc that fades
   when idle, plus the floating AssistiveTouch button (set **Idle Opacity** low / hide it
-  so it doesn't occlude the ROI). Ties to `[[yolo-training/02-synthetic-data-and-flash-app]]`. `[Community]`
+  so it doesn't occlude the ROI). Ties to `[[YOLO — Synthetic Data and Flash Training App]]`. `[Community]`
 - **Tracking Speed:** one slider, **Settings → General → Trackpad & Mouse**. Scales overall
   gain only. `[Documented]`
 - **Acceleration curve — the crux:** iOS applies a **non-linear acceleration (gain) curve**
@@ -61,7 +61,7 @@ bridge). This note is the *mechanics reference* for the software-actuator branch
     linearise motion. `[Documented]`
   - **Consequence:** a fixed HID delta ≠ a fixed pixel distance. Max Tracking Speed only
     **flattens** the curve (DeviceHub's recipe) → absolute targeting still needs
-    closed-loop **visual servo + corner-clamp dead-reckoning** (`[[yolo-training/15-raspberry-pi-input-converter]]`). `[Community]`
+    closed-loop **visual servo + corner-clamp dead-reckoning** (`[[YOLO — Raspberry Pi Input Converter]]`). `[Community]`
 
 ### 3. Clicking, dwell, drag, long-press, scroll
 
@@ -177,5 +177,5 @@ visually-servo the grey disc on every move (note 15) — that is the whole ballg
 - Exact iOS version each sub-feature landed (Dwell = iOS 14? Confirm-with-AssistiveTouch =
   iOS 15?) — verify only if the target build matters.
 - Is the floating AssistiveTouch button fully hide-able while a pointer is active, so it
-  never occludes the YOLO ROI? → ties to `[[yolo-training/02-synthetic-data-and-flash-app]]`.
+  never occludes the YOLO ROI? → ties to `[[YOLO — Synthetic Data and Flash Training App]]`.
 - End-to-end latency of a pointer tap vs the gantry on current iOS — bench `[Benchmark]`.

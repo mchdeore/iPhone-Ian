@@ -17,17 +17,17 @@ Living document. Update checkboxes as work progresses. Each phase links to the r
 
 **Goal:** answer every open question before buying parts.
 
-- [x] Cartesian XY-gantry reference build found → [[mechanical/03-xy-gantry-microcontroller]]
-- [x] iOS Face ID / autofill / accessibility constraints → [[ios-control/01-faceid-autofill-accessibility]]
-- [x] AssistiveTouch + HID pointer mechanics → [[ios-control/02-assistivetouch-pointer]]
-- [x] Relative cursor calibration → [[ios-control/03-relative-cursor-calibration]]
-- [x] Alternative iOS input paths → [[ios-control/04-alternative-input-paths]]
-- [x] VLM GUI agent literature survey → [[agent-ml/02-vlm-gui-agent-survey]]
-- [x] YOLO training: dataset, synthetic data, hardware → [[yolo-training/README]]
-- [x] YOLO training: quantization, pruning, distillation, optimizations → [[yolo-training/README]]
-- [x] YOLO closed-loop Flask trainer → [[yolo-training/06-flask-trainer-app]]
-- [x] Device control API + networking → [[yolo-training/13-exposing-device-controls]], [[yolo-training/14-windows-public-port-and-streaming]]
-- [ ] **Decide: HID keyboard for typing vs pure gantry-only** — tension between [[yolo-training/13-exposing-device-controls]], [[yolo-training/15-raspberry-pi-input-converter]], [[ios-control/04-alternative-input-paths]]. Needs a decision in [[../specs/]].
+- [x] Cartesian XY-gantry reference build found → [[XY Gantry Builds and Microcontroller Choice]]
+- [x] iOS Face ID / autofill / accessibility constraints → [[iOS Control Constraints — Face ID, Autofill, Accessibility]]
+- [x] AssistiveTouch + HID pointer mechanics → [[AssistiveTouch Pointer Mechanics for Robot Control]]
+- [x] Relative cursor calibration → [[Relative Cursor Calibration and Visual Servoing]]
+- [x] Alternative iOS input paths → [[Alternative iOS Accessibility Input Paths]]
+- [x] VLM GUI agent literature survey → [[VLM GUI Agents and Vision Grounding Survey]]
+- [x] YOLO training: dataset, synthetic data, hardware → [[YOLO — Efficient Dataset Recipe]]
+- [x] YOLO training: quantization, pruning, distillation, optimizations → [[YOLO — Efficient Dataset Recipe]]
+- [x] YOLO closed-loop Flask trainer → [[YOLO — Flask Closed-Loop Trainer App]]
+- [x] Device control API + networking → [[YOLO — Exposing Device Controls to Model]], [[YOLO — Windows Public Port and Streaming]]
+- [ ] **Decide: HID keyboard for typing vs pure gantry-only** — tension between [[YOLO — Exposing Device Controls to Model]], [[YOLO — Raspberry Pi Input Converter]], [[Alternative iOS Accessibility Input Paths]]. Needs a decision in [[../specs/]].
 - [ ] **Decide: is the black-box constraint hard?** (charter §4 assumption check)
 - [ ] **Pick first target iPhone model(s)** — affects mount design and calibration
 
@@ -45,7 +45,7 @@ Living document. Update checkboxes as work progresses. Each phase links to the r
 - [ ] Nail calibration routine: camera → screen → gantry
 - [ ] Validate: tap a known grid of points, measure error
 
-**Research backing:** [[mechanical/02-touch-physics-gantry]], [[mechanical/03-xy-gantry-microcontroller]], [[ios-control/01-faceid-autofill-accessibility]]
+**Research backing:** [[Capacitive Touch Physics and Gantry Architecture]], [[XY Gantry Builds and Microcontroller Choice]], [[iOS Control Constraints — Face ID, Autofill, Accessibility]]
 
 **Spec:** [[../specs/01-hardware]]
 
@@ -61,7 +61,7 @@ Living document. Update checkboxes as work progresses. Each phase links to the r
 - [ ] Build calibration: camera pixel → screen coordinate → gantry G-code
 - [ ] Test: "tap the Settings icon" end-to-end
 
-**Research backing:** [[agent-ml/02-vlm-gui-agent-survey]], [[agent-ml/01-agent-architecture]], [[ios-control/03-relative-cursor-calibration]]
+**Research backing:** [[VLM GUI Agents and Vision Grounding Survey]], [[AI Agent Architecture and Perception Loop]], [[Relative Cursor Calibration and Visual Servoing]]
 
 **Spec:** [[../specs/02-firmware-and-software]]
 
@@ -78,7 +78,7 @@ Living document. Update checkboxes as work progresses. Each phase links to the r
 - [ ] Fine-tune ZonUI-3B on our iPhone camera captures
 - [ ] Close the loop: tap → detect error → recalibrate → retry
 
-**Research backing:** [[yolo-training/01-efficient-dataset]], [[yolo-training/02-synthetic-data-and-flash-app]], [[yolo-training/12-efficient-training-strategy]], [[agent-ml/02-vlm-gui-agent-survey]]
+**Research backing:** [[YOLO — Efficient Dataset Recipe]], [[YOLO — Synthetic Data and Flash Training App]], [[YOLO — Efficient Training Strategy]], [[VLM GUI Agents and Vision Grounding Survey]]
 
 **Spec:** [[../specs/02-firmware-and-software]] §5
 
@@ -93,7 +93,7 @@ Living document. Update checkboxes as work progresses. Each phase links to the r
 - [ ] Security: no secrets in logs, screenshots, or training data
 - [ ] Test: `login bank-app` end-to-end with 2FA handling
 
-**Research backing:** [[ios-control/01-faceid-autofill-accessibility]] §App login landscape
+**Research backing:** [[iOS Control Constraints — Face ID, Autofill, Accessibility]] §App login landscape
 
 **Spec:** [[../specs/02-firmware-and-software]], [[../specs/00-charter]] §6
 

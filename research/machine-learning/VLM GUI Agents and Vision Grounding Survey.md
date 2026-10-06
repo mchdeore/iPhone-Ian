@@ -3,8 +3,8 @@ tags: [VLM, GUI-agent, vision-grounding, mobile-agent, fine-tuning, prompting, M
 status: answered
 date: 2026-10-05
 related:
-  - "[[agent-ml/01-agent-architecture]]"
-  - "[[yolo-training/README]]"
+  - "[[AI Agent Architecture and Perception Loop]]"
+  - "[[YOLO — Efficient Dataset Recipe]]"
 ---
 
 # VLM GUI agents & vision grounding — literature survey

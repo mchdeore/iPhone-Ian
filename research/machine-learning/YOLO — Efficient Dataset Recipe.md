@@ -3,8 +3,8 @@ tags: [YOLO, training, dataset, ML, computer-vision]
 status: answered
 date: 2026-10-04
 related:
-  - "[[02-synthetic-data-and-flash-app]]"
-  - "[[03-hardware]]"
+  - "[[YOLO — Synthetic Data and Flash Training App]]"
+  - "[[YOLO — Training Hardware and Capture Rig]]"
 ---
 
 # 01 — What makes an efficient YOLO training set

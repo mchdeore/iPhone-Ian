@@ -3,10 +3,10 @@ tags: [YOLO, optimization, inference, deployment, ML, computer-vision]
 status: answered
 date: 2026-10-05
 related:
-  - "[[README]]"
-  - "[[01-efficient-dataset]]"
-  - "[[02-synthetic-data-and-flash-app]]"
-  - "[[03-hardware]]"
+  - "[[YOLO — Efficient Dataset Recipe]]"
+  - "[[YOLO — Efficient Dataset Recipe]]"
+  - "[[YOLO — Synthetic Data and Flash Training App]]"
+  - "[[YOLO — Training Hardware and Capture Rig]]"
 ---
 
 # 08 — Other ways to optimize YOLO (variant, runtime, pipeline)
@@ -18,8 +18,8 @@ cheap for a **closed-loop tapper watching a mostly-static phone screen**, on
 low-VRAM/CPU hardware, with minimal effort? Ranked by impact ÷ effort.
 
 **Scope / no-duplication.** Crop-to-screen, `imgsz`, SAHI, model size (nano),
-augments and pretrained/`freeze` already live in [[01-efficient-dataset]]; VRAM,
-`cache='ram'`, workers in [[03-hardware]]; the perception loop in
+augments and pretrained/`freeze` already live in [[YOLO — Efficient Dataset Recipe]]; VRAM,
+`cache='ram'`, workers in [[YOLO — Training Hardware and Capture Rig]]; the perception loop in
 `specs/02-firmware-and-software.md` §7. This note adds **variant choice, export
 runtimes, and the inference/camera pipeline**, and re-ranks the overlaps for the
 *deployment* loop (notes 01/03 were about *training*).
@@ -40,10 +40,10 @@ This is the top lever for *this* use case and beats per-frame tracking (ByteTrac
 which only helps when objects move — ours don't.
 
 **2. Crop to the screen ROI via the homography we already have. (impact HIGH, effort LOW)**
-The flash-app/calibration already gives `H` (CSS→camera, [[02-synthetic-data-and-flash-app]]).
+The flash-app/calibration already gives `H` (CSS→camera, [[YOLO — Synthetic Data and Flash Training App]]).
 Warp + crop to just the phone rectangle before inference: fewer input pixels → faster,
 *and* icons get bigger → better accuracy (the small-object win already argued in
-[[01-efficient-dataset]]). Double duty, near-zero effort because `H` exists. Do this
+[[YOLO — Efficient Dataset Recipe]]). Double duty, near-zero effort because `H` exists. Do this
 at train **and** infer time so the distributions match.
 
 **3. Export to the host's native runtime. (impact HIGH on CPU, effort LOW)**
@@ -57,7 +57,7 @@ Pick by the box you actually deploy on; on a Windows/Intel mini-PC that's OpenVI
 
 **4. Model variant: prefer YOLO26n (NMS-free, DFL-free, STAL). (impact MED-HIGH, effort LOW)**
 YOLO26 (Ultralytics, Jan 2026) is the edge-first successor to the YOLO11n baseline
-in [[01-efficient-dataset]]. For us it hits three constraints at once: **up to 43%
+in [[YOLO — Efficient Dataset Recipe]]. For us it hits three constraints at once: **up to 43%
 faster CPU ONNX inference than YOLO11n** (Intel Xeon), **native end-to-end NMS-free**
 inference (`nms=False` → one box per object, no NMS conf/iou tuning, lower and more
 *predictable* latency, simpler ONNX/TensorRT export), DFL removed (lighter head), and
@@ -79,7 +79,7 @@ Closed-loop lag is often a **stale capture buffer**, not inference. Fixes:
   so the loop always reads "now." `[Community]`
 - Force **MJPG** FOURCC (`CAP_PROP_FOURCC`) so a USB2 webcam delivers compressed 1080p30
   instead of starving on raw YUY2 (~5 fps). `[Community]`
-- Lock focus/exposure (already in [[03-hardware]]) — AF/AE hunting adds latency too.
+- Lock focus/exposure (already in [[YOLO — Training Hardware and Capture Rig]]) — AF/AE hunting adds latency too.
 
 **7. Lower `imgsz` after cropping. (impact MED, effort LOW)**
 Because the crop (#2) already enlarges icons, you can often drop `imgsz` 640→512/416
@@ -110,7 +110,7 @@ not CPU. Listed to say: skip them for the realtime path.
 
 ## Training-side speedups (CPU-only, ≤16 GB RAM)
 
-Builds on [[01-efficient-dataset]] / [[03-hardware]]; prioritized for a weak box:
+Builds on [[YOLO — Efficient Dataset Recipe]] / [[YOLO — Training Hardware and Capture Rig]]; prioritized for a weak box:
 - **`cache='ram'`** (note 03) — biggest dataloader win; if RAM is tight at 16 GB use
   `cache='disk'`. `[Documented]`
 - **`rect=True`** training — fewer padded pixels per batch → faster epochs on portrait

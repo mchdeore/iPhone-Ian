@@ -3,10 +3,10 @@ tags: [YOLO, taxonomy, grouping, dataset, ML, computer-vision]
 status: answered
 date: 2026-10-05
 related:
-  - "[[01-efficient-dataset]]"
-  - "[[02-synthetic-data-and-flash-app]]"
-  - "[[03-hardware]]"
-  - "[[agent-ml/02-vlm-gui-agent-survey]]"
+  - "[[YOLO — Efficient Dataset Recipe]]"
+  - "[[YOLO — Synthetic Data and Flash Training App]]"
+  - "[[YOLO — Training Hardware and Capture Rig]]"
+  - "[[VLM GUI Agents and Vision Grounding Survey]]"
 ---
 
 # 09 — Grouping methods (taxonomy, structure, data splits, compression)
