@@ -2,7 +2,7 @@
 tags: [hardware]
 ---
 
-# == Hardware Central ==
+# == HARDWARE CENTRAL ==
 
 PCAP capacitive touch needs grounded conductive stylus. Cartesian XY gantry on GRBL. 3D-printed, ~$14 microcontroller.
 

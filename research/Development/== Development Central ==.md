@@ -2,7 +2,7 @@
 tags: [development]
 ---
 
-# == Development Central ==
+# == DEVELOPMENT CENTRAL ==
 
 Project timeline and active build progress. All development work lives here.
 

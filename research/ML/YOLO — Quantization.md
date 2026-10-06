@@ -3,7 +3,7 @@ tags: [YOLO, quantization, INT8, FP16, deployment, ML, computer-vision]
 status: answered
 date: 2026-10-05
 related:
-  - "[[== ML Central ==]]"
+  - "[[== ML CENTRAL ==]]"
 ---
 
 # 05 — Quantizing YOLO weights for low-VRAM / CPU deployment

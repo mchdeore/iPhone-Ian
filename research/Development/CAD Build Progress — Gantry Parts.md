@@ -3,7 +3,7 @@ tags: [development, cad]
 status: in-progress
 date: 2026-09-13
 related:
-  - "[[== Development Central ==]]"
+  - "[[== DEVELOPMENT CENTRAL ==]]"
 ---
 
 # CAD Build Progress — Gantry Parts

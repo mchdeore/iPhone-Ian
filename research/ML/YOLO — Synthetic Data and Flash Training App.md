@@ -3,7 +3,7 @@ tags: [YOLO, synthetic-data, flash-app, homography, ML, computer-vision]
 status: answered
 date: 2026-10-04
 related:
-  - "[[== ML Central ==]]"
+  - "[[== ML CENTRAL ==]]"
 ---
 
 # 02 — Synthetic data and the "flash training app"

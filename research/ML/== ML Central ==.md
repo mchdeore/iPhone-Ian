@@ -2,7 +2,7 @@
 tags: [ml]
 ---
 
-# == ML Central ==
+# == ML CENTRAL ==
 
 Vision-only grounding. YOLO nano detection. ZonUI-3B fine-tuning on iPhone captures. Flask flash app for synthetic data.
 

@@ -3,7 +3,7 @@ tags: [capacitive, PCAP, grounding, gantry, delta, stylus, calibration, mechanic
 status: answered
 date: 2026-10-05
 related:
-  - "[[== Hardware Central ==]]"
+  - "[[== HARDWARE CENTRAL ==]]"
 ---
 
 # Mechanical architecture: touch physics, gantry vs delta, grounding

@@ -3,7 +3,7 @@ tags: [YOLO, hardware, GPU, training, ML, Colab]
 status: answered
 date: 2026-10-04
 related:
-  - "[[== ML Central ==]]"
+  - "[[== ML CENTRAL ==]]"
 ---
 
 # 03 — Hardware for YOLO training and the capture rig

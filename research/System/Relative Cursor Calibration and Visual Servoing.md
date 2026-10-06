@@ -3,7 +3,7 @@ tags: [control, iOS, AssistiveTouch, HID, relative-pointer, visual-servoing, cal
 status: answered
 date: 2026-10-05
 related:
-  - "[[== Software Central ==]]"
+  - "[[== SOFTWARE CENTRAL ==]]"
 ---
 
 # 03 — Closed-loop cursor control with a RELATIVE-only iOS pointer

@@ -3,7 +3,7 @@ tags: [ios, face-id, passcode, autofill, accessibility, voiceover, 2fa, passkey]
 status: answered
 date: 2026-10-05
 related:
-  - "[[== Software Central ==]]"
+  - "[[== SOFTWARE CENTRAL ==]]"
 ---
 
 # iOS control constraints — Face ID, autofill, accessibility

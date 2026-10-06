@@ -3,7 +3,7 @@ tags: [gambling, ios]
 status: answered
 date: 2026-10-05
 related:
-  - "[[Games Research]]"
+  - "[[== GAMES RESEARCH ==]]"
 ---
 
 # 02 — Device integrity & attestation — how do iOS betting apps decide a device is trustworthy?

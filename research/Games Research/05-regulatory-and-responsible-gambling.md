@@ -3,7 +3,7 @@ tags: [gambling, ios]
 status: answered
 date: 2026-10-05
 related:
-  - "[[Games Research]]"
+  - "[[== GAMES RESEARCH ==]]"
 ---
 
 # Regulatory & responsible-gambling layer — why iOS betting apps run the detection stack

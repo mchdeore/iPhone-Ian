@@ -3,7 +3,7 @@ tags: [YOLO, taxonomy, grouping, dataset, ML, computer-vision]
 status: answered
 date: 2026-10-05
 related:
-  - "[[== ML Central ==]]"
+  - "[[== ML CENTRAL ==]]"
 ---
 
 # 09 — Grouping methods (taxonomy, structure, data splits, compression)

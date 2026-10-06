@@ -3,7 +3,7 @@ tags: [iOS, accessibility, AssistiveTouch, pointer, mouse, HID, control, actuato
 status: answered
 date: 2026-10-05
 related:
-  - "[[== Software Central ==]]"
+  - "[[== SOFTWARE CENTRAL ==]]"
 ---
 
 # 01 — AssistiveTouch pointer mechanics (iOS 13→26), in depth

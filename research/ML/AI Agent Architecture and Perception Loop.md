@@ -3,7 +3,7 @@ tags: [agent, VLM, perception, planning, action-loop, droidrun]
 status: answered
 date: 2026-10-05
 related:
-  - "[[== ML Central ==]]"
+  - "[[== ML CENTRAL ==]]"
 ---
 
 # AI agent architecture — perception→planning→action loop

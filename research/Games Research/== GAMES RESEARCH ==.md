@@ -2,7 +2,7 @@
 tags: [games]
 ---
 
-# == Games Research ==
+# == GAMES RESEARCH ==
 
 Side research on game-related modeling: tennis analytics and gambling compliance / integrity detection.
 

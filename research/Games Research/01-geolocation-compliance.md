@@ -3,7 +3,7 @@ tags: [gambling, ios]
 status: answered
 date: 2026-10-05
 related:
-  - "[[Games Research]]"
+  - "[[== GAMES RESEARCH ==]]"
 ---
 
 # Geolocation compliance — how do iOS gambling apps prove you're physically in a legal jurisdiction?
