@@ -5,7 +5,7 @@ date: 2026-10-01
 source: "SpinSight repo (Freddy Kruger), docs/TENNIS_RESEARCH.md @ bf2fb9a"
 related:
   - "[[tennis-player-modeling]]"
-  - "[[sports-research/README]]"
+  - "[[../_side-projects/README]]"
 ---
 
 > Imported verbatim from SpinSight `docs/TENNIS_RESEARCH.md`. The canonical copy lives in SpinSight; this is a snapshot. Companion: [[tennis-player-modeling]].

@@ -4,7 +4,7 @@ status: answered
 date: 2026-10-05
 related:
   - "[[13-exposing-device-controls]]"
-  - "[[../07-ios-control-constraints]]"
+  - "[[../ios-control/01-faceid-autofill-accessibility]]"
   - "[[03-hardware]]"
 ---
 

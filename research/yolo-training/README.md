@@ -3,7 +3,7 @@ tags: [YOLO, index, ML, computer-vision]
 status: answered
 date: 2026-10-04
 related:
-  - "[[../06-vlm-gui-agent-survey]]"
+  - "[[agent-ml/02-vlm-gui-agent-survey]]"
 ---
 
 # YOLO training setup — research index

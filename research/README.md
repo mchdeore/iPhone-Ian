@@ -1,66 +1,52 @@
-# Research notes — index & status
-
-## Workflow (read this first)
-
-Before you research anything:
-
-1. Check [`questions.md`](questions.md) — did we already ask this? If yes, read
-   the linked notes. Don't re-research.
-2. If the question is new, add it to `questions.md` with status `Researching`.
-3. Copy [`TEMPLATE.md`](TEMPLATE.md) into the right subfolder, fill it in.
-4. When done, mark the question `Answered` in `questions.md` and link the note.
-
-When research turns into a decision, it moves to [`../specs/`](../specs/).
-Research notes stay raw — never polish them. Specs are polished.
-
+---
+tags: [index, MOC]
+status: live
+date: 2026-10-06
+related:
+  - "[[Home]]"
+  - "[[Timeline]]"
 ---
 
-These notes were seeded from an earlier general survey that was **Android-framed**.
-The project has since committed to **iPhone only**. Read them with that pivot in
-mind: the *mechanical / touch-physics* findings transfer directly to iOS, but the
-*software-control* findings mostly do **not** (see below).
+# Research notes — index
 
-| File | Topic | Transfers to iPhone? | Status |
-|---|---|---|---|
-| `01-prior-art-notes.md` | Prior art: touchscreen robots (Tappy, MATT) + software agents | Robot prior art: **yes**. Software agents: partial. | Answered |
-| `02-mechanical-architecture-notes.md` | Capacitive (PCAP) touch physics, gantry vs delta, grounding, calibration, stylus tips | **Yes, fully** — PCAP physics is identical on iPhone | Answered |
-| `05-ai-agent-architecture-notes.md` | Perception→planning→action loop for a phone-driving agent | Loop design: **yes**. droidrun specifics: no (Android). | Answered (filled by VLM survey) |
-| `06-vlm-gui-agent-survey.md` | VLM GUI agents, vision grounding, fine-tuning vs prompting, architecture design | **Yes** — iOS-agnostic, camera-photo-specific | Answered 2026-10-05 |
-| `07-ios-control-constraints.md` | iOS-specific: Face ID, autofill, accessibility, stylus behavior, app login landscape | **Yes** — iPhone-specific | Answered 2026-10-05 |
-| `08-xy-gantry-builds.md` | XY/CoreXY gantry builds, microcontroller choice (Arduino+GRBL), Instructables robot deep dive | **Yes** — mechanical | Answered 2026-10-05 |
-| [`yolo-training/`](yolo-training/README.md) | Efficient YOLO training: dataset recipe, synthetic flash-app data, training hardware | **Yes** — iOS-agnostic | Researched 2026-10-04 |
-| [`yolo-training/`](yolo-training/README.md) 04–15 | Training per hardware, quantization (+ by hardware), pruning, distillation, other optimizations, class grouping, efficient strategy, Flask closed-loop trainer, device-control API, Windows networking/streaming, Raspberry Pi/ESP32 HID input converter | **Yes** | Researched 2026-10-05 |
-| [`sports-research/`](sports-research/README.md) | Separate track: in-play tennis win-prob modeling (imported from SpinSight) | N/A — unrelated to the robot | Imported 2026-10-05 |
-| `android-control-survey.md` | 88 KB survey of Android software/USB control (ADB, scrcpy, accessibility, UHID/AOA) | **Mostly no** — iOS has no equivalent open control surface | Legacy background |
+## Start here
 
-## Reusable parts & resources → now in the specs
+- **[[Home]]** — Map of Content. Links to everything in the vault.
+- **[[Timeline]]** — Project phases, what's done, what's next, open decisions.
+- **[[questions]]** — Running question log. Check before starting new research.
+- **[[TEMPLATE]]** — Copy this when creating a new research note.
 
-The reusable-parts research (CAD libraries, OpenBuilds/ACRO mechanics, GRBL/FluidNC
-firmware, Tapster/Tappy stack, OpenCV homography, UGround/OmniParser grounding
-models, motor/servo/stepper libraries, YouTubers/communities) has been split into
-the two authoritative specs, each with its own citations section:
+## Research domains
 
-- Physical build + CAD library → [`../specs/01-hardware.md`](../specs/01-hardware.md)
-- Firmware + software + ML → [`../specs/02-firmware-and-software.md`](../specs/02-firmware-and-software.md)
+| Domain | Folder | What's covered |
+|---|---|---|
+| [[mechanical/README\|Mechanical]] | `mechanical/` | Prior art, touch physics, gantry design, grounding, microcontroller choice |
+| [[ios-control/README\|iOS Control]] | `ios-control/` | Face ID, autofill, accessibility, AssistiveTouch/HID, cursor calibration |
+| [[agent-ml/README\|Agent & ML]] | `agent-ml/` | AI architecture, VLM GUI agents, vision grounding, fine-tuning strategy |
+| [[yolo-training/README\|YOLO Training]] | `yolo-training/` | Dataset, synthetic data, hardware, quantization, pruning, closed-loop trainer |
+| [[android-control-survey\|Android Survey]] | `android-control-survey.md` | Legacy. Why software-only iPhone control is not viable. |
 
-## Why `android-control-survey.md` is kept but demoted
+## Side projects (not the robot)
 
-It documents *why software control of a stock phone is hard*, which is the core
-argument for the physical-robot approach. On Android there were still several
-software paths (ADB, scrcpy OTG/AOA, accessibility `dispatchGesture`). **On a
-stock, non-jailbroken iPhone essentially none of these exist** for arbitrary
-third-party automation — which is exactly why we go physical. Keep it as
-supporting evidence, not as an implementation guide.
+| Project | Folder | What's covered |
+|---|---|---|
+| [[_side-projects/tennis-modeling/README\|Tennis Modeling]] | `_side-projects/tennis-modeling/` | In-play tennis win-probability (imported from SpinSight) |
+| [[_side-projects/README\|Gambling Detection]] | `ios-gambling-detection/` | iOS geolocation, device integrity, behavioral detection |
 
-## Biggest open research gaps (carried into `specs/00-charter.md`)
+## Specs (decisions made)
 
-- **Cartesian XY-gantry reference build** with a passive spring-Z capacitive
-  stylus — **FOUND:** Instructables "Screen Tapping Robot"
-  (https://www.instructables.com/Screen-Tapping-Robot/), now the design source of
-  truth (`specs/01-hardware.md`), deep-dived in `08-xy-gantry-builds.md`.
-- **iOS-specific control constraints** — Face ID / passkey / autofill behavior
-  when a robot (not a human) is driving — **ANSWERED** in `07-ios-control-constraints.md`.
-- **Vision grounding for iOS screens** — the agent sees the screen through a
-  camera (black box), not an accessibility tree — **ANSWERED** in `06-vlm-gui-agent-survey.md`.
-  Camera-photo grounding is an open research gap; our approach: Phase 2 zero-shot
-  (UGround/OmniParser), Phase 3 fine-tune (ZonUI-3B on our captures).
+- [[../specs/00-charter|Charter]] — goal, decisions, scope, roadmap
+- [[../specs/01-hardware|Hardware Spec]] — locked v1 design, BOM
+- [[../specs/02-firmware-and-software|Firmware/Software Spec]] — architecture, routes, ML pipeline
+
+## Workflow
+
+1. Open [[Home]] — your landing page in Obsidian.
+2. Check [[Timeline]] — what phase are we in?
+3. Before researching: scan [[questions]] for duplicates.
+4. New research: copy [[TEMPLATE]], fill it in, add to [[questions]].
+5. Research → decision → moves to `../specs/`.
+
+## Why `android-control-survey.md` is kept
+
+Documents why software control of a stock phone is hard. On Android, software paths exist (ADB, scrcpy, accessibility). On a stock iPhone, none exist — which is why we go physical. Keep as supporting evidence.

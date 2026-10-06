@@ -3,9 +3,9 @@ tags: [agent, VLM, perception, planning, action-loop, droidrun]
 status: answered
 date: 2026-10-05
 related:
-  - "[[01-prior-art-notes]]"
-  - "[[06-vlm-gui-agent-survey]]"
-  - "[[07-ios-control-constraints]]"
+  - "[[mechanical/01-prior-art]]"
+  - "[[agent-ml/02-vlm-gui-agent-survey]]"
+  - "[[ios-control/01-faceid-autofill-accessibility]]"
 ---
 
 # AI agent architecture — perception→planning→action loop
@@ -24,7 +24,7 @@ Architecturally a perception→planning→action loop in software-only form. The
 
 ### Architecture for our physical agent
 
-See full survey in [[06-vlm-gui-agent-survey]]. Summary:
+See full survey in [[agent-ml/02-vlm-gui-agent-survey]]. Summary:
 
 ```
 Camera photo of iPhone screen
@@ -44,7 +44,7 @@ Camera photo of iPhone screen
 
 **Perception and planning are separate concerns.** Perception benefits from fine-tuning on our domain (iPhone camera photos). Planning works fine with off-the-shelf VLMs.
 
-### Key references (full details in [[06-vlm-gui-agent-survey]])
+### Key references (full details in [[agent-ml/02-vlm-gui-agent-survey]])
 
 - Mobile-Agent v3.5 / GUI-Owl-1.5 — 56.5 OSWorld, multi-agent architecture
 - OS-Atlas — open-source GUI grounding foundation model
@@ -60,4 +60,4 @@ Camera photo of iPhone screen
 ## Sources
 
 - https://github.com/droidrun/mobilerun
-- See [[06-vlm-gui-agent-survey]] for full VLM/grounding sources
+- See [[agent-ml/02-vlm-gui-agent-survey]] for full VLM/grounding sources

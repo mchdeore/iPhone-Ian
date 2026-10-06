@@ -7,7 +7,7 @@ related:
   - "[[01-efficient-dataset]]"
   - "[[02-synthetic-data-and-flash-app]]"
   - "[[03-hardware]]"
-  - "[[../06-vlm-gui-agent-survey]]"
+  - "[[agent-ml/02-vlm-gui-agent-survey]]"
 ---
 
 # 10 — Knowledge distillation on low-VRAM / CPU-only hardware

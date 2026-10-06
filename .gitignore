@@ -15,7 +15,11 @@ datasets/
 captures/
 *.raw-capture
 
-# --- Obsidian: keep config, ignore workspace/cache ---
+# --- Obsidian: vault is in research/.obsidian/, not repo root ---
+# If you accidentally open the repo root as a vault, ignore those files
+/.obsidian/
+
+# --- Obsidian vault (research/): keep config, ignore workspace/cache ---
 research/.obsidian/workspace.json
 research/.obsidian/workspace-mobile.json
 research/.obsidian/plugins/

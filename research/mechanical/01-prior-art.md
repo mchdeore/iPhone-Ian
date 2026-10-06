@@ -3,10 +3,10 @@ tags: [prior-art, touchscreen-robot, capacitive, delta, gantry, agent]
 status: answered
 date: 2026-10-05
 related:
-  - "[[02-mechanical-architecture-notes]]"
-  - "[[05-ai-agent-architecture-notes]]"
-  - "[[06-vlm-gui-agent-survey]]"
-  - "[[08-xy-gantry-builds]]"
+  - "[[mechanical/02-touch-physics-gantry]]"
+  - "[[agent-ml/01-agent-architecture]]"
+  - "[[agent-ml/02-vlm-gui-agent-survey]]"
+  - "[[mechanical/03-xy-gantry-microcontroller]]"
 ---
 
 # Prior art: touchscreen robots & software agents
@@ -31,7 +31,7 @@ What has been built before? Commercial robots, DIY builds, and software agents t
   - Multi-touch not implemented (single end-effector).
   - https://www.testdevlab.com/blog/how-we-built-a-robot-for-automated-manual-mobile-testing
 
-- **Instructables "Screen Tapping Robot"** — our design source of truth. Cartesian XY gantry, 3D-printed, Raspberry Pi 3. Details in [[08-xy-gantry-builds]]. https://www.instructables.com/Screen-Tapping-Robot/
+- **Instructables "Screen Tapping Robot"** — our design source of truth. Cartesian XY gantry, 3D-printed, Raspberry Pi 3. Details in [[mechanical/03-xy-gantry-microcontroller]]. https://www.instructables.com/Screen-Tapping-Robot/
 
 - **Single solenoid/servo tappers** — $10–40, fixed-point tap only. Simplest possible. Two documented builds:
   - https://hackaday.com/2012/05/04/reaching-out-to-a-touch-screen-with-a-microcontroller/
@@ -49,9 +49,9 @@ What has been built before? Commercial robots, DIY builds, and software agents t
 
 Originally flagged gaps: "XY touchscreen robot," "CoreXY phone testing," "pen plotter touchscreen," "mobile GUI agent literature," X/Twitter. Now covered by:
 
-- [[08-xy-gantry-builds]] — dedicated research on XY/CoreXY gantry builds for phone automation
-- [[06-vlm-gui-agent-survey]] — full literature survey of VLM GUI agents and vision grounding
-- [[07-ios-control-constraints]] — iOS-specific Face ID, autofill, accessibility behavior
+- [[mechanical/03-xy-gantry-microcontroller]] — dedicated research on XY/CoreXY gantry builds for phone automation
+- [[agent-ml/02-vlm-gui-agent-survey]] — full literature survey of VLM GUI agents and vision grounding
+- [[ios-control/01-faceid-autofill-accessibility]] — iOS-specific Face ID, autofill, accessibility behavior
 
 ## Sources
 

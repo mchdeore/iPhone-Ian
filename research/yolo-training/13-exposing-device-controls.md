@@ -3,10 +3,10 @@ tags: [control, agent, GRBL, iOS, action-space, MCP, accessibility, AssistiveTou
 status: answered
 date: 2026-10-05
 related:
-  - "[[../05-ai-agent-architecture-notes]]"
-  - "[[../06-vlm-gui-agent-survey]]"
-  - "[[../07-ios-control-constraints]]"
-  - "[[../08-xy-gantry-builds]]"
+  - "[[../agent-ml/01-agent-architecture]]"
+  - "[[agent-ml/02-vlm-gui-agent-survey]]"
+  - "[[../ios-control/01-faceid-autofill-accessibility]]"
+  - "[[../mechanical/03-xy-gantry-microcontroller]]"
   - "[[15-raspberry-pi-input-converter]]"
 ---
 
@@ -19,9 +19,9 @@ actions through screen → camera → gantry → GRBL, wrap them as tool/functio
 safely, and — crucially — can stock-iOS accessibility (mouse pointer, hardware keyboard,
 Switch/Voice Control) drive the phone *without the gantry at all*?
 
-Builds on the agent loop (`[[../05-ai-agent-architecture-notes]]`), VLM action-space
-survey (`[[../06-vlm-gui-agent-survey]]`), iOS constraints (`[[../07-ios-control-constraints]]`),
-GRBL mechanics (`[[../08-xy-gantry-builds]]`), firmware contract (`specs/02` §4–§8).
+Builds on the agent loop (`[[../agent-ml/01-agent-architecture]]`), VLM action-space
+survey (`[[agent-ml/02-vlm-gui-agent-survey]]`), iOS constraints (`[[../ios-control/01-faceid-autofill-accessibility]]`),
+GRBL mechanics (`[[../mechanical/03-xy-gantry-microcontroller]]`), firmware contract (`specs/02` §4–§8).
 
 ## Key findings
 
@@ -32,7 +32,7 @@ GRBL mechanics (`[[../08-xy-gantry-builds]]`), firmware contract (`specs/02` §4
 | **UI-TARS** mobile | raw pixels `point='x y'` | `click`, `long_press`, `type`, `scroll`, `drag`, `open_app`, `press_home`, `press_back`, `finished` | `[Documented]` prompt.py |
 | **UI-TARS** desktop | raw pixels | adds `left_double`, `right_single`, `hotkey`, **`wait()`** | `[Documented]` |
 | **AppAgent** | **element index** (set-of-marks numbers overlaid) | `Tap`, `Long_Press`, `Swipe(elem,dir,dist)`, `Text` | `[Documented]` 2312.13771 §3.1 |
-| **OS-Atlas / UGround** | normalized grounding → pixel | grounding emits the point; action layer is thin | `[Benchmark]` (see `[[../06-vlm-gui-agent-survey]]`) |
+| **OS-Atlas / UGround** | normalized grounding → pixel | grounding emits the point; action layer is thin | `[Benchmark]` (see `[[agent-ml/02-vlm-gui-agent-survey]]`) |
 | **Anthropic / OpenAI computer-use** | pixels | `screenshot`, `click`, `type`, `key`, `scroll`, `wait` + "hybrid GUI+API" | `[Community]` emergentmind |
 
 Takeaway: **6–9 primitives cover every GUI agent.** AppAgent's element-index style
@@ -85,7 +85,7 @@ ACTION:      VLM tap(sx,sy) --H_screen→gantry (session, calibrated)--> (X,Y) m
   (`0x85`), purges the queue, and with soft-limits on **errors instead of alarming** on
   out-of-range → ideal for agent moves. `F` is mm/min (G94); jog never changes modal state.
 - **Tap (servo-Z):** laser mode `$32=1`; `M3 S<down>` → `G4 P0.12` dwell → `M5`/`S0`
-  up (`[[../08-xy-gantry-builds]]`).
+  up (`[[../mechanical/03-xy-gantry-microcontroller]]`).
 - **Homing:** `$H` (needs limit switches, `$22=1`); set phone-corner origin with `G10 L20`.
 
 ### 5. Tool-calling / MCP exposure
@@ -125,7 +125,7 @@ returns the rectified frame. Per MCP best-practice, annotate each tool
 
 ### 8. Software-side alternative — drive a STOCK iPhone with NO gantry
 
-This re-opens what `[[../07-ios-control-constraints]]` dismissed *for a tapping
+This re-opens what `[[../ios-control/01-faceid-autofill-accessibility]]` dismissed *for a tapping
 robot*: used as the **actuator itself**, stock-iOS accessibility is powerful.
 
 - **Pointer + AssistiveTouch** (iOS 13+): a plain **USB or Bluetooth mouse acts as a
