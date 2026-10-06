@@ -4,7 +4,11 @@ tags: [development]
 
 # == Development Central ==
 
-Project timeline. No research links here — this is planning only.
+Project timeline and active build progress. All development work lives here.
+
+## Active work
+
+- [[CAD Build Progress — Gantry Parts]] — 4 of 14 parts done, build123d pipeline working
 
 ## Phase 0 — Research close-out
 
