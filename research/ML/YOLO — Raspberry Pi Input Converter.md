@@ -3,7 +3,7 @@ tags: [raspberry-pi, HID, hardware, control, ESP32, bluetooth, iOS]
 status: answered
 date: 2026-10-05
 related:
- - ""
+  - "[[ML Central]]"
 ---
 
 # 15 — Raspberry Pi "input converter" between host and device

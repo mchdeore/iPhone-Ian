@@ -3,7 +3,7 @@ tags: [YOLO, training, strategy, ML, computer-vision]
 status: answered
 date: 2026-10-05
 related:
- - ""
+  - "[[ML Central]]"
 ---
 
 # 12 — Quickest-to-train, minimal-overhead training strategy

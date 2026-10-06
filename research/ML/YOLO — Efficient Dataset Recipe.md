@@ -3,7 +3,7 @@ tags: [YOLO, training, dataset, ML, computer-vision]
 status: answered
 date: 2026-10-04
 related:
- - ""
+  - "[[ML Central]]"
 ---
 
 # 01 — What makes an efficient YOLO training set

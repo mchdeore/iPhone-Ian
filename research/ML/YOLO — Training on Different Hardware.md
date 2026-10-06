@@ -3,7 +3,7 @@ tags: [YOLO, hardware, training, CPU, MPS, GPU, Colab, ML]
 status: answered
 date: 2026-10-05
 related:
- - ""
+  - "[[ML Central]]"
 ---
 
 # 04 — Training YOLO on different hardware

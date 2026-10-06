@@ -1,19 +1,9 @@
-# Controlling a Modern Android Phone from a Computer: A Technical Survey
-
-*Research scope: Android 12–16, covering software/USB control mechanisms, observability/detectability characteristics, and physical touchscreen-actuator hardware. Compiled September 2026.*
-
-**Citation key:** [Verified/documented] = official docs or source code · [Developer/researcher report] = blog/GitHub issue by someone who built it · [Anecdotal] = forum/Reddit report · [Inference] = author's own reasoning, explicitly labeled as such.
-
 ---
-
-## Table of Contents
-
-1. [Part 1 — Software/USB Control Mechanisms](#part-1)
-2. [Part 2 — Observability & Detectability (Defensive)](#part-2)
-3. [Part 3 — Physical Touchscreen Actuator Hardware](#part-3)
-4. [Part 4 — Comparison Table & Rankings](#part-4)
-5. [Sources](#sources)
-
+tags: []
+status: answered
+date: 2026-10-05
+related:
+  - "[[Software Central]]"
 ---
 
 <a id="part-1"></a>

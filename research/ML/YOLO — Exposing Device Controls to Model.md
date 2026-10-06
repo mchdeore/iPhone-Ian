@@ -3,7 +3,7 @@ tags: [control, agent, GRBL, iOS, action-space, MCP, accessibility, AssistiveTou
 status: answered
 date: 2026-10-05
 related:
- - ""
+  - "[[ML Central]]"
 ---
 
 # 13 — Exposing device controls to the model/agent

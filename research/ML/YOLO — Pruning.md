@@ -3,7 +3,7 @@ tags: [YOLO, pruning, compression, edge, ML, computer-vision]
 status: answered
 date: 2026-10-05
 related:
- - ""
+  - "[[ML Central]]"
 ---
 
 # 07 — Pruning YOLO — does it beat just picking a smaller model?

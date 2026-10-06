@@ -3,7 +3,7 @@ tags: [YOLO, quantization, hardware, edge, inference, ML, computer-vision]
 status: answered
 date: 2026-10-05
 related:
- - ""
+  - "[[ML Central]]"
 ---
 
 # 11 — Quantization formats by hardware and task

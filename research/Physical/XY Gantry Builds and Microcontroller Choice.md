@@ -3,7 +3,7 @@ tags: [gantry, corexy, grbl, arduino, microcontroller, stepper, pen-plotter, mec
 status: answered
 date: 2026-10-05
 related:
- - ""
+  - "[[Hardware Central]]"
 ---
 
 # XY gantry, CoreXY & microcontroller — phone-tapping builds
