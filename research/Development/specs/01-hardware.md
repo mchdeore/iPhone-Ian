@@ -1,3 +1,9 @@
+---
+tags: [hardware, specs]
+related:
+  - "[[== DEVELOPMENT CENTRAL ==]]"
+---
+
 # Hardware Build Specification
 
 **Scope:** everything physical — the machine, its motion, the tap, the phone

@@ -1,3 +1,9 @@
+---
+tags: [software, firmware, ml, specs]
+related:
+  - "[[== DEVELOPMENT CENTRAL ==]]"
+---
+
 # Firmware, Software & Machine-Learning Specification
 
 **Scope:** everything that runs as code — on-robot **firmware**, the **host**

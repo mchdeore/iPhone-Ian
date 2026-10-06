@@ -6,6 +6,12 @@ tags: [development]
 
 Project timeline and active build progress. All development work lives here.
 
+## Specs
+
+- [[00-charter]] — project charter, scope, decisions
+- [[01-hardware]] — hardware build specification
+- [[02-firmware-and-software]] — firmware, software & ML specification
+
 ## Active work
 
 - [[CAD Build Progress — Gantry Parts]] — 4 of 14 parts done, build123d pipeline working

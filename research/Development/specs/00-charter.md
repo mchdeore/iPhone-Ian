@@ -1,3 +1,9 @@
+---
+tags: [charter, specs]
+related:
+  - "[[== DEVELOPMENT CENTRAL ==]]"
+---
+
 # 00 — Project Charter
 
 **Project:** iPhone Accessibility Robot (`iPhone-Ian`)
