@@ -1,27 +1,24 @@
 ---
 tags: []
-status: draft
-date: YYYY-MM-DD
-related: []
 ---
 
-# [Topic] — [One-line question this answers]
+# [Topic] — [One-line question]
+
+Status: Draft | Answered | Stale
+Date: YYYY-MM-DD
 
 ## Question
 
-What are we trying to figure out? One sentence.
+One sentence.
 
 ## Key findings
 
-- Finding. Source: [link or tag like `[Documented]`, `[Community]`, `[Benchmark]`]
-- Finding. Source: ...
+- Finding. Source
 
 ## Sources
 
-- [Title](URL) — why relevant, one line
-- ...
+- [Title](URL)
 
-## Open questions / follow-ups
+## Open questions
 
-- Question → flag in `questions.md` if it's worth tracking
-- ...
+-

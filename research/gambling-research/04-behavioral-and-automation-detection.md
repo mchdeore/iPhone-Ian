@@ -118,8 +118,8 @@ observe — and how do sportsbooks vs. prediction markets (Polymarket) treat bot
   straight constant-velocity swipes, and — the biggest tell — a **CoreMotion flatline**: a clamped
   phone has no grip micro-tremor or orientation change coupled to each tap, so the HMOG channel that
   fingerprints *humans* is simply absent. `[Benchmark]`
-- **HID path** (Pi USB/BT gadget + AssistiveTouch pointer — `[[../machine-learning/YOLO — Raspberry Pi Input Converter]]`,
-  `[[../machine-learning/YOLO — Exposing Device Controls to Model]]`): iOS synthesizes genuine touch events from the
+- **HID path** (Pi USB/BT gadget + AssistiveTouch pointer — `[[../ML/YOLO — Raspberry Pi Input Converter]]`,
+  `[[../ML/YOLO — Exposing Device Controls to Model]]`): iOS synthesizes genuine touch events from the
   pointer, so UITouch-level force/radius read as real — **but enabling AssistiveTouch sets
   `isAssistiveTouchRunning = true`**, the exact §2 flag that is *also* the §3 ADA-protected flag. An
   operator literally cannot cleanly separate our rig from a disabled user on that bit.
@@ -148,7 +148,7 @@ observe — and how do sportsbooks vs. prediction markets (Polymarket) treat bot
   sets it; confirm no AirPlay/HDMI capture path is in the perception stack.
 - Quantify the CoreMotion-flatline tell: how discriminative is "no motion coupled to taps" alone vs.
   a real seated/propped human whose phone is also near-still? → flag in `questions.md`.
-- Does enabling AssistiveTouch for the HID path (`[[../machine-learning/YOLO — Exposing Device Controls to Model]]`)
+- Does enabling AssistiveTouch for the HID path (`[[../ML/YOLO — Exposing Device Controls to Model]]`)
   measurably raise flagging, and is relying on that flag even defensible given §3? Ties to `hid-vs-gantry`.
 - Prediction-market terms drift: does Polymarket's ToS/geoblock stance on automated trading hold at
   our target date, and does it differ for its API vs. app surface?
