@@ -1,7 +1,7 @@
 ---
 tags: [charter, specs]
 related:
-  - "[[== DEVELOPMENT CENTRAL ==]]"
+  - "[[== STORYLINE ==]]"
 ---
 
 # 00 — Project Charter

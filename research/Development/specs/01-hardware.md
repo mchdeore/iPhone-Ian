@@ -1,7 +1,7 @@
 ---
 tags: [hardware, specs]
 related:
-  - "[[== DEVELOPMENT CENTRAL ==]]"
+  - "[[== STORYLINE ==]]"
 ---
 
 # Hardware Build Specification

@@ -1,7 +1,7 @@
 ---
 tags: [software, firmware, ml, specs]
 related:
-  - "[[== DEVELOPMENT CENTRAL ==]]"
+  - "[[== STORYLINE ==]]"
 ---
 
 # Firmware, Software & Machine-Learning Specification
