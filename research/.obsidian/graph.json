@@ -8,6 +8,13 @@
   "collapse-color-groups": true,
   "colorGroups": [
     {
+      "query": "tag:#system-design",
+      "color": {
+        "a": 1,
+        "rgb": 16737095
+      }
+    },
+    {
       "query": "tag:#yolo",
       "color": {
         "a": 1,

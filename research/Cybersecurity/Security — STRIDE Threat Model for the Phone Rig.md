@@ -3,7 +3,7 @@ type: research
 status: in-progress
 author: marc
 date: 2026-10-07
-tags: [cybersecurity, robotics, threat-model, stride, iot]
+tags: [system-design, cybersecurity, robotics, threat-model, stride, iot]
 ---
 
 # Security — STRIDE Threat Model for the Phone Rig
@@ -58,4 +58,4 @@ Trust boundaries: internet ↔ host; host ↔ controller (USB); host ↔ phone (
 
 ## Related
 
-- **Summary:** [[State of — Cybersecurity]] · [[State of — Robotics]]
+- **Summary:** [[State of — System Design]] · [[State of — Cybersecurity]] · [[State of — Robotics]]

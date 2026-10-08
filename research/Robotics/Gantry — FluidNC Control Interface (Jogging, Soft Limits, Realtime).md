@@ -3,7 +3,7 @@ type: research
 status: answered
 author: marc
 date: 2026-10-07
-tags: [robotics, rl-and-simple-robots, fluidnc, grbl, mks-dlc32, jogging, soft-limits]
+tags: [system-design, robotics, rl-and-simple-robots, fluidnc, grbl, mks-dlc32, jogging, soft-limits]
 ---
 
 # Gantry — FluidNC Control Interface (Jogging, Soft Limits, Realtime)
@@ -59,4 +59,4 @@ tags: [robotics, rl-and-simple-robots, fluidnc, grbl, mks-dlc32, jogging, soft-l
 
 ## Related
 
-- **Summary:** [[State of — Robotics]] · [[State of — RL and Simple Robots]]
+- **Summary:** [[State of — System Design]] · [[State of — Robotics]] · [[State of — RL and Simple Robots]]

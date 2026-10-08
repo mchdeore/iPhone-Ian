@@ -3,7 +3,7 @@ type: research
 status: in-progress
 author: marc
 date: 2026-10-07
-tags: [machine-learning, cybersecurity, robotics, screen-capture, airplay, uxplay, quicktime, latency]
+tags: [system-design, machine-learning, cybersecurity, robotics, screen-capture, airplay, uxplay, quicktime, latency]
 ---
 
 # Rig — iPhone Screen Capture Paths (USB, AirPlay, Multi-Phone)
@@ -51,4 +51,4 @@ tags: [machine-learning, cybersecurity, robotics, screen-capture, airplay, uxpla
 
 ## Related
 
-- **Summary:** [[State of — Machine Learning]] · [[State of — Cybersecurity]] · [[State of — Robotics]]
+- **Summary:** [[State of — System Design]] · [[State of — Machine Learning]] · [[State of — Cybersecurity]] · [[State of — Robotics]]

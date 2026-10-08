@@ -33,7 +33,7 @@ What's the state of the art in vision-language model GUI agents? How do they gro
 
 ### Physical robot phone agents — almost no prior work
 
-- **BrainyBot** — CV robot taps phone to play games. Closest analog. `[Academic]` https://github.com/DeMaCS-UNICAL/TappingBot
+- **BrainyBot** — CV robot taps phone to play games. Closest analog. `[Academic]` *(could not be re-verified 2026-10-07; see [[System Design — Related Work - Robots and Bots that Play Games]])* https://github.com/DeMaCS-UNICAL/TappingBot
 - **Tappy** — $80 DIY delta, no AI agent. `[Community]`
 - **Robo-Harness K1 (2026)** — VLM→robot via perception-as-tools, not phone-specific but architecture maps well. `[Academic]` https://arxiv.org/abs/2609.29389
 - **This intersection (physical robot + VLM GUI agent) is genuinely novel.** Feature, not bug.

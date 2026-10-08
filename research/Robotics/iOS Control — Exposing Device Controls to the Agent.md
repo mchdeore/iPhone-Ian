@@ -3,7 +3,7 @@ type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [machine-learning, robotics, control, agent, grbl, ios, action-space, mcp, accessibility, assistivetouch, homography]
+tags: [system-design, machine-learning, robotics, control, agent, grbl, ios, action-space, mcp, accessibility, assistivetouch, homography]
 ---
 
 # 13 — Exposing device controls to the model/agent
@@ -175,4 +175,4 @@ accessibility can be enabled.
 
 ## Related
 
-- **Summary:** [[State of — Machine Learning]] · [[State of — Robotics]]
+- **Summary:** [[State of — System Design]] · [[State of — Machine Learning]] · [[State of — Robotics]]

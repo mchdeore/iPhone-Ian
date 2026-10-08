@@ -50,4 +50,4 @@ tags: [machine-learning, state-of]
 
 ## Other summaries
 
-[[State of — Sports Analytics]] · [[State of — Cybersecurity]] · [[State of — Robotics]] · [[State of — RL and Simple Robots]] · [[State of — ML and Sports Markets]] · [[State of — Math]] · [[State of — YOLO]]
+[[State of — Sports Analytics]] · [[State of — Cybersecurity]] · [[State of — Robotics]] · [[State of — RL and Simple Robots]] · [[State of — ML and Sports Markets]] · [[State of — Math]] · [[State of — YOLO]] · [[State of — System Design]]

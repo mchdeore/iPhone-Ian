@@ -3,7 +3,7 @@ type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [machine-learning, robotics, agent, vlm, perception, planning, action-loop, droidrun]
+tags: [system-design, machine-learning, robotics, agent, vlm, perception, planning, action-loop, droidrun]
 ---
 
 # AI agent architecture — perception→planning→action loop
@@ -62,4 +62,4 @@ Camera photo of iPhone screen
 
 ## Related
 
-- **Summary:** [[State of — Machine Learning]] · [[State of — Robotics]]
+- **Summary:** [[State of — System Design]] · [[State of — Machine Learning]] · [[State of — Robotics]]
