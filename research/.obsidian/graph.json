@@ -1,22 +1,40 @@
 {
   "collapse-filter": false,
   "search": "",
-  "showTags": true,
+  "showTags": false,
   "showAttachments": false,
   "hideUnresolved": false,
   "showOrphans": true,
   "collapse-color-groups": true,
   "colorGroups": [
-    {"query": "tag:#mechanical", "color": {"a": 1, "rgb": 5602848}},
-    {"query": "tag:#ML", "color": {"a": 1, "rgb": 10863896}},
-    {"query": "tag:#ios", "color": {"a": 1, "rgb": 14027663}},
-    {"query": "tag:#VLM", "color": {"a": 1, "rgb": 11018239}},
-    {"query": "tag:#YOLO", "color": {"a": 1, "rgb": 8956927}},
-    {"query": "tag:#prior-art", "color": {"a": 1, "rgb": 10195247}},
-    {"query": "tag:#mechanical OR tag:#gantry OR tag:#grbl", "color": {"a": 1, "rgb": 5602848}},
-    {"query": "tag:#ML OR tag:#YOLO OR tag:#computer-vision", "color": {"a": 1, "rgb": 10863896}},
-    {"query": "tag:#ios OR tag:#face-id OR tag:#passkey", "color": {"a": 1, "rgb": 14027663}},
-    {"query": "tag:#VLM OR tag:#GUI-agent OR tag:#vision-grounding", "color": {"a": 1, "rgb": 11018239}}
+    {
+      "query": "path:\"Sports Analytics\"",
+      "color": {
+        "a": 1,
+        "rgb": 3055195
+      }
+    },
+    {
+      "query": "path:\"Machine Learning\"",
+      "color": {
+        "a": 1,
+        "rgb": 9329625
+      }
+    },
+    {
+      "query": "path:\"Cybersecurity\"",
+      "color": {
+        "a": 1,
+        "rgb": 14248783
+      }
+    },
+    {
+      "query": "path:\"Robotics\"",
+      "color": {
+        "a": 1,
+        "rgb": 15110456
+      }
+    }
   ],
   "close": true
 }
