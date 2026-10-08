@@ -58,3 +58,8 @@ Originally flagged gaps: "XY touchscreen robot," "CoreXY phone testing," "pen pl
 - https://github.com/droidrun/mobilerun
 - https://github.com/DeMaCS-UNICAL/TappingBot
 - https://patents.google.com/patent/WO2017051263A2/en
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — Robotics]]
+- **See also:** [[Agents — VLM GUI Agents and Vision Grounding Survey]] · [[Gantry — Capacitive Touch Physics and Architecture]] · [[Gantry — XY Builds and Microcontroller Choice]] · [[Simple Robots — Cheap Platforms to Practise RL On]]

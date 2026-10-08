@@ -47,3 +47,7 @@ Instead of predicting the match winner, predict **where the market will be (or t
 
 - [Benter's second-stage test explained](https://oddspapi.io/blog/?p=3174) `[Community]`
 - [Egidi et al. — combining historical data and odds (arXiv 1802.08848)](https://arxiv.org/pdf/1802.08848) · [Statistical Modelling 18(5-6)](https://statmod.org/smij/Vol18/Iss5-6/Egidi/Abstract.html) · [Probabilistic shot-success model (arXiv 2101.02104)](https://arxiv.org/pdf/2101.02104) `[Benchmark]`
+
+## Related
+
+- **Summary:** [[State of — Sports Analytics]] · [[State of — Machine Learning]] · [[State of — ML and Sports Markets]]

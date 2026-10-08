@@ -51,10 +51,10 @@ What legal regime forces real-money gambling apps on iOS to deploy geolocation, 
 - **Why it matters for detection**: a CFTC-regulated prediction market claims **nationwide** access with **no state geofence** and futures-style KYC — i.e. a **different, lighter geolocation surface and no state self-exclusion integration** vs a state-licensed sportsbook. The compliance surface an automated agent faces depends entirely on which product it touches (federal CEA vs 50 state regimes).
 
 ### How the rules map to the sibling technical checks
-- **Licence + geo-restriction** (Apple 5.3.4, NJ 13:69O, PA/MI geofence, GLI, UIGEA) → : GPS/Wi-Fi/IP location + VPN/proxy/spoof detection + border cadence. A stock, non-jailbroken iPhone **cannot spoof GPS**, so the robot's **physical location must already be legal**.
-- **System integrity** (GLI-19/33, NJ 128-bit digest, Apple native + App Attest) → : jailbreak/emulator/attestation. Our rig is a **stock iPhone**, so it *passes* integrity (see ).
-- **KYC/AML + self-exclusion identity match** (BSA, 5AMLD, GAMSTOP/state lists) → : the account must bind to a **real KYC'd person**; device fingerprint; one-account-per-person. This is a **hard wall** — the robot cannot invent an identity or a funding source.
-- **RG markers of harm + Mindway + bot detection** → : the regime **mandates** 24/7 behavioural profiling, and the same models that flag harm also flag **automation** (superhuman regularity, no fatigue, fixed cadence). This is the robot's **hardest behavioural gate**: physical taps look human at the capacitive layer (≥100 ms, ) but session-level patterns may not.
+- **Licence + geo-restriction** (Apple 5.3.4, NJ 13:69O, PA/MI geofence, GLI, UIGEA) → [[Betting Apps — Geolocation Compliance]]: GPS/Wi-Fi/IP location + VPN/proxy/spoof detection + border cadence. A stock, non-jailbroken iPhone **cannot spoof GPS**, so the robot's **physical location must already be legal**.
+- **System integrity** (GLI-19/33, NJ 128-bit digest, Apple native + App Attest) → [[Betting Apps — Device Integrity and Attestation]]: jailbreak/emulator/attestation. Our rig is a **stock iPhone**, so it *passes* integrity (see ).
+- **KYC/AML + self-exclusion identity match** (BSA, 5AMLD, GAMSTOP/state lists) → identity layer (no dedicated note yet; see [[Betting — Account-Level Behavior Models]]): the account must bind to a **real KYC'd person**; device fingerprint; one-account-per-person. This is a **hard wall** — the robot cannot invent an identity or a funding source.
+- **RG markers of harm + Mindway + bot detection** → [[Betting Apps — Behavioral and Automation Detection]]: the regime **mandates** 24/7 behavioural profiling, and the same models that flag harm also flag **automation** (superhuman regularity, no fatigue, fixed cadence). This is the robot's **hardest behavioural gate**: physical taps look human at the capacitive layer (≥100 ms, ) but session-level patterns may not.
 
 ## Sources
 - [Apple 5.3 Gaming/Gambling/Lotteries (verbatim 5.3.3/5.3.4)](https://developer.apple.com/forums/thread/95279) — `[Documented]` canonical text
@@ -81,3 +81,8 @@ What legal regime forces real-money gambling apps on iOS to deploy geolocation, 
 - Do RG "markers of harm" models fire on *flat, unemotional* bot play, or only on *escalating* play? Flat small stakes may dodge harm-markers yet still trip pure **bot-detection** (→ ).
 - Post-SCOTUS: if prediction markets win federal preemption, does a nationwide, geofence-free, self-exclusion-free venue become the path of least detection? Track the cert petition.
 - **KYC is the true hard wall** (→ ): a real verified identity + legitimate funding source is required regardless of how human the taps look. No perception/motion work removes it.
+
+## Related
+
+- **Summary:** [[State of — Sports Analytics]] · [[State of — Cybersecurity]]
+- **See also:** [[Betting Apps — Geolocation Compliance]] · [[Betting Apps — Device Integrity and Attestation]] · [[Betting Apps — Behavioral and Automation Detection]] · [[Betting — Account-Level Behavior Models]] · [[Markets — Legal Status of Prediction Markets (US and Canada, Oct 2026)]]

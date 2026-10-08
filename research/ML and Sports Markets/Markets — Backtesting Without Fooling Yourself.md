@@ -57,3 +57,7 @@ tags: [sports-analytics, machine-learning, ml-and-sports-markets, backtesting, o
 
 - [Deflated Sharpe Ratio (SSRN 2460551)](https://papers.ssrn.com/abstract=2460551) · [Probability of Backtest Overfitting (SSRN 2326253)](https://papers.ssrn.com/abstract=2326253) `[Benchmark]` · [Walk-forward optimisation](https://en.wikipedia.org/wiki/Walk_forward_optimization) `[Documented]`
 - [Betfair historic data workbook](https://github.com/betfair/historic-data-workbook) · [betfairutil](https://pypi.org/project/betfairutil) · [Polymarket prices-history](https://docs.polymarket.com/api-reference/markets/get-prices-history.md) · [Polymarket timeseries](https://docs.polymarket.com/developers/CLOB/timeseries.md) `[Documented]`
+
+## Related
+
+- **Summary:** [[State of — Sports Analytics]] · [[State of — Machine Learning]] · [[State of — ML and Sports Markets]]

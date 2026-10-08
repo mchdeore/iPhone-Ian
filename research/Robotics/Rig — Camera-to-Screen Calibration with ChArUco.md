@@ -51,3 +51,7 @@ Target ≤ 0.5 mm landing error (iOS minimum tap targets are ~44 pt ≈ 7 mm). M
 1. [OpenCV — ChArUco detection tutorial](https://docs.opencv.org/4.5.5/df/d4a/tutorial_charuco_detection.html) `[Documented]`
 2. [OpenCV forum — non-planar calibration thread](https://forum.opencv.org/t/non-planar-camera-calibration-returns-system-error/1323/19) `[Community]`
 3. [StereoComplex — ChArUco identification baseline](https://stereocomplex.readthedocs.io/en/latest/CHARUCO_IDENTIFICATION.html) `[Benchmark]`
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — Robotics]]

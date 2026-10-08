@@ -47,3 +47,7 @@ tags: [sports-analytics, ml-and-sports-markets, arbitrage, polymarket, kalshi, b
 4. [DeFi Rate — how Kalshi and Polymarket settle](https://defirate.com/?p=5575) `[Community]`
 5. [Prediction markets can't agree on the truth](https://michaellwy.substack.com/p/prediction-markets-cant-agree-on) · [Orrery — resolution rules](https://orrery.me/learn/polymarket-vs-kalshi-resolution-rules) `[Community]`
 6. [Finance Magnates — Iran contract split](https://financemagnates.com/cryptocurrency/us-military-action-against-iran-exposes-split-between-polymarket-and-kalshi-models) `[Community]`
+
+## Related
+
+- **Summary:** [[State of — Sports Analytics]] · [[State of — ML and Sports Markets]]

@@ -88,3 +88,7 @@ the natural target.
 - https://forums.developer.nvidia.com/t/yolov8-model-training-on-jetson-orin-nano/301591
 - https://markaicode.com/errors/yolov11-common-errors-and-fixes/
 - https://towardsdatascience.com/the-comprehensive-guide-to-training-and-running-yolov8-models-on-custom-datasets-22946da259c3/
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — YOLO]] · [[State of — Robotics]]

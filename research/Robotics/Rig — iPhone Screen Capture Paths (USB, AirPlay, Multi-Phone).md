@@ -48,3 +48,7 @@ tags: [machine-learning, cybersecurity, robotics, screen-capture, airplay, uxpla
 3. [UxPlay man page (Ubuntu)](https://manpages.ubuntu.com/manpages/noble/man1/uxplay.1.html) · [Debian man page](https://manpages.debian.org/testing/uxplay/uxplay.1) `[Documented]`
 4. [UxPlay (FDH2) on GitHub](https://github.com/fdh2/uxplay) `[Documented]`
 5. [Apple — UIScreen.isCaptured](https://developer.apple.com/documentation/uikit/uiscreen/iscaptured) `[Documented]`
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — Cybersecurity]] · [[State of — Robotics]]

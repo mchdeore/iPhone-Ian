@@ -79,3 +79,7 @@ Key insight: perception (what's on screen, where) and planning (what to do) are 
 - https://github.com/X-PLUG/MobileAgent
 - https://github.com/bytedance/UI-TARS-desktop
 - https://github.com/DeMaCS-UNICAL/TappingBot
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]]

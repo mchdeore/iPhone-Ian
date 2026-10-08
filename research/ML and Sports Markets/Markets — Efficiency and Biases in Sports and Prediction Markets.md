@@ -41,3 +41,7 @@ tags: [sports-analytics, machine-learning, ml-and-sports-markets, market-efficie
 - [Calibration of Kalshi and Polymarket (arXiv 2602.19520)](https://arxiv.org/html/2602.19520v1) `[Benchmark]` · [AutoML critique incl. Polymarket curve (arXiv 2608.07303)](https://arxiv.org/pdf/2608.07303) `[Benchmark]`
 - [Longshot bias glossary](https://pm.wiki/tr/data/glossary/longshot-bias) · [Prediction markets vs forecasters](https://sportsgameodds.com/blog/prediction-markets-beat-professional-forecasters) `[Community]`
 - [MIT Tech Review — Kaunitz et al.](https://www.technologyreview.com/2017/10/19/67760/the-secret-betting-strategy-that-beats-online-bookmakers/) `[Documented]`
+
+## Related
+
+- **Summary:** [[State of — Sports Analytics]] · [[State of — Machine Learning]] · [[State of — ML and Sports Markets]]

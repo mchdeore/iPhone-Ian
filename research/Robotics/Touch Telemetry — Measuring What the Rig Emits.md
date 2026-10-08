@@ -59,3 +59,7 @@ There's no good published population baseline for tap dwell or contact size. Tap
 - Apple: [UITouch.force](https://developer.apple.com/documentation/uikit/uitouch/force) · [majorRadius](https://developer.apple.com/documentation/uikit/uitouch/majorradius) · [isAssistiveTouchRunning](https://developer.apple.com/documentation/uikit/uiaccessibility/isassistivetouchrunning) · [UIScreen.isCaptured](https://developer.apple.com/documentation/uikit/uiscreen/iscaptured) `[Documented]`
 - [User-sensitive mobile interfaces — tap and long-press durations (arXiv 1402.1036)](https://arxiv.org/pdf/1402.1036) `[Benchmark]`
 - [zkSENSE — IMU response to touch](https://www.petsymposium.org/popets/2021/popets-2021-0058.php) · [HMOG](https://arxiv.org/pdf/1501.01199) `[Benchmark]`
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — Cybersecurity]] · [[State of — Robotics]]

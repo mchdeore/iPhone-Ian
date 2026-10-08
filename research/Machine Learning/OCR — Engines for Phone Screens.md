@@ -52,3 +52,7 @@ Takeaway: **domain matters more than engine reputation**, so measure on our data
 4. [PaddleOCR vs EasyOCR receipts](https://imagetotable.ai/fr/references/paddleocr-vs-easyocr-receipt-benchmark) `[Community]` (vendor)
 5. [MCP OCR server comparison](https://glama.ai/mcp/servers/timaliev/mcp_ocr) `[Community]`
 6. [LlamaIndex — best OCR libraries](https://llamaindex.ai/blog/best-ocr-libraries-for-developers) `[Community]`
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — Robotics]]

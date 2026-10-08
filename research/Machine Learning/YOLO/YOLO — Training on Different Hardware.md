@@ -127,3 +127,7 @@ a raw public port on a training/control box is an unauthenticated-RCE risk.
 - Does `cache='ram'` + many `workers` still OOM/hang (hist. Ultralytics #1010)? Confirm on 16 GB; prefer `cache='disk'` until verified.
 - Does `compile=True` net-help a CPU nano run after warm-up, or does compile overhead eat a short-run's budget?
 - Cropping to screen (per ) shrinks images — re-estimate CPU time and whether `cache='ram'` then fits 16 GB.
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — YOLO]]

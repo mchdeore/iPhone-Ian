@@ -47,3 +47,7 @@ The tennis research says the mispricing *decays within minutes*. That argues for
 
 - [BBE — Bristol Betting Exchange (arXiv 2105.08310)](https://arxiv.org/pdf/2105.08310) · [XGBoost dynamic wager placement (SciTePress 2024)](https://www.scitepress.org/Papers/2024/124875/124875.pdf) · [RL optimal stopping for trading (arXiv 2604.02035)](https://arxiv.org/abs/2604.02035) `[Benchmark]`
 - [Trading in-play betting exchange markets with ANNs (NTNU)](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/252063) `[Benchmark]`
+
+## Related
+
+- **Summary:** [[State of — Sports Analytics]] · [[State of — Machine Learning]] · [[State of — Robotics]] · [[State of — ML and Sports Markets]]

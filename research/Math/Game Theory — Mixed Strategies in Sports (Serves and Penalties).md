@@ -54,3 +54,7 @@ tags: [sports-analytics, ml-and-sports-markets, math, game-theory, tennis, socce
 6. [Palacios-Huerta — Professionals Play Minimax (LSE eprint)](https://eprints.lse.ac.uk/26561/) `[Benchmark]`
 7. [LSE impact case — Palacios-Huerta](https://lse.ac.uk/Research/Assets/impact-pdf/Palacios-Huerta.PDF) `[Documented]`
 8. [Sentana Lledó — penalty kicks with more actions (Essex)](https://www1.essex.ac.uk/economics/documents/eesj/lledo.pdf) `[Benchmark]`
+
+## Related
+
+- **Summary:** [[State of — Sports Analytics]] · [[State of — ML and Sports Markets]] · [[State of — Math]]

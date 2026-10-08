@@ -47,3 +47,7 @@ tags: [machine-learning, yolo, state-of]
 ## Changelog
 
 - 2026-10-07: first version; YOLO promoted to its own key tag and folder.
+
+## Other summaries
+
+[[State of — Sports Analytics]] · [[State of — Machine Learning]] · [[State of — Cybersecurity]] · [[State of — Robotics]] · [[State of — RL and Simple Robots]] · [[State of — ML and Sports Markets]] · [[State of — Math]]

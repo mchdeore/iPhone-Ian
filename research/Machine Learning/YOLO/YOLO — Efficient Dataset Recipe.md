@@ -149,3 +149,7 @@ scale toward 1,500 images / 10k instances per class. Keep `fliplr=0` permanently
 - https://huggingface.co/docling-project/ScreenParser
 - https://www.mdpi.com/2075-1702/11/2/275 (YOLO + DRL grasping)
 - https://arxiv.org/abs/2508.01966
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — YOLO]]

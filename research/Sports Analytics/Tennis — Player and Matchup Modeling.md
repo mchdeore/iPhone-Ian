@@ -211,3 +211,7 @@ Each of these is testable with the same **encompassing-test / rank-IC / does-it-
 - Lefty / matchup / H2H: [The Advantage of Lefties in One-On-One Sports (Fagan/Columbia)](http://www.columbia.edu/~mh2078/Lefties.pdf); [Profit from Being Left Handed in Tennis (Tennis Bros)](https://thetennisbros.com/tennis-tips/tactics/profit-from-being-left-handed-in-tennis/)
 - Surface / upsets / specialists: [Surface, climate and tennis betting (Tennis Majors)](https://www.tennismajors.com/others-news/surface-climate-and-tennis-betting-why-conditions-move-the-odds-more-than-you-think-840272.html); [Decoding Surface Dominance (Bruin Sports Analytics)](https://www.bruinsportsanalytics.com/post/surface-dominance)
 - Rally length / Serve+1 / winners-errors: [The Most Important Number in Tennis (Brain Game Tennis)](https://braingametennis.com/the-most-important-number-in-tennis/); [Match analysis and probability of winning a point in elite men's singles (PLOS One)](https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0286076); [Unlock the Serve +1 Advantage (TargetBound)](https://targetboundsports.com/en/unlock-the-serve-1-advantage-research-insights)
+
+## Related
+
+- **Summary:** [[State of — Sports Analytics]] · [[State of — Machine Learning]]

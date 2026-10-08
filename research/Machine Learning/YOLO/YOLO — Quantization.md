@@ -152,6 +152,10 @@ not beat FP32. OpenVINO INT8 = NNCF under the hood; TensorRT INT8 ≈ `trtexec -
 - Does INT8 move the **tap-accuracy / homography error**, or just mAP? Needs the
  closed-loop metric from `01`, not COCO mAP. → `questions.md`
 - Is the inference host the ≤16 GB CPU box, the RTX 3060, or the Mac? Decides FP16-GPU
- vs INT8-CPU → belongs in ``.
+ vs INT8-CPU → belongs in [[YOLO — Quantization by Hardware]].
 - Does FP16-only on the DFL (`w8a16`/`nodes_to_exclude`) recover the small-icon loss at
- near-INT8 speed? One A/B export answers it. Prune-then-quantize ordering → ``.
+ near-INT8 speed? One A/B export answers it. Prune-then-quantize ordering → [[YOLO — Pruning]].
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — YOLO]]

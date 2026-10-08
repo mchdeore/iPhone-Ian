@@ -104,4 +104,8 @@ over a public link while real screen content is visible (charter credential rule
 
 - Exact YOLO11n **NCNN** ms on Pi 5 (only ONNX 11n and NCNN 26n are published) — benchmark locally if a Pi becomes the host.
 - Does the Mac host's **ANE via CoreML** beat plain **MPS** enough to bother, given the loose latency budget? Likely no — measure only if inference ever shares the host with heavy work.
-- If multi-camera/multi-stylus is ever on the table, re-open the Hailo-8L vs Jetson Orin Nano choice (then INT8 and `` calibration actually matter) → flag in `questions.md`.
+- If multi-camera/multi-stylus is ever on the table, re-open the Hailo-8L vs Jetson Orin Nano choice (then INT8 calibration actually matters; see [[YOLO — Quantization]]) `questions.md`.
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — YOLO]]

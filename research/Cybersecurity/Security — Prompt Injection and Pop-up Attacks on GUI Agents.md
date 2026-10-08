@@ -53,3 +53,7 @@ tags: [machine-learning, cybersecurity, robotics, prompt-injection, gui-agent, a
 2. [ACL 2025 version](https://aclanthology.org/2025.acl-long.411) `[Benchmark]`
 3. [PopupAttack code](https://github.com/SALT-NLP/PopupAttack) `[Documented]`
 4. [Review summary](https://liner.com/review/attacking-visionlanguage-computer-agents-via-popups) `[Community]`
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — Cybersecurity]] · [[State of — Robotics]]

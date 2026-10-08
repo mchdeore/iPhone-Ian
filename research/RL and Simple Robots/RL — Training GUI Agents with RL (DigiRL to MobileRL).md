@@ -47,3 +47,7 @@ Self-reported scores use different step budgets and prompts. Compare *within* a 
 - [DigiRL (arXiv 2406.11896)](https://arxiv.org/abs/2406.11896) · [NeurIPS poster](https://neurips.cc/virtual/2024/poster/96658) `[Benchmark]`
 - [MobileRL (arXiv 2509.18119)](https://arxiv.org/html/2509.18119v2) · [ICLR 2026](https://mlanthology.org/iclr/2026/xu2026iclr-mobilerl/) `[Benchmark]`
 - [UI-TARS-2 review](https://www.themoonlight.io/en/review/ui-tars-2-technical-report-advancing-gui-agent-with-multi-turn-reinforcement-learning) · [GUI-Owl (arXiv 2508.15144)](https://arxiv.org/abs/2508.15144) · [GUI-Shepherd (arXiv 2509.23738)](https://arxiv.org/html/2509.23738v1) `[Benchmark]`
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — Robotics]] · [[State of — RL and Simple Robots]]

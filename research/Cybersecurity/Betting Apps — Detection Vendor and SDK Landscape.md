@@ -49,3 +49,7 @@ Stick to sources anyone can read. Don't decompile, bypass certificate pinning, o
 - [Incognia iGaming](https://www.incognia.com/igaming) · [Incognia enters iGaming](https://www.incognia.com/newsroom/incognia-enters-the-igaming-space-with-geolocation-compliance-and-account-security-solution) · [SBC Americas](https://sbcamericas.com/2023/04/19/incognia-geolocation-gaming-launch/) `[Documented]`
 - [Sardine device and behavior](https://go.sardine.ai/device-intelligence) · [BioCatch vs Sardine](https://www.rfp.wiki/vendors/biocatch/sardine) `[Community]`
 - [Exodus Privacy — what it does](https://exodus-privacy.eu.org/en/page/what/) `[Documented]`
+
+## Related
+
+- **Summary:** [[State of — Sports Analytics]] · [[State of — Cybersecurity]]

@@ -90,8 +90,8 @@ device integrity simultaneously — the thesis being "fake one signal and the ot
 - **`startMonitoringSignificantLocationChanges` / region monitoring (`CLCircularRegion` geofence):** used
  to notice jurisdiction crossings between discrete geo-checks (e.g., session drifts over a state line)
  and to re-trigger verification. `[Documented]`
-- **Device integrity (jailbreak, hooking, mock providers)** is adjacent and lives in ``
- (DeviceCheck / App Attest); identity-level signals in ``.
+- **Device integrity (jailbreak, hooking, mock providers)** is adjacent and lives in [[Betting Apps — Device Integrity and Attestation]]
+ (DeviceCheck / App Attest); identity-level signals in [[Betting Apps — Device Integrity and Attestation]].
 
 ## VPN / proxy / remote-desktop detection (conceptual)
 
@@ -102,7 +102,7 @@ device integrity simultaneously — the thesis being "fake one signal and the ot
  computed on the backend). `[Documented]`
 - **Remote desktop (RDP/VNC):** a user drives a PC physically in-state from out-of-state. Countered by
  detecting **active remote-desktop processes/sessions**, **input-latency** anomalies, and device
- fingerprinting/session-behavior analysis (overlaps ``). `[Documented]`
+ fingerprinting/session-behavior analysis (overlaps [[Betting Apps — Behavioral and Automation Detection]]). `[Documented]`
 - **Other flagged vectors (detection targets, non-exhaustive):** rooted/jailbroken devices, emulators/VMs,
  reverse-tethering, DNS-proxy spoofing, device farms (shared IP/SSID clusters). GeoComply reports a new
  spoofing variant ~every 18h across 25.6B checks/yr — hence the arms-race framing. `[Community]`
@@ -135,5 +135,9 @@ device integrity simultaneously — the thesis being "fake one signal and the ot
 - Exact iOS SDK **re-check interval** operators file with regulators (NJ "schedule of intervals") — minutes? per-wager only? → likely per-operator, not public.
 - Does the SDK read **`CLLocation.horizontalAccuracy`** directly to size the border buffer, or compute buffer server-side? Confirm against a vendor integration guide.
 - How is `.reducedAccuracy` handled UX-wise — hard block vs. degraded prompt loop? Ties to failure-mode friction.
-- Where does Core Location **anti-spoof** end and **device attestation** begin → split cleanly with ``.
+- Where does Core Location **anti-spoof** end and **device attestation** begin → split cleanly with [[Betting Apps — Device Integrity and Attestation]].
 - Network framework (`NWPathMonitor`) VPN visibility on iOS vs server-side IP correlation — how much is on-device? → flag in `questions.md` if tracked.
+
+## Related
+
+- **Summary:** [[State of — Sports Analytics]] · [[State of — Cybersecurity]]

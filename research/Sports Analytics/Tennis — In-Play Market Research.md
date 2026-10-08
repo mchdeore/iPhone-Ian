@@ -137,3 +137,7 @@ The market's proven weakness is overreacting to breaks that mean little. **These
 It has a **rigorous prior** (so the filter is grounded), a **documented, quantified inefficiency** (Brown's 5.3%/10×), a **discrete trigger** (the break — no NLP ambiguity), **massive sample** (kills tiny-N), and — uniquely — a **deep bench of novel signals with real published precedent** (grunt acoustics, facial emotion, fatigue biomechanics) that the pure-price sharks don't use. It's the market where "push new tech creatively" is not a gimmick but the actual edge.
 
 *Full citations: RESEARCH.md Part VIII (market pick) + the model/CV research feeding this doc. Strategy machinery: FINDINGS.md. Companion doc: `TENNIS_PLAYER_MODELING.md` (player & matchup modeling notes).*
+
+## Related
+
+- **Summary:** [[State of — Sports Analytics]] · [[State of — Machine Learning]]

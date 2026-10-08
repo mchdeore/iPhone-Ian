@@ -70,3 +70,7 @@ Sources: https://digitaldigest.com/passkey-adoption-reality-check-financial-serv
 - Which specific iOS apps are our first targets? Their login flow specifics matter.
 - How to handle 2FA codes practically — TOTP vault integration on HomeLab host?
 - Does the robot need to simulate a "human typing speed" to avoid bot detection on certain apps?
+
+## Related
+
+- **Summary:** [[State of — Cybersecurity]] · [[State of — Robotics]]

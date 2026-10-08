@@ -57,3 +57,7 @@ tags: [sports-analytics, cybersecurity, ml-and-sports-markets, legal, regulation
 7. [CNBC — appeals court: states can regulate (25 Sep 2026)](https://www.cnbc.com/2026/09/25/appeals-court-rules-states-can-regulate-sports-prediction-markets.html) `[Documented]`
 8. [CoinDesk — another appeals court rules against Kalshi](https://www.coindesk.com/policy/2026/09/25/another-appeals-court-rules-against-prediction-market-provider-kalshi-says-sports-contracts-are-subject-to-state-regulations) `[Documented]`
 9. [CRS — CFTC proposed rule](https://www.congress.gov/crs-product/LSB11441) · [Norton Rose Fulbright](https://www.nortonrosefulbright.com/en-us/knowledge/publications/ad8a494a/prediction-markets-at-a-crossroads-preemption-enforcement-and-rulemaking) `[Documented]`
+
+## Related
+
+- **Summary:** [[State of — Sports Analytics]] · [[State of — Cybersecurity]] · [[State of — ML and Sports Markets]]

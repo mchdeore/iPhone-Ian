@@ -148,3 +148,7 @@ First usable ~10-class model end-to-end: **~1 day wall-clock, <~4 h hands-on** �
 - Real CPU epoch time on the specific 16 GB box @640 with `cache=ram` — benchmark once (~15–30 min/epoch is an estimate).
 - Is ScreenParser / `icon_detect` good enough as a **zero-shot pre-labeler on iOS** to reduce real-set labeling to a review step? Quick spike.
 - Minimum real-iOS frames for mAP50 ≥ 0.8 at ~10 classes — the table is an estimate; pin empirically.
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — YOLO]]

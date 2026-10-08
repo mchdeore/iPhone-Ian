@@ -28,7 +28,7 @@ Tags: `[Documented]` docs/vendor · `[Benchmark]` measured · `[Community]` foru
  charset, no AssistiveTouch, no on-screen keyboard, no camera-captured keystrokes — a
  security plus for passwords). Cheapest: an **ESP32-S3** (~$6) serial→USB/BLE HID bridge.
 - **Network→serial bridge:** only worth a Pi if the robot must be physically separated
- from the host (see ``). Otherwise the Mac's existing USB
+ from the host. Otherwise the Mac's existing USB
  link to GRBL is already the bridge — don't add a box. If remote: **`ser2net` on a Pi
  Zero 2 W**, ~10 lines of config.
 - **HID *mouse* as a full gantry alternative** is real (production precedent: VK DeviceHub)
@@ -61,7 +61,7 @@ CPU-only training box or a Windows machine) can reach the robot. Architecture un
 - Or **run the whole action executor on the Pi** (Pi 4 is plenty) — host sends intents,
  Pi owns the serial link. Best if you want the robot self-contained.
 - **Verdict:** low-risk, boring, correct. But a Pi here is optional plumbing — only add it
- for physical/network separation, which is the subject of ``.
+ for physical/network separation, which is the subject of [[Infra — Exposing a Windows Host and Low-Latency Streaming]].
 
 ## Option 2 — Pi / ESP32 as USB HID gadget to the iPhone
 
@@ -151,7 +151,7 @@ Because iOS only takes relative deltas, you must track where the cursor *is*:
 
 - iOS pointer = **relative only**; keyboard = **native/exact**. That asymmetry sets the strategy.
 - Cheap win: a **HID keyboard** for `type` — ESP32-S3 (USB) or ESP32-C3 (BLE), ~$6.
-- A Pi serial bridge is optional plumbing — justify it only via ``.
+- A Pi serial bridge is optional plumbing — justify it only via [[Infra — Exposing a Windows Host and Low-Latency Streaming]].
 - HID mouse can replace the gantry's *pointing* (DeviceHub precedent) but needs dead-reckoning +
  camera visual-servo + self-powered USB, and gives up multitouch and the physical premise.
 - **Zero 2 W** or **Pi 4** for USB-gadget; **not Pi 5**. ESP32-BLE dodges the power problem.
@@ -176,3 +176,7 @@ Because iOS only takes relative deltas, you must track where the cursor *is*:
 - Does pairing an HID accessory count as "stock/unmodified" under the charter (no jailbreak, just a toggle + paired device)? Flag for charter.
 - Measured end-to-end latency of ESP32-BLE `tap` on current iOS vs the gantry — bench test `[Benchmark]`.
 - Can corner-reset + max-sensitivity dead-reckoning hit passcode-pad accuracy, or is camera visual-servo needed every move? → candidate new row in `questions.md`.
+
+## Related
+
+- **Summary:** [[State of — Cybersecurity]] · [[State of — Robotics]]

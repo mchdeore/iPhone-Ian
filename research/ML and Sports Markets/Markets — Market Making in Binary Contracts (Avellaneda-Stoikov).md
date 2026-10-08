@@ -47,3 +47,7 @@ A market maker quotes around a **reservation price** r = mid − q·γ·σ²·(T
 4. [Feil & Nendel — Optimal market making in prediction markets (arXiv 2607.17991)](https://arxiv.org/pdf/2607.17991) `[Benchmark]`
 5. [Comillas thesis — AS on Polymarket](https://repositorio.comillas.edu/jspui/handle/11531/109133) `[Benchmark]`
 6. [Zero-shot adaptation to order book dynamics (arXiv 2605.21707)](https://arxiv.org/pdf/2605.21707) `[Benchmark]`
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — ML and Sports Markets]]

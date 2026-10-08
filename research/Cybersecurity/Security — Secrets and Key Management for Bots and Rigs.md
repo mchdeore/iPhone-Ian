@@ -51,3 +51,7 @@ Screenshots and OCR logs can capture secrets on screen. Blur known credential fi
 2. [GitOps secrets with SOPS + age (DEV)](https://dev.to/lyraalishaikh/gitops-secrets-on-linux-with-sops-age-encrypted-configs-clean-deploys-1nek) `[Community]`
 3. [GitHub Docs — secret scanning and push protection](https://docs.github.com/en/code-security/secret-scanning/working-with-secret-scanning-and-push-protection) `[Documented]`
 4. [The Hacker News — default push protection for public repos](https://thehackernews.com/2024/03/github-rolls-out-default-secret.html) `[Documented]`
+
+## Related
+
+- **Summary:** [[State of — Cybersecurity]] · [[State of — Robotics]] · [[State of — ML and Sports Markets]]

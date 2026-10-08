@@ -44,3 +44,7 @@ tags: [machine-learning, robotics, rl-and-simple-robots, imitation-learning, beh
 
 - [LeRobot SmolVLA on SO-101 guide](https://openelab.io/blogs/learn/how-to-fine-tune-smolvla-on-so-101-with-lerobot) · [Community 9-task SO-101 SmolVLA model](https://huggingface.co/Harrysunshine/so101-smolvla-9task) · [NVIDIA — LeRobot background](https://docs.nvidia.com/learning/physical-ai/sim-to-real-so-101/latest/04-lerobot.html) `[Community]`
 - [DigiRL — SFT vs RL](https://arxiv.org/abs/2406.11896) `[Benchmark]`
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — Robotics]] · [[State of — RL and Simple Robots]]

@@ -48,3 +48,7 @@ tags: [sports-analytics, machine-learning, math, game-theory, dynamic-programmin
 2. [Adams — critique (AEA 2008)](https://topcat.aeaweb.org/annual_mtg_papers/2008/2008_386.pdf) `[Benchmark]`
 3. [ESPN — Romer fourth-down coverage](https://www.espn.in/espnmag/story?id=3641375) `[Community]`
 4. [Statistics and decision making in football](https://bakadesuyo.com/2009/10/statistics-and-effective-decision-making-in-f/) `[Community]`
+
+## Related
+
+- **Summary:** [[State of — Sports Analytics]] · [[State of — Machine Learning]] · [[State of — Math]]

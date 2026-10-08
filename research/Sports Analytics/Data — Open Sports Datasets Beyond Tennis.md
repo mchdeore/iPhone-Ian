@@ -46,3 +46,7 @@ StatsBomb 360 freeze-frames plus our YOLO experience give a computer-vision on-r
 3. [mplsoccer — StatsBomb module (licence note)](https://mplsoccer.readthedocs.io/en/latest/mplsoccer.soccer.statsbomb.html) `[Documented]`
 4. [Free sports datasets for models and backtesting](https://sportsapis.dev/free-sports-datasets) `[Community]`
 5. [StatsBomb AMF open data](https://github.com/statsbomb/amf-open-data) `[Documented]`
+
+## Related
+
+- **Summary:** [[State of — Sports Analytics]] · [[State of — Machine Learning]] · [[State of — ML and Sports Markets]]

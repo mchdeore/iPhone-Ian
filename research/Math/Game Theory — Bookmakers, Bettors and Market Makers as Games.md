@@ -45,3 +45,7 @@ A market maker trading against a mix of informed and uninformed traders loses to
 1. [Levitt — Why are Gambling Markets Organised So Differently from Financial Markets? (EJ 2004, PDF)](https://www.stat.berkeley.edu/%7Ealdous/157/Papers/Levitt_Gambling_2004.pdf) · [IDEAS](https://ideas.repec.org/a/ecj/econjl/v114y2004i495p223-246.html) `[Benchmark]`
 2. [Levitt — How Do Markets Function? (NBER w9422)](https://www.nber.org/papers/w9422) `[Benchmark]`
 3. [AcaWiki summary](https://acawiki.org/Why_are_Gambling_Markets_Organised_So_Differently_from_Financial_Markets%3F) `[Community]`
+
+## Related
+
+- **Summary:** [[State of — Sports Analytics]] · [[State of — Cybersecurity]] · [[State of — ML and Sports Markets]] · [[State of — Math]]

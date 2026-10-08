@@ -20,6 +20,8 @@ tags: [robotics, state-of]
 - **Calibration (if there's a camera):** ChArUco, with intrinsics first, then show a ChArUco on the phone itself to get the screen-plane pose → [[Rig — Camera-to-Screen Calibration with ChArUco]].
 - **Where learning fits:** classical control for motion and targeting, **bandits/BO for tap parameters**, RL only for the agent policy → [[RL — Where RL Helps a Gantry Robot (and Where It Doesn't)]], [[RL — Bandits and Bayesian Optimisation for Hardware Tuning]].
 
+- **Prior art:** Tapster, BrainyBot and DIY tap robots show the physical-agent space is nearly empty; our VLM-plus-gantry combination is novel → [[Prior Art — Touchscreen Robots and Software Agents]].
+
 ## Decisions made
 
 - Screen inputs only (tap, long-press, swipe); typing at 2–3 taps/s; quiet; drawer height (Aria's requirements).
@@ -47,3 +49,7 @@ tags: [robotics, state-of]
 ## Changelog
 
 - 2026-10-07: first version.
+
+## Other summaries
+
+[[State of — Sports Analytics]] · [[State of — Machine Learning]] · [[State of — Cybersecurity]] · [[State of — RL and Simple Robots]] · [[State of — ML and Sports Markets]] · [[State of — Math]] · [[State of — YOLO]]

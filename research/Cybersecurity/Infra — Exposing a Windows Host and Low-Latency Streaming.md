@@ -164,3 +164,7 @@ frame if the send buffer isn't drained. `[Community]`
 - Does the trainer actually need live frames, or just a batched upload of captured datasets? If batch-only, drop streaming entirely → a `tailscale`-scoped `rsync`/HTTP pull. (Flag in `questions.md`.)
 - Confirm Tailscale **direct** (not DERP-relayed) path holds through the home router (`tailscale ping`); if it falls back to DERP, video bandwidth suffers.
 - If a public operator UI is ever needed, decide Cloudflare Access (SSO/mTLS) vs Tailscale Funnel + app-level token.
+
+## Related
+
+- **Summary:** [[State of — Cybersecurity]] · [[State of — Robotics]]

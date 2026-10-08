@@ -10,7 +10,7 @@ tags: [cybersecurity, robotics, ios, accessibility, full-keyboard-access, switch
 
 ## Question
 
-Beyond pointer+AssistiveTouch (`` §8), which
+Beyond pointer+AssistiveTouch ([[iOS Control — AssistiveTouch Pointer Mechanics]]), which
 *other* stock-iOS input surfaces could drive an unmodified iPhone — Full Keyboard Access,
 Switch Control, Voice Control, Shortcuts/Back Tap, Guided Access — and, weighing reach /
 reliability / setup / app-detectability / VoiceOver-conflict (note 07), what's the verdict:
@@ -21,7 +21,7 @@ reliability / setup / app-detectability / VoiceOver-conflict (note 07), what's t
 ### 1. Full Keyboard Access (FKA) — a hardware keyboard drives the whole UI `[Documented]`
 
 - `Settings > Accessibility > Keyboards > Full Keyboard Access`; needs a connected USB/BT
- keyboard — a Pi-HID keyboard (``) qualifies.
+ keyboard — a Pi-HID keyboard ([[iOS Control — Raspberry Pi HID Input Converter]]) qualifies.
 - **Tab / Shift-Tab** move a visible **focus ring** between elements; **arrows** move within
  a group; **Space/Return** activate. WWDC21: tab = significant areas, arrows = within area. `[Documented]`
 - A **customizable Commands list** (Navigation / Interaction / Device categories) reaches
@@ -127,7 +127,7 @@ reliability / setup / app-detectability / VoiceOver-conflict (note 07), what's t
 | **Guided Access** | — (containment) | n/a | Low | yes (`…GuidedAccessEnabled`) | complementary |
 
 **Recommendation (`ponytail:` build the hero, but bring up on the cheap one) — HYBRID behind the
-single MCP action API (`` §2/§5):**
+single MCP action API ([[iOS Control — Exposing Device Controls to the Agent]] §2/§5):**
 
 1. **Gantry = the deliverable / hero path.** D2/D3 already commit to the 3D-printed build; it is
   the only actuator that honors §4's *untouched arbitrary phone* premise. Ship it.
@@ -157,7 +157,11 @@ Net: validate the entire stack on HID first; the gantry remains the demonstrable
 ## Open questions / follow-ups
 
 - Resolves `hid-vs-gantry` (questions.md): recommend **hybrid** — gantry hero + HID bring-up. Confirm with owner.
-- Does the External Switch Control source accept an arbitrary Pi-HID keycode, or only specific keys? Needs a bench test (ties to ``).
-- Is flashing Voice Control's numbered grid as a grounding aid worth the audio stack, or does our own YOLO set-of-marks already cover it? → ``.
+- Does the External Switch Control source accept an arbitrary Pi-HID keycode, or only specific keys? Needs a bench test (ties to [[iOS Control — Raspberry Pi HID Input Converter]]).
+- Is flashing Voice Control's numbered grid as a grounding aid worth the audio stack, or does our own YOLO set-of-marks already cover it? → [[Agents — VLM GUI Agents and Vision Grounding Survey]].
 - Can FKA focus-ring be read reliably by the camera across apps (contrast/visibility), enabling near-vision-free navigation?
 - Does enabling AssistiveTouch/Switch Control (detectable flags) risk tripping any anti-automation checks in target banking/social apps? → ties to `human-typing-speed`.
+
+## Related
+
+- **Summary:** [[State of — Cybersecurity]] · [[State of — Robotics]]

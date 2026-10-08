@@ -56,3 +56,7 @@ tags: [robotics, rl-and-simple-robots, fluidnc, grbl, mks-dlc32, jogging, soft-l
 3. [OpenBuilds — FluidNC soft limits thread](https://builds.openbuilds.com/posts/141545/) · [V1E forum](https://forum.v1e.com/t/a-bunch-of-dumb-questions/42148) `[Community]`
 4. [LightBurn forum — FluidNC connection ports](https://forum.lightburnsoftware.com/t/no-connections-to-fluidnc/187957/3) `[Community]`
 5. [FluidNC issue — DLC32 config dump](https://github.com/bdring/FluidNC/issues/1738) `[Community]`
+
+## Related
+
+- **Summary:** [[State of — Robotics]] · [[State of — RL and Simple Robots]]

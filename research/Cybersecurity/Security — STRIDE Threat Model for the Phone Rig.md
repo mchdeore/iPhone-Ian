@@ -55,3 +55,7 @@ Trust boundaries: internet ↔ host; host ↔ controller (USB); host ↔ phone (
 5. [Trustworthy Smart Band threat modelling (arXiv 1812.02361)](https://arxiv.org/pdf/1812.02361) `[Benchmark]`
 6. [LightBurn forum — FluidNC ports (Telnet 23, WebSocket 80/81/82)](https://forum.lightburnsoftware.com/t/no-connections-to-fluidnc/187957/3) `[Community]`
 7. [Grbl 1.1 jogging docs (mirror)](https://gitea.psi.ch/motion/ecmc_plugin_grbl/src/branch/master/doc/markdown/jogging.md) `[Documented]`
+
+## Related
+
+- **Summary:** [[State of — Cybersecurity]] · [[State of — Robotics]]

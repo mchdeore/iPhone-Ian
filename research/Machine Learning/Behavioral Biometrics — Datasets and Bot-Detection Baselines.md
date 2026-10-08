@@ -51,3 +51,7 @@ A 2022 HMOG+BioIdent fusion (51 users, one session) reported up to ~82% accuracy
 - [Touchalytics (arXiv 1207.6231)](https://arxiv.org/pdf/1207.6231) · [BioIdent](https://www.ms.sapientia.ro/~manyi/bioident.html) · [HMOG (arXiv 1501.01199)](https://arxiv.org/pdf/1501.01199) · [Hold On and Swipe — HMOG+BioIdent fusion (arXiv 2201.08564)](https://arxiv.org/pdf/2201.08564) · [FETA: Fair Evaluation of Touch-based Authentication (arXiv 2201.10606)](https://arxiv.org/pdf/2201.10606) `[Benchmark]`
 - [BeCAPTCHA on HuMIdb (arXiv 2005.13655)](https://arxiv.org/pdf/2005.13655) · [BeCAPTCHA workshop paper (arXiv 2002.00918)](https://arxiv.org/pdf/2002.00918) `[Benchmark]`
 - [zkSENSE (PoPETs 2021)](https://www.petsymposium.org/popets/2021/popets-2021-0058.php) · [Brave Research summary](https://brave.com/research/zksense-a-friction-less-privacy-preserving-human-attestation-mechanism-for-mobile-devices/) · [zkSVM code](https://github.com/iquerejeta/zkSVM) `[Benchmark]`
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — Cybersecurity]] · [[State of — Robotics]]

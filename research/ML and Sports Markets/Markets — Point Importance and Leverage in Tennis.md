@@ -47,3 +47,7 @@ Let M(a, b) be the probability the current server wins the match from score (a, 
 3. [Analyzing Wimbledon — Tinbergen news](https://tinbergen.nl/news/261/analyzing-wimbledon-new-book-by-fellows-klaassen-and-magnus) `[Documented]`
 4. [ITF Coaching Review — Klaassen & Magnus](https://itfcoachingreview.com/index.php/journal/article/download/478/1296/1943) `[Documented]`
 5. [Emerging Investigators — point importance](https://emerginginvestigators.org/articles/24-370/pdf) `[Community]`
+
+## Related
+
+- **Summary:** [[State of — Sports Analytics]] · [[State of — ML and Sports Markets]]

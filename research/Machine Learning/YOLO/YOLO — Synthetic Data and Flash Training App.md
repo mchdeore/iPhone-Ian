@@ -161,3 +161,7 @@ Capturing in that window labels a target that isn't shown yet. Fixes:
 - https://sizzy.co/blog/safe-area-insets
 - https://web.dev/articles/speed-rendering
 - https://www.royal-display.com/moire-pattern-screen/
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — YOLO]] · [[State of — Robotics]]

@@ -48,3 +48,7 @@ tags: [sports-analytics, machine-learning, ml-and-sports-markets, calibration, b
 ## Sources
 
 - [Walsh & Joshi — Bath research portal](https://researchportal.bath.ac.uk/en/publications/machine-learning-for-sports-betting-should-model-selection-be-bas/) · [ML in sports betting review (arXiv 2410.21484)](https://arxiv.org/pdf/2410.21484) `[Benchmark]`
+
+## Related
+
+- **Summary:** [[State of — Sports Analytics]] · [[State of — Machine Learning]] · [[State of — ML and Sports Markets]]

@@ -37,7 +37,7 @@ This is the top lever for *this* use case and beats per-frame tracking (ByteTrac
 which only helps when objects move — ours don't.
 
 **2. Crop to the screen ROI via the homography we already have. (impact HIGH, effort LOW)**
-The flash-app/calibration already gives `H` (CSS→camera, ).
+The flash-app/calibration already gives `H` (CSS→camera, [[YOLO — Synthetic Data and Flash Training App]]).
 Warp + crop to just the phone rectangle before inference: fewer input pixels → faster,
 *and* icons get bigger → better accuracy (the small-object win already argued in
 ). Double duty, near-zero effort because `H` exists. Do this
@@ -162,3 +162,7 @@ Builds on / ; prioritized for a weak box:
 - Can we skip inference for actions whose result the **agent already predicts**, re-perceiving only on mismatch? (ties to the verify step in spec §7)
 - Is `CAP_PROP_BUFFERSIZE=1` honored by our webcam+OS backend, or must we rely on the grabber-thread workaround? (hardware-specific test)
 - Where does the deploy host land — Intel (OpenVINO) vs Apple (CoreML) vs ARM (NCNN)? Pick decides #3.
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — YOLO]]

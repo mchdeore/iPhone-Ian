@@ -44,3 +44,7 @@ tags: [sports-analytics, machine-learning, cybersecurity, betting, sharp-detecti
 - [MIT Technology Review — Kaunitz et al.](https://www.technologyreview.com/2017/10/19/67760/the-secret-betting-strategy-that-beats-online-bookmakers/) · [Digit](https://www.digit.fyi/?p=5308) `[Documented]`
 - [UKGC — remote customer interaction guidance](https://www.gamblingcommission.gov.uk/guidance/advice-to-the-gambling-commission-on-a-statutory-levy/requirement-5-customer-interaction-guidance-for-remote-gambling-licensees-sr) · [UKGC — spotting harmful gambling](https://www.gamblingcommission.gov.uk/licensees-and-businesses/guide/page/spotting-harmful-gambling) · [UKGC — Paddy Power/Betfair findings](https://www.gamblingcommission.gov.uk/public-and-players/guide/page/paddy-power-betfair-findings) · [iGB — customer interaction](https://igamingbusiness.com/legal-compliance/customer-interaction-alert/) `[Documented]`
 - [Division on Addiction](https://divisiononaddiction.org/) · [UNLV abstract — operator data via Transparency Project](https://digitalscholarship.unlv.edu/gaming_institute/2013/may30/14) `[Community]`
+
+## Related
+
+- **Summary:** [[State of — Sports Analytics]] · [[State of — Machine Learning]] · [[State of — Cybersecurity]]

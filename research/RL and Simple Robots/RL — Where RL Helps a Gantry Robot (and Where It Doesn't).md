@@ -46,3 +46,7 @@ tags: [machine-learning, robotics, rl-and-simple-robots, reinforcement-learning,
 
 - [Klipper — Resonance Compensation](https://www.klipper3d.org/Resonance_Compensation.html) `[Documented]` · [Machine Design — avoiding step loss](https://www.machinedesign.com/archive/avoiding-step-loss) `[Documented]`
 - [DigiRL (arXiv 2406.11896)](https://arxiv.org/abs/2406.11896) `[Benchmark]`
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — Robotics]] · [[State of — RL and Simple Robots]]

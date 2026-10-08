@@ -165,3 +165,7 @@ Relevant because training/inference may be CPU-only ≤16 GB (`03`):
 - Minimum real-capture count before adding `segmented_control`/`checkbox`/`slider` without starving the tail?
 - Is pHash enough with a locked camera, or do True Tone / glare swings (`02`) need embedding-based dedup?
 - Feed group structure (rows/forms) to the agent as context, or only use it to pick a tap point? (ties to `specs/02 §7`.)
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — YOLO]]

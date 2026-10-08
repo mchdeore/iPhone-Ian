@@ -19,10 +19,10 @@ do those signals feed a server-side risk score? (Descriptive/educational; no byp
 ### 1. Why gambling apps care, and the layered model
 
 Money-adjacent threats drive this: **bonus/promo abuse** (one free bet per device),
-**multi-accounting / collusion**, **location spoofing** (with geo, ``),
-**bots/automation** (``), and reverse-engineered
+**multi-accounting / collusion**, **location spoofing** (with geo, [[Betting Apps — Geolocation Compliance]]),
+**bots/automation** ([[Betting Apps — Behavioral and Automation Detection]]), and reverse-engineered
 clients that forge API calls. No client check is a trust boundary — each is a *signal* fed to a
-server-side score (§10); identity/fingerprint signals live in ``.
+server-side score (§10); identity/fingerprint signals live in [[Betting Apps — Behavioral and Automation Detection]].
 
 ### 2. Apple App Attest — the cryptographic core `[Documented]`
 
@@ -126,11 +126,11 @@ These wrap §7–§8 into hardened, obfuscated, auto-updated SDKs (post-compile,
 The **server is the trust boundary**; client checks are inputs. A gambling backend typically
 fuses: App Attest **attestation validity** + **assertion counter continuity** + **fraud risk
 metric** (§5); **DeviceCheck bits** (§6); RASP/JB/hook/debug/sim flags (often via the vendor
-SDK → vendor console or your API); plus **fingerprint** (``),
-**geolocation** (``), and **behavioral/automation**
-(``). Weighted rules or an ML model map these to
+SDK → vendor console or your API); plus **fingerprint** ([[Betting Apps — Behavioral and Automation Detection]]),
+**geolocation** ([[Betting Apps — Geolocation Compliance]]), and **behavioral/automation**
+([[Betting Apps — Behavioral and Automation Detection]]). Weighted rules or an ML model map these to
 tiers → **allow / step-up (KYC, 2FA, liveness) / limit (deposit & withdrawal caps) / block**,
-with regulatory and responsible-gambling gates layered on (``).
+with regulatory and responsible-gambling gates layered on ([[Betting Apps — Regulatory and Responsible Gambling]]).
 
 ### 11. What Apple's platform guarantees — and what it doesn't `[Documented]`
 
@@ -160,12 +160,16 @@ Enclave + its CA, but **app-and-hardware authenticity ≠ user intent** — henc
 ## Open questions / follow-ups
 
 - Does any US/UK/EU gambling regulator *mandate* App Attest or RASP, or is it purely
- risk-driven? → cross-check ``.
+ risk-driven? → cross-check [[Betting Apps — Regulatory and Responsible Gambling]].
 - How do apps weight App Attest (cryptographic, high-confidence) vs jailbreak heuristics
- (low-confidence) in the composite score — hard-block only on the former? → ``.
+ (low-confidence) in the composite score — hard-block only on the former? → [[Betting Apps — Regulatory and Responsible Gambling]].
 - A genuine, un-jailbroken, unmodified phone emitting *real* touch events presents as a fully
  trusted device to all §2–§9 controls — which signals (if any) remain to flag *external
  automation* of an otherwise-legitimate client? Ties the whole gambling track back to the
- vault's premise and to ``.
+ vault's premise and to [[Betting Apps — Regulatory and Responsible Gambling]].
 - What's the typical false-positive rate of jailbreak detection on stock devices (users
  wrongly blocked), and how does that trade against fraud catch-rate?
+
+## Related
+
+- **Summary:** [[State of — Sports Analytics]] · [[State of — Cybersecurity]]

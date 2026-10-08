@@ -156,3 +156,7 @@ One contribution per domain. Each takes on an open question above:
 - 🧠 [[Behavioral Biometrics — Datasets and Bot-Detection Baselines]]: public datasets, BeCAPTCHA-Mobile and zkSENSE (which tested resting/docked phones), and a detectability benchmark.
 - 🤖 [[Touch Telemetry — Measuring What the Rig Emits]]: logger app and test matrix to measure UITouch and CoreMotion for human, gantry and HID.
 - 🏀 [[Betting — Account-Level Behavior Models]]: risk profiling plus regulator-mandated harm markers. An automated in-play strategy trips both, whatever the input device.
+
+## Related
+
+- **Summary:** [[State of — Sports Analytics]] · [[State of — Machine Learning]] · [[State of — Cybersecurity]] · [[State of — Robotics]]

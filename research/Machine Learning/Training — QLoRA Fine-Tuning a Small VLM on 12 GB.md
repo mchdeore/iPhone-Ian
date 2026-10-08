@@ -50,3 +50,7 @@ Point-in-box accuracy on a held-out set **of our own camera or capture images**,
 3. [Intel — VLM fine-tuning with Unsloth](https://docs.openedgeplatform.intel.com/2026.2/edge-ai-suites/ai-suite-manufacturing/industrial-edge-insights-multimodal/how-to-guides/how-to-fine-tune-vlm.html) `[Documented]`
 4. [LearnOpenCV — Unsloth vision fine-tuning guide](https://learnopencv.com/unsloth-guide-efficient-llm-fine-tuning/) `[Community]`
 5. [MachineLearningPlus — Unsloth fine-tuning](https://machinelearningplus.com/gen-ai/unsloth-fine-tuning/) `[Community]`
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — RL and Simple Robots]]

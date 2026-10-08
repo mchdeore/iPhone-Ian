@@ -54,3 +54,7 @@ For a CoreXY gantry the dynamics are near-static at our speeds. **Don't build a 
 
 - [MuJoCo vs Isaac Sim (2026)](https://roboticscenter.ai/rl-environments/mujoco-vs-isaac-sim) · [Isaac Sim vs MuJoCo (TowardsAI)](https://pub.towardsai.net/isaac-sim-vs-mujoco-the-4-000-question-that-will-define-robotics-in-2025-4c41a2984c2c) · [Genesis speed critique](https://stoneztao.substack.com/p/the-new-hyped-genesis-simulator-is) `[Community]`
 - [DigiRL — parallel emulators](https://arxiv.org/abs/2406.11896) `[Benchmark]`
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — Robotics]] · [[State of — RL and Simple Robots]]

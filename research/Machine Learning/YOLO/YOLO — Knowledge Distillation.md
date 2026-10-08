@@ -153,3 +153,7 @@ can't beat its labeler on hard classes; upgrade path is the one-arg native KD on
 - Does OmniParser v2's "clickable" class transfer to **camera photos** of iOS, not clean screenshots? Likely a domain gap → may still need flash-app realism (`02`).
 - Native KD on **CPU**: one-off bench the n←s @640 epoch-time multiplier vs plain to confirm "skip on CPU" → `questions.md` row.
 - Is training a same-family teacher worth the GPU time when flash labels are free? Likely only for the hard-icon tail; revisit after Phase 1 mAP.
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — YOLO]]

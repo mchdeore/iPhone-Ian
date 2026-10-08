@@ -47,3 +47,7 @@ tags: [machine-learning, math, game-theory, poker, cfr, libratus, pluribus, deep
 7. [The Register — Pluribus](https://www.theregister.com/2019/07/12/pluribus_ai_poker_human_pros) `[Documented]`
 8. [ReBeL (NeurIPS 2020)](https://proceedings.neurips.cc/paper/2020/hash/c61f571dbd2fb949d3fe5ae1608dd48b-Abstract.html) · [arXiv 2007.13544](https://arxiv.org/pdf/2007.13544v1) `[Benchmark]`
 9. [Simons Institute — ReBeL talk](https://simons.berkeley.edu/talks/rebel-combining-deep-reinforcement-learning-and-search-imperfect-information-games) `[Documented]`
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — Math]]

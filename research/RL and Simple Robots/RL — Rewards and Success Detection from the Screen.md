@@ -52,3 +52,7 @@ A policy optimised against a lenient judge learns to *look* done. On a real phon
 
 - [OSReward](https://www.alphaxiv.org/abs/2607.28609) · [Interactive Reward Agent (arXiv 2607.25904)](https://arxiv.org/pdf/2607.25904) · [Demo2Reward (arXiv 2606.00083)](https://arxiv.org/pdf/2606.00083) · [GUI Agents with RL survey (arXiv 2604.27955)](https://arxiv.org/pdf/2604.27955) `[Benchmark]` (preprints)
 - [One Token to Fool LLM-as-a-Judge (arXiv 2507.08794)](https://arxiv.org/html/2507.08794v1) · [GUI-Shepherd](https://arxiv.org/html/2509.23738v1) `[Benchmark]`
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — Cybersecurity]] · [[State of — Robotics]] · [[State of — RL and Simple Robots]]

@@ -51,3 +51,7 @@ Key result: minimising counterfactual regret at every information set minimises 
 3. [Tammelin et al. — Solving HULHE with CFR+ (IJCAI 2015)](https://www.cs.ualberta.ca/~games/poker/publications/2015-ijcai-cfrplus.pdf) `[Benchmark]`
 4. [Bowling et al. — Heads-up limit hold'em poker is solved (Science 2015)](https://webdocs.cs.ualberta.ca/~bowling/publications/b2hd-15science.html) `[Benchmark]`
 5. [A Survey of RL for Economics (arXiv 2603.08956)](https://arxiv.org/pdf/2603.08956) `[Benchmark]`
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — RL and Simple Robots]] · [[State of — Math]]

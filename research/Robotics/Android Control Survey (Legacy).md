@@ -448,3 +448,7 @@ Based on the projects reviewed:
 - [Google Patents: WO2017051263A2 — Robot arm for testing of touchscreen applications](https://patents.google.com/patent/WO2017051263A2/en)
 - [PhoneArena: Automated touchscreen test device shows off smartphone accuracy](https://phonearena.com/news/Automated-touchscreen-test-device-shows-off-the-accuracy-of-smartphones_id10418)
 - [Android Police: Samsung ditches curved displays](https://www.androidpolice.com/samsung-ditches-curved-displays/)
+
+## Related
+
+- **Summary:** [[State of — Robotics]]

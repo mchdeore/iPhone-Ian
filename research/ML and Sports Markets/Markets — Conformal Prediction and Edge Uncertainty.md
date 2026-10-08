@@ -45,3 +45,7 @@ In-play tennis points within a match aren't exchangeable, and seasons drift. Use
 2. [Conformal Kelly (arXiv 2608.01494)](https://arxiv.org/pdf/2608.01494) `[Benchmark]` (preprint)
 3. [Kelly betting as Bayesian model evaluation (arXiv 2602.09982)](https://arxiv.org/html/2602.09982v1) `[Benchmark]`
 4. [Metel — Kelly with uncertain probabilities (arXiv 1701.02814)](https://ar5iv.arxiv.org/html/1701.02814) `[Benchmark]`
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — ML and Sports Markets]]

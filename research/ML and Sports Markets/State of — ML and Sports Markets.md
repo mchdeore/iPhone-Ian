@@ -49,3 +49,7 @@ tags: [ml-and-sports-markets, machine-learning, sports-analytics, state-of]
 ## Changelog
 
 - 2026-10-07: first version.
+
+## Other summaries
+
+[[State of — Sports Analytics]] · [[State of — Machine Learning]] · [[State of — Cybersecurity]] · [[State of — Robotics]] · [[State of — RL and Simple Robots]] · [[State of — Math]] · [[State of — YOLO]]

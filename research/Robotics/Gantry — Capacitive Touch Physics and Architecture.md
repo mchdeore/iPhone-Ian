@@ -81,3 +81,7 @@ Every physical actuator method treats the phone as an opaque black box. No Devel
 - https://www.allpcb.com/allelectrohub/how-capacitive-styluses-work
 - https://www.howtogeek.com/835769/active-vs-passive-styluses-all-the-standards-explained
 - https://electronics.alibaba.com/buyingguides/robot-stylus-touch-pen-guide-what-actually-matters — Robot stylus guide (Aug 2026), conductive tip materials, grounding
+
+## Related
+
+- **Summary:** [[State of — Robotics]]

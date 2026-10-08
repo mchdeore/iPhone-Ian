@@ -47,3 +47,7 @@ DeepSeekMath introduced it: "foregoes the critic model, instead estimating the b
 3. [Training with GRPOTrainer (Diehl)](https://www.stephendiehl.com/posts/grpotrainer/) · [HF LLM course — GRPO](https://huggingface.co/learn/llm-course/chapter12/3b) `[Community]`
 4. [Unsloth — vision RL](https://unsloth.ai/blog/vision-rl) `[Documented]` (vendor)
 5. [MobileRL (arXiv 2509.18119)](https://arxiv.org/html/2509.18119v2) `[Benchmark]`
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — RL and Simple Robots]]

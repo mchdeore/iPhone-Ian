@@ -47,3 +47,7 @@ tags: [machine-learning, robotics, rl-and-simple-robots, bandits, bayesian-optim
 2. [BO tuning of a Lyapunov path-following controller (arXiv 2512.12649)](https://arxiv.org/abs/2512.12649v1) `[Benchmark]`
 3. [Asynchronous Parallel BO via Thompson Sampling — CMU RI](https://www.ri.cmu.edu/publications/asynchronous-parallel-bayesian-optimisation-via-thompson-sampling) `[Benchmark]`
 4. [Preferential BO with crash feedback (arXiv 2604.01776)](https://arxiv.org/pdf/2604.01776) `[Benchmark]`
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — Robotics]] · [[State of — RL and Simple Robots]]

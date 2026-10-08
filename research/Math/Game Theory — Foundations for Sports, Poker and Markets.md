@@ -42,3 +42,7 @@ Server picks Left/Right; returner guesses L/R. The server's win probabilities ar
 1. [Walker & Wooders — Minimax Play at Wimbledon (AER 2001)](https://www.math.stonybrook.edu/~gaston/print/Old/WimbledonAER.pdf) `[Benchmark]`
 2. [Zinkevich et al. — Regret Minimization in Games with Incomplete Information (NeurIPS 2007)](https://proceedings.neurips.cc/paper/2007/hash/08d98638c6fcd194a4b1e6992063e944-Abstract.html) `[Benchmark]`
 3. [Cornell INFO 2040 — Game theory in tennis](https://nsdl.library.cornell.edu/websites/expertvoices/info2040/archives/1888.html) `[Community]`
+
+## Related
+
+- **Summary:** [[State of — Sports Analytics]] · [[State of — ML and Sports Markets]] · [[State of — Math]]

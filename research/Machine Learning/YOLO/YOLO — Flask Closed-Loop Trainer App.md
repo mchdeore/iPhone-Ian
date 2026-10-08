@@ -174,3 +174,7 @@ if __name__ == "__main__":
 - Public-port auth + HTTPS for a robot-driving endpoint → own it in .
 - Swipe scoring: path similarity (Fréchet/DTW) vs endpoint-only — needed before any swipe RL.
 - Does Safari `getCoalescedEvents` give >1 sample/frame for *touch* (vs Chromium's stylus cap)? Measure on-device.
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — YOLO]] · [[State of — Robotics]]

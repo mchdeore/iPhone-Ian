@@ -18,6 +18,7 @@ tags: [cybersecurity, state-of]
 - **Secrets:** SOPS + age for anything in the repo, plus gitleaks pre-commit, GitHub push protection and CI. Signing keys stay in a hardware wallet or vault → [[Security — Secrets and Key Management for Bots and Rigs]].
 - **iOS auth:** the robot always uses the passcode fallback and never Face ID; TOTP over SMS; disable the triple-click Accessibility Shortcut → [[iOS — Face ID, Autofill and 2FA Constraints]].
 - **How betting apps detect automation (mapping only, no evasion):** geolocation (GeoComply/Incognia, confirmed everywhere), device integrity/RASP, behavioural biometrics (unconfirmed in sportsbooks), and account-level profiling → [[Betting Apps — Behavioral and Automation Detection]], [[Betting Apps — Detection Vendor and SDK Landscape]], [[Betting Apps — Geolocation Compliance]], [[Betting Apps — Device Integrity and Attestation]].
+- **Why the detection stack exists:** licensing, geofencing, KYC/AML and responsible-gambling rules *mandate* it → [[Betting Apps — Regulatory and Responsible Gambling]].
 - **Accessibility flags are an ADA trap.** `isAssistiveTouchRunning` is true for millions of disabled users, so it's a weak and legally risky signal.
 
 ## Decisions made
@@ -46,3 +47,7 @@ tags: [cybersecurity, state-of]
 ## Changelog
 
 - 2026-10-07: first version.
+
+## Other summaries
+
+[[State of — Sports Analytics]] · [[State of — Machine Learning]] · [[State of — Robotics]] · [[State of — RL and Simple Robots]] · [[State of — ML and Sports Markets]] · [[State of — Math]] · [[State of — YOLO]]

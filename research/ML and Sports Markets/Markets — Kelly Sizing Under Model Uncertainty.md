@@ -51,3 +51,7 @@ On sportsbooks, aggressive sizing speeds up limiting ([[Betting — Account-Leve
 
 - [Baker & McHale — Optimal betting under parameter uncertainty (IDEAS)](https://ideas.repec.org/a/inm/ordeca/v10y2013i3p189-199.html) · [Salford repository](https://salford-repository.worktribe.com/output/1410355/optimal-betting-under-parameter-uncertainty-improving-the-kelly-criterion) `[Benchmark]`
 - [Metel — Kelly betting with uncertainty (arXiv 1701.02814)](https://arxiv.org/pdf/1701.02814) `[Benchmark]` · [Kelly criterion (Wikipedia)](https://en.wikipedia.org/wiki/Kelly_criterion) · [Never Go Full Kelly](https://www.lesswrong.com/posts/TNWnK9g2EeRnQA8Dg/never-go-full-kelly) `[Community]`
+
+## Related
+
+- **Summary:** [[State of — Sports Analytics]] · [[State of — Machine Learning]] · [[State of — ML and Sports Markets]]

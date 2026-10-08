@@ -59,3 +59,7 @@ Camera photo of iPhone screen
 
 - https://github.com/droidrun/mobilerun
 - See for full VLM/grounding sources
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — Robotics]]

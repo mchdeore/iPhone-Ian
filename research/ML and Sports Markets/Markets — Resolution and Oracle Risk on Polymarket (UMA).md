@@ -50,3 +50,7 @@ Kalshi names **source agencies** in contract terms filed with the CFTC and verif
 2. [DeFi Rate — how Kalshi and Polymarket settle](https://defirate.com/?p=5575) `[Community]`
 3. [Coin360 — oracle vote manipulation](https://coin360.com/news/polymarket-oracle-vote-manipulation-scandal) `[Community]`
 4. [Orrery — Polymarket vs Kalshi resolution rules](https://orrery.me/learn/polymarket-vs-kalshi-resolution-rules) `[Community]`
+
+## Related
+
+- **Summary:** [[State of — Sports Analytics]] · [[State of — Cybersecurity]] · [[State of — ML and Sports Markets]]

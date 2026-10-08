@@ -75,3 +75,7 @@ Raspberry Pi 3 is heavier, more expensive, requires A4988 drivers wired manually
 - https://www.reddit.com/r/hobbycnc/comments/nhbwz8/gbrlhal_vs_grbl_esp32_pros_and_cons
 - https://www.instructables.com/Robot-De-Testeo-Para-Pantalla-Touchscreen/
 - https://github.com/bkringlie/Phone-Swiper
+
+## Related
+
+- **Summary:** [[State of — Robotics]]

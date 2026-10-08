@@ -50,3 +50,7 @@ tags: [machine-learning, robotics, rl-and-simple-robots, sim-to-real, locomotion
 2. [Open Duck Mini v2 kit (Tindie)](https://www.tindie.com/products/wsk/open-duck-mini-v2-raspberry-pi-4b-8gb/) `[Community]` (vendor)
 3. [How Microduck learns to walk — MuJoCo, PPO and sim-to-real](https://openelab.io/blogs/learn/how-microduck-learns-to-walk-mujoco-ppo-sim-to-real) `[Community]`
 4. [MuJoCo Playground (arXiv 2502.08844)](https://www.arxiv.org/pdf/2502.08844) `[Benchmark]`
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — Robotics]] · [[State of — RL and Simple Robots]]

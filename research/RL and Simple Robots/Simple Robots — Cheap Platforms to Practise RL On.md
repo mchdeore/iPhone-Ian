@@ -43,3 +43,7 @@ Prices vary between sources; check the vendor before buying. `[Community]`
 
 - [Microduck pricing](https://www.eesel.ai/blog/microduck-pricing) · [Microduck alternatives (2026)](https://www.eesel.ai/blog/microduck-alternatives) · [Axios — Microduck](https://axios.com/2026/08/27/hugging-face-debuts-microduck-a-399-robot) `[Community]`
 - [ThinkRobotics SO-101 review](https://thinkrobotics.com/blogs/product-reviews-buying-guides/thinkrobotics-lerobot-so-101-6-axis-robotic-arm-review-ai-ready-open-source-and-built-for-learning) · [Seeed — LeRobot SO-100M](https://wiki.seeedstudio.com/lerobot_so100m_new/) · [Robotic arm builds 2026](https://dupple.com/blog/how-to-make-a-robotic-arm) `[Community]`
+
+## Related
+
+- **Summary:** [[State of — Machine Learning]] · [[State of — Robotics]] · [[State of — RL and Simple Robots]]
