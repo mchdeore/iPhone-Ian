@@ -3,7 +3,7 @@ type: research
 status: answered
 author: marc
 date: 2026-10-04
-tags: [machine-learning, robotics, yolo, gpu, training, colab]
+tags: [machine-learning, yolo, robotics, gpu, training, colab]
 ---
 
 # 03 — Hardware for YOLO training and the capture rig

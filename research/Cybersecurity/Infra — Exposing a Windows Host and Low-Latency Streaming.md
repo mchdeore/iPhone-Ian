@@ -3,7 +3,7 @@ type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [cybersecurity, robotics, networking, security, windows, streaming, infrastructure, yolo]
+tags: [cybersecurity, robotics, networking, security, windows, streaming, infrastructure]
 ---
 
 # 14 — Exposing a Windows robot host + low-latency streaming

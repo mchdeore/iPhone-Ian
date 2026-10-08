@@ -3,7 +3,7 @@ type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [machine-learning, robotics, yolo, flask, flash-app, trainer, active-learning, computer-vision]
+tags: [machine-learning, yolo, robotics, flask, flash-app, trainer, active-learning, computer-vision]
 ---
 
 # 06 — Flask trainer app: the closed-loop flash app

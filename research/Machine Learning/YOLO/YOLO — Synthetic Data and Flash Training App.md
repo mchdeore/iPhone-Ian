@@ -3,7 +3,7 @@ type: research
 status: answered
 author: marc
 date: 2026-10-04
-tags: [machine-learning, robotics, yolo, synthetic-data, flash-app, homography, computer-vision]
+tags: [machine-learning, yolo, robotics, synthetic-data, flash-app, homography, computer-vision]
 ---
 
 # 02 — Synthetic data and the "flash training app"

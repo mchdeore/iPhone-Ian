@@ -8,6 +8,13 @@
   "collapse-color-groups": true,
   "colorGroups": [
     {
+      "query": "tag:#yolo",
+      "color": {
+        "a": 1,
+        "rgb": 52945
+      }
+    },
+    {
       "query": "tag:#ml-and-sports-markets",
       "color": {
         "a": 1,
