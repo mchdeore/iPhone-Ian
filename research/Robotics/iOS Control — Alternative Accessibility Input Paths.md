@@ -1,13 +1,9 @@
 ---
-domain: [robotics, security]
 type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [ios, accessibility, full-keyboard-access, switch-control, voice-control, back-tap, guided-access, hid, uiaccessibility, decision]
-related:
-  - "[[== ROBOTICS ==]]"
-  - "[[== CYBERSECURITY ==]]"
+tags: [cybersecurity, robotics, ios, accessibility, full-keyboard-access, switch-control, voice-control, back-tap, guided-access, hid, uiaccessibility, decision]
 ---
 
 # 04 — Alternative accessibility input paths & the actuator decision

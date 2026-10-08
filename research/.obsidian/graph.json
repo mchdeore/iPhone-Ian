@@ -8,31 +8,52 @@
   "collapse-color-groups": true,
   "colorGroups": [
     {
-      "query": "path:\"Sports Analytics\"",
+      "query": "tag:#ml-and-sports-markets",
+      "color": {
+        "a": 1,
+        "rgb": 1219321
+      }
+    },
+    {
+      "query": "tag:#rl-and-simple-robots",
+      "color": {
+        "a": 1,
+        "rgb": 12886548
+      }
+    },
+    {
+      "query": "tag:#math",
+      "color": {
+        "a": 1,
+        "rgb": 16766720
+      }
+    },
+    {
+      "query": "tag:#sports-analytics",
       "color": {
         "a": 1,
         "rgb": 3055195
       }
     },
     {
-      "query": "path:\"Machine Learning\"",
-      "color": {
-        "a": 1,
-        "rgb": 9329625
-      }
-    },
-    {
-      "query": "path:\"Cybersecurity\"",
+      "query": "tag:#cybersecurity",
       "color": {
         "a": 1,
         "rgb": 14248783
       }
     },
     {
-      "query": "path:\"Robotics\"",
+      "query": "tag:#robotics",
       "color": {
         "a": 1,
         "rgb": 15110456
+      }
+    },
+    {
+      "query": "tag:#machine-learning",
+      "color": {
+        "a": 1,
+        "rgb": 9329625
       }
     }
   ],

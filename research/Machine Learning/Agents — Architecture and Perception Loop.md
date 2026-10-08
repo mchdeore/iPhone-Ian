@@ -1,13 +1,9 @@
 ---
-domain: [ml, robotics]
 type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [agent, vlm, perception, planning, action-loop, droidrun]
-related:
-  - "[[== MACHINE LEARNING ==]]"
-  - "[[== ROBOTICS ==]]"
+tags: [machine-learning, robotics, agent, vlm, perception, planning, action-loop, droidrun]
 ---
 
 # AI agent architecture — perception→planning→action loop

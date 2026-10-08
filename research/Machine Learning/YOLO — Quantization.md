@@ -1,12 +1,9 @@
 ---
-domain: [ml]
 type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [yolo, quantization, int8, fp16, deployment, computer-vision]
-related:
-  - "[[== MACHINE LEARNING ==]]"
+tags: [machine-learning, yolo, quantization, int8, fp16, deployment, computer-vision]
 ---
 
 # 05 — Quantizing YOLO weights for low-VRAM / CPU deployment

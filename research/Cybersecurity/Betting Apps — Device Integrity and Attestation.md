@@ -1,13 +1,9 @@
 ---
-domain: [security, sports]
 type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [gambling, ios]
-related:
-  - "[[== CYBERSECURITY ==]]"
-  - "[[== SPORTS ANALYTICS ==]]"
+tags: [sports-analytics, cybersecurity, gambling, ios]
 ---
 
 # 02 — Device integrity & attestation — how do iOS betting apps decide a device is trustworthy?

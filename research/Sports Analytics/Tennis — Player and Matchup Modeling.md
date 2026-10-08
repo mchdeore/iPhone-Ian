@@ -1,13 +1,9 @@
 ---
-domain: [sports, ml]
 type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [tennis]
-related:
-  - "[[== SPORTS ANALYTICS ==]]"
-  - "[[== MACHINE LEARNING ==]]"
+tags: [sports-analytics, machine-learning, tennis]
 ---
 
 > Imported verbatim from SpinSight `docs/TENNIS_PLAYER_MODELING.md`. The canonical copy lives in SpinSight; this is a snapshot. Strategy spec: .

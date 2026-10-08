@@ -1,13 +1,9 @@
 ---
-domain: [ml, robotics]
 type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [yolo, flask, flash-app, trainer, active-learning, computer-vision]
-related:
-  - "[[== MACHINE LEARNING ==]]"
-  - "[[== ROBOTICS ==]]"
+tags: [machine-learning, robotics, yolo, flask, flash-app, trainer, active-learning, computer-vision]
 ---
 
 # 06 — Flask trainer app: the closed-loop flash app

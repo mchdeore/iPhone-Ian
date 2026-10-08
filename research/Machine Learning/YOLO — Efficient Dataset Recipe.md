@@ -1,12 +1,9 @@
 ---
-domain: [ml]
 type: research
 status: answered
 author: marc
 date: 2026-10-04
-tags: [yolo, training, dataset, computer-vision]
-related:
-  - "[[== MACHINE LEARNING ==]]"
+tags: [machine-learning, yolo, training, dataset, computer-vision]
 ---
 
 # 01 — What makes an efficient YOLO training set

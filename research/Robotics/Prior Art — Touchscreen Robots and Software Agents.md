@@ -1,13 +1,9 @@
 ---
-domain: [robotics, ml]
 type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [prior-art, touchscreen-robot, capacitive, delta, gantry, agent]
-related:
-  - "[[== ROBOTICS ==]]"
-  - "[[== MACHINE LEARNING ==]]"
+tags: [machine-learning, robotics, prior-art, touchscreen-robot, capacitive, delta, gantry, agent]
 ---
 
 # Prior art: touchscreen robots & software agents

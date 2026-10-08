@@ -1,12 +1,9 @@
 ---
-domain: [robotics]
 type: research
 status: stale
 author: marc
 date: 2026-10-05
-tags: []
-related:
-  - "[[== ROBOTICS ==]]"
+tags: [robotics]
 ---
 
 <a id="part-1"></a>

@@ -1,12 +1,9 @@
 ---
-domain: [ml]
 type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [yolo, taxonomy, grouping, dataset, computer-vision]
-related:
-  - "[[== MACHINE LEARNING ==]]"
+tags: [machine-learning, yolo, taxonomy, grouping, dataset, computer-vision]
 ---
 
 # 09 — Grouping methods (taxonomy, structure, data splits, compression)

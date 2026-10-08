@@ -1,12 +1,9 @@
 ---
-domain: [robotics]
 type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [capacitive, pcap, grounding, gantry, delta, stylus, calibration]
-related:
-  - "[[== ROBOTICS ==]]"
+tags: [robotics, capacitive, pcap, grounding, gantry, delta, stylus, calibration]
 ---
 
 # Mechanical architecture: touch physics, gantry vs delta, grounding

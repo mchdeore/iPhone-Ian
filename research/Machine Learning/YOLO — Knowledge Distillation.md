@@ -1,12 +1,9 @@
 ---
-domain: [ml]
 type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [yolo, distillation, knowledge-distillation, computer-vision, cpu, edge]
-related:
-  - "[[== MACHINE LEARNING ==]]"
+tags: [machine-learning, yolo, distillation, knowledge-distillation, computer-vision, cpu, edge]
 ---
 
 # 10 — Knowledge distillation on low-VRAM / CPU-only hardware

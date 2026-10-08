@@ -1,12 +1,9 @@
 ---
-domain: [ml]
 type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [vlm, gui-agent, vision-grounding, mobile-agent, fine-tuning, prompting]
-related:
-  - "[[== MACHINE LEARNING ==]]"
+tags: [machine-learning, vlm, gui-agent, vision-grounding, mobile-agent, fine-tuning, prompting]
 ---
 
 # VLM GUI agents & vision grounding — literature survey

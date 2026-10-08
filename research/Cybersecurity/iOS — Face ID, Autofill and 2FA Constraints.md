@@ -1,13 +1,9 @@
 ---
-domain: [security, robotics]
 type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [ios, face-id, passcode, autofill, accessibility, voiceover, 2fa, passkey]
-related:
-  - "[[== CYBERSECURITY ==]]"
-  - "[[== ROBOTICS ==]]"
+tags: [cybersecurity, robotics, ios, face-id, passcode, autofill, accessibility, voiceover, 2fa, passkey]
 ---
 
 # iOS control constraints — Face ID, autofill, accessibility

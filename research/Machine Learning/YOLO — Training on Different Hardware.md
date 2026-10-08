@@ -1,12 +1,9 @@
 ---
-domain: [ml]
 type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [yolo, training, cpu, mps, gpu, colab]
-related:
-  - "[[== MACHINE LEARNING ==]]"
+tags: [machine-learning, yolo, training, cpu, mps, gpu, colab]
 ---
 
 # 04 — Training YOLO on different hardware

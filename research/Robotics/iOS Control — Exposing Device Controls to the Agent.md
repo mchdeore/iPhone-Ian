@@ -1,13 +1,9 @@
 ---
-domain: [robotics, ml]
 type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [control, agent, grbl, ios, action-space, mcp, accessibility, assistivetouch, homography]
-related:
-  - "[[== ROBOTICS ==]]"
-  - "[[== MACHINE LEARNING ==]]"
+tags: [machine-learning, robotics, control, agent, grbl, ios, action-space, mcp, accessibility, assistivetouch, homography]
 ---
 
 # 13 — Exposing device controls to the model/agent

@@ -1,15 +1,9 @@
 ---
-domain: [security, sports, robotics, ml]
 type: research
 status: answered
 author: marc
-date: 2026-10-05
-tags: [gambling, ios]
-related:
-  - "[[== CYBERSECURITY ==]]"
-  - "[[== SPORTS ANALYTICS ==]]"
-  - "[[== ROBOTICS ==]]"
-  - "[[== MACHINE LEARNING ==]]"
+date: 2026-10-07
+tags: [sports-analytics, machine-learning, cybersecurity, robotics, gambling, ios]
 ---
 
 # 04 — Behavioral & automation detection — how betting apps profile *how* you tap, and what a tapping robot looks like
@@ -81,7 +75,7 @@ observe — and how do sportsbooks vs. prediction markets (Polymarket) treat bot
  external-display mirroring, background app-switcher snapshots, diagnostic/instrumentation tools. `[Documented]`
 - **Remote access:** iOS's sandbox has **no** Android-style accessibility remote-control surface and
  no public API to learn "another process is driving me," so remote operation is inferred only
- indirectly (`isCaptured` + behavioral anomaly), unlike Android (see ``). `[Community]`
+ indirectly (`isCaptured` + behavioral anomaly), unlike Android (see [[Android Control Survey (Legacy)]]). `[Community]`
 
 ### 5. Betting-pattern analytics (account-level, device-independent)
 
@@ -104,7 +98,7 @@ observe — and how do sportsbooks vs. prediction markets (Polymarket) treat bot
  directional risk and earns on flow, so **bots and market-makers are first-class**: an official CLOB
  API with EIP-712-signed orders, public (keyless) data endpoints, and a documented market-maker
  path. It only **geo-blocks** by jurisdiction. `[Documented]`
-- **Implication for our tennis track (``):** Polymarket's API
+- **Implication for our tennis track ([[Tennis — In-Play Market Research]]):** Polymarket's API
  is the *sanctioned* automation route, so the physical-robot black-box is unnecessary there — the
  rig matters only for app-only, API-less sportsbooks, which are also the venues that limit winners.
 
@@ -119,8 +113,8 @@ observe — and how do sportsbooks vs. prediction markets (Polymarket) treat bot
  straight constant-velocity swipes, and — the biggest tell — a **CoreMotion flatline**: a clamped
  phone has no grip micro-tremor or orientation change coupled to each tap, so the HMOG channel that
  fingerprints *humans* is simply absent. `[Benchmark]`
-- **HID path** (Pi USB/BT gadget + AssistiveTouch pointer — ``,
- ``): iOS synthesizes genuine touch events from the
+- **HID path** (Pi USB/BT gadget + AssistiveTouch pointer — [[iOS Control — Raspberry Pi HID Input Converter]],
+ [[iOS Control — AssistiveTouch Pointer Mechanics]]): iOS synthesizes genuine touch events from the
  pointer, so UITouch-level force/radius read as real — **but enabling AssistiveTouch sets
  `isAssistiveTouchRunning = true`**, the exact §2 flag that is *also* the §3 ADA-protected flag. An
  operator literally cannot cleanly separate our rig from a disabled user on that bit.
@@ -144,12 +138,21 @@ observe — and how do sportsbooks vs. prediction markets (Polymarket) treat bot
 ## Open questions / follow-ups
 
 - Do the major US sportsbook apps actually embed behavioral-biometric SDKs (BioCatch-class), or only
- device/geo (``)? Need a traffic/SDK teardown to confirm.
+ device/geo ([[Betting Apps — Geolocation Compliance]])? → being mapped in [[Betting Apps — Detection Vendor and SDK Landscape]].
 - Can `isCaptured` be triggered by our fixed external *camera*? No — a camera is off-device and never
  sets it; confirm no AirPlay/HDMI capture path is in the perception stack.
 - Quantify the CoreMotion-flatline tell: how discriminative is "no motion coupled to taps" alone vs.
- a real seated/propped human whose phone is also near-still? → flag in `questions.md`.
-- Does enabling AssistiveTouch for the HID path (``)
- measurably raise flagging, and is relying on that flag even defensible given §3? Ties to `hid-vs-gantry`.
+ a real seated/propped human whose phone is also near-still? → measured in [[Touch Telemetry — Measuring What the Rig Emits]], scored in [[Behavioral Biometrics — Datasets and Bot-Detection Baselines]].
+- Does enabling AssistiveTouch for the HID path ([[iOS Control — Raspberry Pi HID Input Converter]])
+ measurably raise flagging, and is relying on that flag even defensible given §3? Ties to HID vs gantry ([[iOS Control — Alternative Accessibility Input Paths]]).
 - Prediction-market terms drift: does Polymarket's ToS/geoblock stance on automated trading hold at
  our target date, and does it differ for its API vs. app surface?
+
+## Follow-up research (2026-10-07)
+
+One contribution per domain. Each takes on an open question above:
+
+- 🔐 [[Betting Apps — Detection Vendor and SDK Landscape]]: which detection layers are confirmed in which books, plus a public-sources method to fill the gaps.
+- 🧠 [[Behavioral Biometrics — Datasets and Bot-Detection Baselines]]: public datasets, BeCAPTCHA-Mobile and zkSENSE (which tested resting/docked phones), and a detectability benchmark.
+- 🤖 [[Touch Telemetry — Measuring What the Rig Emits]]: logger app and test matrix to measure UITouch and CoreMotion for human, gantry and HID.
+- 🏀 [[Betting — Account-Level Behavior Models]]: risk profiling plus regulator-mandated harm markers. An automated in-play strategy trips both, whatever the input device.

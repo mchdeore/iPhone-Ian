@@ -1,12 +1,9 @@
 ---
-domain: [ml]
 type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [yolo, quantization, edge, inference, computer-vision]
-related:
-  - "[[== MACHINE LEARNING ==]]"
+tags: [machine-learning, yolo, quantization, edge, inference, computer-vision]
 ---
 
 # 11 — Quantization formats by hardware and task

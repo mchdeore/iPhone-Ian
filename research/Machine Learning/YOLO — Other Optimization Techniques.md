@@ -1,12 +1,9 @@
 ---
-domain: [ml]
 type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [yolo, optimization, inference, deployment, computer-vision]
-related:
-  - "[[== MACHINE LEARNING ==]]"
+tags: [machine-learning, yolo, optimization, inference, deployment, computer-vision]
 ---
 
 # 08 — Other ways to optimize YOLO (variant, runtime, pipeline)

@@ -1,12 +1,9 @@
 ---
-domain: [robotics]
 type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [gantry, corexy, grbl, arduino, microcontroller, stepper, pen-plotter]
-related:
-  - "[[== ROBOTICS ==]]"
+tags: [robotics, gantry, corexy, grbl, arduino, microcontroller, stepper, pen-plotter]
 ---
 
 # XY gantry, CoreXY & microcontroller — phone-tapping builds

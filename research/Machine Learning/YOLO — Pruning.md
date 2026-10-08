@@ -1,12 +1,9 @@
 ---
-domain: [ml]
 type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [yolo, pruning, compression, edge, computer-vision]
-related:
-  - "[[== MACHINE LEARNING ==]]"
+tags: [machine-learning, yolo, pruning, compression, edge, computer-vision]
 ---
 
 # 07 — Pruning YOLO — does it beat just picking a smaller model?

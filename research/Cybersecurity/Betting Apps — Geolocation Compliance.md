@@ -1,13 +1,9 @@
 ---
-domain: [security, sports]
 type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [gambling, ios]
-related:
-  - "[[== CYBERSECURITY ==]]"
-  - "[[== SPORTS ANALYTICS ==]]"
+tags: [sports-analytics, cybersecurity, gambling, ios]
 ---
 
 # Geolocation compliance — how do iOS gambling apps prove you're physically in a legal jurisdiction?

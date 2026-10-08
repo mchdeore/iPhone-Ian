@@ -1,12 +1,9 @@
 ---
-domain: [ml]
 type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [yolo, training, strategy, computer-vision]
-related:
-  - "[[== MACHINE LEARNING ==]]"
+tags: [machine-learning, yolo, training, strategy, computer-vision]
 ---
 
 # 12 — Quickest-to-train, minimal-overhead training strategy

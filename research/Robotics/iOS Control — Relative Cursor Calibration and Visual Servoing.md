@@ -1,13 +1,9 @@
 ---
-domain: [robotics, ml]
 type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [control, ios, assistivetouch, hid, relative-pointer, visual-servoing, calibration, dead-reckoning, pid, latency]
-related:
-  - "[[== ROBOTICS ==]]"
-  - "[[== MACHINE LEARNING ==]]"
+tags: [machine-learning, robotics, control, ios, assistivetouch, hid, relative-pointer, visual-servoing, calibration, dead-reckoning, pid, latency]
 ---
 
 # 03 — Closed-loop cursor control with a RELATIVE-only iOS pointer

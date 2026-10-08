@@ -1,12 +1,9 @@
 ---
-domain: [robotics]
 type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [ios, accessibility, assistivetouch, pointer, mouse, hid, control, actuator, lock-screen, uiaccessibility]
-related:
-  - "[[== ROBOTICS ==]]"
+tags: [robotics, ios, accessibility, assistivetouch, pointer, mouse, hid, control, actuator, lock-screen, uiaccessibility]
 ---
 
 # 01 — AssistiveTouch pointer mechanics (iOS 13→26), in depth

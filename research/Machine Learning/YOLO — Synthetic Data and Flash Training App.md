@@ -1,13 +1,9 @@
 ---
-domain: [ml, robotics]
 type: research
 status: answered
 author: marc
 date: 2026-10-04
-tags: [yolo, synthetic-data, flash-app, homography, computer-vision]
-related:
-  - "[[== MACHINE LEARNING ==]]"
-  - "[[== ROBOTICS ==]]"
+tags: [machine-learning, robotics, yolo, synthetic-data, flash-app, homography, computer-vision]
 ---
 
 # 02 — Synthetic data and the "flash training app"

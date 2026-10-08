@@ -1,13 +1,9 @@
 ---
-domain: [robotics, security]
 type: research
 status: answered
 author: marc
 date: 2026-10-05
-tags: [raspberry-pi, hid, control, esp32, bluetooth, ios]
-related:
-  - "[[== ROBOTICS ==]]"
-  - "[[== CYBERSECURITY ==]]"
+tags: [cybersecurity, robotics, raspberry-pi, hid, control, esp32, bluetooth, ios]
 ---
 
 # 15 — Raspberry Pi "input converter" between host and device
