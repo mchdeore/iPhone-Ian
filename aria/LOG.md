@@ -2,6 +2,21 @@
 
 Newest first.
 
+## 2026-10-08 (later): AliExpress order placed
+
+**Ordered (~C$381 tax-in, after dropping the inserts + screw box).** Paid by Aria; split with Marc.
+
+Bought (21 lines): MKS DLC32 V2.1 (board only), TMC2209 ×4, 2× NEMA17 17HE08-1004S, MG90S ×2 (180°), 24 V 3 A PSU, Mini560 PRO 5 V, endstops ×3, **MGN9H 230 mm ×3**, 2020V extrusion 240 mm, 20T pulleys ×2 packs (1 spare pair), M3 nyloc nuts, M3×5 0.5 mm shim washers, brass tube OD5 300 mm, springs 0.5 mm 7 mm-OD ×20 mm, 26 AWG wire, servo extension, DC jack ×2, **GT2 6 mm PU steel-core belt 5 m** (upgraded from rubber — original sold out), **idlers 7 toothed + 5 smooth** (Mellow, bearing-type; original listing sold out), M3 T-nuts for 2020.
+
+Substitutions vs BOM: belt → PU steel-core; idlers → Mellow bearing (pricier but quieter/stiffer); both because the §5 listings went sold-out/no-ship to CA.
+
+**Reused from Olyntia's Amazon set (not re-bought):** M3 heat-set inserts, initial M3 screws.
+
+Still to buy later:
+- **Base plate** — JLCCNC, after the plate CAD.
+- **M3×50 idler-axle bolts + exact-length screw top-up** — after printed parts are designed.
+- **Amazon: stylus tips + 6061 rail bar** — confirm these went in (rail bar is the ~3-week long-lead item).
+
 ## 2026-10-08: plan, pipeline, BOM; prices rechecked
 
 - Read Marc's merged `research/` vault. Hardware v2 is now the "current design" on `main`.
