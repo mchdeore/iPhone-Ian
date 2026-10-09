@@ -2,6 +2,26 @@
 
 Newest first.
 
+## 2026-10-08: plan, pipeline, BOM; prices rechecked
+
+- Read Marc's merged `research/` vault. Hardware v2 is now the "current design" on `main`.
+- Added three shared root docs: `PLAN.md` (big steps), `PIPELINE.md` (detailed, wired to Marc's research), `BOM.md` (orderable parts list).
+- **Workflow change: we work on `main` directly now — no owner branches.** Equal partners.
+- FluidNC Wi-Fi question answered: use the `noradio` build (no radios compiled in).
+- Rechecked prices into Waterloo N2J:
+  - Amazon stylus tips C$8.49 (only 6 in stock), free ship over $35.
+  - Amazon rail bar C$26.64 **+ C$5.54 ship**, slow (Oct 30–Nov 20) — order early.
+  - AliExpress ships free to Canada, HST added at checkout. Per-item prices are promo/variant/account-dependent, so cent-exact verification isn't meaningful; §5 baseline holds, confirmed at my own checkout.
+  - **All-in estimate ~C$370 (tax in), ~C$185 each** before work-sourcing. Full breakdown in `BOM.md`.
+
+## 2026-10-02 (later): until the next sync
+
+- **Next sync: Wednesday 2026-10-07.**
+- Both of us are doing research before then.
+- **Screen input is undecided and on hold:** webcam vs screen capture.
+- **Hardware impact:** a fixed webcam over 2 phones needs ~14 cm above the glass, so the machine grows from ~5 cm to ~16 cm tall.
+  The alternative is a small camera riding on the gantry. Until this is decided, the hardware stays camera-agnostic: reserve mount points at the back edge for a camera mast.
+
 ## 2026-10-02: call with Marc
 
 **Decisions:**
