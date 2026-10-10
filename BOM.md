@@ -2,6 +2,8 @@
 
 **Design:** CoreXY gantry, 2 phones, MKS DLC32 + FluidNC, spring-loaded grounded stylus. Full design: `aria/hardware-concept-v2.md`.
 
+**Ordered 2026-10-08.** What was actually bought differs from this list in places (belt → PU steel-core, idlers → Mellow bearing type, heat-set inserts + screws reused from Olyntia). See `aria/LOG.md` for the as-ordered list. Still open: #23–24 (Amazon) and #25 (plate).
+
 **Status:** prices verified 2026-10-01 (C$, before tax). **Recheck at order time** — AliExpress prices drift. Order target: weekend of 2026-10-10/11, so shipping (~2–3 weeks) overlaps printing and the plate quote.
 
 **Split:** total ~C$325 + tax, 50/50 between Aria and Marc (≈ C$163 each before work-sourcing). Tick the **Aria (work)** / **Marc (work)** column for anything you can get free through work — it comes off the order.
@@ -47,7 +49,7 @@
 
 | # | Part | Pick | Qty | C$ | Aria (work) | Marc (work) |
 |---|---|---|---|---|---|---|
-| 25 | Base plate, 3 mm aluminium, ~341×320 mm, **slotted** holes | quote after CAD; slots absorb a few mm of CAD error | 1 | ~50 incl. ship | ☐ | ☐ |
+| 25 | Base plate, 3 mm aluminium, 340.6×320 mm, 40 M3 holes (mostly **slotted**) | drafted 2026-10-10: `aria/cad/base_plate.dxf` (laser profile), `base_plate.py` (source). Check in Onshape, then quote | 1 | ~50 incl. ship | ☐ | ☐ |
 
 ## 4. Already owned — C$0
 

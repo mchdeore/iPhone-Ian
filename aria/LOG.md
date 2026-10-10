@@ -2,6 +2,27 @@
 
 Newest first.
 
+## 2026-10-10: base plate drafted
+
+`cad/base_plate.py` builds the JLCCNC plate from the layout's dimensions (nothing hard-coded twice). Outputs `base_plate.dxf` (laser profile), `base_plate.step` (regenerate; gitignored) and `base_plate_preview.svg` (plate + footprints).
+
+- **340.6 × 320 × 3 mm**, R5 corners, 40 M3 holes. The script checks edge distance, hole-to-hole metal and clashes with every footprint: none, closest gap 10.6 mm.
+- **Slots (±2 mm):**
+  - rail risers ×8, slotted along Y to set the rails parallel
+  - motor cradles ×8, along X, which doubles as belt tension
+  - corner idler bolts ×2 and their bracket anchors ×4, along X so the bracket slides with the bolt
+  - phone trays ×8, along X
+- **Round holes:** feet ×6, and the camera mast ×4 at the back edge (+Y), reserved for now.
+- **Riser screws** sit at x = ±40/±100, midway between the MGN9 rail's own holes. Drill the risers using the plate as a template.
+
+Constraints that come with it:
+- **Button-head screws under the plate.** Feet are 3 mm and socket heads are 3 mm.
+- **The controller doesn't fit on the plate.** The toolhead sweeps the free area at ~20 mm and the DLC32 with drivers is ~30 mm tall, so it lives in a separate printed box beside the machine.
+- **Motors are held on two sides only** (−X and inner Y). The +X and outer sides sit ~4 mm from the plate edge.
+- The printed cradle, corner bracket and trays must be designed to these hole positions.
+
+**Next:** check the STEP in Onshape, then get the JLCCNC quote.
+
 ## 2026-10-08 (later): AliExpress order placed
 
 **Ordered (~C$381 tax-in, after dropping the inserts + screw box).** Paid by Aria; split with Marc.
