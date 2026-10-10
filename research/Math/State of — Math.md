@@ -3,7 +3,7 @@ type: summary
 status: living
 author: marc
 date: 2026-10-07
-updated: 2026-10-07
+updated: 2026-10-10
 tags: [math, state-of]
 ---
 
@@ -18,7 +18,9 @@ tags: [math, state-of]
 - **Decision analysis:** dynamic programming over field-position value showed systematic 4th-down conservatism (Romer 2006; the 3rd-down proxy is contested) → [[Game Theory — Fourth Down and Coaching Decisions]].
 - **Solving imperfect-information games:** CFR (regret matching at every information set; the average strategy converges to Nash in 2-player zero-sum games). CFR+ ~O(1/T) essentially solved heads-up limit hold'em → [[Game Theory — Counterfactual Regret Minimization (CFR)]].
 - **Poker AI path:** Cepheus (solved HULHE, 4,800 CPUs × 68 days) → Libratus (beat HUNL pros) → Pluribus (6-player, 12,400 core-hours) → ReBeL (RL + search). Blueprint plus real-time search is the pattern → [[Game Theory — Poker AI Milestones (Cepheus to Pluribus)]].
+- **Poker on a laptop / time bank:** offline blueprint + river subgame solve + preflop charts; anytime CFR with a hard `deadline_ms` → [[Game Theory — Real-Time Poker Under Personal Compute and Time Banks]].
 - **GTO vs exploit:** GTO caps losses, exploitation maximises profit against leaks; node locking computes best responses. It maps directly onto fading market overreaction → [[Game Theory — GTO vs Exploitative Play (Poker and Markets)]].
+- **Bluff rates:** per-node mixes from CFR/solvers; learn offline via trainers + population HUD stats; rooms detect **GTO-shaped mixes**, not textbook knowledge → [[Game Theory — Bluff Frequencies Regimes and How Players Learn Them]].
 - **Markets as games:** bookmakers shade prices toward bettor biases and take the risk (Levitt 2004). Market makers price adverse selection into the spread. Limiting sharps is a screening game → [[Game Theory — Bookmakers, Bettors and Market Makers as Games]].
 
 ## Cross-links worth knowing
@@ -40,6 +42,7 @@ tags: [math, state-of]
 
 ## Changelog
 
+- 2026-10-10: real-time poker under personal compute.
 - 2026-10-07: first version.
 
 ## Other summaries

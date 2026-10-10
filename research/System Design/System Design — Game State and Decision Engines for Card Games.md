@@ -30,7 +30,7 @@ tags: [system-design, machine-learning, math, card-games, solitaire, ismcts, sea
 | Klondike, full information ("thoughtful") | Depth-first search with pruning (Solvitaire) | **81.945% ± 0.084%** of deals winnable; the same solver covers 73 variants of 35 patience games [1][2] |
 | Klondike, normal (hidden cards) | **Rollouts / determinized search** | Yan et al.'s iterated-rollout strategy wins ~2× as many games as an expert human (on the thoughtful variant) [3] |
 | Hidden-information games vs computer opponents (Hearts, Spades, rummy) | **ISMCTS:** search over *information sets*, not sampled states | Fixes determinization's strategy fusion and wasted budget [4][5] |
-| Poker vs computer (play money) | CFR / pre-solved strategy | [[Game Theory — Poker AI Milestones (Cepheus to Pluribus)]] |
+| Poker vs computer (play money) | CFR / pre-solved strategy | [[Game Theory — Poker AI Milestones (Cepheus to Pluribus)]], [[Game Theory — Real-Time Poker Under Personal Compute and Time Banks]] |
 | Anything, quick start | Greedy heuristics (e.g. Klondike: play to foundation, reveal face-down cards first) | Baseline to beat |
 
 **Libraries:** OpenSpiel (DeepMind) implements many card games and algorithms (CFR, MCTS, ISMCTS-style). Prototype the brain in OpenSpiel against a simulator before connecting it to the robot. (Repo: github.com/google-deepmind/open_spiel.)

@@ -3,7 +3,7 @@ type: summary
 status: living
 author: marc
 date: 2026-10-07
-updated: 2026-10-07
+updated: 2026-10-10
 tags: [cybersecurity, state-of]
 ---
 
@@ -18,6 +18,8 @@ tags: [cybersecurity, state-of]
 - **Secrets:** SOPS + age for anything in the repo, plus gitleaks pre-commit, GitHub push protection and CI. Signing keys stay in a hardware wallet or vault → [[Security — Secrets and Key Management for Bots and Rigs]].
 - **iOS auth:** the robot always uses the passcode fallback and never Face ID; TOTP over SMS; disable the triple-click Accessibility Shortcut → [[iOS — Face ID, Autofill and 2FA Constraints]].
 - **How betting apps detect automation (mapping only, no evasion):** geolocation (GeoComply/Incognia, confirmed everywhere), device integrity/RASP, behavioural biometrics (unconfirmed in sportsbooks), and account-level profiling → [[Betting Apps — Behavioral and Automation Detection]], [[Betting Apps — Detection Vendor and SDK Landscape]], [[Betting Apps — Geolocation Compliance]], [[Betting Apps — Device Integrity and Attestation]].
+- **Physical robot bypass (red team → blue team):** integrity/geo catch **tampered clients**, not **real taps on stock phones**. Hardening = touch+IMU fusion, no ADA-hostile shortcuts, server-side CLV/graph, early account scoring → [[Betting Apps — Physical-Agent Red Team and Detection Hardening]].
+- **Poker RTA/bots:** rooms catch **solver-shaped decisions** and **hand-history ML**, not touch physics. GTO Wizard–style equilibrium distance + timing vs complexity → [[Poker Platforms — RTA Bot and Solver Detection]].
 - **Why the detection stack exists:** licensing, geofencing, KYC/AML and responsible-gambling rules *mandate* it → [[Betting Apps — Regulatory and Responsible Gambling]].
 - **Accessibility flags are an ADA trap.** `isAssistiveTouchRunning` is true for millions of disabled users, so it's a weak and legally risky signal.
 
@@ -46,6 +48,7 @@ tags: [cybersecurity, state-of]
 
 ## Changelog
 
+- 2026-10-10: physical-agent threat model; poker RTA/bot detection map.
 - 2026-10-07: first version.
 
 ## Other summaries

@@ -3,7 +3,7 @@ type: summary
 status: living
 author: marc
 date: 2026-10-07
-updated: 2026-10-07
+updated: 2026-10-08
 tags: [sports-analytics, state-of]
 ---
 
@@ -23,7 +23,7 @@ tags: [sports-analytics, state-of]
 ## Decisions made
 
 - Free data first: Sackmann point-by-point and the Match Charting Project; Betfair BASIC; Polymarket price history → [[Markets — Backtesting Without Fooling Yourself]].
-- Practise the full pipeline on football-data.co.uk closing odds while the tennis data is built → [[Data — Open Sports Datasets Beyond Tennis]].
+- Practise the full pipeline on football-data.co.uk closing odds while the tennis data is built → [[Data — Open Sports Datasets Beyond Tennis]] · calibration + Benter holdout → [[Analysis — Premier League Closing-Odds Calibration]], [[Analysis — EPL Poisson Model and Benter Holdout]].
 
 ## Where sources disagree or we're unsure
 

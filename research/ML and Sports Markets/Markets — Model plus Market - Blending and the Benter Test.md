@@ -40,7 +40,8 @@ Instead of predicting the match winner, predict **where the market will be (or t
 
 ## Pitch in
 
-- [ ] ML: run the Benter test on the Markov model against Betfair closing odds over the backtest set; post α, β and the confidence intervals.
+- [x] ML: Benter on walk-forward Poisson vs Bet365 close — **2425 holdout**, α≈−0.12 (NS), market wins → [[Analysis — EPL Poisson Model and Benter Holdout]].
+- [ ] ML: run the Benter test on the **tennis Markov** model against Betfair closing odds over the backtest set; post α, β and the confidence intervals.
 - [ ] Sports: list candidate residual features from the player-modeling note that are available live.
 
 ## Sources

@@ -152,6 +152,7 @@ observe — and how do sportsbooks vs. prediction markets (Polymarket) treat bot
 
 One contribution per domain. Each takes on an open question above:
 
+- 🎯 [[Betting Apps — Physical-Agent Red Team and Detection Hardening]]: full threat model for gantry/HID bypass, why today's stack has gaps, and blue-team recommendations for operators.
 - 🔐 [[Betting Apps — Detection Vendor and SDK Landscape]]: which detection layers are confirmed in which books, plus a public-sources method to fill the gaps.
 - 🧠 [[Behavioral Biometrics — Datasets and Bot-Detection Baselines]]: public datasets, BeCAPTCHA-Mobile and zkSENSE (which tested resting/docked phones), and a detectability benchmark.
 - 🤖 [[Touch Telemetry — Measuring What the Rig Emits]]: logger app and test matrix to measure UITouch and CoreMotion for human, gantry and HID.

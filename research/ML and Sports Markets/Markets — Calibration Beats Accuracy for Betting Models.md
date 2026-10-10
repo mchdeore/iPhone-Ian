@@ -42,7 +42,8 @@ tags: [sports-analytics, machine-learning, ml-and-sports-markets, calibration, b
 
 ## Pitch in
 
-- [ ] ML: add log loss, Brier decomposition and a reliability-by-edge plot to the tennis backtest.
+- [x] ML: reliability-by-edge table on EPL holdout (Poisson − close) → [[Analysis — EPL Poisson Model and Benter Holdout]].
+- [ ] ML: same plots for tennis backtest.
 - [ ] Sports: pick the score states that matter (post-break, set point, tiebreak) for state-conditional calibration.
 
 ## Sources

@@ -50,7 +50,8 @@ tags: [sports-analytics, machine-learning, ml-and-sports-markets, backtesting, o
 
 ## Pitch in
 
-- [ ] ML: create `trials.csv`, which every backtest run appends to (config hash, metrics). Add a DSR/PBO script.
+- [x] ML: `analysis/data/trials.csv` — `run_epl_benter_study.py` appends config hash + metrics.
+- [ ] ML: DSR/PBO script over `trials.csv`.
 - [ ] Sports: check whether Betfair BASIC includes tennis in-play markets; note the file layout here.
 
 ## Sources

@@ -1,0 +1,12 @@
+views:
+  - type: table
+    name: Analysis notes
+    filters:
+      and:
+        - file.tags.contains("market-analysis")
+    order:
+      - file.name
+    columns:
+      - file.name
+      - file.folder
+      - status

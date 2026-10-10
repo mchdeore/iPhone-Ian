@@ -31,6 +31,7 @@ tags: [machine-learning, math, game-theory, poker, cfr, libratus, pluribus, deep
 - **Blueprint + real-time search** is the pattern: compute a coarse strategy offline, refine it at decision time. It's analogous to a pre-trained policy plus test-time search in GUI agents.
 - **Compute fell ~100×** between Libratus and Pluribus through better *algorithms*, not hardware. Search smarter before scaling.
 - **Evaluation:** poker reports win rate in mbb/g or bb/100 with significance over huge samples, and AIVAT-style variance reduction. Our backtests need the same rigour ([[Markets — Backtesting Without Fooling Yourself]]).
+- **Personal hardware:** operational detail for deadline-bounded decisions → [[Game Theory — Real-Time Poker Under Personal Compute and Time Banks]].
 
 ## Pitch in
 

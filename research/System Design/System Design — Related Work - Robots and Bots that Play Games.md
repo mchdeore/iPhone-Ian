@@ -58,4 +58,4 @@ tags: [system-design, robotics, cybersecurity, prior-art, game-bots, poker]
 ## Related
 
 - **Summary:** [[State of — System Design]] · [[State of — Robotics]] · [[State of — Cybersecurity]]
-- **See also:** [[Betting Apps — Behavioral and Automation Detection]] · [[Game Theory — Poker AI Milestones (Cepheus to Pluribus)]]
+- **See also:** [[Betting Apps — Behavioral and Automation Detection]] · [[Game Theory — Poker AI Milestones (Cepheus to Pluribus)]] · [[Game Theory — Real-Time Poker Under Personal Compute and Time Banks]] · [[Poker Platforms — RTA Bot and Solver Detection]]

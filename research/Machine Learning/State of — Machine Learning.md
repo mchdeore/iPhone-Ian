@@ -3,7 +3,7 @@ type: summary
 status: living
 author: marc
 date: 2026-10-07
-updated: 2026-10-07
+updated: 2026-10-10
 tags: [machine-learning, state-of]
 ---
 
@@ -18,6 +18,7 @@ tags: [machine-learning, state-of]
 - **Fine-tuning on our GPU:** QLoRA on a 4-bit ~3B VLM is the plan for the RTX 3060 12 GB. It's plausible but **untested**, and image tokens are the memory risk → [[Training — QLoRA Fine-Tuning a Small VLM on 12 GB]].
 - **OCR:** no benchmark covers phone UIs. PaddleOCR usually leads on accuracy, Tesseract on speed, and Apple Vision looks strong on macOS. **Measure on our own 200-image set** → [[OCR — Engines for Phone Screens]].
 - **Learning loop:** SFT → offline RL → online RL in emulators → rig fine-tune. Details live in [[State of — RL and Simple Robots]].
+- **Poker brain (rig / sim only):** blueprint offline, bounded subgame solve online, optional small value net — not for real-money RTA → [[Game Theory — Real-Time Poker Under Personal Compute and Time Banks]]; operator detection → [[Poker Platforms — RTA Bot and Solver Detection]].
 - **Betting models:** select them by **calibration, not accuracy**, blend with the market (Benter test), and size with uncertainty-shrunk Kelly. Details live in [[State of — ML and Sports Markets]].
 
 ## Decisions made
@@ -46,6 +47,7 @@ tags: [machine-learning, state-of]
 
 ## Changelog
 
+- 2026-10-10: linked poker compute-budget and detection notes.
 - 2026-10-07: first version.
 
 ## Other summaries

@@ -96,7 +96,7 @@ The market's proven weakness is overreacting to breaks that mean little. **These
 ## 6. RESEARCH CHECKLIST
 
 ### A. Validate the core inefficiency (make-or-break, do first)
-- Reproduce Brown's overreaction on **Polymarket** specifically: pull in-play tennis price history (CLOB /prices-history), align to point-by-point score, measure how far the price overshoots after a single break vs. the ~72% base rate, and how much reverts within minutes.
+- Reproduce Brown's overreaction on **Polymarket** specifically (pandas targets: `analysis/data/catalog.parquet`, compare to [[Analysis — Prediction Market Calibration (Literature Tables)]]): pull in-play tennis price history (CLOB /prices-history), align to point-by-point score, measure how far the price overshoots after a single break vs. the ~72% base rate, and how much reverts within minutes.
 - **Polymarket vs. Betfair vs. model** efficiency: is Polymarket's *retail* in-play flow less efficient than Betfair's (where the sharks are)? This decides whether the edge survives.
 - Overshoot-vs-spread: does the reversion beat Polymarket's 0.75% fee + the bid-ask? Maker-fill realism.
 
@@ -120,7 +120,7 @@ The market's proven weakness is overreacting to breaks that mean little. **These
 - For EACH signal: measure incremental predictive lift over the base model (encompassing test), rank-IC, and whether it *leads* the market's break-overreaction.
 
 ### E. Strategy & risk
-- Fade rule: threshold on (model fair value − market price) right after a break; size by the gap.
+- Fade rule: threshold on (model fair value − market price) right after a break; size by the gap. **Must pass Benter / edge calibration** like EPL holdout ([[Analysis — EPL Poisson Model and Benter Holdout]]) — raw gaps lie.
 - Time-stop / exit as score-driven fair value and market reconverge; avoid holding into retirement risk.
 - Restrict to ATP/WTA main tour (skip ITF/Challenger: integrity + liquidity).
 - Paper-trade maker-only; gate every signal on rolling rank-IC across matches before it trades.

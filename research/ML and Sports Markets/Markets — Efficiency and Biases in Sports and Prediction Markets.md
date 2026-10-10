@@ -44,4 +44,5 @@ tags: [sports-analytics, machine-learning, ml-and-sports-markets, market-efficie
 
 ## Related
 
+- **Empirical tables:** [[Analysis — Prediction Market Calibration (Literature Tables)]] · [[Analysis — Premier League Closing-Odds Calibration]]
 - **Summary:** [[State of — Sports Analytics]] · [[State of — Machine Learning]] · [[State of — ML and Sports Markets]]

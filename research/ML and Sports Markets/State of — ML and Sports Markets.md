@@ -3,7 +3,7 @@ type: summary
 status: living
 author: marc
 date: 2026-10-07
-updated: 2026-10-07
+updated: 2026-10-08
 tags: [ml-and-sports-markets, machine-learning, sports-analytics, state-of]
 ---
 
@@ -19,6 +19,7 @@ tags: [ml-and-sports-markets, machine-learning, sports-analytics, state-of]
 - **Execution on Polymarket:** taker fees peak at a 50¢ price, makers pay nothing plus rebates. So **be the maker**, but pull quotes at every point end (adverse selection). Use binary Avellaneda–Stoikov with a terminal penalty and spread ∝ point importance → [[Markets — Polymarket Order Book, Fees and Execution]], [[Markets — Market Making in Binary Contracts (Avellaneda-Stoikov)]].
 - **Monetise by trading the reversion, not holding to settlement.** Start with threshold rules; RL only in a simulator (BBE-style) → [[Markets — In-Play Entry, Exit and Sequential Decisions]].
 - **Honest backtests:** point-in-time features, walk-forward with an embargo, log every trial (Deflated Sharpe/PBO), CLV as the early signal → [[Markets — Backtesting Without Fooling Yourself]].
+- **Reproduced tables live in `analysis/`:** EPL closing calibration + literature benchmarks in parquet → [[Analysis — Premier League Closing-Odds Calibration]], [[Analysis — Prediction Market Calibration (Literature Tables)]].
 - **Game-theory frame:** the fade is exploitative play against a market leak, so deviate from "market = fair" only with evidence → [[Game Theory — GTO vs Exploitative Play (Poker and Markets)]].
 
 ## Decisions made
@@ -43,8 +44,10 @@ tags: [ml-and-sports-markets, machine-learning, sports-analytics, state-of]
 
 - [ ] Book recorder for live Polymarket tennis → spread and depth stats.
 - [ ] Break event study (with Sports Analytics).
+- [x] Pandas registry + EPL closing calibration script (`analysis/`).
 - [ ] Backtester with `trials.csv`, a DSR/PBO script and bootstrap-Kelly.
-- [ ] Benter test → go/no-go.
+- [x] Benter on EPL Poisson vs close: **go/no-go for raw model** = no on 2425 holdout → [[Analysis — EPL Poisson Model and Benter Holdout]].
+- [ ] Benter on tennis Markov vs Betfair close.
 
 ## Changelog
 

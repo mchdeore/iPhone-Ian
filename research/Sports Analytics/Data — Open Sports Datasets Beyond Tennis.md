@@ -36,7 +36,8 @@ StatsBomb 360 freeze-frames plus our YOLO experience give a computer-vision on-r
 
 ## Pitch in
 
-- [ ] Sports: do the Premier League practice project; post calibration and Benter results.
+- [x] Sports: EPL closing calibration reproduced → [[Analysis — Premier League Closing-Odds Calibration]].
+- [x] Sports: Benter + Poisson on same parquet → [[Analysis — EPL Poisson Model and Benter Holdout]].
 - [ ] Anyone: add NBA/NHL sources with licences.
 
 ## Sources
