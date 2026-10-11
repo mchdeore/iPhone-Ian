@@ -2,6 +2,13 @@
 
 Newest first.
 
+## 2026-10-10 (later): plate ordered, faster riser bar, wiring
+
+- **Plate ordered from JLCCNC:** 5052, raw, no threads, qty 1. C$20.60 + C$31.13 shipping = **C$51.73**. Uploaded the STEP only (the 2D drawing is only required when there are threads).
+- **Riser bar swapped** to MECCANIXITY 6061 10×10×305 mm 2-pack (C$13.99, ~Oct 13–14) instead of COYOUCO 10×20 (Oct 30–Nov 20). The 10 mm width is fine: the rail is 9 mm wide and the plate holes are on the riser centreline. Each bar: cut to 240 mm, drill 2.5 mm, tap M3 — 6 rail holes on top (mark through the rail), 4 plate holes underneath (spot through the plate slots once it arrives). Update `RISER` in `v2_0_layout.py` to (10, 10) once ordered.
+- **Wiring gap closed:** endstops, servo + extension and the 26 AWG cover most of it. Still needed: 2 stepper cables (XH2.54 ↔ PH2.0, unless the motors arrive with XH), crimper + XH/Dupont kit, heat shrink, USB cable, M3 tap. **Aria getting these from work** (BOM #26–31).
+- Still to order on Amazon: riser bar (#24) + stylus tips (#23).
+
 ## 2026-10-10: base plate drafted
 
 `cad/base_plate.py` builds the JLCCNC plate from the layout's dimensions (nothing hard-coded twice). Outputs `base_plate.dxf` (laser profile), `base_plate.step` (regenerate; gitignored) and `base_plate_preview.svg` (plate + footprints).

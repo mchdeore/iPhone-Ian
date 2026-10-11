@@ -2,7 +2,7 @@
 
 **Design:** CoreXY gantry, 2 phones, MKS DLC32 + FluidNC, spring-loaded grounded stylus. Full design: `aria/hardware-concept-v2.md`.
 
-**Ordered 2026-10-08.** What was actually bought differs from this list in places (belt → PU steel-core, idlers → Mellow bearing type, heat-set inserts + screws reused from Olyntia). See `aria/LOG.md` for the as-ordered list. Still open: #23–24 (Amazon) and #25 (plate).
+**Ordered 2026-10-08.** What was actually bought differs from this list in places (belt → PU steel-core, idlers → Mellow bearing type, heat-set inserts + screws reused from Olyntia). See `aria/LOG.md` for the as-ordered list. #25 (plate) ordered from JLCCNC 2026-10-10. Still open: #23–24 (Amazon). Wiring and tools (#26–31) come from Aria's work where possible.
 
 **Status:** prices verified 2026-10-01 (C$, before tax). **Recheck at order time** — AliExpress prices drift. Order target: weekend of 2026-10-10/11, so shipping (~2–3 weeks) overlaps printing and the plate quote.
 
@@ -43,13 +43,24 @@
 | # | Part | Pick | Qty | C$ | Ship | Aria (work) | Marc (work) |
 |---|---|---|---|---|---|---|---|
 | 23 | PATIKIL stylus tips, 6 mm mesh, threaded metal stem | 5-pack, 6 mm variant (AliExpress only sells active Apple Pencil nibs — won't work). **Only ~6 in stock — buy now.** | 1 | 8.49 | free if in a $35+ Amazon order, else ~6 | ☐ | ☐ |
-| 24 | 6061 rail risers, 10×20 mm | COYOUCO 10×20×500 (cut in half → 2 × ~240 mm). Separate seller (COYOUCO-CA), **slow: delivers ~Oct 30–Nov 20.** Or Metal Supermarkets Kitchener for pickup. | 1 | 26.64 | 5.54 | ☐ | ☐ |
+| 24 | 6061 rail risers, 10×10 mm | MECCANIXITY 10×10×305 mm, 2-pack (B0DFLS311P). Delivers ~Oct 13–14 (swapped from the slow COYOUCO 10×20). Cut each to 240 mm; drill 2.5 mm and tap M3, 6 rail holes on top and 4 plate holes underneath, spotted through the plate slots. 10 mm wide is fine because the rail is 9 mm and the plate holes sit on the riser centreline. | 1 | 13.99 | check at checkout | ☐ | ☐ |
 
-## 3. JLCCNC — order AFTER the plate CAD exists
+## 3. JLCCNC — ordered 2026-10-10
 
 | # | Part | Pick | Qty | C$ | Aria (work) | Marc (work) |
 |---|---|---|---|---|---|---|
-| 25 | Base plate, 3 mm aluminium, 340.6×320 mm, 40 M3 holes (mostly **slotted**) | drafted 2026-10-10: `aria/cad/base_plate.dxf` (laser profile), `base_plate.py` (source). Check in Onshape, then quote | 1 | ~50 incl. ship | ☐ | ☐ |
+| 25 | Base plate, 3 mm aluminium, 340.6×320 mm, 40 M3 holes (mostly **slotted**) | 5052, raw finish, no threads; uploaded the STEP from `aria/cad/base_plate.py`. 20.60 + 31.13 shipping (Global Standard Direct Line); HST may apply at import | 1 | 51.73 | ☐ | ☐ |
+
+## 3b. Wiring and tools — Aria sourcing from work; Amazon for anything work doesn't have
+
+| # | Part | Why | Qty | Aria (work) | Marc (work) |
+|---|---|---|---|---|---|
+| 26 | Stepper cable, 4-pin XH2.54 ↔ 6-pin PH2.0, 1 m | Board motor sockets are XH2.54. Skip if the motors arrive with an XH plug already | 2 | ☐ | ☐ |
+| 27 | Crimper + XH2.54/Dupont connector kit | Terminate the 26 AWG (servo signal, 5 V buck, stylus ground) onto board headers | 1 | ☐ | ☐ |
+| 28 | Heat-shrink assortment | Solder joints, stylus ground | 1 | ☐ | ☐ |
+| 29 | USB cable, board ↔ PC | FluidNC over USB (no radio) | 1 | ☐ | ☐ |
+| 30 | M3 tap + handle, 2.5 mm drill bit, cutting oil | Tap the riser bars (#24) | 1 | ☐ | ☐ |
+| 31 | Hacksaw + file | Cut risers to 240 mm, deburr | 1 | ☐ | ☐ |
 
 ## 4. Already owned — C$0
 
@@ -75,6 +86,8 @@ Checked 2026-10-08. Amazon prices are confirmed live; AliExpress prices use the 
 | **Total** | | | | **≈ C$360–375** |
 
 **≈ C$370 all-in. Split 50/50 ≈ C$185 each**, before anyone's work-sourcing ticks (each tick drops both shares).
+
+**Actual spend (2026-10-10):** AliExpress ~C$381 paid (tax in, includes spares) + JLCCNC plate C$51.73 shipped (+ HST if charged at import) + Amazon #23–24 pending (C$22.48 goods + HST ~2.92 + shipping at checkout). **≈ C$460–470 total, ≈ C$230–235 each**, wiring and tools from work not included.
 
 **Why not cent-exact on AliExpress:** the listings render in CAD and ship free to Canada (HST added at checkout), but each item's displayed price depends on the variant selected and on account-specific coupons / new-shopper promos — e.g. the controller listing currently flashes a C$1.74 "new shopper" price on a *shell* variant, not the C$26.85 board. Your real cart total is whatever your own account shows at checkout, and it will likely be **lower** than this baseline once coupons apply, not higher. Recheck in your cart before paying.
 
