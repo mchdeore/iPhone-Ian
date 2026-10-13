@@ -2,6 +2,11 @@
 
 Newest first.
 
+## 2026-10-13: riser bars arrived, drilling template
+
+- MECCANIXITY 10×10 bars in hand (12 in). `RISER` in `v2_0_layout.py` is now (10, 10).
+- `cad/riser_bar.py` → `riser_bar_drawing.pdf`: 1:1 Letter template. Cut to 240 mm; 10 holes on the centreline, Ø2.5 through, tapped M3 through. Rail (R) at 30/70/110/130/170/210, plate (P) at 20/80/160/220, symmetric from either end. P positions are read from `base_plate.py`, so they match the cut plate.
+
 ## 2026-10-10 (later): plate ordered, faster riser bar, wiring
 
 - **Plate ordered from JLCCNC:** 5052, raw, no threads, qty 1. C$20.60 + C$31.13 shipping = **C$51.73**. Uploaded the STEP only (the 2D drawing is only required when there are threads).

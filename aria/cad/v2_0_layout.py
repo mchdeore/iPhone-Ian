@@ -22,7 +22,7 @@ PITCH, N_PHONES = 95, 2                   # phones in the row: change this and t
 PHONE = (77.6, 163.0, 8.25)               # iPhone Pro Max body (worst case)
 TRAY_T = 2
 RAIL_Y = 105                              # long rails at y = +/- this
-RISER = (20, 10)                          # aluminium flat bar 20 wide x 10 tall under each long rail
+RISER = (10, 10)                          # 6061 square bar 10 x 10 under each long rail (riser_bar.py)
 BRIDGE_RAIL_L, BRIDGE_L = 230, 240
 STOCK_RAILS = (200, 215, 230, 250, 260, 280, 300, 320, 330, 350, 360, 380, 400, 420, 440, 450, 470, 490, 500)
 MGN9_RAIL_W, MGN9_RAIL_H = 9, 6.5
@@ -108,7 +108,7 @@ for i, x in enumerate(xs):
 
 for sy in (-1, 1):
     y = sy * RAIL_Y
-    add(static, box(0, y, BASE_T + RISER[1] / 2, LONG_RAIL_L + 10, RISER[0], RISER[1]), "alu", "rail riser (alu flat bar 20x10)")
+    add(static, box(0, y, BASE_T + RISER[1] / 2, LONG_RAIL_L + 10, RISER[0], RISER[1]), "alu", "rail riser (alu bar 10x10)")
     add(static, box(0, y, rail_base_z + MGN9_RAIL_H / 2, LONG_RAIL_L, MGN9_RAIL_W, MGN9_RAIL_H), "steel", f"MGN9 rail {LONG_RAIL_L}")
 
 # ---------------- static: motors (+X end) and corner idlers (-X end) ----------------
