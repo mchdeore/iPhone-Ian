@@ -101,7 +101,7 @@ Everything actually paid for iPhone-Ian hardware and tools. Split 50/50 with Mar
 
 **C$0 (already owned or borrowed):** M3 heat-set inserts + M2/M3/M4 screw kit (Olyntia's Amazon set); wiring, crimper, heat shrink, drill, hacksaw (Aria's work).
 
-**Next to buy (Amazon, not yet ordered):** M3 × 30–50 socket-head kit, 304 SS (B0BJQ2QC2F, 17.99) for the idler axles; M3 × 6–25 button-head kit, 304 SS (B0F4XN63JR, 16.98) for the screws under the plate. ≈ 39.52 with HST.
+**Next to buy (Amazon, not yet ordered):** M3 × 30/35/40/45/50 **button**-head kit, 304 SS, 20 each (B0BJQ3BTV1, 16.39) for the idler axles (heads sit under the plate); M3 × 8 button head, 304 SS, 120 pcs (B0DNMZXHK2, 10.39) for the ~28 screws under the plate. ≈ 30.26 with HST. The Olyntia kit (LUKAISEN 820 pcs) is all socket head, M3 4–20 mm, so it covers everything on top of the plate.
 
 **Why not cent-exact on AliExpress:** the listings render in CAD and ship free to Canada (HST added at checkout), but each item's displayed price depends on the variant selected and on account-specific coupons / new-shopper promos — e.g. the controller listing currently flashes a C$1.74 "new shopper" price on a *shell* variant, not the C$26.85 board. Your real cart total is whatever your own account shows at checkout, and it will likely be **lower** than this baseline once coupons apply, not higher. Recheck in your cart before paying.
 
