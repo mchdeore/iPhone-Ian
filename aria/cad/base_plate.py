@@ -3,6 +3,7 @@
 Every position comes from v2_0_layout.py (single source of dimensions). Run from this folder:
     ../../.venv/Scripts/python.exe base_plate.py
 Outputs: base_plate.step (quote / CAD check), base_plate.dxf (laser profile),
+         base_plate_drawing.pdf (2D drawing for the JLCCNC upload; needs pymupdf in the venv),
          base_plate_preview.svg (plate + footprints of everything that sits on it).
 
 Frame: X = long axis (row of phones), Y = front/back (+Y = back), origin = plate center.
@@ -92,6 +93,88 @@ for i, x in enumerate(L.xs):
 # what each hole is allowed to sit under (anything else is a clash)
 ALLOWED = {"rail riser": "riser", "phone tray": "tray", "corner idler bolt": "corner post"}
 
+
+def write_drawing(path):
+    """A3 2D drawing for the JLCCNC upload: outline, numbered holes, hole table, notes. Geometry lives in the STEP."""
+    import pymupdf
+    W, H = pymupdf.paper_size("a3-l")
+    doc = pymupdf.open()
+    page = doc.new_page(width=W, height=H)
+    S, OX, OY = 1.6, 70, 70                              # pt per mm; plate's top-left corner on the page
+    px = lambda x: OX + (x + L.BASE_X / 2) * S
+    py = lambda y: OY + (L.BASE_Y / 2 - y) * S
+    black, blue = (0, 0, 0), (0.15, 0.4, 0.8)
+
+    def text(x, y, s, size=7, color=black, rotate=0):
+        page.insert_text((x, y), s, fontsize=size, fontname="helv", color=color, rotate=rotate)
+
+    def arrow(tip, dx, dy):                              # filled arrowhead pointing along (dx, dy)
+        bx, by = tip[0] - 6 * dx, tip[1] - 6 * dy
+        page.draw_polyline([tip, (bx - 2 * dy, by + 2 * dx), (bx + 2 * dy, by - 2 * dx), tip],
+                           color=black, fill=black, width=0.3)
+
+    # cut profile, straight from the same sketch as the DXF
+    shape = page.new_shape()
+    for e in profile.edges():
+        n = 2 if e.geom_type == GeomType.LINE else 25
+        shape.draw_polyline([(px(p.X), py(p.Y)) for p in (e.position_at(i / (n - 1)) for i in range(n))])
+    shape.finish(color=black, width=0.8)
+    shape.commit()
+
+    for i, (_, x, y, kind, angle) in enumerate(holes, 1):
+        dx = 4.5 if kind == "slot" and angle == 0 else 2.5
+        text(px(x) + dx * S, py(y) - 2.5 * S, f"H{i}", 6, blue)
+
+    # overall dimensions + datum
+    x0, x1, y0, y1 = px(-L.BASE_X / 2), px(L.BASE_X / 2), py(L.BASE_Y / 2), py(-L.BASE_Y / 2)
+    yd, xd = y1 + 28, x0 - 28
+    page.draw_line((x0, y1 + 4), (x0, yd + 4), color=black, width=0.3)
+    page.draw_line((x1, y1 + 4), (x1, yd + 4), color=black, width=0.3)
+    page.draw_line((x0, yd), (x1, yd), color=black, width=0.4)
+    arrow((x0, yd), -1, 0); arrow((x1, yd), 1, 0)
+    text((x0 + x1) / 2 - 12, yd - 4, f"{L.BASE_X:.1f}", 9)
+    page.draw_line((x0 - 4, y0), (xd - 4, y0), color=black, width=0.3)
+    page.draw_line((x0 - 4, y1), (xd - 4, y1), color=black, width=0.3)
+    page.draw_line((xd, y0), (xd, y1), color=black, width=0.4)
+    arrow((xd, y0), 0, -1); arrow((xd, y1), 0, 1)
+    text(xd - 4, (y0 + y1) / 2 + 8, f"{L.BASE_Y:.0f}", 9, rotate=90)
+    text(x1 - 60, y0 - 6, f"R{CORNER_R} typ. (4 corners)", 7)
+    text(x0 + 4, y1 + 14, "DATUM (0, 0) = bottom-left corner", 7)
+    page.draw_line((x0, y1), (x0 + 18, y1), color=black, width=1.2)
+    page.draw_line((x0, y1), (x0, y1 - 18), color=black, width=1.2)
+
+    # hole table
+    tx, ty, row = 650, 72, 10.6
+    cols = (0, 26, 112, 150, 188)
+    for c, head in zip(cols, ("ID", "Type", "X", "Y", "Feature")):
+        text(tx + c, ty, head, 7.5)
+    page.draw_line((tx, ty + 3), (tx + 330, ty + 3), color=black, width=0.4)
+    for i, (lab, x, y, kind, angle) in enumerate(holes, 1):
+        kind_s = "Ø3.4 thru" if kind == "round" else f"slot 3.4×7.4, along {'X' if angle == 0 else 'Y'}"
+        r = ty + 3 + i * row
+        for c, s in zip(cols, (f"H{i}", kind_s, f"{x + L.BASE_X / 2:.1f}", f"{y + L.BASE_Y / 2:.1f}", lab)):
+            text(tx + c, r, s, 7)
+
+    notes = [
+        "NOTES",
+        f"1. Material: aluminium 5052-H32 (6061-T6 acceptable), {T:.1f} mm sheet. Qty 1.",
+        "2. Laser cut. No bends, no threads, no countersinks.",
+        f"3. All holes Ø{HOLE} through. Slots {HOLE} wide × {HOLE + TRAVEL:.1f} overall ({TRAVEL:.1f} between arc centres).",
+        "4. Table gives hole / slot centres from the datum, in mm.",
+        "5. General tolerance ISO 2768-m. Deburr all edges. Finish: none (raw).",
+        "6. Geometry is defined by the STEP file. Drawing not to scale.",
+    ]
+    ny = ty + 3 + (len(holes) + 2) * row
+    for j, s in enumerate(notes):
+        text(tx, ny + j * 11, s, 8 if j == 0 else 7)
+
+    tb = pymupdf.Rect(tx, H - 110, W - 30, H - 30)       # title block
+    page.draw_rect(tb, color=black, width=0.8)
+    text(tb.x0 + 10, tb.y0 + 24, "iPhone-Ian: BASE PLATE", 16)
+    text(tb.x0 + 10, tb.y0 + 44, f"{L.BASE_X:.1f} × {L.BASE_Y:.0f} × {T:.1f} mm aluminium, {len(holes)} holes", 9)
+    text(tb.x0 + 10, tb.y0 + 60, "Rev A  |  2026-10-10  |  units mm  |  source: aria/cad/base_plate.py", 8)
+    doc.save(path)
+
 if __name__ == "__main__":
     shapes = [(lab, cutter(x, y, k, a)) for lab, x, y, k, a in holes]
     problems = []
@@ -129,4 +212,5 @@ if __name__ == "__main__":
         svg.add_shape(fp, layer="parts")
     svg.add_shape(profile, layer="plate")
     svg.write("base_plate_preview.svg")
-    print("exported base_plate.step / .dxf / _preview.svg")
+    write_drawing("base_plate_drawing.pdf")
+    print("exported base_plate.step / .dxf / _preview.svg / _drawing.pdf")
