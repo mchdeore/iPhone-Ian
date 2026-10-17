@@ -1,0 +1,197 @@
+{
+  "nodes": [
+    {
+      "id": "title",
+      "type": "text",
+      "x": 0,
+      "y": -230,
+      "width": 1040,
+      "height": 110,
+      "text": "# Gantry + vision roadmap\nBuild → train → evaluate → validate on owned devices."
+    },
+    {
+      "id": "gantry-group",
+      "type": "group",
+      "x": -30,
+      "y": -65,
+      "width": 500,
+      "height": 970,
+      "label": "Gantry build",
+      "color": "4"
+    },
+    {
+      "id": "vision-group",
+      "type": "group",
+      "x": 570,
+      "y": -65,
+      "width": 500,
+      "height": 970,
+      "label": "Vision model build + training",
+      "color": "5"
+    },
+    {
+      "id": "gantry-1",
+      "type": "text",
+      "x": 0,
+      "y": 0,
+      "width": 440,
+      "height": 180,
+      "text": "## 1 · Build the gantry\nFrame, rails, motors, phone mount and stylus.\nCheck fit, travel and wiring."
+    },
+    {
+      "id": "gantry-2",
+      "type": "text",
+      "x": 0,
+      "y": 230,
+      "width": 440,
+      "height": 180,
+      "text": "## 2 · Controller + safety\nStart with a fake controller.\nAdd homing, travel limits, acknowledgements and emergency stop."
+    },
+    {
+      "id": "gantry-3",
+      "type": "text",
+      "x": 0,
+      "y": 460,
+      "width": 440,
+      "height": 180,
+      "text": "## 3 · Camera + calibration\nMount the camera and map image pixels to gantry coordinates.\nVerify held-out points and safe tap / drag paths."
+    },
+    {
+      "id": "gantry-4",
+      "type": "text",
+      "x": 0,
+      "y": 690,
+      "width": 440,
+      "height": 180,
+      "text": "## 4 · Supervised bring-up\nTest unloaded motion, then an owned phone.\nRequire hardware, calibration and safety checks before physical contact."
+    },
+    {
+      "id": "vision-1",
+      "type": "text",
+      "x": 600,
+      "y": 0,
+      "width": 440,
+      "height": 180,
+      "text": "## 1 · Build tasks + capture data\nUse the owned benchmark site.\nCapture varied layouts, fonts, devices and task states."
+    },
+    {
+      "id": "vision-2",
+      "type": "text",
+      "x": 600,
+      "y": 230,
+      "width": 440,
+      "height": 180,
+      "text": "## 2 · Label + split\nLabel UI targets and OCR text.\nKeep layout / device groups separate; audit duplicates before training."
+    },
+    {
+      "id": "vision-3",
+      "type": "text",
+      "x": 600,
+      "y": 460,
+      "width": 440,
+      "height": 180,
+      "text": "## 3 · Train detector + OCR pipeline\nEstablish a CPU baseline and train a small YOLO detector.\nTune for the GTX 1080’s 8 GB when that hardware is available."
+    },
+    {
+      "id": "vision-4",
+      "type": "text",
+      "x": 600,
+      "y": 690,
+      "width": 440,
+      "height": 180,
+      "text": "## 4 · Evaluate + export\nMeasure target hits, OCR errors and latency.\nCompare exported outputs; reserve unseen real-phone data for final validation."
+    },
+    {
+      "id": "integration",
+      "type": "text",
+      "x": 280,
+      "y": 980,
+      "width": 440,
+      "height": 180,
+      "text": "## 5 · Connect vision to gantry\nPixels → typed intentions → safety checks → controller.\nReplay safely with the fake controller before supervised hardware runs."
+    },
+    {
+      "id": "validation",
+      "type": "text",
+      "x": 280,
+      "y": 1240,
+      "width": 440,
+      "height": 180,
+      "text": "## 6 · Validate end to end\nLet the owned site independently score task outcomes.\nCheck accessibility, wrong actions and timing; record failures before the next iteration."
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-1",
+      "fromNode": "gantry-1",
+      "fromSide": "bottom",
+      "toNode": "gantry-2",
+      "toSide": "top",
+      "toEnd": "arrow"
+    },
+    {
+      "id": "edge-2",
+      "fromNode": "gantry-2",
+      "fromSide": "bottom",
+      "toNode": "gantry-3",
+      "toSide": "top",
+      "toEnd": "arrow"
+    },
+    {
+      "id": "edge-3",
+      "fromNode": "gantry-3",
+      "fromSide": "bottom",
+      "toNode": "gantry-4",
+      "toSide": "top",
+      "toEnd": "arrow"
+    },
+    {
+      "id": "edge-4",
+      "fromNode": "vision-1",
+      "fromSide": "bottom",
+      "toNode": "vision-2",
+      "toSide": "top",
+      "toEnd": "arrow"
+    },
+    {
+      "id": "edge-5",
+      "fromNode": "vision-2",
+      "fromSide": "bottom",
+      "toNode": "vision-3",
+      "toSide": "top",
+      "toEnd": "arrow"
+    },
+    {
+      "id": "edge-6",
+      "fromNode": "vision-3",
+      "fromSide": "bottom",
+      "toNode": "vision-4",
+      "toSide": "top",
+      "toEnd": "arrow"
+    },
+    {
+      "id": "edge-7",
+      "fromNode": "gantry-4",
+      "fromSide": "bottom",
+      "toNode": "integration",
+      "toSide": "top",
+      "toEnd": "arrow"
+    },
+    {
+      "id": "edge-8",
+      "fromNode": "vision-4",
+      "fromSide": "bottom",
+      "toNode": "integration",
+      "toSide": "top",
+      "toEnd": "arrow"
+    },
+    {
+      "id": "edge-9",
+      "fromNode": "integration",
+      "fromSide": "bottom",
+      "toNode": "validation",
+      "toSide": "top",
+      "toEnd": "arrow"
+    }
+  ]
+}
