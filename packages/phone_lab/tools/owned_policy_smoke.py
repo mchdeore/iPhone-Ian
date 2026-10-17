@@ -21,7 +21,9 @@ import uvicorn
 from PIL import Image
 from playwright.sync_api import sync_playwright
 
+from phone_lab.battle import motion_settings
 from phone_lab.benchmark import TASKS, Benchmark, Box, Refusal
+from phone_lab.blue import make_blue_packet
 from phone_lab.control import Calibration, FakeSerial, Frame, Intent, VirtualController
 from phone_lab.metrics import latency
 from phone_lab.perception import ROLES, choose_target, unletterbox_box
@@ -36,7 +38,10 @@ def main():
     parser.add_argument("--chrome", required=True)
     parser.add_argument("--detector", type=Path)
     parser.add_argument("--detector-sha256")
+    parser.add_argument("--motion-profile", choices=("fixed", "varied"), default="fixed")
+    parser.add_argument("--seed-offset", type=int, default=0)
     args = parser.parse_args()
+    motion_settings(args.motion_profile, args.seed_offset)
     detector_hash = None
     if args.detector and not args.detector_sha256:
         raise Refusal("--detector requires --detector-sha256")
@@ -59,7 +64,8 @@ def main():
     warmup_image = root / "generated-warmup.png"
     Image.new("RGB", (390, 700), "white").save(warmup_image)
     warmup = {
-        "input": "generated blank PNG", "before_frame_capture": True,
+        "input": "generated blank PNG",
+        "before_frame_capture": True,
         "OCR_binary_sha256": hashlib.sha256(ocr.read_bytes()).hexdigest(),
     }
     t0 = time.perf_counter()
@@ -93,9 +99,13 @@ def main():
         torch.set_num_threads(2)
         warmup["detector_load_and_first_inference_ms"] = (time.perf_counter() - t0) * 1000
         detector = {
-            "sha256": detector_hash, "device": "cpu", "FP32": True,
-            "torch": torch.__version__, "ultralytics": ultralytics.__version__,
-            "roles": model.names, "minimum_candidate_score": 0.9,
+            "sha256": detector_hash,
+            "device": "cpu",
+            "FP32": True,
+            "torch": torch.__version__,
+            "ultralytics": ultralytics.__version__,
+            "roles": model.names,
+            "minimum_candidate_score": 0.9,
             "input_size": [640, 640],
             "preprocess": "explicit fixed-square LetterBox; exact rounded padding restored",
         }
@@ -106,7 +116,9 @@ def main():
                 raise Refusal("FP32 ONNX input required")
             detector["dtype"] = dtype
             detector["runtime"] = "onnxruntime"
-            detector["runtime_intra_op_threads"] = backend.session.get_session_options().intra_op_num_threads
+            detector["runtime_intra_op_threads"] = (
+                backend.session.get_session_options().intra_op_num_threads
+            )
         else:
             dtype = next(model.model.parameters()).dtype
             if dtype != torch.float32:
@@ -114,9 +126,17 @@ def main():
             detector["dtype"] = str(dtype)
             detector["runtime"] = "pytorch"
             detector["runtime_intra_op_threads"] = torch.get_num_threads()
-    (root / "startup.json").write_text(json.dumps({
-        "start_Toronto": start, "warmup": warmup, "detector": detector,
-    }, indent=2) + "\n")
+    (root / "startup.json").write_text(
+        json.dumps(
+            {
+                "start_Toronto": start,
+                "warmup": warmup,
+                "detector": detector,
+            },
+            indent=2,
+        )
+        + "\n"
+    )
     lab = Benchmark(root / "runtime")
     app = create_app(lab, secrets.token_hex(24), secrets.token_hex(24))
     sock = socket.socket()
@@ -139,8 +159,9 @@ def main():
                 executable_path=args.chrome, headless=True, args=["--disable-gpu"]
             )
             browser_version = browser.version
-            for task in TASKS:
-                s = lab.create("generated-policy", 73, 390, 700, task)
+            for task_index, task in enumerate(TASKS):
+                s = lab.create("generated-policy", 73 + args.seed_offset, 390, 700, task)
+                motion = motion_settings(args.motion_profile, args.seed_offset + task_index)
                 page = browser.new_page(viewport={"width": 390, "height": 700})
                 page.goto(f"http://127.0.0.1:{sock.getsockname()[1]}/s/{s.id}")
                 cal = Calibration.fit(
@@ -161,7 +182,9 @@ def main():
                     nonlocal capture_index
                     # The capture harness supplies visible identity only. Target DOM/labels never enter the policy.
                     page.evaluate("document.fonts.ready")
-                    page.evaluate("new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))")
+                    page.evaluate(
+                        "new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))"
+                    )
                     marker = page.locator("#marker").inner_text()
                     frame = Frame(s.device, s.id, marker, time.monotonic(), 390, 700)
                     folder = root / "captures" / task / f"{capture_index:03d}"
@@ -200,37 +223,54 @@ def main():
                             image=cv2.imread(str(folder / "frame.png"))
                         )
                         output = model.predict(
-                            square, device="cpu", imgsz=640,
-                            conf=0.1, max_det=32, verbose=False,
+                            square,
+                            device="cpu",
+                            imgsz=640,
+                            conf=0.1,
+                            max_det=32,
+                            verbose=False,
                         )[0]
                         detector_ms = (time.perf_counter() - t0) * 1000
                         predictions = []
                         for box in output.boxes:
-                            predictions.append({
-                                "role": model.names[int(box.cls[0])],
-                                "confidence": float(box.conf[0]),
-                                "box": unletterbox_box(
-                                    [float(v) for v in box.xyxy[0]], viewport=(390, 700)
-                                ),
-                            })
+                            predictions.append(
+                                {
+                                    "role": model.names[int(box.cls[0])],
+                                    "confidence": float(box.conf[0]),
+                                    "box": unletterbox_box(
+                                        [float(v) for v in box.xyxy[0]], viewport=(390, 700)
+                                    ),
+                                }
+                            )
                     timing = {
-                        "task": task, "capture_index": capture_index - 1,
-                        "OCR_ms": ocr_ms, "detector_ms": detector_ms,
-                        "frame_age_after_perception_ms": (time.monotonic() - frame.captured_at) * 1000,
+                        "task": task,
+                        "capture_index": capture_index - 1,
+                        "OCR_ms": ocr_ms,
+                        "detector_ms": detector_ms,
+                        "frame_age_after_perception_ms": (time.monotonic() - frame.captured_at)
+                        * 1000,
                     }
                     perception_timings.append(timing)
                     with (folder / "perception.json").open("x") as evidence:
-                        json.dump({
-                            "frame": marker, "OCR": texts, "detections": predictions,
-                            "timing": timing,
-                        }, evidence)
+                        json.dump(
+                            {
+                                "frame": marker,
+                                "OCR": texts,
+                                "detections": predictions,
+                                "timing": timing,
+                            },
+                            evidence,
+                        )
                     return frame, folder / "frame.png", texts, predictions
 
                 def candidate(name, image, texts, predictions, role="button"):
                     if predictions is not None:
                         return choose_target(
-                            predictions, texts, role=role,
-                            name=name if role == "button" else None, viewport=(390, 700),
+                            predictions,
+                            texts,
+                            role=role,
+                            name=name if role == "button" else None,
+                            viewport=(390, 700),
                         )
                     matches = []
                     for box in color_candidates(image):
@@ -254,17 +294,22 @@ def main():
                             and inside
                             and min(t["confidence"] for t in inside) >= 0.9
                         ):
-                            matches.append({
-                                "point": (b["x"] + b["width"] / 2, b["y"] + b["height"] / 2),
-                                "confidence": min(t["confidence"] for t in inside),
-                            })
+                            matches.append(
+                                {
+                                    "point": (b["x"] + b["width"] / 2, b["y"] + b["height"] / 2),
+                                    "confidence": min(t["confidence"] for t in inside),
+                                }
+                            )
                     if not matches:
                         # OCR-only fallback is an explicit development candidate; evaluator decides real hit.
                         matches = [
-                            {"point": (
-                                t["box"]["x"] + t["box"]["width"] / 2,
-                                t["box"]["y"] + t["box"]["height"] / 2,
-                            ), "confidence": t["confidence"]}
+                            {
+                                "point": (
+                                    t["box"]["x"] + t["box"]["width"] / 2,
+                                    t["box"]["y"] + t["box"]["height"] / 2,
+                                ),
+                                "confidence": t["confidence"],
+                            }
                             for t in texts
                             if t["text"] == name and t["confidence"] >= 0.9
                         ]
@@ -307,7 +352,7 @@ def main():
                     selected = candidate(name, image, texts, predictions)
                     point = selected["point"]
                     motor(frame, [point], confidence=selected["confidence"])
-                    page.mouse.click(*point)
+                    page.mouse.click(*point, delay=motion["tap_delay_ms"])
                     wait_change(frame.marker)
 
                 failure = None
@@ -325,12 +370,24 @@ def main():
                         grip_target = candidate("Grip", image, texts, predictions, "handle")
                         goal_target = candidate("Goal", image, texts, predictions, "destination")
                         grip, goal = grip_target["point"], goal_target["point"]
-                        motor(frame, [grip, goal], "drag", min(
-                            grip_target["confidence"], goal_target["confidence"]
-                        ))
+                        motor(
+                            frame,
+                            [grip, goal],
+                            "drag",
+                            min(grip_target["confidence"], goal_target["confidence"]),
+                        )
                         page.mouse.move(*grip)
                         page.mouse.down()
-                        page.mouse.move(*goal, steps=6)
+                        for step in range(1, motion["drag_steps"] + 1):
+                            ratio = step / motion["drag_steps"]
+                            page.mouse.move(
+                                grip[0] + (goal[0] - grip[0]) * ratio,
+                                grip[1] + (goal[1] - grip[1]) * ratio,
+                            )
+                            if motion["drag_duration_ms"]:
+                                page.wait_for_timeout(
+                                    motion["drag_duration_ms"] / motion["drag_steps"]
+                                )
                         page.mouse.up()
                         wait_change(frame.marker)
                     elif task == "entry":
@@ -350,7 +407,7 @@ def main():
                             b = fields[0]
                             point = (b["x"] + b["width"] / 2, b["y"] + b["height"] / 2)
                         motor(frame, [point], confidence=score)
-                        page.mouse.click(*point)
+                        page.mouse.click(*point, delay=motion["tap_delay_ms"])
                         wait_change(frame.marker)
                         instructions = " ".join(t["text"] for t in texts)
                         digits = re.search(r"Enter (\d+) then", instructions)
@@ -376,8 +433,12 @@ def main():
                                 raise Refusal("missing/ambiguous pixel list")
                             b = lists[0]
                             point = (b["x"] + b["width"] / 2, b["y"] + b["height"] / 2)
-                        motor(frame, [(point[0], point[1] + 35), (point[0], point[1] - 35)],
-                              "drag", score)
+                        motor(
+                            frame,
+                            [(point[0], point[1] + 35), (point[0], point[1] - 35)],
+                            "drag",
+                            score,
+                        )
                         page.mouse.move(*point)
                         page.mouse.wheel(0, 250)
                         wait_change(frame.marker)
@@ -385,7 +446,12 @@ def main():
                 except Exception as error:
                     controller.stop("policy refusal/cancel")
                     failure = {"type": type(error).__name__, "message": str(error)}
-                # Independent evaluator reads ground truth only after policy actions.
+                observed = lab.get(s.id)
+                append_run(
+                    root / "blue_inputs.jsonl",
+                    make_blue_packet(s.id, (s.width, s.height), observed.events),
+                )
+                # Independent evaluator reads ground truth only after provider export.
                 results.append(
                     {
                         "task": task,
@@ -406,6 +472,10 @@ def main():
         "start_Toronto": start,
         "end_Toronto": datetime.now(ZoneInfo("America/Toronto")).isoformat(),
         "results": results,
+        "motion_profile": args.motion_profile,
+        "seed_offset": args.seed_offset,
+        "motion_scope": "declared generated browser contacts; fake motor endpoints only",
+        "blue_inputs_sha256": hashlib.sha256((root / "blue_inputs.jsonl").read_bytes()).hexdigest(),
         "policy_inputs": "pixels, OCR, requested task, visible frame identity only",
         "labels_in_policy": False,
         "warmup": warmup,
@@ -417,9 +487,9 @@ def main():
         "perception_timings": perception_timings,
         "perception_latency": {
             "OCR": latency([t["OCR_ms"] for t in perception_timings]),
-            "detector": latency([
-                t["detector_ms"] for t in perception_timings if t["detector_ms"] is not None
-            ]),
+            "detector": latency(
+                [t["detector_ms"] for t in perception_timings if t["detector_ms"] is not None]
+            ),
             "frame_age": latency([t["frame_age_after_perception_ms"] for t in perception_timings]),
         },
         "actual_owned_browser_observations": True,

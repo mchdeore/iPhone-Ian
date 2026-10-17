@@ -25,6 +25,15 @@ def main() -> int:
     dataset.add_argument("--browser-executable")
     check = commands.add_parser("audit")
     check.add_argument("directory", type=Path)
+    data_web = commands.add_parser(
+        "data-web", help="Curator app for deterministic synthetic datasets"
+    )
+    data_web.add_argument("--store", type=Path, default=Path(".local/synthetic-data"))
+    data_web.add_argument("--browser-executable")
+    data_web.add_argument("--port", type=int, default=8766)
+    battle_web = commands.add_parser("battle-web", help="Read-only battle scoreboard")
+    battle_web.add_argument("--store", type=Path, default=Path(".local/battles/latest"))
+    battle_web.add_argument("--port", type=int, default=8767)
     args = parser.parse_args()
     if args.command == "dataset":
         from .dataset import generate
@@ -47,6 +56,21 @@ def main() -> int:
         result = audit(m, args.directory)
         print(json.dumps(result))
         return 0 if result["accepted"] else 1
+    elif args.command in {"data-web", "battle-web"}:
+        import uvicorn
+
+        if not 1024 <= args.port <= 65535:
+            raise Refusal("local port bounds")
+        if args.command == "data-web":
+            from .catalog import create_dataset_app
+
+            app = create_dataset_app(args.store, executable=args.browser_executable)
+        else:
+            from .battle import create_dashboard
+
+            app = create_dashboard(args.store)
+        print(f"Gantry lab: http://127.0.0.1:{args.port}", flush=True)
+        uvicorn.run(app, host="127.0.0.1", port=args.port, access_log=False, log_level="warning")
     else:
         import uvicorn
 

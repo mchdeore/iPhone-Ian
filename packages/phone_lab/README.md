@@ -14,13 +14,58 @@ measured browser boxes, pixel hashes, generated device/session identity and disj
 groups. `uv run python -m phone_lab audit .local/datasets/run-1` fails on group leakage, changed bytes
 or the declared near-duplicate proxy. Inspect flagged examples before training.
 
-The render harness alone receives labels and DOM measurements. A future vision policy receives
+The render harness alone receives labels and DOM measurements. The trained vision policy receives
 pixels and visible frame identity. The generated dataset is not a real-phone holdout. Real capture,
 calibration, human/accessibility consent and hardware acceptance are separate gates.
 
 Session capabilities are stored separately in a restricted credential directory and
 excluded from evaluator/run evidence. Schema-1 experimental logs remain historical
 copies; start a new schema-2 runtime rather than overwriting or silently migrating them.
+
+## Red / blue app and dataset workflow
+
+Version 0.4 adds an immutable synthetic dataset curator and a read-only battle
+scoreboard. The [end-to-end proposal](../../docs/gantry/End-to-End%20Proposal.md)
+and [Obsidian canvas](../../Gantry%20Vision%20Roadmap.canvas) connect these to the
+gantry build and model training stages.
+
+```sh
+uv run python -m phone_lab data-web --store .local/synthetic-data \
+  --browser-executable '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+```
+
+Open `http://127.0.0.1:8766`. Choose seeds, tags and viewport, then generate a
+dataset. Inspect measured borders, filter task/split, and download annotations
+and manifests. Sample IDs derive from generator source, sorted seeds/tags,
+viewport, task and phase. Files live under `images/`, `labels/` and
+`annotations/`, each split into train/val/test. The catalog verifies every
+image, label and annotation hash on read. Matching browser/render environments
+are necessary for identical pixels. New tags create a new dataset version.
+
+Run a matched pair using the separate vision environment, reviewed checkpoint
+and the compiled `tools/owned_ocr.swift` binary:
+
+```sh
+python tools/owned_battle.py .local/battles/pair-001 \
+  --detector .local/models/best.pt --detector-sha256 <reviewed-sha256> \
+  --ocr .local/bin/owned-ocr \
+  --chrome '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' \
+  --rounds 2
+python -m phone_lab battle-web --store .local/battles/pair-001
+```
+
+The scoreboard is at `http://127.0.0.1:8767`, with an offline copy in the round
+directory. Run the worker and scoreboard in separate terminals to see completed
+rounds appear. Fixed and declared varied contacts share layouts and model
+hashes. Blue scores narrow provider packets before independent outcomes are
+joined. Its frozen dwell/path flags are descriptive hypotheses. Consented
+human/control validation and physical gantry commissioning remain pending.
+
+The worker preserves captures, refusals, source/model hashes and actual Toronto
+timestamps. It requires a new output directory and bounds rounds/timeouts.
+Generated keyboard/wheel/contact timings and fake motor acknowledgements do
+not establish physical phone performance. Evaluator boxes, camera/motor traces,
+entered text and capability tokens are excluded from blue packets.
 
 Test with `uv run pytest -p no:cacheprovider`. The browser tests require an actual Chrome executable;
 missing browser tests are skipped explicitly. All six tasks also have independent event-level tests.

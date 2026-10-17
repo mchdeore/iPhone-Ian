@@ -3,195 +3,300 @@
     {
       "id": "title",
       "type": "text",
+      "text": "# Gantry + vision + red / blue\nSimple stages: build \u2192 generate \u2192 train \u2192 battle \u2192 physical validation.",
       "x": 0,
-      "y": -230,
-      "width": 1040,
-      "height": 110,
-      "text": "# Gantry + vision roadmap\nBuild → train → evaluate → validate on owned devices."
+      "y": -220,
+      "width": 1340,
+      "height": 150
     },
     {
       "id": "gantry-group",
       "type": "group",
-      "x": -30,
-      "y": -65,
-      "width": 500,
-      "height": 970,
       "label": "Gantry build",
+      "x": -20,
+      "y": -10,
+      "width": 460,
+      "height": 900,
       "color": "4"
     },
     {
       "id": "vision-group",
       "type": "group",
-      "x": 570,
-      "y": -65,
-      "width": 500,
-      "height": 970,
-      "label": "Vision model build + training",
+      "label": "Vision + data",
+      "x": 440,
+      "y": -10,
+      "width": 460,
+      "height": 900,
+      "color": "3"
+    },
+    {
+      "id": "teams-group",
+      "type": "group",
+      "label": "Red / blue trials",
+      "x": 900,
+      "y": -10,
+      "width": 460,
+      "height": 900,
       "color": "5"
     },
     {
-      "id": "gantry-1",
+      "id": "g1",
       "type": "text",
+      "text": "## 1 \u00b7 Build and identify\nInventory frame, motors, stylus and phone fixtures.\nIdentify controller and protocol before connection.",
       "x": 0,
-      "y": 0,
-      "width": 440,
-      "height": 180,
-      "text": "## 1 · Build the gantry\nFrame, rails, motors, phone mount and stylus.\nCheck fit, travel and wiring."
+      "y": 20,
+      "width": 420,
+      "height": 185,
+      "color": "4"
     },
     {
-      "id": "gantry-2",
+      "id": "g2",
       "type": "text",
+      "text": "## 2 \u00b7 Controller + stop\nTest fake acknowledgements, limits and typed intents.\nPhysical stop, endstops and homing remain pending.",
       "x": 0,
-      "y": 230,
-      "width": 440,
-      "height": 180,
-      "text": "## 2 · Controller + safety\nStart with a fake controller.\nAdd homing, travel limits, acknowledgements and emergency stop."
+      "y": 235,
+      "width": 420,
+      "height": 185,
+      "color": "4"
     },
     {
-      "id": "gantry-3",
+      "id": "g3",
       "type": "text",
+      "text": "## 3 \u00b7 Camera + calibration\nMap pixels to each phone fixture.\nVerify held-out points, fresh frames and interior bounds.",
       "x": 0,
-      "y": 460,
-      "width": 440,
-      "height": 180,
-      "text": "## 3 · Camera + calibration\nMount the camera and map image pixels to gantry coordinates.\nVerify held-out points and safe tap / drag paths."
+      "y": 450,
+      "width": 420,
+      "height": 185,
+      "color": "4"
     },
     {
-      "id": "gantry-4",
+      "id": "g4",
       "type": "text",
+      "text": "## 4 \u00b7 Supervised commissioning\nCheck unloaded motion, then owned-phone contact.\nRecord touch, drag and stop performance.",
       "x": 0,
-      "y": 690,
-      "width": 440,
-      "height": 180,
-      "text": "## 4 · Supervised bring-up\nTest unloaded motion, then an owned phone.\nRequire hardware, calibration and safety checks before physical contact."
+      "y": 665,
+      "width": 420,
+      "height": 185,
+      "color": "4"
     },
     {
-      "id": "vision-1",
+      "id": "v1",
       "type": "text",
-      "x": 600,
-      "y": 0,
-      "width": 440,
-      "height": 180,
-      "text": "## 1 · Build tasks + capture data\nUse the owned benchmark site.\nCapture varied layouts, fonts, devices and task states."
+      "text": "## 1 \u00b7 Generate owned app data\nSeeded tap / drag / entry / menu / overlay / scroll.\nCurator web app: localhost:8766.",
+      "x": 460,
+      "y": 20,
+      "width": 420,
+      "height": 185,
+      "color": "3"
     },
     {
-      "id": "vision-2",
+      "id": "v2",
       "type": "text",
-      "x": 600,
-      "y": 230,
-      "width": 440,
-      "height": 180,
-      "text": "## 2 · Label + split\nLabel UI targets and OCR text.\nKeep layout / device groups separate; audit duplicates before training."
+      "text": "## 2 \u00b7 Tag, border and split\nStable IDs + images + YOLO labels + pixel borders.\nImmutable tags; audit layout/device/font separation.",
+      "x": 460,
+      "y": 235,
+      "width": 420,
+      "height": 185,
+      "color": "3"
     },
     {
-      "id": "vision-3",
+      "id": "v3",
       "type": "text",
-      "x": 600,
-      "y": 460,
-      "width": 440,
-      "height": 180,
-      "text": "## 3 · Train detector + OCR pipeline\nEstablish a CPU baseline and train a small YOLO detector.\nTune for the GTX 1080’s 8 GB when that hardware is available."
+      "text": "## 3 \u00b7 Train vision + OCR\nVersion data, model and training recipe.\nCPU pilot exists; GTX 1080 8 GB pending access.",
+      "x": 460,
+      "y": 450,
+      "width": 420,
+      "height": 185,
+      "color": "3"
     },
     {
-      "id": "vision-4",
+      "id": "v4",
       "type": "text",
-      "x": 600,
-      "y": 690,
-      "width": 440,
-      "height": 180,
-      "text": "## 4 · Evaluate + export\nMeasure target hits, OCR errors and latency.\nCompare exported outputs; reserve unseen real-phone data for final validation."
+      "text": "## 4 \u00b7 Evaluate and export\nCheck target hits, OCR, latency and export parity.\nReserve unseen real-phone data; keep refusals.",
+      "x": 460,
+      "y": 665,
+      "width": 420,
+      "height": 185,
+      "color": "3"
     },
     {
-      "id": "integration",
+      "id": "r1",
       "type": "text",
-      "x": 280,
-      "y": 980,
-      "width": 440,
-      "height": 180,
-      "text": "## 5 · Connect vision to gantry\nPixels → typed intentions → safety checks → controller.\nReplay safely with the fake controller before supervised hardware runs."
+      "text": "## 1 \u00b7 Red acts from pixels\nFrozen detector + OCR \u2192 typed calibrated intentions.\nNo evaluator labels; fresh-frame / confidence gates.",
+      "x": 920,
+      "y": 20,
+      "width": 420,
+      "height": 185,
+      "color": "1"
     },
     {
-      "id": "validation",
+      "id": "b1",
       "type": "text",
-      "x": 280,
-      "y": 1240,
-      "width": 440,
-      "height": 180,
-      "text": "## 6 · Validate end to end\nLet the owned site independently score task outcomes.\nCheck accessibility, wrong actions and timing; record failures before the next iteration."
+      "text": "## 2 \u00b7 Blue observes contacts\nOnly website coordinates, timing and pointer events.\nFrozen descriptive patterns; human controls pending.",
+      "x": 920,
+      "y": 235,
+      "width": 420,
+      "height": 185,
+      "color": "5"
+    },
+    {
+      "id": "r2",
+      "type": "text",
+      "text": "## 3 \u00b7 Run matched rounds\nSame model, layouts and seeds; declared browser profiles.\nScore blue first, then join independent outcomes.",
+      "x": 920,
+      "y": 450,
+      "width": 420,
+      "height": 185,
+      "color": "1"
+    },
+    {
+      "id": "b2",
+      "type": "text",
+      "text": "## 4 \u00b7 Inspect the scoreboard\nRed completions / wrong actions / refusals + blue flags.\nLocalhost:8767; patterns are hypotheses, no sanctions.",
+      "x": 920,
+      "y": 665,
+      "width": 420,
+      "height": 185,
+      "color": "5"
+    },
+    {
+      "id": "integrate",
+      "type": "text",
+      "text": "## 5 \u00b7 Connect the physical rig\nReplace fake acknowledgements only after commissioning.\nKeep lab camera/motor traces separate from provider contacts.",
+      "x": 380,
+      "y": 960,
+      "width": 600,
+      "height": 190,
+      "color": "4"
+    },
+    {
+      "id": "next",
+      "type": "text",
+      "text": "## 6 \u00b7 Improve with held-out evidence\nCollect permitted phone and consented accessibility controls.\nCompare versioned team changes; report false positives and every refusal.",
+      "x": 380,
+      "y": 1200,
+      "width": 600,
+      "height": 190,
+      "color": "3"
+    },
+    {
+      "id": "proposal",
+      "type": "file",
+      "file": "docs/gantry/End-to-End Proposal.md",
+      "x": 20,
+      "y": 1470,
+      "width": 600,
+      "height": 300
+    },
+    {
+      "id": "app-guide",
+      "type": "file",
+      "file": "packages/phone_lab/README.md",
+      "x": 700,
+      "y": 1470,
+      "width": 600,
+      "height": 300
     }
   ],
   "edges": [
     {
-      "id": "edge-1",
-      "fromNode": "gantry-1",
+      "id": "e1",
+      "fromNode": "g1",
       "fromSide": "bottom",
-      "toNode": "gantry-2",
-      "toSide": "top",
-      "toEnd": "arrow"
+      "toNode": "g2",
+      "toSide": "top"
     },
     {
-      "id": "edge-2",
-      "fromNode": "gantry-2",
+      "id": "e2",
+      "fromNode": "g2",
       "fromSide": "bottom",
-      "toNode": "gantry-3",
-      "toSide": "top",
-      "toEnd": "arrow"
+      "toNode": "g3",
+      "toSide": "top"
     },
     {
-      "id": "edge-3",
-      "fromNode": "gantry-3",
+      "id": "e3",
+      "fromNode": "g3",
       "fromSide": "bottom",
-      "toNode": "gantry-4",
-      "toSide": "top",
-      "toEnd": "arrow"
+      "toNode": "g4",
+      "toSide": "top"
     },
     {
-      "id": "edge-4",
-      "fromNode": "vision-1",
+      "id": "e4",
+      "fromNode": "v1",
       "fromSide": "bottom",
-      "toNode": "vision-2",
-      "toSide": "top",
-      "toEnd": "arrow"
+      "toNode": "v2",
+      "toSide": "top"
     },
     {
-      "id": "edge-5",
-      "fromNode": "vision-2",
+      "id": "e5",
+      "fromNode": "v2",
       "fromSide": "bottom",
-      "toNode": "vision-3",
-      "toSide": "top",
-      "toEnd": "arrow"
+      "toNode": "v3",
+      "toSide": "top"
     },
     {
-      "id": "edge-6",
-      "fromNode": "vision-3",
+      "id": "e6",
+      "fromNode": "v3",
       "fromSide": "bottom",
-      "toNode": "vision-4",
-      "toSide": "top",
-      "toEnd": "arrow"
+      "toNode": "v4",
+      "toSide": "top"
     },
     {
-      "id": "edge-7",
-      "fromNode": "gantry-4",
+      "id": "e7",
+      "fromNode": "r1",
       "fromSide": "bottom",
-      "toNode": "integration",
-      "toSide": "top",
-      "toEnd": "arrow"
+      "toNode": "b1",
+      "toSide": "top"
     },
     {
-      "id": "edge-8",
-      "fromNode": "vision-4",
+      "id": "e8",
+      "fromNode": "b1",
       "fromSide": "bottom",
-      "toNode": "integration",
-      "toSide": "top",
-      "toEnd": "arrow"
+      "toNode": "r2",
+      "toSide": "top"
     },
     {
-      "id": "edge-9",
-      "fromNode": "integration",
+      "id": "e9",
+      "fromNode": "r2",
       "fromSide": "bottom",
-      "toNode": "validation",
-      "toSide": "top",
-      "toEnd": "arrow"
+      "toNode": "b2",
+      "toSide": "top"
+    },
+    {
+      "id": "e10",
+      "fromNode": "v4",
+      "fromSide": "right",
+      "toNode": "r1",
+      "toSide": "left",
+      "label": "Frozen model"
+    },
+    {
+      "id": "e11",
+      "fromNode": "g4",
+      "fromSide": "bottom",
+      "toNode": "integrate",
+      "toSide": "top"
+    },
+    {
+      "id": "e12",
+      "fromNode": "v4",
+      "fromSide": "bottom",
+      "toNode": "integrate",
+      "toSide": "top"
+    },
+    {
+      "id": "e13",
+      "fromNode": "b2",
+      "fromSide": "bottom",
+      "toNode": "integrate",
+      "toSide": "top"
+    },
+    {
+      "id": "e14",
+      "fromNode": "integrate",
+      "fromSide": "bottom",
+      "toNode": "next",
+      "toSide": "top"
     }
   ]
 }
