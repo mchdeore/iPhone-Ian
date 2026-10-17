@@ -64,3 +64,28 @@ owned PNGs. `tools/owned_policy_smoke.py` uses pixels/OCR and visible frame iden
 the generated site, with fake motor intents and independent browser outcomes. Missing,
 ambiguous or stale candidates stop. Its generated scroll wheel is a stand-in, and its
 results do not certify physical gestures or an external website policy.
+
+For a trained local detector, create a separate Python 3.12 environment with
+`uv venv .local/vision-env --python 3.12` and install `requirements-vision.txt`
+using `uv pip install --python .local/vision-env/bin/python -r requirements-vision.txt`.
+This environment uses the pinned NumPy 1.26 research stack. From this package directory:
+
+```sh
+PYTHONPATH=src .local/vision-env/bin/python tools/owned_policy_smoke.py .local/workflows/run-1 \
+  --ocr /path/to/compiled/owned-ocr --chrome /path/to/chrome \
+  --detector /path/to/owned/best.pt --detector-sha256 VERIFIED_SHA256
+```
+
+Replace `VERIFIED_SHA256` with the reviewed training artifact's hash. The same flag
+accepts its FP32 ONNX export. Each run requires a new directory and records detector,
+OCR binary, environment, stable capture and timing evidence. Warm-up happens before
+frame capture. Both engines receive explicit 640-square inputs; boxes return to screen
+coordinates using the actual rounded padding. ONNX thread defaults are recorded separately.
+
+Button selection combines detector class/confidence with OCR inside the box. Its score
+is the minimum of detector confidence, OCR confidence and normalized label similarity;
+small OCR errors reduce that score. Region selection requires a unique supported class.
+Scores below 0.9, ambiguous candidates, malformed boxes and stale frames refuse actions.
+These development scores need calibration on real devices. Independent site outcomes
+and refusals remain visible in `result.json`; numeric insertion and scrolling use generated
+browser stand-ins. Model files, workflow captures and private runtime data stay ignored.
