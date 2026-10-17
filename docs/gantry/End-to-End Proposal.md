@@ -9,6 +9,14 @@ truth after actions. The same contracts then carry across to the physical gantry
 Open [Gantry Vision Roadmap.canvas](../../Gantry%20Vision%20Roadmap.canvas) for
 the stages, and [phone lab](../../packages/phone_lab/README.md) for commands.
 
+The main training target is now fictional iPhone sportsbook pages that red
+reads into a verified local database. Blue generates the pages, records and
+changes. The [sportsbook training plan](Sportsbook%20Vision%20Training%20Plan.md)
+defines per-operation confusion/miss reports, separate OCR and field-association
+scores, and accuracy of actual persisted database updates. The existing generic
+tasks remain navigation/controller checks; sportsbook ingestion is pending
+implementation under that plan.
+
 ## 1. Prepare the owned app and synthetic data
 
 Run the curator app in `packages/phone_lab`:
