@@ -2,7 +2,7 @@
 
 **Design:** CoreXY gantry, 2 phones, MKS DLC32 + FluidNC, spring-loaded grounded stylus. Full design: `aria/hardware-concept-v2.md`.
 
-**Ordered 2026-10-08.** What was actually bought differs from this list in places (belt → PU steel-core, idlers → Mellow bearing type, heat-set inserts + screws reused from Olyntia). See `aria/LOG.md` for the as-ordered list. #25 (plate) ordered from JLCCNC 2026-10-10. Still open: #23–24 (Amazon). Wiring and tools (#26–31) come from Aria's work where possible.
+**Ordered 2026-10-08.** What was actually bought differs from this list in places (belt → PU steel-core, idlers → Mellow bearing type, heat-set inserts + screws reused from Olyntia). See `aria/LOG.md` for the as-ordered list. #23–25 bought (Amazon 2026-10-11, JLCCNC 2026-10-10); M3 tap bought 2026-10-16. Wiring and tools (#26–31) come from Aria's work where possible. Actual costs: **Spend log** at the bottom.
 
 **Status:** prices verified 2026-10-01 (C$, before tax). **Recheck at order time** — AliExpress prices drift. Order target: weekend of 2026-10-10/11, so shipping (~2–3 weeks) overlaps printing and the plate quote.
 
@@ -87,7 +87,21 @@ Checked 2026-10-08. Amazon prices are confirmed live; AliExpress prices use the 
 
 **≈ C$370 all-in. Split 50/50 ≈ C$185 each**, before anyone's work-sourcing ticks (each tick drops both shares).
 
-**Actual spend (2026-10-10):** AliExpress ~C$381 paid (tax in, includes spares) + JLCCNC plate C$51.73 shipped (+ HST if charged at import) + Amazon #23–24 pending (C$22.48 goods + HST ~2.92 + shipping at checkout). **≈ C$460–470 total, ≈ C$230–235 each**, wiring and tools from work not included.
+## Spend log (actuals, C$)
+
+Everything actually paid for iPhone-Ian hardware and tools. Split 50/50 with Marc.
+
+| Date | Vendor | What | Before tax | Tax / shipping | Total | Paid by |
+|---|---|---|---|---|---|---|
+| 2026-10-08 | AliExpress | 21 lines: controller, 4 drivers, 2 motors, 2 servos, PSU, 5 V buck, endstops, 3× MGN9H, 2020, belt, pulleys, 12 idlers, nyloc nuts, shims, brass tube, springs, wire, servo ext, DC jacks, T-nuts | — | HST included | ~381 | Aria |
+| 2026-10-10 | JLCCNC | Base plate, 5052, 3 mm | 20.60 | 31.13 shipping (+ import HST if billed on delivery) | 51.73 | Aria |
+| 2026-10-11 | Amazon | MECCANIXITY 6061 10×10 bars ×2 (13.99) + PATIKIL 6 mm stylus tips (8.49) | 22.48 | 2.92 HST, free ship | 25.40 | Aria |
+| 2026-10-16 | Amazon | uxcell M3 × 0.5 tap, 2-pack | 13.99 | 1.82 HST | 15.81 | Aria |
+| | | **Total so far** | | | **≈ 473.94** | **≈ 237 each** |
+
+**C$0 (already owned or borrowed):** M3 heat-set inserts + M2/M3/M4 screw kit (Olyntia's Amazon set); wiring, crimper, heat shrink, drill, hacksaw (Aria's work).
+
+**Next to buy (Amazon, not yet ordered):** M3 × 30–50 socket-head kit, 304 SS (B0BJQ2QC2F, 17.99) for the idler axles; M3 × 6–25 button-head kit, 304 SS (B0F4XN63JR, 16.98) for the screws under the plate. ≈ 39.52 with HST.
 
 **Why not cent-exact on AliExpress:** the listings render in CAD and ship free to Canada (HST added at checkout), but each item's displayed price depends on the variant selected and on account-specific coupons / new-shopper promos — e.g. the controller listing currently flashes a C$1.74 "new shopper" price on a *shell* variant, not the C$26.85 board. Your real cart total is whatever your own account shows at checkout, and it will likely be **lower** than this baseline once coupons apply, not higher. Recheck in your cart before paying.
 
