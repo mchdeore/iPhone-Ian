@@ -287,3 +287,49 @@ Record the actual actor PNG and renderer context. Stable field borders and
 text crops do not prove whole-image identity: embedded-page compositing can
 change decorative antialiasing even when geometry agrees. Compare repeated
 captures in the same context and retain full-image differences separately.
+
+### Local Red coordinate console
+
+The development executor runs an actual isolated Chrome context over a frozen
+three-phase fictional provider sequence. Sports, Live, Bets and Account tabs
+use real page navigation; refresh advances the fictional prices twice. The
+browser receives only owned in-memory pages. Its connection policy denies
+HTTP data connections and WebSockets; unmatched navigation routes are aborted.
+
+From the source checkout or installed wheel, the operator starts:
+
+```sh
+python -m phone_lab.sportsbook.pixel_cli --dataset .local/sportsbook/dataset-1 \
+  --sample FROZEN_SAMPLE_ID --output .local/pixel-browser/new-session \
+  --chrome CHROME_EXECUTABLE --chrome-sha256 REVIEWED_CHROME_SHA256 --actor red-local
+```
+
+Stdout first emits `{"type":"frame","frame":...}` with the session/frame
+identity, PNG hash, relative image filename and viewport. A Red client reads
+only that PNG and sends newline-delimited messages on stdin:
+
+```json
+{"command":"action","payload":{"request_id":"tap-1","frame_id":"CURRENT_FRAME_SHA256","image_sha256":"CURRENT_PNG_SHA256","kind":"tap","points":[{"x":100,"y":725}],"duration_ms":0}}
+```
+
+`tap` requires one point, `swipe` two points and a 16–1000 ms duration, and
+`wait` no points. Coordinates must lie inside 390×844 pixels. Every accepted
+action returns a newly committed frame, even if the pixels did not change.
+Exact replay returns the historical result; conflicting or stale requests
+cause no input. The request journal is flushed to disk before dispatch.
+Interrupted actions cannot be re-executed in the same session.
+
+`{"command":"finish"}` saves Blue's provider-only contacts and descriptive
+score. `{"command":"cancel"}`, EOF and the session deadline end the context
+without a behavior score. Actual contacts are retained even on cancellation
+or capture failure. Stdout excludes labels, source pages, expected quotes and
+Blue scores. Private borders, truth, contacts and fingerprints stay in
+`blue-private/`; actor PNGs stay in `red-pixels/`. The default limits are 64
+actions, 120 seconds and 64 MiB. An incomplete stdin line also has a deadline.
+
+This console is the first executor milestone. Persistent worker ownership,
+session recovery, actor database submissions and Red/Blue web integration
+remain in development. Local filesystem access is not an actor security
+sandbox; shared hosting requires isolated mounts and authentication. The
+console performs software input and native inference integration only, with
+training held.

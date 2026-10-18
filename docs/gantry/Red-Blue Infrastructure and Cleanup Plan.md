@@ -106,6 +106,11 @@ planning surfaces stay unchanged.
   Link those windows explicitly to navigation/extraction attempts. Preserve
   failures and refusal outcomes before reading evaluator truth. Extend the
   pages' keyboard/scroll/navigation behavior before claiming broader workflows.
+  The local coordinate console now provides the first executor milestone:
+  real Chrome navigation/price refresh, committed PNGs, stale/refused actions,
+  replay and retained trusted contacts. Persistent supervised sessions, actor
+  database submissions and web-surface integration remain open. Local console
+  isolation does not establish an OS sandbox or authenticated team deployment.
 - Verify end-to-end local rounds with scripted/manual observations and
   existing inference. Label stand-ins explicitly. Do not imply a newly trained
   model, connected gantry or human-validated detector.
