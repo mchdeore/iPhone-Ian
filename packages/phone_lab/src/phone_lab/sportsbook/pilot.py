@@ -41,7 +41,7 @@ def _association_truth(fields):
     return result
 
 
-def evaluate_dataset(root, output, *, recognize, provenance):
+def evaluate_dataset(root, output, *, recognize, provenance, progress=None):
     """The recognizer receives only PNG paths; gold is read after actor persistence."""
     root, output = Path(root), Path(output)
     if output.exists() or output.is_symlink():
@@ -54,6 +54,8 @@ def evaluate_dataset(root, output, *, recognize, provenance):
     frames, expected = [], {}
     start = datetime.now(ZoneInfo("America/Toronto")).isoformat()
     try:
+        if progress is not None:
+            progress(0, len(manifest["samples"]))
         for sample in manifest["samples"]:
             image = _inside(root, sample["image"])
             refusals, ingest, recognized = [], None, []
@@ -78,6 +80,8 @@ def evaluate_dataset(root, output, *, recognize, provenance):
                            "truth_fields": [dict(field, box=field["text_box"]) for field in fields],
                            "association_truth": _association_truth(fields), "predictions": parsed["fields"],
                            "database_score": score_database(store, list(expected.values())), "refusals": refusals, "ingest": ingest})
+            if progress is not None:
+                progress(len(frames), len(manifest["samples"]))
         store.close()
         reopened = QuoteStore(output / "observations.sqlite")
         try:

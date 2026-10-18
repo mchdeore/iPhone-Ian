@@ -72,7 +72,7 @@ def _seeds(value):
     return value
 
 
-def build_dataset(output, browser_path, *, seeds=None):
+def build_dataset(output, browser_path, *, seeds=None, progress=None):
     seeds = _seeds(seeds if seeds is not None else {"train": [17, 18, 19], "validation": [117, 118], "test": [217, 218]})
     output, browser_path = Path(output), Path(browser_path)
     if output.exists() or output.is_symlink():
@@ -91,6 +91,9 @@ def build_dataset(output, browser_path, *, seeds=None):
                 "created_at_toronto": datetime.now(ZoneInfo("America/Toronto")).isoformat()}
     output.mkdir(parents=True, mode=0o700)
     try:
+        total = 3 * sum(map(len, seeds.values()))
+        if progress is not None:
+            progress(0, total)
         with sync_playwright() as playwright:
             browser = playwright.chromium.launch(executable_path=str(browser_path), headless=True)
             renderer["browser_version"] = browser.version
@@ -139,6 +142,8 @@ return {id:el.dataset.label,role:el.dataset.role,text:el.textContent.trim(),box:
                             with path.open("xb") as handle:
                                 handle.write(data)
                         manifest["samples"].append(row)
+                        if progress is not None:
+                            progress(len(manifest["samples"]), total)
             context.close()
             browser.close()
         manifest["dataset_id"] = _dataset_identity(manifest)

@@ -94,9 +94,12 @@ planning surfaces stay unchanged.
 - Make the execution board readable: Blue preparation, Red attempt, scoring,
   and review; compact status cards, per-round history and drill-down crops.
   Keep detailed model/debug data behind the review view.
-- Add controlled job queues for dataset export and evaluation, cancellation,
-  bounded concurrency, progress and restart/replay. Training jobs remain
-  disabled. Record task versions and immutable input/output commitments.
+- The Blue queue controls dataset capture and native OCR evaluation with one
+  active leased child, durable progress, cancellation and new-run restart.
+  Frozen source/executable/dataset identities and hashed artifacts remain
+  recorded; interrupted and failed outputs are preserved. The child retains
+  its lease after supervisor death. Execution success is separate from OCR
+  and database accuracy. Training jobs remain disabled.
 - Connect typed Red action intentions to an isolated software browser executor
   on the Blue page. Return fresh pixels to Red without DOM/fixture access;
   record actual provider input separately from requested action intentions.

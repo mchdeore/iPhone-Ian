@@ -29,6 +29,10 @@ def main():
     serve.add_argument("--port", type=int, default=8768)
     serve.add_argument("--surface", choices=("blue", "red"), default="blue")
     serve.add_argument("--arena", type=Path, help="Owned SQLite round shared by the separate local team surfaces")
+    serve.add_argument("--jobs", type=Path, help="Optional owned Blue job storage")
+    serve.add_argument("--chrome", type=Path, help="Operator-configured Chrome for capture jobs")
+    serve.add_argument("--ocr", type=Path, help="Reviewed local native OCR for evaluation jobs")
+    serve.add_argument("--ocr-sha256", help="Exact reviewed OCR executable digest")
     args = parser.parse_args()
     if args.command == "generate":
         result = build_dataset(args.output, args.chrome, seeds=json.loads(args.seeds.read_text()) if args.seeds else None)
@@ -42,9 +46,9 @@ def main():
             parser.error("port must be between 1024 and 65535")
         import uvicorn
 
-        if args.surface == "red" and (args.arena is None or args.reports is not None):
-            parser.error("red surface requires --arena and refuses --reports")
-        app = create_red_app(args.dataset, arena=args.arena) if args.surface == "red" else create_app(args.dataset, reports=args.reports, arena=args.arena)
+        if args.surface == "red" and (args.arena is None or any((args.reports, args.jobs, args.chrome, args.ocr, args.ocr_sha256))):
+            parser.error("red surface requires --arena and refuses Blue reports/jobs/executors")
+        app = create_red_app(args.dataset, arena=args.arena) if args.surface == "red" else create_app(args.dataset, reports=args.reports, arena=args.arena, jobs=args.jobs, browser=args.chrome, ocr=args.ocr, ocr_sha256=args.ocr_sha256)
         uvicorn.run(app, host="127.0.0.1", port=args.port)
 
 

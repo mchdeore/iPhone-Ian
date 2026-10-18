@@ -88,12 +88,16 @@ document.querySelector('#submit').onclick=async()=>{{try{{const response=await f
     return app
 
 
-def create_app(root, *, reports=None, arena=None):
+def create_app(root, *, reports=None, arena=None, jobs=None, browser=None, ocr=None, ocr_sha256=None):
     root = Path(root)
     audit_dataset(root)
     manifest = json.loads((root / "dataset.json").read_text())
     samples = {row["sample_id"]: row for row in manifest["samples"]}
     app = FastAPI(title="Synthetic sportsbook training lab")
+    job_link = '<p><a href="/jobs/">Dataset and evaluation jobs</a></p>' if jobs is not None else ''
+    if jobs is not None:
+        from .job_web import install_job_routes
+        install_job_routes(app, jobs, root, browser=browser, ocr=ocr, ocr_sha256=ocr_sha256, arena_available=arena is not None)
     @app.get("/api/status")
     def status():
         return _status("blue")
@@ -137,7 +141,7 @@ def create_app(root, *, reports=None, arena=None):
             missing, wrong, unexpected = (database[key] if database else "—" for key in ("missing_records", "wrong_records", "unexpected_records"))
             return f'''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Blue team round review</title>
 <style>body{{font:16px system-ui;max-width:1200px;margin:30px auto;padding:20px;background:#f4f7ff;color:#182b46}}h1{{font-size:36px}}[role=status]{{background:#fff4cd;padding:14px;border-radius:12px}}.metrics{{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin:24px 0}}.metrics article{{padding:20px;background:white;border:1px solid #d7e1f0;border-radius:16px}}.metrics strong{{display:block;font-size:30px;margin-top:10px}}table{{width:100%;background:white;border-radius:14px;text-align:left}}td,th{{padding:12px;border-bottom:1px solid #dde5f0}}pre{{white-space:pre-wrap;overflow-wrap:anywhere;max-height:480px;overflow:auto}}button{{padding:14px;border:0;border-radius:10px;background:#2858a3;color:white;cursor:pointer}}details{{margin:16px 0}}summary{{cursor:pointer}}</style>
-<h1>Blue team round review</h1>{_hold_banner()}<p><a href="/">Provider pages and border annotations</a></p><p>Round {escape(state["round"]["run_id"])}. Actor submissions are saved before evaluation. Empty and refused attempts count.</p>
+<h1>Blue team round review</h1>{_hold_banner()}{job_link}<p><a href="/">Provider pages and border annotations</a></p><p>Round {escape(state["round"]["run_id"])}. Actor submissions are saved before evaluation. Empty and refused attempts count.</p>
 <div class="metrics"><article>Stored exactly<strong id="exact">{exact}</strong></article><article>Missing records<strong id="missing">{missing}</strong></article><article>Wrong records<strong id="wrong">{wrong}</strong></article><article>Unexpected records<strong id="unexpected">{unexpected}</strong></article></div>
 <p id="freshness">{'New attempts are pending evaluation; the displayed score is older.' if stale else 'Score reflects its saved attempt snapshot.'}</p><button id="evaluate">Score saved database</button><details><summary>Database error details</summary><pre id="score">{latest}</pre></details><h2>Attempt history</h2><table><thead><tr><th>Attempt</th><th>Actor</th><th>Result</th><th>Toronto time</th><th>Details</th></tr></thead><tbody>{attempts}</tbody></table>
 {provider_board(state)}
@@ -175,7 +179,7 @@ def create_app(root, *, reports=None, arena=None):
         previews = " ".join(f'<a href="/providers/{provider}">{escape(provider)}</a>' for provider in PROVIDERS)
         return f'''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Synthetic sportsbook training lab</title><style>body{{font:16px system-ui;max-width:1200px;margin:30px auto;padding:20px;background:#f5f6fa}}.grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px}}.card{{background:white;padding:12px;border-radius:14px;text-decoration:none;color:#18223c;display:flex;flex-direction:column;gap:8px}}img{{width:100%;border-radius:12px}}</style>
-<h1>Blue team synthetic sportsbook lab</h1>{_hold_banner()}<p>Fictional providers, iPhone pages, tagged borders and reproducible samples.</p><p>Provider previews: {previews}</p>
+<h1>Blue team synthetic sportsbook lab</h1>{_hold_banner()}{job_link}<p>Fictional providers, iPhone pages, tagged borders and reproducible samples.</p><p>Provider previews: {previews}</p>
 {'<p><a href="/arena/">Round attempts and database score</a></p>' if arena is not None else ''}
 {'<p><a href="/evaluation/">Training errors and database score</a></p>' if reports is not None else ''}
 <p>Dataset {escape(manifest["dataset_id"])} · {len(samples)} captures · event sequences and provider layouts stay in their own splits.</p><div class="grid">{cards}</div></html>'''

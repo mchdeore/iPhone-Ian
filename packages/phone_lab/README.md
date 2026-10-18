@@ -213,8 +213,8 @@ scores aggregate the round's saved quotes; use separate round databases for
 candidate comparisons rather than treating aggregate scores as actor scores.
 
 These are separate local interfaces, not authenticated shared hosting.
-Bounded job controls, isolated actor comparisons and per-round deployment
-capabilities are the next infrastructure steps in
+Isolated actor comparisons and per-round deployment capabilities are the
+next infrastructure steps in
 `docs/gantry/Red-Blue Infrastructure and Cleanup Plan.md`. Protect the shared
 Obsidian canvas, all `.canvas` files, `.obsidian/`, red/blue board, research notes
 and linked assets. Cleanup is planned only; no moves or deletions run here.
@@ -243,6 +243,36 @@ up an owned live database before upgrading. Malformed or unsupported legacy
 tables are refused unchanged. This collector currently measures pointer
 contacts. Broader keyboard/scroll workflows, isolated Red browser action
 execution and authenticated shared hosting still need infrastructure work.
+
+Blue can enable **dataset and evaluation jobs** from this package directory:
+
+```sh
+uv run tools/owned_sportsbook.py serve --dataset .local/sportsbook/dataset-1 \
+  --arena .local/sportsbook/round-infrastructure-1.sqlite --surface blue \
+  --jobs .local/jobs/blue-1 \
+  --chrome "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --ocr .local/owned-ocr --ocr-sha256 SHA_FROM_REVIEWED_BINARY --port 8768
+```
+
+Open `/jobs/` for seed controls, frozen dataset inspection, progress,
+cancel/restart and OCR/database error reports. Red refuses these routes and
+executor options. Native OCR is optional for capture jobs; evaluation requires
+the reviewed executable and its exact digest. The local runner uses POSIX
+file locks on macOS/Linux. It permits one active child and at most sixteen
+pending/active jobs, eight seeds per split, a 120-second runtime deadline with
+bounded shutdown, a 2 MiB worker log and a 64 MiB accepted-artifact budget.
+These are capture/inference jobs; training and fine-tuning remain held.
+
+Requests, source/executable fingerprints, progress and outcomes persist in
+SQLite. Import copies only audited dataset files into owned storage. Evaluation
+accepts catalog identities, never browser-supplied commands or paths. The child
+retains its owner lock if the supervisor exits, preventing duplicate execution;
+unfinished jobs become interrupted only after that lock can be reacquired.
+Cancelled/failed/interrupted evidence remains in its original run directory.
+Restart uses the same frozen request and a new run identity; source drift
+refuses execution. Exact replay keys return the original job. Accepted artifacts
+are hashed and checked before serving. Successful execution means a valid
+export/report, not that the model stored every quote correctly.
 
 The lab stands alone in iPhone-Ian. Install its pinned dependencies with
 `uv sync --extra test`; source, generated fixtures, database code and native
