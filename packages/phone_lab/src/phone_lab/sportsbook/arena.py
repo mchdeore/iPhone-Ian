@@ -13,12 +13,13 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from ..benchmark import Refusal
+from .behavior import initialize_behavior
 from .contracts import quote_key
 from .dataset import _inside, audit_dataset
 from .reports import operation_registry
 from .storage import QuoteStore, encoded, identity, score_database
 
-SCHEMA = "sportsbook-arena/1"
+SCHEMA = "sportsbook-arena/2"
 OPERATIONS = set(operation_registry())
 ATTEMPT_FIELDS = {"attempt_id", "capture_id", "image_sha256", "actor_id", "model_sha256", "parser_version",
                   "latency_ms", "quotes", "refusals", "retry_of"}
@@ -49,6 +50,7 @@ class ArenaStore:
         self.manifest = json.loads((self.root / "dataset.json").read_text())
         self.samples = {row["sample_id"]: row for row in self.manifest["samples"]}
         new = not path.exists()
+        legacy = False
         if path.is_symlink():
             raise Refusal("arena database symlink refused")
         if not new:
@@ -56,8 +58,14 @@ class ArenaStore:
                 db = sqlite3.connect(path.resolve().as_uri() + "?mode=ro", uri=True)
                 try:
                     meta = dict(db.execute("SELECT key,value FROM arena_meta"))
-                    if meta.get("schema") != SCHEMA or meta.get("dataset_id") != self.manifest["dataset_id"]:
+                    if meta.get("schema") not in ("sportsbook-arena/1", SCHEMA) or meta.get("dataset_id") != self.manifest["dataset_id"]:
                         raise Refusal("arena schema or frozen dataset mismatch; original retained")
+                    legacy = meta["schema"] == "sportsbook-arena/1"
+                    required = {"arena_meta": {"key", "value"}, "challenges": {"id", "sample_id", "image_sha256"},
+                                "attempts": {"seq", "id", "capture_id", "payload_sha256", "payload", "result", "created_at"},
+                                "evaluations": {"seq", "attempt_seq", "score", "created_at"}}
+                    if any({row[1] for row in db.execute(f"PRAGMA table_info({table})")} != columns for table, columns in required.items()):
+                        raise Refusal("unsupported arena tables; original retained")
                 finally:
                     db.close()
             except sqlite3.DatabaseError:
@@ -66,12 +74,21 @@ class ArenaStore:
         db = self.store.db
         if new:
             with db:
+                db.execute("BEGIN IMMEDIATE")
                 db.execute("CREATE TABLE arena_meta(key TEXT PRIMARY KEY,value TEXT NOT NULL)")
                 db.execute("CREATE TABLE challenges(id TEXT PRIMARY KEY,sample_id TEXT UNIQUE NOT NULL,image_sha256 TEXT NOT NULL)")
                 db.execute("CREATE TABLE attempts(seq INTEGER PRIMARY KEY,id TEXT UNIQUE NOT NULL,capture_id TEXT NOT NULL,payload_sha256 TEXT NOT NULL,payload TEXT NOT NULL,result TEXT NOT NULL,created_at TEXT NOT NULL,FOREIGN KEY(capture_id) REFERENCES challenges(id))")
                 db.execute("CREATE TABLE evaluations(seq INTEGER PRIMARY KEY,attempt_seq INTEGER NOT NULL,score TEXT NOT NULL,created_at TEXT NOT NULL)")
                 db.executemany("INSERT INTO arena_meta VALUES (?,?)", [("schema", SCHEMA), ("dataset_id", self.manifest["dataset_id"]), ("run_id", secrets.token_hex(16))])
                 db.executemany("INSERT INTO challenges VALUES (?,?,?)", [(secrets.token_hex(32), row["sample_id"], row["sha256"]["image"]) for row in self.samples.values()])
+                initialize_behavior(db)
+        elif legacy:
+            with db:
+                db.execute("BEGIN IMMEDIATE")
+                # Another connection may have completed this migration while we waited.
+                if db.execute("SELECT value FROM arena_meta WHERE key='schema'").fetchone()[0] == "sportsbook-arena/1":
+                    initialize_behavior(db)
+                    db.execute("UPDATE arena_meta SET value=? WHERE key='schema'", (SCHEMA,))
         self.meta = dict(db.execute("SELECT key,value FROM arena_meta"))
 
     def captures(self):

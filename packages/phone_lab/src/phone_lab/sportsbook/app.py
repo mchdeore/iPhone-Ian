@@ -10,10 +10,12 @@ from fastapi.responses import FileResponse, HTMLResponse
 from ..benchmark import Refusal
 from ..training_policy import read_policy
 from .arena import ArenaStore
+from .behavior import BehaviorSessions
 from .contracts import PROVIDERS
 from .dataset import _inside, audit_dataset
 from .fixtures import provider_snapshot
 from .pages import provider_page
+from .provider import install_provider_routes, provider_board
 
 
 def _status(surface):
@@ -100,12 +102,16 @@ def create_app(root, *, reports=None, arena=None):
         arena = Path(arena)
         store = ArenaStore(arena, root)
         store.close()
+        install_provider_routes(app, root, arena)
 
         @app.get("/api/arena")
         def arena_state():
             store = ArenaStore(arena, root)
             try:
-                return {"round": store.meta, "attempts": store.attempts(), "evaluations": store.evaluations()}
+                captures = [dict(row, tags=store.sample(row["capture_id"])["tags"],
+                                 image_url="/images/" + store.sample(row["capture_id"])["sample_id"]) for row in store.captures()]
+                return {"round": store.meta, "attempts": store.attempts(), "evaluations": store.evaluations(),
+                        "captures": captures, "provider_sessions": BehaviorSessions(store).sessions()}
             finally:
                 store.close()
 
@@ -134,6 +140,7 @@ def create_app(root, *, reports=None, arena=None):
 <h1>Blue team round review</h1>{_hold_banner()}<p><a href="/">Provider pages and border annotations</a></p><p>Round {escape(state["round"]["run_id"])}. Actor submissions are saved before evaluation. Empty and refused attempts count.</p>
 <div class="metrics"><article>Stored exactly<strong id="exact">{exact}</strong></article><article>Missing records<strong id="missing">{missing}</strong></article><article>Wrong records<strong id="wrong">{wrong}</strong></article><article>Unexpected records<strong id="unexpected">{unexpected}</strong></article></div>
 <p id="freshness">{'New attempts are pending evaluation; the displayed score is older.' if stale else 'Score reflects its saved attempt snapshot.'}</p><button id="evaluate">Score saved database</button><details><summary>Database error details</summary><pre id="score">{latest}</pre></details><h2>Attempt history</h2><table><thead><tr><th>Attempt</th><th>Actor</th><th>Result</th><th>Toronto time</th><th>Details</th></tr></thead><tbody>{attempts}</tbody></table>
+{provider_board(state)}
 <script>document.querySelector('#evaluate').onclick=async()=>{{try{{const r=await fetch('/api/arena/evaluate',{{method:'POST'}}),data=await r.json();document.querySelector('#score').textContent=JSON.stringify(data,null,2);if(!r.ok)throw Error(data.detail||'Evaluation failed');const d=data.database;document.querySelector('#exact').textContent=d?d.correct_records+' / '+d.expected_records:'Pending';for(const key of ['missing','wrong','unexpected'])document.querySelector('#'+key).textContent=d?d[key+'_records']:'—';document.querySelector('#freshness').textContent='Saved score covers '+data.attempts+' attempts. Refresh to update the history table.'}}catch(e){{document.querySelector('#freshness').textContent=String(e)}}}};</script></html>'''
     if reports is not None:
         reports = Path(reports)

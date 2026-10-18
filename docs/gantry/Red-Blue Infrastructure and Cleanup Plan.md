@@ -69,9 +69,17 @@ scores aggregate saved quotes; candidate comparisons need separate round
 databases until per-actor scoring is implemented. Manual coordination tests
 are not model accuracy or physical gantry validation.
 
-The following list remains the full infrastructure checklist. Provider-visible
-behavior integration, job control, per-actor comparisons and authenticated
-deployment remain pending. The Obsidian planning surfaces stay unchanged.
+The 0.7 foundation adds Blue provider pointer-contact sessions, frozen scorer
+source fingerprints, immutable contact/score history and explicit links to
+saved attempts on the same capture. Supported earlier rounds migrate
+transactionally; their old attempts have no retroactive behavior score.
+The collector exports only pointer timing and geometry. Browser-trusted events
+do not establish a human, and the rules apply no sanctions.
+
+The following list remains the full infrastructure checklist. Isolated Red
+browser action execution, broader input/navigation workflows, job control,
+per-actor comparisons and authenticated deployment remain pending. The Obsidian
+planning surfaces stay unchanged.
 
 - Enforce the training hold before dataset access, output creation or model
   loading. Show its status in the execution views; provide no automatic or
@@ -89,6 +97,12 @@ deployment remain pending. The Obsidian planning surfaces stay unchanged.
 - Add controlled job queues for dataset export and evaluation, cancellation,
   bounded concurrency, progress and restart/replay. Training jobs remain
   disabled. Record task versions and immutable input/output commitments.
+- Connect typed Red action intentions to an isolated software browser executor
+  on the Blue page. Return fresh pixels to Red without DOM/fixture access;
+  record actual provider input separately from requested action intentions.
+  Link those windows explicitly to navigation/extraction attempts. Preserve
+  failures and refusal outcomes before reading evaluator truth. Extend the
+  pages' keyboard/scroll/navigation behavior before claiming broader workflows.
 - Verify end-to-end local rounds with scripted/manual observations and
   existing inference. Label stand-ins explicitly. Do not imply a newly trained
   model, connected gantry or human-validated detector.
@@ -163,3 +177,20 @@ Acceptance requires byte preservation of the shared canvas and board, working
 links/assets, recoverable history, working local execution views and no
 stranded source or data. Cleanup success is reduced verified duplication,
 not a target amount of disk space deleted.
+
+## Standalone delivery and rendering checks
+
+Keep all app, dataset, SQLite, evaluation and OCR source in iPhone-Ian's
+`packages/phone_lab`. Its pinned Python dependencies, operator-supplied Chrome
+and Apple Vision/Swift are the only required software surfaces for local
+browser/OCR checks. Do not introduce cross-repository paths, services,
+credentials or symlinks. Test a fresh source copy and an independently
+installed wheel; compile OCR from the included Swift source. Generated data
+and compiled binaries stay local and ignored. Training remains held.
+
+Capture the actual actor PNG and retain renderer/version/platform context.
+Verify repeated captures, field text crops and border geometry separately
+from whole-image pixel equality. Decorative antialiasing differences remain
+recorded evidence even when all field crops and borders agree. A successful
+single-page OCR/database check is infrastructure evidence; broader provider
+coverage, navigation, actor comparisons and physical operation remain gates.

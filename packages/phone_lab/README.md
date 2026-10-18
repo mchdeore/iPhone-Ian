@@ -136,7 +136,7 @@ and refusals remain visible in `result.json`; numeric insertion and scrolling us
 browser stand-ins. Model files, workflow captures and private runtime data stay ignored.
 
 
-## Fictional sportsbook lab (0.6)
+## Fictional sportsbook lab (0.7)
 
 **Training is held.** Prepare infrastructure and evaluate existing artifacts;
 do not start training, fine-tuning or new model downloads. The training entry
@@ -213,8 +213,47 @@ scores aggregate the round's saved quotes; use separate round databases for
 candidate comparisons rather than treating aggregate scores as actor scores.
 
 These are separate local interfaces, not authenticated shared hosting.
-Provider-visible behavior logging, the frozen Blue scorer, bounded job controls
-and per-round deployment capabilities are the next infrastructure steps in
+Bounded job controls, isolated actor comparisons and per-round deployment
+capabilities are the next infrastructure steps in
 `docs/gantry/Red-Blue Infrastructure and Cleanup Plan.md`. Protect the shared
 Obsidian canvas, all `.canvas` files, `.obsidian/`, red/blue board, research notes
 and linked assets. Cleanup is planned only; no moves or deletions run here.
+
+Blue's round review now starts **provider contact sessions** on a frozen
+fictional page. The phone frame observes trusted browser pointer events and
+exports only kind, time, x/y and contact slot. It exports no entered text,
+field labels, model predictions, camera or motor state. Browser trust here
+describes the event source; it does not establish a human operator. Session
+timestamps come from the browser's event clock, independently of the fake
+provider's displayed quote times.
+
+The round freezes the exact descriptive Blue scorer/protocol/helper source
+hashes before new sessions. New scoring refuses source drift; saved scores
+remain readable. Contact packets and scores are immutable, replay is explicit,
+and cancelled/empty sessions remain visible. Link a closed session explicitly
+to a saved attempt on the same capture. Database accuracy and behavior flags
+remain separate outcomes. The rules describe short/regular dwell and straight
+paths; robot probability is unmeasured, consented human/accessibility controls
+are pending, and no sanctions apply.
+
+Arena schema 2 transactionally adds provider session/link history to supported
+schema-1 rounds. Existing quotes, attempts, challenge IDs and evaluations remain
+intact; prior attempts do not receive retroactive behavior measurements. Back
+up an owned live database before upgrading. Malformed or unsupported legacy
+tables are refused unchanged. This collector currently measures pointer
+contacts. Broader keyboard/scroll workflows, isolated Red browser action
+execution and authenticated shared hosting still need infrastructure work.
+
+The lab stands alone in iPhone-Ian. Install its pinned dependencies with
+`uv sync --extra test`; source, generated fixtures, database code and native
+OCR source all live in this package. macOS Vision OCR needs the installed
+Apple Swift compiler; browser capture needs the Chrome executable passed by
+the operator. Neither requires another repository, service or credentials.
+Keep generated captures, databases and compiled tools under this package's
+ignored `.local/` directory. The Python wheel includes runtime modules and
+assets; compile the optional Swift tool from a source checkout.
+
+Record the actual actor PNG and renderer context. Stable field borders and
+text crops do not prove whole-image identity: embedded-page compositing can
+change decorative antialiasing even when geometry agrees. Compare repeated
+captures in the same context and retain full-image differences separately.
