@@ -66,6 +66,7 @@ def _sources():
     names = ('__init__.py', 'training-policy.json', 'sportsbook/pixel_browser.py', 'sportsbook/pixel_cli.py', 'sportsbook/pages.py', 'sportsbook/fixtures.py',
              'sportsbook/contracts.py', 'sportsbook/dataset.py', 'sportsbook/behavior.py',
              'sportsbook/storage.py', 'sportsbook/arena.py', 'blue.py', 'benchmark.py', 'metrics.py')
+    names += ('sportsbook/browser_ledger.py', 'sportsbook/reports.py', 'sportsbook/evaluation.py', 'sportsbook/extract.py')
     return {name: _digest(root / name) for name in names}
 
 
@@ -308,12 +309,13 @@ class PixelBrowser:
         digest = hashlib.sha256(pixels).hexdigest()
         fid = hashlib.sha256(encoded([self.session_id, self._frame_seq, digest]).encode()).hexdigest()
         relative = f'red-pixels/{self._frame_seq:04d}.png'
-        fields = self._page.locator('[data-label]').evaluate_all('''elements=>elements.map(el=>{const b=el.getBoundingClientRect();return {id:el.dataset.label,role:el.dataset.role,text:el.textContent.trim(),box:{x:b.x,y:b.y,width:b.width,height:b.height}}})''')
+        fields = self._page.locator('[data-label]').evaluate_all('''elements=>elements.map(el=>{const b=el.getBoundingClientRect();const r=document.createRange();r.selectNodeContents(el);const t=r.getBoundingClientRect();return {id:el.dataset.label,role:el.dataset.role,text:el.textContent.trim(),box:{x:b.x,y:b.y,width:b.width,height:b.height},text_box:{x:t.x,y:t.y,width:t.width,height:t.height}}})''')
         self._write(relative, pixels)
         metadata = {'session_id': self.session_id, 'frame_id': fid, 'image_sha256': digest,
                     'image_file': relative, 'viewport': [390, 844]}
         self._write_json(f'blue-private/frames/{self._frame_seq:04d}.json', {
             'frame': metadata, 'at': _now(), 'phase': phase, 'tab': tab, 'fields': fields,
+            'contact_count': len(self._contacts),
             'expected_quotes': self._truth[phase]['quotes'] if tab in ('sports', 'live') else [],
         })
         self._budget()

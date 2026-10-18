@@ -66,7 +66,8 @@ attempt/quote writes. It retains empty/refused attempts, explicit retries,
 conflicting submissions and stale history. Blue evaluates committed SQLite
 state afterward and preserves the score's attempt snapshot. These round
 scores aggregate saved quotes; candidate comparisons need separate round
-databases until per-actor scoring is implemented. Manual coordination tests
+databases. The newer browser ledger uses a separate actor-bound database for
+each session and does not rewrite these historical rounds. Manual coordination tests
 are not model accuracy or physical gantry validation.
 
 The 0.7 foundation adds Blue provider pointer-contact sessions, frozen scorer
@@ -108,8 +109,12 @@ planning surfaces stay unchanged.
   pages' keyboard/scroll/navigation behavior before claiming broader workflows.
   The local coordinate console now provides the first executor milestone:
   real Chrome navigation/price refresh, committed PNGs, stale/refused actions,
-  replay and retained trusted contacts. Persistent supervised sessions, actor
-  database submissions and web-surface integration remain open. Local console
+  replay and retained trusted contacts. The durable browser ledger adds
+  actor-bound observations, atomic persisted-row snapshots and independent
+  per-session scoring. It retains empty/refused/unsubmitted frames, blank
+  views, immutable retries, contact links and separate OCR/field/detector
+  metrics. Precise text borders stay Blue-private. Persistent supervised
+  sessions and web-surface integration remain open. Local console
   isolation does not establish an OS sandbox or authenticated team deployment.
 - Verify end-to-end local rounds with scripted/manual observations and
   existing inference. Label stand-ins explicitly. Do not imply a newly trained

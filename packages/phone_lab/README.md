@@ -328,8 +328,56 @@ Blue scores. Private borders, truth, contacts and fingerprints stay in
 actions, 120 seconds and 64 MiB. An incomplete stdin line also has a deadline.
 
 This console is the first executor milestone. Persistent worker ownership,
-session recovery, actor database submissions and Red/Blue web integration
-remain in development. Local filesystem access is not an actor security
+session recovery and Red/Blue web integration remain in development.
+Local filesystem access is not an actor security
 sandbox; shared hosting requires isolated mounts and authentication. The
 console performs software input and native inference integration only, with
 training held.
+
+### Durable actor observations and Blue review
+
+`phone_lab.sportsbook.browser_ledger.BrowserLedger` is a trusted operator
+adapter for the executor. `attach(engine_output)` creates an actor-bound
+session in a separate versioned database; `sync(session_id)` saves committed
+frames, exact component/text borders and actual contact prefixes. It verifies
+each incoming action against the preceding frame. Original executor evidence
+is retained. An old `open` receipt does not establish that its worker exited.
+
+Expose only `session`, `frame`, `pixels` and `submit` to Red. `attach`, `sync`,
+`review` and `evaluate` belong to Blue/the operator. The Python class itself
+does not enforce authentication or filesystem isolation. Public frame objects
+contain only session/frame IDs, image hash, viewport and an opaque PNG name.
+
+Observations use these exact fields:
+
+```json
+{"attempt_id":"read-1","frame_id":"FRAME_SHA256","image_sha256":"PNG_SHA256","actor_id":"red-local","model_sha256":null,"parser_version":"visible-columns/2","latency_ms":25,"quotes":[],"refusals":[],"retry_of":null,"recognized":null,"fields":null,"objects":null}
+```
+
+`recognized` is raw OCR text/confidence/boxes; `fields` is OCR-associated
+id/role/text/confidence/boxes; `objects` is detector id/role/confidence/boxes
+and requires a model hash. `null` marks an unmeasured operation, while `[]`
+measures an empty result and its misses. OCR boxes never measure detector
+accuracy. Refusals contain a registry operation and printable reason. All
+boxes must fit the 390×844 viewport. Each payload is limited to 256 KiB;
+sessions allow at most 129 frames and 256 committed attempts.
+
+Submission atomically commits the observations, typed ingestion receipt and
+actual database snapshot. Invalid typed batches roll back their quote writes
+and retain a refusal. Exact replay returns the original public receipt;
+another attempt on that frame requires `retry_of`. Each session has its own
+actor database, so candidates cannot contribute rows to each other's score.
+
+Blue's `evaluate` reopens committed SQLite state, checks frozen scorer and
+evidence hashes, and saves an immutable per-session report. It includes every
+presented frame, even empty, refused and unsubmitted ones. Blank views have
+zero expected rows and an undefined accuracy denominator. Per-attempt
+database snapshots remain independent of later price updates. Confusion
+matrices, raw OCR misses, explicit unmeasured operations and missing/wrong
+database fields remain available for the future training backlog. Reports
+attribute results to one actor-bound session; comparisons across sessions
+must also account for their different frozen scenes and presented frames.
+
+This ledger is the scoring dependency for supervised web sessions. It does
+not launch or recover a worker, add training controls, or establish a complete
+Red/Blue battle web UI. Native OCR inference can run while training stays held.

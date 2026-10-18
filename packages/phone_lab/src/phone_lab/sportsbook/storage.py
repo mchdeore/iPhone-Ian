@@ -8,7 +8,7 @@ import sqlite3
 from pathlib import Path
 
 from ..benchmark import Refusal
-from .contracts import PROVIDERS, quote_key, validate_quote
+from .contracts import FIELDS, PROVIDERS, quote_key, validate_quote
 
 APPLICATION_ID = 0x49414E53
 
@@ -133,7 +133,7 @@ CREATE TABLE latest(row_id TEXT PRIMARY KEY, capture_id TEXT, quote_time TEXT, p
 
 def score_database(store, expected, *, provider_id=None):
     """Read persisted latest rows; evaluator truth is never used for ingestion."""
-    if not isinstance(expected, list) or not 1 <= len(expected) <= 1000:
+    if not isinstance(expected, list) or len(expected) > 1000:
         raise Refusal("bounded expected snapshot required")
     gold = {quote_key(q): q for q in map(validate_quote, expected)}
     if len(gold) != len(expected):
@@ -144,7 +144,7 @@ def score_database(store, expected, *, provider_id=None):
     shared = set(gold) & set(actual)
     correct = sum(gold[key] == actual[key] for key in shared)
     fields = {field: sum(gold[key][field] != actual[key][field] for key in shared)
-              for field in sorted(next(iter(gold.values())))}
+              for field in sorted(FIELDS)}
     failures = []
     for key in sorted(set(gold) | set(actual)):
         if key not in actual:
@@ -157,7 +157,8 @@ def score_database(store, expected, *, provider_id=None):
             "correct_records": correct, "wrong_records": len(actual) - correct,
             "missing_records": len(set(gold) - set(actual)), "unexpected_records": len(set(actual) - set(gold)),
             "row_precision": len(shared) / len(actual) if actual else 0,
-            "row_recall": len(shared) / len(gold), "score": correct / len(gold),
+            "row_recall": len(shared) / len(gold) if gold else None,
+            "score": correct / len(gold) if gold else None,
             "field_errors": fields, "field_missing": {field: len(set(gold) - set(actual)) for field in fields},
             "field_support": {field: len(gold) for field in fields},
             "scope": {"provider_id": provider_id},
