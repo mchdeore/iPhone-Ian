@@ -3,7 +3,7 @@
     {
       "id": "title",
       "type": "text",
-      "text": "# Gantry + vision + red / blue\nSimple stages: build \u2192 generate \u2192 train \u2192 battle \u2192 physical validation.",
+      "text": "# Gantry + vision + red / blue\nSimple stages: build → generate → train → battle → physical validation.",
       "x": 0,
       "y": -220,
       "width": 1340,
@@ -42,7 +42,7 @@
     {
       "id": "g1",
       "type": "text",
-      "text": "## 1 \u00b7 Build and identify\nInventory frame, motors, stylus and phone fixtures.\nIdentify controller and protocol before connection.",
+      "text": "## 1 · Build and identify\nInventory frame, motors, stylus and phone fixtures.\nIdentify controller and protocol before connection.",
       "x": 0,
       "y": 20,
       "width": 420,
@@ -52,7 +52,7 @@
     {
       "id": "g2",
       "type": "text",
-      "text": "## 2 \u00b7 Controller + stop\nTest fake acknowledgements, limits and typed intents.\nPhysical stop, endstops and homing remain pending.",
+      "text": "## 2 · Controller + stop\nTest fake acknowledgements, limits and typed intents.\nPhysical stop, endstops and homing remain pending.",
       "x": 0,
       "y": 235,
       "width": 420,
@@ -62,7 +62,7 @@
     {
       "id": "g3",
       "type": "text",
-      "text": "## 3 \u00b7 Camera + calibration\nMap pixels to each phone fixture.\nVerify held-out points, fresh frames and interior bounds.",
+      "text": "## 3 · Camera + calibration\nMap pixels to each phone fixture.\nVerify held-out points, fresh frames and interior bounds.",
       "x": 0,
       "y": 450,
       "width": 420,
@@ -72,7 +72,7 @@
     {
       "id": "g4",
       "type": "text",
-      "text": "## 4 \u00b7 Supervised commissioning\nCheck unloaded motion, then owned-phone contact.\nRecord touch, drag and stop performance.",
+      "text": "## 4 · Supervised commissioning\nCheck unloaded motion, then owned-phone contact.\nRecord touch, drag and stop performance.",
       "x": 0,
       "y": 665,
       "width": 420,
@@ -82,7 +82,7 @@
     {
       "id": "v1",
       "type": "text",
-      "text": "## 1 \u00b7 Generate iPhone sportsbook pages\nBlue creates fictional records, updates and layouts.\nSeeded images, truth and measured field borders.",
+      "text": "## 1 · Generate iPhone sportsbook pages\nBlue app exports fictional records and update sequences.\nRenderer-tagged images, truth and measured field borders.",
       "x": 460,
       "y": 20,
       "width": 420,
@@ -92,7 +92,7 @@
     {
       "id": "v2",
       "type": "text",
-      "text": "## 2 \u00b7 Tag, border and split\nStable IDs + images + YOLO labels + pixel borders.\nImmutable tags; audit layout/device/font separation.",
+      "text": "## 2 · Tag, border and split\nStable IDs + images + YOLO labels + pixel borders.\nImmutable tags; audit layout/device/font separation.",
       "x": 460,
       "y": 235,
       "width": 420,
@@ -102,7 +102,7 @@
     {
       "id": "v3",
       "type": "text",
-      "text": "## 3 \u00b7 Train detector + OCR + extraction\nStore confusion and misses for each operation.\nImprove the component with the largest verified losses.",
+      "text": "## 3 · Train detector + OCR + extraction\nOCR/association/database baseline now records misses.\nExpanded-role detector training is next; rank verified losses.",
       "x": 460,
       "y": 450,
       "width": 420,
@@ -112,7 +112,7 @@
     {
       "id": "v4",
       "type": "text",
-      "text": "## 4 \u00b7 Score stored records\nRead SQLite after updates; score rows, prices and joins.\nTrack OCR, refusals, stale/duplicate writes and holdouts.",
+      "text": "## 4 · Score stored records\nReopen SQLite; score exact rows, prices and joins.\nKeep missing, wrong and stale fields plus error evidence.",
       "x": 460,
       "y": 665,
       "width": 420,
@@ -122,7 +122,7 @@
     {
       "id": "r1",
       "type": "text",
-      "text": "## 1 \u00b7 Red acts from pixels\nFrozen detector + OCR \u2192 typed calibrated intentions.\nNo evaluator labels; fresh-frame / confidence gates.",
+      "text": "## 1 · Red acts from pixels\nFrozen detector + OCR → typed calibrated intentions.\nNo evaluator labels; fresh-frame / confidence gates.",
       "x": 920,
       "y": 20,
       "width": 420,
@@ -132,7 +132,7 @@
     {
       "id": "b1",
       "type": "text",
-      "text": "## 2 \u00b7 Blue observes contacts\nOnly website coordinates, timing and pointer events.\nFrozen descriptive patterns; human controls pending.",
+      "text": "## 2 · Blue observes contacts\nOnly website coordinates, timing and pointer events.\nFrozen descriptive patterns; human controls pending.",
       "x": 920,
       "y": 235,
       "width": 420,
@@ -142,7 +142,7 @@
     {
       "id": "r2",
       "type": "text",
-      "text": "## 3 \u00b7 Run matched rounds\nSame model, layouts and seeds; declared browser profiles.\nScore blue first, then join independent outcomes.",
+      "text": "## 3 · Run matched rounds\nSame model, layouts and seeds; declared browser profiles.\nScore blue first, then join independent outcomes.",
       "x": 920,
       "y": 450,
       "width": 420,
@@ -152,7 +152,7 @@
     {
       "id": "b2",
       "type": "text",
-      "text": "## 4 \u00b7 Inspect the scoreboard\nRed completions / wrong actions / refusals + blue flags.\nLocalhost:8767; patterns are hypotheses, no sanctions.",
+      "text": "## 4 · Inspect the scoreboard\nRed completions / wrong actions / refusals + blue flags.\nLocalhost:8767; patterns are hypotheses, no sanctions.",
       "x": 920,
       "y": 665,
       "width": 420,
@@ -162,7 +162,7 @@
     {
       "id": "integrate",
       "type": "text",
-      "text": "## 5 \u00b7 Connect the physical rig\nReplace fake acknowledgements only after commissioning.\nKeep lab camera/motor traces separate from provider contacts.",
+      "text": "## 5 · Connect the physical rig\nReplace fake acknowledgements only after commissioning.\nKeep lab camera/motor traces separate from provider contacts.",
       "x": 380,
       "y": 960,
       "width": 600,
@@ -172,7 +172,7 @@
     {
       "id": "next",
       "type": "text",
-      "text": "## 6 \u00b7 Improve from recorded failures\nMine training misses; preserve unseen provider/device holdouts.\nTest a small extraction LLM only if association errors justify it.",
+      "text": "## 6 · Improve from recorded failures\nMine training misses; preserve unseen provider/device holdouts.\nTest a small extraction LLM only if association errors justify it.",
       "x": 380,
       "y": 1200,
       "width": 600,

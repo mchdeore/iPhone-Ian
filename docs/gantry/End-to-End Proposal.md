@@ -159,3 +159,16 @@ After the supervised rig passes, collect fresh permitted phone captures and
 run matched physical trials. Policy learning can follow a reviewed reward and
 replay protocol; the present task runner is a deterministic workflow, not an
 accepted reinforcement-learning system.
+
+
+## Sportsbook measurement baseline
+
+Phone lab 0.5 provides the fictional iPhone provider app, renderer-tagged
+exports with component/text borders and YOLO labels, OCR-only field association,
+typed SQLite updates, confusion matrices and persistent error reports. The
+21-page generated development trial stored 12/28 final records exactly. Its
+misses identify OCR event IDs, headings and values as work to address; rejected
+updates leave visible stale database state. A corrected dash-glyph scorer and
+its original negative report are both preserved locally. Expanded-role detector
+training, an untouched holdout and physical commissioning remain pending.
+See [Sportsbook Vision Training Plan](Sportsbook%20Vision%20Training%20Plan.md).

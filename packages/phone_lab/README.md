@@ -134,3 +134,46 @@ Scores below 0.9, ambiguous candidates, malformed boxes and stale frames refuse 
 These development scores need calibration on real devices. Independent site outcomes
 and refusals remain visible in `result.json`; numeric insertion and scrolling use generated
 browser stand-ins. Model files, workflow captures and private runtime data stay ignored.
+
+
+## Fictional sportsbook training lab (0.5)
+
+`phone_lab.sportsbook` generates three fictional providers in a 390×844 iPhone
+viewport. It exports PNGs, component/text borders, YOLO labels, typed provider
+truth, source pages and deterministic tags. Sample identities include actual
+renderer/version/platform, generator hashes and every output digest. The audit
+checks source bytes and keeps provider layouts and event sequences apart.
+A test split is generated development data until an untouched evaluation is
+explicitly frozen; seed values alone do not guarantee identical pixels.
+
+From this package directory:
+
+```sh
+uv run tools/owned_sportsbook.py generate --output .local/sportsbook/dataset-1 \
+  --chrome "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+swiftc tools/owned_ocr.swift -o .local/owned-ocr
+shasum -a256 .local/owned-ocr
+uv run tools/owned_sportsbook.py evaluate --dataset .local/sportsbook/dataset-1 \
+  --output .local/sportsbook/evaluation-1 --ocr .local/owned-ocr \
+  --ocr-sha256 SHA_FROM_REVIEWED_BINARY
+uv run tools/owned_sportsbook.py serve --dataset .local/sportsbook/dataset-1 \
+  --reports .local/sportsbook/evaluation-1/reports --port 8768
+```
+
+Open `http://127.0.0.1:8768` for page previews, tags, border overlays and saved
+training errors. Existing dataset/evaluation directories are never overwritten.
+The recognizer receives PNGs. The parser receives only OCR text/confidence/boxes;
+evaluator truth is read after actor observations and database writes are saved.
+Typed decimal/sign/UTC contracts reject ambiguity. SQLite preserves quote history,
+refuses conflicting replay, ignores older updates for latest state, and commits
+batches atomically. No sportsbook accounts, bets or physical controller are used.
+
+The six-operation registry separates UI identification, OCR reading, field
+association, quote parsing, storage and final verification. Reports keep
+per-role OCR misses/edit counts, class-independent association confusion,
+per-frame refusals, error crops and persisted record/field errors. Final accuracy
+reopens SQLite and compares the full expected latest state. Cumulative capture
+scores repeat earlier records and are displayed separately. Missing roles have
+explicit support; background true negatives remain unmeasured. The expanded
+pixel-only detector and any OCR/LLM fine-tuning remain pending; successful report
+generation does not establish training accuracy.

@@ -176,6 +176,17 @@ If it is used for improvement, retire it and create a new untouched holdout.
    Keep existing calibration/freshness/stop fences; physical commissioning and
    consented human/accessibility controls remain separate pending gates.
 
-This is the implementation plan for the active goal. Sportsbook database
-ingestion, the expanded detector roles and their reports are pending until
-their actual artifacts and tests exist.
+This is the implementation plan for the active goal. Phone lab 0.5 implements
+fictional iPhone provider pages, actual-renderer dataset export, typed SQLite
+ingestion, OCR-only association, persisted scores, error crops and association
+confusion matrices. The initial 21-page development run stored 12 of 28 final
+records exactly; failed updates and missing records remain in the evidence.
+The first scorer incorrectly counted equivalent dash glyphs as OCR errors;
+that version is retained and the corrected scorer has a regression test.
+
+Expanded-role detector training and its pixel-only identification matrix are
+still pending. OCR field association does not measure detector accuracy.
+Next, train the detector baseline and isolate OCR recognition errors in event
+IDs, headings and numeric fields. Fine-tuning a small LLM is conditional on
+accurately recognized text still producing association errors. Keep static
+database ingestion ahead of navigation and physical gantry commissioning.
