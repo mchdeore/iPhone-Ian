@@ -63,6 +63,11 @@ CREATE TABLE latest(row_id TEXT PRIMARY KEY, capture_id TEXT, quote_time TEXT, p
 """)
 
     def ingest(self, capture_id, quotes, *, model_sha256=None, parser_version="typed-contract/1"):
+        with self.db:
+            return self._ingest(capture_id, quotes, model_sha256=model_sha256, parser_version=parser_version)
+
+    def _ingest(self, capture_id, quotes, *, model_sha256=None, parser_version="typed-contract/1"):
+        """Caller owns the transaction, allowing a quote batch and attempt to commit together."""
         if not isinstance(capture_id, str) or not re.fullmatch(r"[0-9a-f]{64}", capture_id):
             raise Refusal("capture hash required")
         if model_sha256 is not None and (not isinstance(model_sha256, str) or not re.fullmatch(r"[0-9a-f]{64}", model_sha256)):
@@ -83,34 +88,33 @@ CREATE TABLE latest(row_id TEXT PRIMARY KEY, capture_id TEXT, quote_time TEXT, p
             return {"inserted": 0, "updated": 0, "stale_ignored": 0, "unchanged": 0, "replayed": True}
         result = {"inserted": 0, "updated": 0, "stale_ignored": 0, "unchanged": 0, "replayed": False}
         try:
-            with self.db:
-                self.db.execute("INSERT INTO captures VALUES (?,?,?,?)", (capture_id, digest, model_sha256, parser_version))
-                for q in accepted:
-                    self.db.execute("INSERT OR IGNORE INTO providers VALUES (?)", (q["provider_id"],))
-                    event = self.db.execute("SELECT home,away,start_time FROM events WHERE provider=? AND event_id=?", (q["provider_id"], q["event_id"])).fetchone()
-                    metadata = (q["home"], q["away"], q["start_time"])
-                    if event is not None and tuple(event) != metadata:
-                        raise Refusal("conflicting event metadata")
-                    self.db.execute("INSERT OR IGNORE INTO events VALUES (?,?,?,?,?)", (q["provider_id"], q["event_id"], *metadata))
-                    market_id = identity(quote_key(q)[:-1])
-                    row_id = identity(quote_key(q))
-                    self.db.execute("INSERT OR IGNORE INTO markets VALUES (?,?,?,?,?)", (market_id, q["provider_id"], q["event_id"], q["market"], q["period"]))
-                    self.db.execute("INSERT OR IGNORE INTO selections VALUES (?,?,?)", (row_id, market_id, q["selection"]))
-                    payload = encoded(q)
-                    prior = self.db.execute("SELECT quote_time,payload FROM latest WHERE row_id=?", (row_id,)).fetchone()
-                    if prior and prior[0] == q["quote_time"] and prior[1] != payload:
-                        raise Refusal("conflicting values at the same provider time")
-                    self.db.execute("INSERT INTO observations VALUES (?,?,?,?)", (capture_id, row_id, q["quote_time"], payload))
-                    if prior is None:
-                        self.db.execute("INSERT INTO latest VALUES (?,?,?,?)", (row_id, capture_id, q["quote_time"], payload))
-                        result["inserted"] += 1
-                    elif q["quote_time"] > prior[0]:
-                        self.db.execute("UPDATE latest SET capture_id=?,quote_time=?,payload=? WHERE row_id=?", (capture_id, q["quote_time"], payload, row_id))
-                        result["updated"] += 1
-                    elif q["quote_time"] < prior[0]:
-                        result["stale_ignored"] += 1
-                    else:
-                        result["unchanged"] += 1
+            self.db.execute("INSERT INTO captures VALUES (?,?,?,?)", (capture_id, digest, model_sha256, parser_version))
+            for q in accepted:
+                self.db.execute("INSERT OR IGNORE INTO providers VALUES (?)", (q["provider_id"],))
+                event = self.db.execute("SELECT home,away,start_time FROM events WHERE provider=? AND event_id=?", (q["provider_id"], q["event_id"])).fetchone()
+                metadata = (q["home"], q["away"], q["start_time"])
+                if event is not None and tuple(event) != metadata:
+                    raise Refusal("conflicting event metadata")
+                self.db.execute("INSERT OR IGNORE INTO events VALUES (?,?,?,?,?)", (q["provider_id"], q["event_id"], *metadata))
+                market_id = identity(quote_key(q)[:-1])
+                row_id = identity(quote_key(q))
+                self.db.execute("INSERT OR IGNORE INTO markets VALUES (?,?,?,?,?)", (market_id, q["provider_id"], q["event_id"], q["market"], q["period"]))
+                self.db.execute("INSERT OR IGNORE INTO selections VALUES (?,?,?)", (row_id, market_id, q["selection"]))
+                payload = encoded(q)
+                prior = self.db.execute("SELECT quote_time,payload FROM latest WHERE row_id=?", (row_id,)).fetchone()
+                if prior and prior[0] == q["quote_time"] and prior[1] != payload:
+                    raise Refusal("conflicting values at the same provider time")
+                self.db.execute("INSERT INTO observations VALUES (?,?,?,?)", (capture_id, row_id, q["quote_time"], payload))
+                if prior is None:
+                    self.db.execute("INSERT INTO latest VALUES (?,?,?,?)", (row_id, capture_id, q["quote_time"], payload))
+                    result["inserted"] += 1
+                elif q["quote_time"] > prior[0]:
+                    self.db.execute("UPDATE latest SET capture_id=?,quote_time=?,payload=? WHERE row_id=?", (capture_id, q["quote_time"], payload, row_id))
+                    result["updated"] += 1
+                elif q["quote_time"] < prior[0]:
+                    result["stale_ignored"] += 1
+                else:
+                    result["unchanged"] += 1
         except sqlite3.DatabaseError:
             raise Refusal("database transaction failed; original retained") from None
         return result

@@ -1,6 +1,6 @@
 [project]
 name = "iphone-phone-lab"
-version = "0.5.0"
+version = "0.6.0"
 description = "Owned mobile benchmark, generated evaluation and virtual control"
 requires-python = ">=3.12,<3.13"
 dependencies = ["fastapi==0.115.12", "uvicorn==0.34.2", "pillow==11.2.1", "numpy==2.2.5", "playwright==1.51.0"]

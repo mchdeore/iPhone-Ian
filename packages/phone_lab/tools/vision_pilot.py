@@ -18,6 +18,7 @@ from zoneinfo import ZoneInfo
 
 from phone_lab.dataset import ROLES, audit
 from phone_lab.metrics import detection_metrics, latency, ocr_metrics
+from phone_lab.training_policy import assert_training_allowed
 from phone_lab.workflow import color_candidates
 
 
@@ -36,6 +37,7 @@ def main():
     parser.add_argument("--ocr", type=Path, required=True)
     parser.add_argument("--epochs", type=int, choices=range(1, 51), default=2)
     args = parser.parse_args()
+    assert_training_allowed()
     dataset = args.dataset.resolve()
     root = args.output.resolve()
     ocr = args.ocr.resolve()

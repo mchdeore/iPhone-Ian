@@ -136,7 +136,13 @@ and refusals remain visible in `result.json`; numeric insertion and scrolling us
 browser stand-ins. Model files, workflow captures and private runtime data stay ignored.
 
 
-## Fictional sportsbook training lab (0.5)
+## Fictional sportsbook lab (0.6)
+
+**Training is held.** Prepare infrastructure and evaluate existing artifacts;
+do not start training, fine-tuning or new model downloads. The training entry
+point fails closed before model loading or output creation. Both team views
+show the saved hold policy. Re-enabling training requires a later explicit
+human instruction; there is no web toggle.
 
 `phone_lab.sportsbook` generates three fictional providers in a 390×844 iPhone
 viewport. It exports PNGs, component/text borders, YOLO labels, typed provider
@@ -177,3 +183,38 @@ scores repeat earlier records and are displayed separately. Missing roles have
 explicit support; background true negatives remain unmeasured. The expanded
 pixel-only detector and any OCR/LLM fine-tuning remain pending; successful report
 generation does not establish training accuracy.
+
+Run separate local team surfaces with the same owned round database:
+
+```sh
+uv run tools/owned_sportsbook.py serve --dataset .local/sportsbook/dataset-1 \
+  --surface blue --arena .local/sportsbook/round-1.sqlite --port 8768
+uv run tools/owned_sportsbook.py serve --dataset .local/sportsbook/dataset-1 \
+  --surface red --arena .local/sportsbook/round-1.sqlite --port 8769
+```
+
+Blue's curator retains provider previews, tags and border overlays. `/arena/`
+shows saved attempts and evaluates the database separately. Red receives
+opaque capture identities, image hashes and PNGs, with no annotation, provider
+preview, report or evaluator routes. Its console can save a manually authored
+observation or an empty/refused attempt. Manual entries verify coordination;
+they do not demonstrate model accuracy. Red's API acknowledges saving only;
+it never returns golden data or a database score.
+
+Attempts preserve actor/parser/model identity, latency, pixel commitment,
+refusals and retry references. Identical submissions replay without duplicating
+history; conflicting replay fails. Another attempt by the same actor on the
+same capture requires an explicit `retry_of`. A refused quote batch rolls back
+all its quote writes while retaining the attempted payload and reason. Older
+updates remain in observation history without replacing newer values. Empty
+and refused attempts count toward expected database coverage. Scoring reopens
+SQLite after submissions commit and stores its attempt snapshot. Current
+scores aggregate the round's saved quotes; use separate round databases for
+candidate comparisons rather than treating aggregate scores as actor scores.
+
+These are separate local interfaces, not authenticated shared hosting.
+Provider-visible behavior logging, the frozen Blue scorer, bounded job controls
+and per-round deployment capabilities are the next infrastructure steps in
+`docs/gantry/Red-Blue Infrastructure and Cleanup Plan.md`. Protect the shared
+Obsidian canvas, all `.canvas` files, `.obsidian/`, red/blue board, research notes
+and linked assets. Cleanup is planned only; no moves or deletions run here.

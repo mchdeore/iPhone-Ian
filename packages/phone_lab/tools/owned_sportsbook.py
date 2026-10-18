@@ -6,7 +6,7 @@ import argparse
 import json
 from pathlib import Path
 
-from phone_lab.sportsbook.app import create_app
+from phone_lab.sportsbook.app import create_app, create_red_app
 from phone_lab.sportsbook.dataset import build_dataset
 from phone_lab.sportsbook.pilot import evaluate_dataset, native_recognizer
 
@@ -27,6 +27,8 @@ def main():
     serve.add_argument("--dataset", required=True, type=Path)
     serve.add_argument("--reports", type=Path)
     serve.add_argument("--port", type=int, default=8768)
+    serve.add_argument("--surface", choices=("blue", "red"), default="blue")
+    serve.add_argument("--arena", type=Path, help="Owned SQLite round shared by the separate local team surfaces")
     args = parser.parse_args()
     if args.command == "generate":
         result = build_dataset(args.output, args.chrome, seeds=json.loads(args.seeds.read_text()) if args.seeds else None)
@@ -40,7 +42,10 @@ def main():
             parser.error("port must be between 1024 and 65535")
         import uvicorn
 
-        uvicorn.run(create_app(args.dataset, reports=args.reports), host="127.0.0.1", port=args.port)
+        if args.surface == "red" and (args.arena is None or args.reports is not None):
+            parser.error("red surface requires --arena and refuses --reports")
+        app = create_red_app(args.dataset, arena=args.arena) if args.surface == "red" else create_app(args.dataset, reports=args.reports, arena=args.arena)
+        uvicorn.run(app, host="127.0.0.1", port=args.port)
 
 
 if __name__ == "__main__":
