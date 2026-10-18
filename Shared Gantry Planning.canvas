@@ -1,0 +1,26 @@
+{
+	"nodes":[
+		{"id":"gantry-2","type":"text","text":"## 2 · Controller\n\n==🟡ETA: 1st of November==\n\n- exposable parameters for software control\n- input filters to smooth and tune movement \n- fixed stable movement range and calibration to fix coordinates across run to isolate for model","x":-480,"y":-573,"width":1000,"height":290},
+		{"id":"gantry-3","type":"text","text":"## 3 · Camera + calibration\n- map camera view to gantry movement plane \n- calibration to help with camera placement sensitivity","x":-480,"y":-202,"width":1000,"height":290},
+		{"id":"gantry-4","type":"text","text":"## 4 · Supervised bring-up\nTest unloaded motion, then an owned phone.\nRequire hardware, calibration and safety checks before physical contact.","x":-480,"y":170,"width":1000,"height":290},
+		{"id":"gantry-1","type":"text","text":"## 1 · Build the gantry\n==🟡ETA: 28th of October==\n\nBaseplate [arrirving soon,], \n\nelectronics [arriving soon], \n\nwebcam [need to order]\n- try and find one at work\n\nphone [need to order]\n- find one on facebook, anything that runs safari works for now\n\n3D print parts [not started]\n- need to design parts, get files and print at work","x":-480,"y":-960,"width":1000,"height":290},
+		{"id":"integration","type":"text","text":"## 5 · Connect vision to gantry\n- map gantry webcam movement to phone borders and map to vision model borders \n- run rl calibration and optimization with phone serving site \n- store blue team data and try to spot compared to human users, go back to the drawing board where needed ","x":-480,"y":640,"width":1000,"height":280},
+		{"id":"89d6bafdc520bb63","type":"text","text":"gantry","x":-480,"y":-1060,"width":1000,"height":50},
+		{"id":"86ea3d020995c15d","type":"text","text":"machine","x":600,"y":-1060,"width":1000,"height":50},
+		{"id":"vision-3","type":"text","text":"## 3 · Train detector + OCR pipeline\n- create loop setup to train","x":600,"y":-202,"width":1000,"height":290},
+		{"id":"vision-2","type":"text","text":"## 2 · Label + split\n- deteministically label all synthetic data on creation \n- define loss function and objectives for ocr model","x":600,"y":-573,"width":1000,"height":290},
+		{"id":"vision-1","type":"text","text":"## 1 · Build tasks + capture data\n- create site to serve\n- expose all red team needed params and store all of blue team info\n- make layout and graph shuffle and bank of icons and pages and layouts to serve synthetic data ","x":600,"y":-956,"width":1000,"height":293},
+		{"id":"vision-4","type":"text","text":"## 4 · Evaluate + export\n- Measure target hits, OCR errors and latency.\n- Compare exported outputs; reserve unseen real-phone data for final validation.\n- quantize and prune model and reiterate on new datasets and refine loss function and bias untill fast and accurate","x":600,"y":170,"width":1000,"height":293},
+		{"id":"30eab6b3f1aaf93a","type":"text","text":"# scheme \n\n- workflow for scraping all sportsbook lines and polymarket and kalshi etc \n- srape event predictions \n- scrape tickets for concerts and sports \n- play poker \n- facebook to ebay flipping \n- esports betting research \n- continue on tennis reserach","x":-1640,"y":-960,"width":1040,"height":290}
+	],
+	"edges":[
+		{"id":"edge-1","fromNode":"gantry-1","fromSide":"bottom","toNode":"gantry-2","toSide":"top"},
+		{"id":"edge-2","fromNode":"gantry-2","fromSide":"bottom","toNode":"gantry-3","toSide":"top"},
+		{"id":"edge-3","fromNode":"gantry-3","fromSide":"bottom","toNode":"gantry-4","toSide":"top"},
+		{"id":"edge-4","fromNode":"vision-1","fromSide":"bottom","toNode":"vision-2","toSide":"top"},
+		{"id":"edge-5","fromNode":"vision-2","fromSide":"bottom","toNode":"vision-3","toSide":"top"},
+		{"id":"edge-6","fromNode":"vision-3","fromSide":"bottom","toNode":"vision-4","toSide":"top"},
+		{"id":"edge-7","fromNode":"gantry-4","fromSide":"bottom","toNode":"integration","toSide":"top"},
+		{"id":"edge-8","fromNode":"vision-4","fromSide":"bottom","toNode":"integration","toSide":"top"}
+	]
+}

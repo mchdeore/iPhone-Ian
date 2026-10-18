@@ -1,0 +1,2438 @@
+{
+  "schema": "gantry-team-research-index/1",
+  "created_at": "2026-10-18T00:44:17.459702-04:00",
+  "policy": "additive index; no source note moved or changed",
+  "notes": [
+    {
+      "path": "research/Cybersecurity/Betting Apps \u2014 Behavioral and Automation Detection.md",
+      "sha256": "f44e9b95f110fbac92c556c8adb2c6dec9dd49a59e80fafe591d318446cef750",
+      "bytes": 14484,
+      "title": "Betting Apps \u2014 Behavioral and Automation Detection",
+      "sections_reviewed": [
+        "04 \u2014 Behavioral & automation detection \u2014 how betting apps profile *how* you tap, and what a tapping robot looks like",
+        "Question",
+        "Key findings",
+        "1. Behavioral biometrics \u2014 the *how*, not the *what*",
+        "2. Bot / automation signals",
+        "3. The ADA / accessibility fairness trap (why \u00a72's accessibility flags are dangerous)",
+        "4. Screen mirroring / recording / remote access",
+        "5. Betting-pattern analytics (account-level, device-independent)",
+        "6. Sportsbooks vs. prediction markets \u2014 opposite stance on bots",
+        "7. How *our* robot / HID rig would look to these systems (conceptual, honest)",
+        "Sources",
+        "Open questions / follow-ups",
+        "Follow-up research (2026-10-07)",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Blue Team",
+          "category": "Provider security, monitoring and context"
+        },
+        {
+          "team": "Blue Team",
+          "category": "Interaction signals and accessibility controls"
+        }
+      ]
+    },
+    {
+      "path": "research/Cybersecurity/Betting Apps \u2014 Detection Vendor and SDK Landscape.md",
+      "sha256": "3327dde5e90e498568219cf7223762e8ddaa98645c9afe5d600e1fc07b203e3a",
+      "bytes": 5102,
+      "title": "Betting Apps \u2014 Detection Vendor and SDK Landscape",
+      "sections_reviewed": [
+        "Betting Apps \u2014 Detection Vendor and SDK Landscape",
+        "The four layers and who sells them",
+        "Method: fill the table from public sources only",
+        "Pitch in (security people)",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Blue Team",
+          "category": "Provider security, monitoring and context"
+        }
+      ]
+    },
+    {
+      "path": "research/Cybersecurity/Betting Apps \u2014 Device Integrity and Attestation.md",
+      "sha256": "cd52cfa32026702fb478b731f7818b91d1a40dedf0a5c2d9cc7e317b99e33772",
+      "bytes": 13552,
+      "title": "Betting Apps \u2014 Device Integrity and Attestation",
+      "sections_reviewed": [
+        "02 \u2014 Device integrity & attestation \u2014 how do iOS betting apps decide a device is trustworthy?",
+        "Question",
+        "Key findings",
+        "1. Why gambling apps care, and the layered model",
+        "2. Apple App Attest \u2014 the cryptographic core `[Documented]`",
+        "3. Assertion \u2014 per-request integrity `[Documented]`",
+        "4. New in iOS 27 \u2014 richer modification signals `[Documented]`",
+        "5. Fraud / risk metric \u2014 the server-to-server receipt `[Documented]`",
+        "6. DeviceCheck \u2014 2 bits per device `[Documented]`",
+        "7. Jailbreak detection \u2014 heuristic signals, not a boundary `[Documented]`/`[Community]`",
+        "8. Simulator & debugger & instrumentation detection `[Documented]`/`[Community]`",
+        "9. RASP / anti-tamper vendors used in gaming & gambling `[Community]`",
+        "10. How signals converge into a server-side risk score",
+        "11. What Apple's platform guarantees \u2014 and what it doesn't `[Documented]`",
+        "Sources",
+        "Open questions / follow-ups",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Blue Team",
+          "category": "Provider security, monitoring and context"
+        }
+      ]
+    },
+    {
+      "path": "research/Cybersecurity/Betting Apps \u2014 Geolocation Compliance.md",
+      "sha256": "e636f27f20542e0651e1e9adef45232d7c84d59dd68c5b1cf87607ffaa19ff29",
+      "bytes": 13326,
+      "title": "Betting Apps \u2014 Geolocation Compliance",
+      "sections_reviewed": [
+        "Geolocation compliance \u2014 how do iOS gambling apps prove you're physically in a legal jurisdiction?",
+        "Question",
+        "Why it's regulated",
+        "Vendors (the compliance layer operators buy, not build)",
+        "How GeoComply's iOS SDK works (high level)",
+        "iOS frameworks involved (Core Location)",
+        "VPN / proxy / remote-desktop detection (conceptual)",
+        "Failure modes legitimate players hit",
+        "Sources",
+        "Open questions / follow-ups",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Blue Team",
+          "category": "Provider security, monitoring and context"
+        }
+      ]
+    },
+    {
+      "path": "research/Cybersecurity/Betting Apps \u2014 Physical-Agent Red Team and Detection Hardening.md",
+      "sha256": "6e0545e51e450d55dc0bb3adfff93343a5148d3e31b9193a330c97f57762585e",
+      "bytes": 14263,
+      "title": "Betting Apps \u2014 Physical-Agent Red Team and Detection Hardening",
+      "sections_reviewed": [
+        "Betting Apps \u2014 Physical-Agent Red Team and Detection Hardening",
+        "1. Threat actor we\u2019re modeling",
+        "2. How the robot would be built (architecture)",
+        "3. Detection stack today \u2014 what each layer sees",
+        "4. Why detection has holes (root causes)",
+        "4.1 Wrong threat model in product requirements",
+        "4.2 Client-only signals are observable to the adversary",
+        "4.3 IMU channel underused",
+        "4.4 Accessibility as a shortcut",
+        "4.5 Account limits are the real control \u2014 but late",
+        "4.6 Venue split",
+        "5. What still burns the operator (even with a \u201cperfect\u201d touch mimic)",
+        "6. Blue-team proposals \u2014 what should change for safer operators",
+        "6.1 Adopt an explicit \u201cphysical automation\u201d threat in the model",
+        "6.2 Touch + IMU attestation at interaction time",
+        "6.3 Stop standalone accessibility blocks",
+        "6.4 Server-side session integrity",
+        "6.5 Instrument the vendor gap",
+        "6.6 Account-level controls earlier in the funnel",
+        "6.7 Integrity of the automation *you* allow",
+        "6.8 Operator security culture",
+        "7. Detection maturity model (summary table)",
+        "8. Research backlog (our team)",
+        "9. One-paragraph \u201cpitch to the company\u201d",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Blue Team",
+          "category": "Provider security, monitoring and context"
+        },
+        {
+          "team": "Blue Team",
+          "category": "Interaction signals and accessibility controls"
+        }
+      ]
+    },
+    {
+      "path": "research/Cybersecurity/Betting Apps \u2014 Regulatory and Responsible Gambling.md",
+      "sha256": "513cd7dda9002495266589724153b50208ac44db2c717a79f8157f97600a27d5",
+      "bytes": 14966,
+      "title": "Betting Apps \u2014 Regulatory and Responsible Gambling",
+      "sections_reviewed": [
+        "Regulatory & responsible-gambling layer \u2014 why iOS betting apps run the detection stack",
+        "Question",
+        "Key findings",
+        "Apple App Store Review Guideline 5.3 \u2014 the gatekeeper",
+        "Google Play contrast (brief)",
+        "US state regulators & GLI lab standards",
+        "UK \u2014 UKGC Remote Technical Standards (RTS) + affordability",
+        "AML / KYC",
+        "Responsible-gambling detection",
+        "CFTC prediction markets vs sportsbooks",
+        "How the rules map to the sibling technical checks",
+        "Sources",
+        "Open questions / follow-ups",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Blue Team",
+          "category": "Provider security, monitoring and context"
+        }
+      ]
+    },
+    {
+      "path": "research/Cybersecurity/Infra \u2014 Exposing a Windows Host and Low-Latency Streaming.md",
+      "sha256": "f60c37bb04e3f4418792e5da7d11a8d27e276d393b0db7a8798c57d91979126c",
+      "bytes": 12232,
+      "title": "Infra \u2014 Exposing a Windows Host and Low-Latency Streaming",
+      "sections_reviewed": [
+        "14 \u2014 Exposing a Windows robot host + low-latency streaming",
+        "Question",
+        "TL;DR \u2014 you probably don't need a public port",
+        "Option comparison",
+        "Never expose these (fail-closed)",
+        "Streaming transport",
+        "Backpressure (drop old frames)",
+        "Running it 24/7 on Windows",
+        "Default architecture \u2014 exact steps",
+        "Key takeaways",
+        "Sources",
+        "Open questions / follow-ups",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Operations, isolation and reliability"
+        }
+      ]
+    },
+    {
+      "path": "research/Cybersecurity/Poker Platforms \u2014 RTA Bot and Solver Detection.md",
+      "sha256": "af4572e0cdf60ca013837480366f40e15a19c9d7f436f764f26cf124716eb3fa",
+      "bytes": 9220,
+      "title": "Poker Platforms \u2014 RTA Bot and Solver Detection",
+      "sections_reviewed": [
+        "Poker Platforms \u2014 RTA Bot and Solver Detection",
+        "1. Threat taxonomy (what platforms ban)",
+        "2. Detection layers",
+        "2.1 Client integrity (desktop-first; mobile growing)",
+        "2.2 Behavioral analytics on **decisions** (main weapon)",
+        "2.3 RTA-specific partnerships",
+        "2.4 Human review and community",
+        "2.5 Account graph (parallel to sportsbooks)",
+        "3. What **doesn\u2019t** work as primary poker bot defense",
+        "4. Attacker capability vs detector (conceptual)",
+        "5. Blue-team recommendations (operator / vendor)",
+        "6. Links to our ML/math work",
+        "Open questions / follow-ups",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Blue Team",
+          "category": "Provider security, monitoring and context"
+        }
+      ]
+    },
+    {
+      "path": "research/Cybersecurity/Security \u2014 Prompt Injection and Pop-up Attacks on GUI Agents.md",
+      "sha256": "db6e07a8c91b0e76e76862d5c1cd09376b8fee4c6870b33c60b8cd329c7a3397",
+      "bytes": 3810,
+      "title": "Security \u2014 Prompt Injection and Pop-up Attacks on GUI Agents",
+      "sections_reviewed": [
+        "Security \u2014 Prompt Injection and Pop-up Attacks on GUI Agents",
+        "The evidence",
+        "Attack surface on our rig",
+        "Defences (layered)",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Blue Team",
+          "category": "Provider security, monitoring and context"
+        },
+        {
+          "team": "Red Team",
+          "category": "Vision, OCR and workflow planning"
+        }
+      ]
+    },
+    {
+      "path": "research/Cybersecurity/Security \u2014 STRIDE Threat Model for the Phone Rig.md",
+      "sha256": "2f16501541dc21223f207af450222cbe9681d8dfe9586117cb4c1cce6dd3883a",
+      "bytes": 4192,
+      "title": "Security \u2014 STRIDE Threat Model for the Phone Rig",
+      "sections_reviewed": [
+        "Security \u2014 STRIDE Threat Model for the Phone Rig",
+        "Method",
+        "Data flows (v2 baseline)",
+        "STRIDE table",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Blue Team",
+          "category": "Provider security, monitoring and context"
+        }
+      ]
+    },
+    {
+      "path": "research/Cybersecurity/Security \u2014 Secrets and Key Management for Bots and Rigs.md",
+      "sha256": "90c52d7c69024e0e272fe90885dec2d1cea8f3f1ec2d711cc39ea51974128cbf",
+      "bytes": 3870,
+      "title": "Security \u2014 Secrets and Key Management for Bots and Rigs",
+      "sections_reviewed": [
+        "Security \u2014 Secrets and Key Management for Bots and Rigs",
+        "Layers",
+        "Key classes and where they live",
+        "Logging hygiene",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Operations, isolation and reliability"
+        }
+      ]
+    },
+    {
+      "path": "research/Cybersecurity/State of \u2014 Cybersecurity.md",
+      "sha256": "3c743f5487cf512ce32a1b0921bc9deaf6675e814a45126f8e26d4b1893391dd",
+      "bytes": 4343,
+      "title": "State of \u2014 Cybersecurity",
+      "sections_reviewed": [
+        "State of \u2014 Cybersecurity",
+        "Current best answers",
+        "Decisions made",
+        "Where sources disagree or we're unsure",
+        "Open questions",
+        "Next actions",
+        "Changelog",
+        "Other summaries"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Research overviews"
+        }
+      ]
+    },
+    {
+      "path": "research/Cybersecurity/iOS \u2014 Face ID, Autofill and 2FA Constraints.md",
+      "sha256": "49c3fe9a33737fb4441d83340edcfdbd008fd259f33c5a300befac5171ce59d4",
+      "bytes": 5374,
+      "title": "iOS \u2014 Face ID, Autofill and 2FA Constraints",
+      "sections_reviewed": [
+        "iOS control constraints \u2014 Face ID, autofill, accessibility",
+        "Question",
+        "Key findings",
+        "Face ID / biometrics: robot never triggers them",
+        "Autofill: can help or hinder",
+        "Accessibility features: mostly a risk",
+        "Stylus vs finger: identical to the touchscreen",
+        "App login landscape (2025-2026)",
+        "Open questions / follow-ups",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Blue Team",
+          "category": "Provider security, monitoring and context"
+        }
+      ]
+    },
+    {
+      "path": "research/ML and Sports Markets/Analysis \u2014 Prediction Market Calibration (Literature Tables).md",
+      "sha256": "dc6f66a0500a50ee4fec0bc48f4d6e240e3075048776c7f3ebe47581845fa894",
+      "bytes": 3887,
+      "title": "Analysis \u2014 Prediction Market Calibration (Literature Tables)",
+      "sections_reviewed": [
+        "Analysis \u2014 Prediction Market Calibration (Literature Tables)",
+        "Pandas registry",
+        "Benchmark table (curated from sources)",
+        "What this means for our graph / strategy",
+        "Reproduce / extend literature rows",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Sportsbook fixtures, market context and evaluation"
+        }
+      ]
+    },
+    {
+      "path": "research/ML and Sports Markets/Markets \u2014 Backtesting Without Fooling Yourself.md",
+      "sha256": "2982911cbfb8834d3affbb41398e9aa11b0ebb4aa58a1de917befa21dc274cd1",
+      "bytes": 4428,
+      "title": "Markets \u2014 Backtesting Without Fooling Yourself",
+      "sections_reviewed": [
+        "Markets \u2014 Backtesting Without Fooling Yourself",
+        "Data sources",
+        "Leakage checklist (tennis-specific)",
+        "Validation design",
+        "Metrics",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Sportsbook fixtures, market context and evaluation"
+        }
+      ]
+    },
+    {
+      "path": "research/ML and Sports Markets/Markets \u2014 Calibration Beats Accuracy for Betting Models.md",
+      "sha256": "5eb6658b0dbc9ea937c3ed978f2729db44da95ee62c7c24277c9c453f52ddcfd",
+      "bytes": 3514,
+      "title": "Markets \u2014 Calibration Beats Accuracy for Betting Models",
+      "sections_reviewed": [
+        "Markets \u2014 Calibration Beats Accuracy for Betting Models",
+        "Why accuracy misleads",
+        "What to measure",
+        "Calibration where it matters",
+        "Recalibration toolbox",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Sportsbook fixtures, market context and evaluation"
+        }
+      ]
+    },
+    {
+      "path": "research/ML and Sports Markets/Markets \u2014 Conformal Prediction and Edge Uncertainty.md",
+      "sha256": "9779a8de7f629dbb5491596a0251e3945fba5cc30da9fbc4f9a2e0d57aecbc84",
+      "bytes": 3190,
+      "title": "Markets \u2014 Conformal Prediction and Edge Uncertainty",
+      "sections_reviewed": [
+        "Markets \u2014 Conformal Prediction and Edge Uncertainty",
+        "The guarantee",
+        "Conformal Kelly (2026 preprint)",
+        "Three uses, from safest",
+        "Caveat: exchangeability",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Sportsbook fixtures, market context and evaluation"
+        }
+      ]
+    },
+    {
+      "path": "research/ML and Sports Markets/Markets \u2014 Cross-Venue Prices - Polymarket, Kalshi and Betfair.md",
+      "sha256": "f5c0fcd38ec957feb64ee7fed8a374500a00b5f8b5f122cd8e5d577291805bff",
+      "bytes": 3793,
+      "title": "Markets \u2014 Cross-Venue Prices - Polymarket, Kalshi and Betfair",
+      "sections_reviewed": [
+        "Markets \u2014 Cross-Venue Prices: Polymarket, Kalshi and Betfair",
+        "Gaps and why they persist",
+        "Why \"arb\" isn't riskless",
+        "Using cross-venue data for the tennis fade",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Sportsbook fixtures, market context and evaluation"
+        }
+      ]
+    },
+    {
+      "path": "research/ML and Sports Markets/Markets \u2014 Efficiency and Biases in Sports and Prediction Markets.md",
+      "sha256": "31a1d525c391ccde4a8256f45602e3c6404b70f214566e87c00dce9f9992f25e",
+      "bytes": 4163,
+      "title": "Markets \u2014 Efficiency and Biases in Sports and Prediction Markets",
+      "sections_reviewed": [
+        "Markets \u2014 Efficiency and Biases in Sports and Prediction Markets",
+        "Documented biases",
+        "Where edges survive (and where they don't)",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Sportsbook fixtures, market context and evaluation"
+        }
+      ]
+    },
+    {
+      "path": "research/ML and Sports Markets/Markets \u2014 In-Play Entry, Exit and Sequential Decisions.md",
+      "sha256": "62d94cc3ecc11948bc22b941cb7061c47ad1f264bf22982bb26165d17657036b",
+      "bytes": 4099,
+      "title": "Markets \u2014 In-Play Entry, Exit and Sequential Decisions",
+      "sections_reviewed": [
+        "Markets \u2014 In-Play Entry, Exit and Sequential Decisions",
+        "Two ways to monetise the fade",
+        "Decision structure",
+        "Simulators for learning policies safely",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Sportsbook fixtures, market context and evaluation"
+        }
+      ]
+    },
+    {
+      "path": "research/ML and Sports Markets/Markets \u2014 Kelly Sizing Under Model Uncertainty.md",
+      "sha256": "8e6196a5abdb43fcc083dc5774f8987ea0e8ab2f1039ce391eb93fac9a912b26",
+      "bytes": 3787,
+      "title": "Markets \u2014 Kelly Sizing Under Model Uncertainty",
+      "sections_reviewed": [
+        "Markets \u2014 Kelly Sizing Under Model Uncertainty",
+        "The formula",
+        "Why estimated p over-bets",
+        "A practical recipe",
+        "Interplay with account limits",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Sportsbook fixtures, market context and evaluation"
+        }
+      ]
+    },
+    {
+      "path": "research/ML and Sports Markets/Markets \u2014 Legal Status of Prediction Markets (US and Canada, Oct 2026).md",
+      "sha256": "1f26455ad0650bd777b4ca4bd141f93509d6a00a4419c5ef88d4174a817d9bda",
+      "bytes": 5263,
+      "title": "Markets \u2014 Legal Status of Prediction Markets (US and Canada, Oct 2026)",
+      "sections_reviewed": [
+        "Markets \u2014 Legal Status of Prediction Markets (US and Canada, Oct 2026)",
+        "Canada",
+        "United States",
+        "What this changes for the research",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Sportsbook fixtures, market context and evaluation"
+        }
+      ]
+    },
+    {
+      "path": "research/ML and Sports Markets/Markets \u2014 Market Making in Binary Contracts (Avellaneda-Stoikov).md",
+      "sha256": "2176bec0aa54eeab4f305d07e7c91f7597ec73abc51b177099983c2f3ea8a2b6",
+      "bytes": 3982,
+      "title": "Markets \u2014 Market Making in Binary Contracts (Avellaneda-Stoikov)",
+      "sections_reviewed": [
+        "Markets \u2014 Market Making in Binary Contracts (Avellaneda-Stoikov)",
+        "Classical AS in one paragraph",
+        "Why binary contracts break it",
+        "The Polymarket adaptation (Comillas thesis)",
+        "For in-play tennis",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Sportsbook fixtures, market context and evaluation"
+        }
+      ]
+    },
+    {
+      "path": "research/ML and Sports Markets/Markets \u2014 Model plus Market - Blending and the Benter Test.md",
+      "sha256": "3a5972cb32ad1b5eb665b069d4f8dd36a1fd1b93600f4f92ea060a955f4e6b7c",
+      "bytes": 3724,
+      "title": "Markets \u2014 Model plus Market - Blending and the Benter Test",
+      "sections_reviewed": [
+        "Markets \u2014 Model plus Market: Blending and the Benter Test",
+        "The Benter second stage",
+        "Other blending methods",
+        "The residual model for tennis in-play",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Sportsbook fixtures, market context and evaluation"
+        }
+      ]
+    },
+    {
+      "path": "research/ML and Sports Markets/Markets \u2014 Point Importance and Leverage in Tennis.md",
+      "sha256": "b0e5c5696b46af2c7ffb86492a07b35ccf527b57435758043668102ac12b5150",
+      "bytes": 3543,
+      "title": "Markets \u2014 Point Importance and Leverage in Tennis",
+      "sections_reviewed": [
+        "Markets \u2014 Point Importance and Leverage in Tennis",
+        "Definition",
+        "What the research says",
+        "How to use it",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Sportsbook fixtures, market context and evaluation"
+        }
+      ]
+    },
+    {
+      "path": "research/ML and Sports Markets/Markets \u2014 Polymarket Order Book, Fees and Execution.md",
+      "sha256": "68ddbd88583d11a512cbbaff9cb2f720ecba362a88d9eca99e07bb3b2ed3af7f",
+      "bytes": 4380,
+      "title": "Markets \u2014 Polymarket Order Book, Fees and Execution",
+      "sections_reviewed": [
+        "Markets \u2014 Polymarket Order Book, Fees and Execution",
+        "Mechanics",
+        "Fees (2026, and they change, so read them live)",
+        "What this means for the tennis fade",
+        "Liquidity reality check",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Sportsbook fixtures, market context and evaluation"
+        }
+      ]
+    },
+    {
+      "path": "research/ML and Sports Markets/Markets \u2014 Resolution and Oracle Risk on Polymarket (UMA).md",
+      "sha256": "06688924b113c40d2620f9aabbae4efdf0df04753379f21bbbfdc285351da634",
+      "bytes": 3851,
+      "title": "Markets \u2014 Resolution and Oracle Risk on Polymarket (UMA)",
+      "sections_reviewed": [
+        "Markets \u2014 Resolution and Oracle Risk on Polymarket (UMA)",
+        "How settlement works",
+        "Documented failure modes",
+        "Cross-venue contrast",
+        "Tennis-specific checks (do before trading any market)",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Sportsbook fixtures, market context and evaluation"
+        }
+      ]
+    },
+    {
+      "path": "research/ML and Sports Markets/State of \u2014 ML and Sports Markets.md",
+      "sha256": "348936da64193729fc4ad7ce75987607b4656c7a101994e9b9cce2aa2f71b974",
+      "bytes": 4161,
+      "title": "State of \u2014 ML and Sports Markets",
+      "sections_reviewed": [
+        "State of \u2014 ML and Sports Markets",
+        "Current best answers",
+        "Decisions made",
+        "Where sources disagree or we're unsure",
+        "Open questions",
+        "Next actions",
+        "Changelog",
+        "Other summaries"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Research overviews"
+        }
+      ]
+    },
+    {
+      "path": "research/Machine Learning/Agents \u2014 Architecture and Perception Loop.md",
+      "sha256": "21fbf1a5d67ecc2f125da0c389d979ab194d000b3ff0659d9c4279c4737dfc15",
+      "bytes": 2692,
+      "title": "Agents \u2014 Architecture and Perception Loop",
+      "sections_reviewed": [
+        "AI agent architecture \u2014 perception\u2192planning\u2192action loop",
+        "Question",
+        "Key findings",
+        "droidrun / mobilerun \u2014 closest existing software analog",
+        "Architecture for our physical agent",
+        "Key references (full details in )",
+        "Open questions / follow-ups",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Vision, OCR and workflow planning"
+        }
+      ]
+    },
+    {
+      "path": "research/Machine Learning/Agents \u2014 VLM GUI Agents and Vision Grounding Survey.md",
+      "sha256": "379eaf38e3504b5e0614983e5797a002a52d7bc1a3ec3be3253161015edd1e0c",
+      "bytes": 5306,
+      "title": "Agents \u2014 VLM GUI Agents and Vision Grounding Survey",
+      "sections_reviewed": [
+        "VLM GUI agents & vision grounding \u2014 literature survey",
+        "Question",
+        "Key findings",
+        "Mobile GUI agents \u2014 major projects",
+        "Vision grounding \u2014 how agents locate what to tap",
+        "Physical robot phone agents \u2014 almost no prior work",
+        "Prompting vs fine-tuning",
+        "Architecture design for our agent",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Vision, OCR and workflow planning"
+        }
+      ]
+    },
+    {
+      "path": "research/Machine Learning/Behavioral Biometrics \u2014 Datasets and Bot-Detection Baselines.md",
+      "sha256": "7f9ba324558f2f64d5474e2497240782ee005625a254463309a77975296ccf4d",
+      "bytes": 5104,
+      "title": "Behavioral Biometrics \u2014 Datasets and Bot-Detection Baselines",
+      "sections_reviewed": [
+        "Behavioral Biometrics \u2014 Datasets and Bot-Detection Baselines",
+        "Datasets",
+        "Published human-vs-bot detectors",
+        "Proposed work: detectability benchmark",
+        "Pitch in (ML people)",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Blue Team",
+          "category": "Interaction signals and accessibility controls"
+        },
+        {
+          "team": "Shared",
+          "category": "Evaluation and data quality"
+        }
+      ]
+    },
+    {
+      "path": "research/Machine Learning/OCR \u2014 Engines for Phone Screens.md",
+      "sha256": "dfc1653ae55cd939db8de8e86ce8cf678a29c0b7a663971952b0f6b7968da460",
+      "bytes": 3457,
+      "title": "OCR \u2014 Engines for Phone Screens",
+      "sections_reviewed": [
+        "OCR \u2014 Engines for Phone Screens",
+        "What benchmarks say (none on UI screenshots)",
+        "Phone-UI specifics",
+        "Evaluation plan",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Vision, OCR and workflow planning"
+        }
+      ]
+    },
+    {
+      "path": "research/Machine Learning/State of \u2014 Machine Learning.md",
+      "sha256": "c9e62b7c4bca65e62898a69aeed62db1d3632d7f8864deeba5c3d5bd6a53d8ca",
+      "bytes": 3823,
+      "title": "State of \u2014 Machine Learning",
+      "sections_reviewed": [
+        "State of \u2014 Machine Learning",
+        "Current best answers",
+        "Decisions made",
+        "Where sources disagree or we're unsure",
+        "Open questions",
+        "Next actions",
+        "Changelog",
+        "Other summaries"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Research overviews"
+        }
+      ]
+    },
+    {
+      "path": "research/Machine Learning/Training \u2014 QLoRA Fine-Tuning a Small VLM on 12 GB.md",
+      "sha256": "c424c13052927931bd1591dfa57121b7f45e23ef32f105898d24acd747810f7d",
+      "bytes": 3472,
+      "title": "Training \u2014 QLoRA Fine-Tuning a Small VLM on 12 GB",
+      "sections_reviewed": [
+        "Training \u2014 QLoRA Fine-Tuning a Small VLM on 12 GB",
+        "What the sources support",
+        "Recipe to try (in order of memory relief)",
+        "Data format",
+        "Evaluate like ScreenSpot",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Future training and optimization \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/Machine Learning/YOLO/State of \u2014 YOLO.md",
+      "sha256": "687be2f46b5938d05d8095bea99dd8ce86750787ff65cb39c9c6cf8589ad0d39",
+      "bytes": 3979,
+      "title": "State of \u2014 YOLO",
+      "sections_reviewed": [
+        "State of \u2014 YOLO",
+        "Current best answers",
+        "Decisions made",
+        "Where sources disagree or we're unsure",
+        "Open questions",
+        "Next actions",
+        "Changelog",
+        "Other summaries"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Research overviews"
+        }
+      ]
+    },
+    {
+      "path": "research/Machine Learning/YOLO/YOLO \u2014 Detection Grouping and Class Taxonomy.md",
+      "sha256": "3f2ad4f8b529839197f2f8d425b52666567c4a07cd3a56800bd32f254977bc56",
+      "bytes": 10772,
+      "title": "YOLO \u2014 Detection Grouping and Class Taxonomy",
+      "sections_reviewed": [
+        "09 \u2014 Grouping methods (taxonomy, structure, data splits, compression)",
+        "Q1: How many classes \u2014 few coarse vs many fine?",
+        "Q2: YOLO + a second stage for fine identity",
+        "Q3: Recommended class list for iPhone-Ian v1",
+        "Q4: Grouping detections into higher-level UI structure",
+        "Q5: Grouping training data \u2014 splits, sampling, dedup",
+        "Q6: Group-wise compression (brief)",
+        "Key takeaways",
+        "Sources",
+        "Open questions / follow-ups",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Future training and optimization \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/Machine Learning/YOLO/YOLO \u2014 Efficient Dataset Recipe.md",
+      "sha256": "8f17798bdb3e3e12584891837b347df46c43a8bdb66f3947ac3ff357835d8cec",
+      "bytes": 7998,
+      "title": "YOLO \u2014 Efficient Dataset Recipe",
+      "sections_reviewed": [
+        "01 \u2014 What makes an efficient YOLO training set",
+        "Q: How many images and instances per class?",
+        "Q: How much does label quality matter, and what's our risk?",
+        "Q: What diversity matters when filming a screen?",
+        "Q: Background images and class balance?",
+        "Q: How do we split without leakage?",
+        "Q: What `imgsz` for small UI icons?",
+        "Q: Which augmentations to keep vs disable?",
+        "Q: Pretrained or scratch? Which model size?",
+        "Q: Epochs and early stopping?",
+        "Q: Active learning / diminishing returns?",
+        "Q: Is \"reinforcement YOLO\" a thing?",
+        "Recommended minimal recipe",
+        "Key takeaways",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Future training and optimization \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/Machine Learning/YOLO/YOLO \u2014 Efficient Training Strategy.md",
+      "sha256": "dc8a195fe9ddeffe8cd868b289987598fec6845ebc0d9b582e5fa8d5bb65fd99",
+      "bytes": 12688,
+      "title": "YOLO \u2014 Efficient Training Strategy",
+      "sections_reviewed": [
+        "12 \u2014 Quickest-to-train, minimal-overhead training strategy",
+        "Question",
+        "Bottom line (the lazy path)",
+        "Transfer learning \u2014 COCO nano vs a UI-pretrained model",
+        "The knobs that actually move wall-clock",
+        "Curriculum and re-training",
+        "How many images for \"usable\" (~10 UI classes)",
+        "Wall-clock \u2014 16 GB CPU box vs free Colab T4",
+        "Step-by-step plan (commands + est. hours)",
+        "What NOT to do",
+        "Sources",
+        "Open questions / follow-ups",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Future training and optimization \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/Machine Learning/YOLO/YOLO \u2014 Flask Closed-Loop Trainer App.md",
+      "sha256": "841d12efa94aa97226811b7a5634d70ae37ef55435d468c8df9e68a0efe38303",
+      "bytes": 11190,
+      "title": "YOLO \u2014 Flask Closed-Loop Trainer App",
+      "sections_reviewed": [
+        "06 \u2014 Flask trainer app: the closed-loop flash app",
+        "Q: Flask vs Flask-SocketIO vs plain WebSocket/SSE?",
+        "Q: Capturing touch in mobile Safari (+ hiding chrome)?",
+        "Q: Flash-to-capture timing for an *action*?",
+        "Q: Episode schema (JSONL) + YOLO labels?",
+        "Q: How does the score drive mining / active learning?",
+        "Q: Honest note \u2014 is any of this RL?",
+        "Endpoint list + ~40-line Flask skeleton (stdlib SSE, no SocketIO)",
+        "Constraints tie-in",
+        "Key takeaways",
+        "Sources",
+        "Open questions / follow-ups",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Future training and optimization \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/Machine Learning/YOLO/YOLO \u2014 Knowledge Distillation.md",
+      "sha256": "c2b219eeea0e7ffbe6831936ca01a91c999ada38b9bcbf1d390ce1f3ee1b51ba",
+      "bytes": 11041,
+      "title": "YOLO \u2014 Knowledge Distillation",
+      "sections_reviewed": [
+        "10 \u2014 Knowledge distillation on low-VRAM / CPU-only hardware",
+        "Question",
+        "TL;DR decision",
+        "Part 1 \u2014 Detection KD methods (what the literature offers)",
+        "Part 2 \u2014 Tooling that actually works with Ultralytics YOLO in 2026",
+        "Part 3 \u2014 Memory cost, and the offline trick",
+        "Part 4 \u2014 The cheap alternative: pseudo-labeling (recommended)",
+        "Decision + minimum-overhead recipe (16 GB CPU-only box)",
+        "Key takeaways",
+        "Sources",
+        "Open questions / follow-ups",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Future training and optimization \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/Machine Learning/YOLO/YOLO \u2014 Other Optimization Techniques.md",
+      "sha256": "3f8fb99941fdb91979e6e4b35e217106c8bd046649b22186f6bd91371f520421",
+      "bytes": 10613,
+      "title": "YOLO \u2014 Other Optimization Techniques",
+      "sections_reviewed": [
+        "08 \u2014 Other ways to optimize YOLO (variant, runtime, pipeline)",
+        "Question",
+        "Ranked: inference / deployment optimizations",
+        "Variant comparison (why not RT-DETR)",
+        "Training-side speedups (CPU-only, \u226416 GB RAM)",
+        "Impact \u00f7 effort summary (do these first)",
+        "Sources",
+        "Open questions / follow-ups",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Future training and optimization \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/Machine Learning/YOLO/YOLO \u2014 Pruning.md",
+      "sha256": "aadde866d41f17b838cd89b49a945f1e2790e7d70251c7aaec782619e7c32fdd",
+      "bytes": 10581,
+      "title": "YOLO \u2014 Pruning",
+      "sections_reviewed": [
+        "07 \u2014 Pruning YOLO \u2014 does it beat just picking a smaller model?",
+        "Question",
+        "Verdict (short)",
+        "Key findings",
+        "Structured vs unstructured \u2014 only structured speeds up CPU/edge",
+        "Measured results",
+        "Criteria (how to pick what to cut)",
+        "prune \u2192 fine-tune cycle",
+        "Tools (status 2026)",
+        "Pitfalls specific to YOLO",
+        "Why this project is the rare \"pruning could help\" case \u2014 but still shouldn't bother",
+        "Sources",
+        "Open questions / follow-ups",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Future training and optimization \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/Machine Learning/YOLO/YOLO \u2014 Quantization by Hardware.md",
+      "sha256": "16ecc421386ac8b6ac596afd7fd0baa6b88cde87be5c1ba8cab17ecc116039d7",
+      "bytes": 9657,
+      "title": "YOLO \u2014 Quantization by Hardware",
+      "sections_reviewed": [
+        "11 \u2014 Quantization formats by hardware and task",
+        "Q: What runs where? (the matrix)",
+        "Q: What does each precision actually cost?",
+        "Q: Which setup for each iPhone-Ian task?",
+        "Key takeaways",
+        "Sources",
+        "Open questions / follow-ups",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Future training and optimization \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/Machine Learning/YOLO/YOLO \u2014 Quantization.md",
+      "sha256": "faf389890b4780ad820a99f64676d4f5e326beb4d0300b8b6eeeffc60206f3d7",
+      "bytes": 9433,
+      "title": "YOLO \u2014 Quantization",
+      "sections_reviewed": [
+        "05 \u2014 Quantizing YOLO weights for low-VRAM / CPU deployment",
+        "Question",
+        "FP16 vs INT8 vs INT4",
+        "PTQ vs QAT",
+        "Calibration \u2014 use flash-app captures",
+        "Per-channel vs per-tensor, and sensitive layers",
+        "Measured accuracy drops (COCO mAP50-95)",
+        "Commands",
+        "Ultralytics \u2265 v8.4.80 unified `quantize` (replaces half=/int8=, still supported)",
+        "onnx / tflite / ncnn also accept quantize=16|8 data=; mixed: quantize=\"w8a16\"",
+        "ONNX Runtime static PTQ (full control: per-channel, exclude head, calib method)",
+        "Minimal recipe",
+        "Key takeaways",
+        "Sources",
+        "Open questions / follow-ups",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Future training and optimization \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/Machine Learning/YOLO/YOLO \u2014 Synthetic Data and Flash Training App.md",
+      "sha256": "5f82d316d611c79fb6492d8e5799ef085b3282e480debe2a0f998793e45b1f7c",
+      "bytes": 8886,
+      "title": "YOLO \u2014 Synthetic Data and Flash Training App",
+      "sections_reviewed": [
+        "02 \u2014 Synthetic data and the \"flash training app\"",
+        "Part 1 \u2014 Synthetic data for detection",
+        "Q: Does synthetic/randomized data transfer to the real world?",
+        "Q: What's the cheapest way to generate synthetic detection data?",
+        "Q: How much real data must be mixed in?",
+        "Q: What tooling exists for richer synthesis?",
+        "Q: Is there precedent for GUI-specific datasets?",
+        "Part 2 \u2014 Designing the flash app",
+        "Architecture",
+        "Capture loop (pseudocode)",
+        "Q: CSS px vs physical px (devicePixelRatio)?",
+        "Q: Safari viewport / safe-area pitfalls?",
+        "Q: How to sync displayed frame and camera capture?",
+        "Q: What should be randomized?",
+        "Q: How to handle glare and moir\u00e9?",
+        "Part 3 \u2014 Pitfalls",
+        "Key takeaways",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Future training and optimization \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/Machine Learning/YOLO/YOLO \u2014 Training Hardware and Capture Rig.md",
+      "sha256": "c8b49f6ade6da48aef5a96144ac4103d483551a72e7fd5e1a46486304523b905",
+      "bytes": 5540,
+      "title": "YOLO \u2014 Training Hardware and Capture Rig",
+      "sections_reviewed": [
+        "03 \u2014 Hardware for YOLO training and the capture rig",
+        "Q: What is the bare minimum hardware?",
+        "Q: What factors most contribute to suitability? (ranked)",
+        "Q: What are the least limiting components?",
+        "Three tiers (YOLO11n/s, ~2\u20135k images @640, est.)",
+        "Key takeaways",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Future training and optimization \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/Machine Learning/YOLO/YOLO \u2014 Training on Different Hardware.md",
+      "sha256": "ac7ad46617746be96b08581ef6be65bc2a23335e151e341f06263b5fffe7abfc",
+      "bytes": 9964,
+      "title": "YOLO \u2014 Training on Different Hardware",
+      "sections_reviewed": [
+        "04 \u2014 Training YOLO on different hardware",
+        "The args that actually move memory & speed",
+        "Per-device playbook",
+        "CPU thread tuning `[Community]`",
+        "NVIDIA low-VRAM extras `[Documented]`/`[Community]` (markaicode, Jun 2026)",
+        "Verdict \u2014 is a 16 GB CPU-only box a viable training server?",
+        "Windows / remote-training note",
+        "Key takeaways",
+        "Sources",
+        "Open questions / follow-ups",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Future training and optimization \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/Math/Game Theory \u2014 Bluff Frequencies Regimes and How Players Learn Them.md",
+      "sha256": "bf22a8e3fa82e7db85674a91f8481b02c036cbada794b24ff789b0a6d444654b",
+      "bytes": 9704,
+      "title": "Game Theory \u2014 Bluff Frequencies Regimes and How Players Learn Them",
+      "sections_reviewed": [
+        "Game Theory \u2014 Bluff Frequencies, Regimes, and How Players Learn Them",
+        "1. What a \u201cregime\u201d means",
+        "2. How people actually learn bluff rates",
+        "Stage A \u2014 Closed-form intuition (no software)",
+        "Stage B \u2014 Solver libraries (offline, hours of compute)",
+        "Stage C \u2014 GTO trainers (gamified drills)",
+        "Stage D \u2014 Population stats on the platform (exploit layer)",
+        "Stage E \u2014 Hand-history review",
+        "3. Machine learning \u2014 what is actually used",
+        "3.1 Computing GTO bluff rates (equilibrium engines)",
+        "3.2 Exploitative / assistant tools (player-side)",
+        "3.3 Platform detection ML (operator-side)",
+        "4. \u201cRegimes on certain platforms\u201d \u2014 practical map",
+        "5. Research connections for our team",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Adversarial experiments and game theory"
+        }
+      ]
+    },
+    {
+      "path": "research/Math/Game Theory \u2014 Bookmakers, Bettors and Market Makers as Games.md",
+      "sha256": "9808f13dcc95c76092d7eef85837ed0866fe48607367e8cdc17982fe033a1ebd",
+      "bytes": 4014,
+      "title": "Game Theory \u2014 Bookmakers, Bettors and Market Makers as Games",
+      "sections_reviewed": [
+        "Game Theory \u2014 Bookmakers, Bettors and Market Makers as Games",
+        "Levitt's puzzle and answer",
+        "Adverse selection (Glosten\u2013Milgrom, background)",
+        "Three games in the betting ecosystem",
+        "Research directions",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Adversarial experiments and game theory"
+        }
+      ]
+    },
+    {
+      "path": "research/Math/Game Theory \u2014 Counterfactual Regret Minimization (CFR).md",
+      "sha256": "25a8fd761dd67d8de8032528c056f69a18e58e548caecefbcb6a4012cd1d3775",
+      "bytes": 4207,
+      "title": "Game Theory \u2014 Counterfactual Regret Minimization (CFR)",
+      "sections_reviewed": [
+        "Game Theory \u2014 Counterfactual Regret Minimization (CFR)",
+        "The algorithm in plain terms",
+        "Variants",
+        "Connection to RL and our other work",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Adversarial experiments and game theory"
+        }
+      ]
+    },
+    {
+      "path": "research/Math/Game Theory \u2014 Foundations for Sports, Poker and Markets.md",
+      "sha256": "e1598f4c01536531d7bf66e727566e3487d709773a77f9c9265f3e8d08631afe",
+      "bytes": 3701,
+      "title": "Game Theory \u2014 Foundations for Sports, Poker and Markets",
+      "sections_reviewed": [
+        "Game Theory \u2014 Foundations for Sports, Poker and Markets",
+        "Core concepts",
+        "Worked micro-example: the 2\u00d72 serve game",
+        "Why the group should care",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Adversarial experiments and game theory"
+        }
+      ]
+    },
+    {
+      "path": "research/Math/Game Theory \u2014 Fourth Down and Coaching Decisions.md",
+      "sha256": "b024feba78e958d7f81f5ca7151583c6aec0895bff84b2507c2028c080dab901",
+      "bytes": 3527,
+      "title": "Game Theory \u2014 Fourth Down and Coaching Decisions",
+      "sections_reviewed": [
+        "Game Theory \u2014 Fourth Down and Coaching Decisions",
+        "Romer's method",
+        "Findings",
+        "Where game theory comes in",
+        "Transfer to tennis and markets",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Adversarial experiments and game theory"
+        }
+      ]
+    },
+    {
+      "path": "research/Math/Game Theory \u2014 GTO vs Exploitative Play (Poker and Markets).md",
+      "sha256": "a5d1489614566105680eb61d760f764b0f88452352192a01551b9ad64f83f2ea",
+      "bytes": 3948,
+      "title": "Game Theory \u2014 GTO vs Exploitative Play (Poker and Markets)",
+      "sections_reviewed": [
+        "Game Theory \u2014 GTO vs Exploitative Play (Poker and Markets)",
+        "Concepts",
+        "Mapping to markets",
+        "Sports application",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Adversarial experiments and game theory"
+        }
+      ]
+    },
+    {
+      "path": "research/Math/Game Theory \u2014 Mixed Strategies in Sports (Serves and Penalties).md",
+      "sha256": "07672f8be81a551af1fdd759c9eb250ea08d2fd520ca6c11fc43256aaa205f6c",
+      "bytes": 4191,
+      "title": "Game Theory \u2014 Mixed Strategies in Sports (Serves and Penalties)",
+      "sections_reviewed": [
+        "Game Theory \u2014 Mixed Strategies in Sports (Serves and Penalties)",
+        "Two testable predictions of minimax",
+        "Tennis serves",
+        "Soccer penalties",
+        "How we use this",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Adversarial experiments and game theory"
+        }
+      ]
+    },
+    {
+      "path": "research/Math/Game Theory \u2014 Poker AI Milestones (Cepheus to Pluribus).md",
+      "sha256": "d6c1300f0054c62bbbe5aeb3eb08b07a78777f82cecc2f692b463b45fa879cc4",
+      "bytes": 4422,
+      "title": "Game Theory \u2014 Poker AI Milestones (Cepheus to Pluribus)",
+      "sections_reviewed": [
+        "Game Theory \u2014 Poker AI Milestones (Cepheus to Pluribus)",
+        "Timeline",
+        "Lessons for us",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Adversarial experiments and game theory"
+        }
+      ]
+    },
+    {
+      "path": "research/Math/Game Theory \u2014 Real-Time Poker Under Personal Compute and Time Banks.md",
+      "sha256": "b341fa7a407fc54efd943210e713f4af23933c939b27f9cbe68fbc0672871364",
+      "bytes": 8487,
+      "title": "Game Theory \u2014 Real-Time Poker Under Personal Compute and Time Banks",
+      "sections_reviewed": [
+        "Game Theory \u2014 Real-Time Poker Under Personal Compute and Time Banks",
+        "1. What \u201climited time\u201d actually means",
+        "2. Why brute-force CFR on NLHE fails locally",
+        "3. The workable stack (blueprint + bounded search)",
+        "3.1 Abstraction (do this first)",
+        "3.2 Where to spend live compute",
+        "3.3 Anytime algorithms",
+        "3.4 Exploitation under budget ([[Game Theory \u2014 GTO vs Exploitative Play (Poker and Markets)]])",
+        "4. ML on a personal GPU (optional layer)",
+        "5. Latency budget for **our** phone + gantry loop",
+        "6. Implementation checklist (repo-friendly)",
+        "7. What this does *not* solve",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Adversarial experiments and game theory"
+        }
+      ]
+    },
+    {
+      "path": "research/Math/State of \u2014 Math.md",
+      "sha256": "31d58282e5c9f7fce7164a86295f5c6d00092c0e64052503075f7fad16b6b915",
+      "bytes": 3709,
+      "title": "State of \u2014 Math",
+      "sections_reviewed": [
+        "State of \u2014 Math",
+        "Current best answers",
+        "Cross-links worth knowing",
+        "Open questions",
+        "Next actions",
+        "Changelog",
+        "Other summaries"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Adversarial experiments and game theory"
+        }
+      ]
+    },
+    {
+      "path": "research/RL and Simple Robots/RL \u2014 Bandits and Bayesian Optimisation for Hardware Tuning.md",
+      "sha256": "9ce610d860f80333ef2ae42c27358784a3428e169439d7de1fa0d53d67604fb1",
+      "bytes": 3177,
+      "title": "RL \u2014 Bandits and Bayesian Optimisation for Hardware Tuning",
+      "sections_reviewed": [
+        "RL \u2014 Bandits and Bayesian Optimisation for Hardware Tuning",
+        "Why not RL here",
+        "The toolkit",
+        "Objective design for tap tuning",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Navigation, imitation and RL research \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/RL and Simple Robots/RL \u2014 Emulator-First Training and Sim-to-Real for the Rig.md",
+      "sha256": "3e5b782be81daef4e4777fefeb335a10b4bcb4e6fafe9f3c12a56d0d64faee1e",
+      "bytes": 3726,
+      "title": "RL \u2014 Emulator-First Training and Sim-to-Real for the Rig",
+      "sections_reviewed": [
+        "RL \u2014 Emulator-First Training and Sim-to-Real for the Rig",
+        "Gap 1: visual (screenshot \u2192 camera)",
+        "Gap 2: action (perfect tap \u2192 gantry tap)",
+        "When you *do* need a physics simulator (other robots in the group)",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Navigation, imitation and RL research \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/RL and Simple Robots/RL \u2014 GRPO in Practice on Small GPUs.md",
+      "sha256": "8c30fad2913e28251660bf63f54b687c948fdae29659f3cb345ec862cb687fe7",
+      "bytes": 3509,
+      "title": "RL \u2014 GRPO in Practice on Small GPUs",
+      "sections_reviewed": [
+        "RL \u2014 GRPO in Practice on Small GPUs",
+        "How GRPO works",
+        "Running it",
+        "GUI-specific design",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Navigation, imitation and RL research \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/RL and Simple Robots/RL \u2014 Imitation Learning from Logged Taps (BC, ACT, LeRobot).md",
+      "sha256": "c02fd78f9ce96c6a4dadd148a01339211b6db0b3bd451fbc143ba80aeca195cf",
+      "bytes": 3289,
+      "title": "RL \u2014 Imitation Learning from Logged Taps (BC, ACT, LeRobot)",
+      "sections_reviewed": [
+        "RL \u2014 Imitation Learning from Logged Taps (BC, ACT, LeRobot)",
+        "Methods, from cheapest up",
+        "Why LeRobot's format",
+        "Data quality beats data quantity",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Navigation, imitation and RL research \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/RL and Simple Robots/RL \u2014 Offline RL from Logged Episodes (IQL, CQL, AWR).md",
+      "sha256": "db1878292479db5435160ca825850f3032f247e301a6242669e7b9c3799502e2",
+      "bytes": 3482,
+      "title": "RL \u2014 Offline RL from Logged Episodes (IQL, CQL, AWR)",
+      "sections_reviewed": [
+        "RL \u2014 Offline RL from Logged Episodes (IQL, CQL, AWR)",
+        "The core problem",
+        "Fit for our data",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Navigation, imitation and RL research \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/RL and Simple Robots/RL \u2014 Real-World Training Loop on the Gantry (Resets, Safety, HIL-SERL).md",
+      "sha256": "224b804240f50aff758e8d5292141822e1a0c1e545afdf71563e351c9905b199",
+      "bytes": 3661,
+      "title": "RL \u2014 Real-World Training Loop on the Gantry (Resets, Safety, HIL-SERL)",
+      "sections_reviewed": [
+        "RL \u2014 Real-World Training Loop on the Gantry (Resets, Safety, HIL-SERL)",
+        "Throughput math",
+        "HIL-SERL: the real-world RL template",
+        "Resets (our advantage)",
+        "Safety envelope (non-negotiable)",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Navigation, imitation and RL research \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/RL and Simple Robots/RL \u2014 Rewards and Success Detection from the Screen.md",
+      "sha256": "4c46bdc8a1fddaf522425f234d4818192b996cee0c53eab11ea73ff51dbdcb05",
+      "bytes": 4151,
+      "title": "RL \u2014 Rewards and Success Detection from the Screen",
+      "sections_reviewed": [
+        "RL \u2014 Rewards and Success Detection from the Screen",
+        "What goes wrong",
+        "The reward ladder for our rig (best first)",
+        "Honest metric (keep it outside the loop)",
+        "Security angle",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Navigation, imitation and RL research \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/RL and Simple Robots/RL \u2014 Self-Generated Tasks and Curricula for GUI Agents.md",
+      "sha256": "05c18a96569497b2022f990b9659f9041ee5b79acc24913517962da219de5137",
+      "bytes": 3024,
+      "title": "RL \u2014 Self-Generated Tasks and Curricula for GUI Agents",
+      "sections_reviewed": [
+        "RL \u2014 Self-Generated Tasks and Curricula for GUI Agents",
+        "ZeroGUI in brief",
+        "Related idea: reverse synthesis",
+        "Curriculum design for our pipeline",
+        "Risks",
+        "Pitch in",
+        "Sources"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Navigation, imitation and RL research \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/RL and Simple Robots/RL \u2014 Training GUI Agents with RL (DigiRL to MobileRL).md",
+      "sha256": "de2a0a98fd82a0243f8e374e1d9ba9c03196a795597f24d7cca494e77889a7cd",
+      "bytes": 4651,
+      "title": "RL \u2014 Training GUI Agents with RL (DigiRL to MobileRL)",
+      "sections_reviewed": [
+        "RL \u2014 Training GUI Agents with RL (DigiRL to MobileRL)",
+        "The main results",
+        "A recipe at our scale (RTX 3060 12 GB, later a 4090)",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Navigation, imitation and RL research \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/RL and Simple Robots/RL \u2014 Where RL Helps a Gantry Robot (and Where It Doesn't).md",
+      "sha256": "20dd6d290fe753ea098a00dd4f72762364c9c076995e166dff3c23c413d1e5e4",
+      "bytes": 3922,
+      "title": "RL \u2014 Where RL Helps a Gantry Robot (and Where It Doesn't)",
+      "sections_reviewed": [
+        "RL \u2014 Where RL Helps a Gantry Robot (and Where It Doesn't)",
+        "The four layers",
+        "Rules of thumb",
+        "What to build first",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Navigation, imitation and RL research \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/RL and Simple Robots/Simple Robots \u2014 Cheap Platforms to Practise RL On.md",
+      "sha256": "1dc9c7b98d4901c45c3b3c88c7ee8f3ce52fb32fbf68342d4cc1f64e68f6d133",
+      "bytes": 3464,
+      "title": "Simple Robots \u2014 Cheap Platforms to Practise RL On",
+      "sections_reviewed": [
+        "Simple Robots \u2014 Cheap Platforms to Practise RL On",
+        "Options",
+        "Suggested group plan",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Navigation, imitation and RL research \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/RL and Simple Robots/Simple Robots \u2014 Sim-to-Real Walking for Cheap Bipeds.md",
+      "sha256": "26f7351994e5f16548604424b1e268c17a64d31f0eb49cf35bf6e593b97f2677",
+      "bytes": 3188,
+      "title": "Simple Robots \u2014 Sim-to-Real Walking for Cheap Bipeds",
+      "sections_reviewed": [
+        "Simple Robots \u2014 Sim-to-Real Walking for Cheap Bipeds",
+        "Open Duck Mini",
+        "Microduck pipeline (the most detailed write-up)",
+        "MuJoCo Playground",
+        "The sim-to-real checklist (applies to any cheap robot)",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Navigation, imitation and RL research \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/RL and Simple Robots/State of \u2014 RL and Simple Robots.md",
+      "sha256": "57a899b27f416b3da1ef428b68d32439c6b9fddf397333dc2700d753715db0ea",
+      "bytes": 3421,
+      "title": "State of \u2014 RL and Simple Robots",
+      "sections_reviewed": [
+        "State of \u2014 RL and Simple Robots",
+        "Current best answers",
+        "Decisions made",
+        "Where sources disagree or we're unsure",
+        "Open questions",
+        "Next actions",
+        "Changelog",
+        "Other summaries"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Navigation, imitation and RL research \u2014 held"
+        }
+      ]
+    },
+    {
+      "path": "research/Robotics/Android Control Survey (Legacy).md",
+      "sha256": "751127cfafa0fcec3113bd21cd63e879dcb59eedeab1a2d69bc25e7500a34b28",
+      "bytes": 88040,
+      "title": "Android Control Survey (Legacy)",
+      "sections_reviewed": [
+        "Part 1 \u2014 Software/USB Control Mechanisms",
+        "1.1 Background: how Android dispatches input, and why Android 13 changed things",
+        "1.2 ADB (`adb shell input`)",
+        "1.3 Android `InputManager` / `injectInputEvent` (direct API)",
+        "1.4 Android Accessibility Services (`dispatchGesture`)",
+        "1.5 UIAutomator / UIAutomator2",
+        "1.6 Appium (UiAutomator2 / Espresso drivers)",
+        "1.7 minicap / minitouch (OpenSTF-era tools)",
+        "1.8 scrcpy (control protocol, not just mirroring)",
+        "1.9 USB HID gadget mode \u2014 companion device (Raspberry Pi/microcontroller) as USB host emulating keyboard/mouse",
+        "1.10 Bluetooth HID",
+        "1.11 Android Instrumentation & Espresso",
+        "1.12 droidrun / mobilerun and other LLM-agent-driven automation frameworks",
+        "1.13 Maestro",
+        "1.14 Raw `/dev/input` injection via `sendevent` (root)",
+        "Part 2 \u2014 Observability & Detectability (Defensive)",
+        "2.1 Event-source metadata: `MotionEvent`, `InputDevice`, tool type",
+        "2.2 `isUserAMonkey()` / `isUserAGoat()`",
+        "2.3 `AccessibilityManager` \u2014 observability of accessibility-based control",
+        "2.4 USB debugging authorization as an observable/auditable footprint",
+        "2.5 Certificate/signing differences for instrumented/test builds",
+        "2.6 Timing/jitter characteristics \u2014 human vs. synthetic input",
+        "2.7 Summary table of observability by method",
+        "Part 3 \u2014 Physical Touchscreen Actuator Hardware",
+        "3.1 How capacitive touchscreens actually detect touch",
+        "3.2 DIY/hobbyist actuator approaches",
+        "3.3 Multi-touch feasibility for DIY builds",
+        "3.4 Coordinate accuracy achievable",
+        "3.5 Do screen protectors interfere?",
+        "3.6 Do modern phone characteristics (thinner glass, edge-to-edge, curved screens) make this harder?",
+        "3.7 Phone modification needed?",
+        "3.8 Realistic DIY cost (tens to few hundred dollars)",
+        "Part 4 \u2014 Comparison Table & Rankings",
+        "4.1 Comparison table",
+        "4.2 Rankings",
+        "Sources",
+        "Official/AOSP documentation",
+        "scrcpy (Genymobile)",
+        "UI automation frameworks",
+        "minicap/minitouch and OpenSTF",
+        "LLM-agent Android automation",
+        "ADB / input injection internals",
+        "USB/Bluetooth HID",
+        "Detectability / anti-automation (defensive)",
+        "Touchscreen physics",
+        "Physical actuator / DIY hardware projects",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Gantry, capture and physical input"
+        }
+      ]
+    },
+    {
+      "path": "research/Robotics/Gantry \u2014 Capacitive Touch Physics and Architecture.md",
+      "sha256": "15b2e55b344ded7a69e1d4f60d4f6eab09407d2bff8f746ec82ba44eb4d5adaf",
+      "bytes": 5785,
+      "title": "Gantry \u2014 Capacitive Touch Physics and Architecture",
+      "sections_reviewed": [
+        "Mechanical architecture: touch physics, gantry vs delta, grounding",
+        "Question",
+        "Key findings",
+        "How capacitive touch works",
+        "Architecture comparison",
+        "Coordinate accuracy",
+        "Does modern phone hardware make this harder?",
+        "Screen protector interference",
+        "Stylus tip materials",
+        "Grounding: universal pattern",
+        "No phone modification required",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Gantry, capture and physical input"
+        }
+      ]
+    },
+    {
+      "path": "research/Robotics/Gantry \u2014 FluidNC Control Interface (Jogging, Soft Limits, Realtime).md",
+      "sha256": "aea8fd036c47e1eeaecbe758d1e19d93e014db78d360a5b12e8788cba982ea3a",
+      "bytes": 3866,
+      "title": "Gantry \u2014 FluidNC Control Interface (Jogging, Soft Limits, Realtime)",
+      "sections_reviewed": [
+        "Gantry \u2014 FluidNC Control Interface (Jogging, Soft Limits, Realtime)",
+        "Command set the agent needs",
+        "Soft limits: the lessons others hit",
+        "Connections",
+        "Host-side driver sketch",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Gantry, capture and physical input"
+        }
+      ]
+    },
+    {
+      "path": "research/Robotics/Gantry \u2014 XY Builds and Microcontroller Choice.md",
+      "sha256": "67cd86245e3cdf48fe7f2403f388b144c60006ed31157f08eee982d6d194cb37",
+      "bytes": 5755,
+      "title": "Gantry \u2014 XY Builds and Microcontroller Choice",
+      "sections_reviewed": [
+        "XY gantry, CoreXY & microcontroller \u2014 phone-tapping builds",
+        "Question",
+        "Key findings",
+        "XY gantry / CoreXY for touchscreen automation",
+        "Instructables \"Screen Tapping Robot\" deep dive",
+        "Microcontroller: Arduino Uno + CNC Shield V3 is the answer",
+        "GRBL approach benefits",
+        "Instructables robot used Raspberry Pi \u2014 why we shouldn't",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Gantry, capture and physical input"
+        }
+      ]
+    },
+    {
+      "path": "research/Robotics/Prior Art \u2014 Touchscreen Robots and Software Agents.md",
+      "sha256": "72bf912fe07527ca631d6e679308c7026952d75d6b066cb70fab376383c7e84f",
+      "bytes": 3701,
+      "title": "Prior Art \u2014 Touchscreen Robots and Software Agents",
+      "sections_reviewed": [
+        "Prior art: touchscreen robots & software agents",
+        "Question",
+        "Key findings",
+        "Commercial touchscreen robots",
+        "DIY builds (most relevant to us)",
+        "Software agents (reference only \u2014 doesn't work for iPhone)",
+        "Gaps filled (2026-10-05)",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Gantry, capture and physical input"
+        }
+      ]
+    },
+    {
+      "path": "research/Robotics/Rig \u2014 Camera-to-Screen Calibration with ChArUco.md",
+      "sha256": "00da33c83690e3f3e5a04c7f47e11855508c8ee39a95373f3b5573068b792259",
+      "bytes": 3506,
+      "title": "Rig \u2014 Camera-to-Screen Calibration with ChArUco",
+      "sections_reviewed": [
+        "Rig \u2014 Camera-to-Screen Calibration with ChArUco",
+        "Why ChArUco",
+        "Procedure",
+        "Pitfalls (from OpenCV docs and an independent evaluation)",
+        "Accuracy budget",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Gantry, capture and physical input"
+        }
+      ]
+    },
+    {
+      "path": "research/Robotics/Rig \u2014 iPhone Screen Capture Paths (USB, AirPlay, Multi-Phone).md",
+      "sha256": "d135132086b8fed864a70f96ef2f2da6a895a5b30e85d9fe708e91bfe4b368ab",
+      "bytes": 3775,
+      "title": "Rig \u2014 iPhone Screen Capture Paths (USB, AirPlay, Multi-Phone)",
+      "sections_reviewed": [
+        "Rig \u2014 iPhone Screen Capture Paths (USB, AirPlay, Multi-Phone)",
+        "Options",
+        "Detectability and security",
+        "Test plan (answers Aria's \u00a77 Q1)",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Gantry, capture and physical input"
+        }
+      ]
+    },
+    {
+      "path": "research/Robotics/State of \u2014 Robotics.md",
+      "sha256": "76e13f2563cd22f600149e6638a303605af910e8f942e429a4b412927f517e7f",
+      "bytes": 3742,
+      "title": "State of \u2014 Robotics",
+      "sections_reviewed": [
+        "State of \u2014 Robotics",
+        "Current best answers",
+        "Decisions made",
+        "Where sources disagree or we're unsure",
+        "Open questions",
+        "Next actions",
+        "Changelog",
+        "Other summaries"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Gantry, capture and physical input"
+        }
+      ]
+    },
+    {
+      "path": "research/Robotics/Touch Telemetry \u2014 Measuring What the Rig Emits.md",
+      "sha256": "9cd8fb845ec13e68922d87a7d93766de4b358b37cfb946fe598ffe154fc5996b",
+      "bytes": 4361,
+      "title": "Touch Telemetry \u2014 Measuring What the Rig Emits",
+      "sections_reviewed": [
+        "Touch Telemetry \u2014 Measuring What the Rig Emits",
+        "What to log (per event, CSV)",
+        "Test matrix",
+        "Metrics",
+        "Ground rules",
+        "Pitch in (robotics people)",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Gantry, capture and physical input"
+        },
+        {
+          "team": "Blue Team",
+          "category": "Interaction signals and accessibility controls"
+        }
+      ]
+    },
+    {
+      "path": "research/Robotics/iOS Control \u2014 Alternative Accessibility Input Paths.md",
+      "sha256": "e83986b04fa50f0e43e046e6d9cdb4280d20039d303b54a434351a76f3b4fb09",
+      "bytes": 12689,
+      "title": "iOS Control \u2014 Alternative Accessibility Input Paths",
+      "sections_reviewed": [
+        "04 \u2014 Alternative accessibility input paths & the actuator decision",
+        "Question",
+        "Key findings",
+        "1. Full Keyboard Access (FKA) \u2014 a hardware keyboard drives the whole UI `[Documented]`",
+        "2. Switch Control \u2014 scanning selection from one or more switches `[Documented]`",
+        "3. Voice Control \u2014 spoken commands + an on-screen number/grid overlay `[Documented]`",
+        "4. AssistiveTouch pointer (recap of 13 \u00a78, for the matrix) `[Documented]`",
+        "5. Shortcuts app + Back Tap \u2014 narrow, not a general surface `[Documented]`",
+        "6. Guided Access \u2014 containment, not input `[Documented]`",
+        "7. Detection surface \u2014 what an app can see `[Documented]`",
+        "8. VoiceOver conflict (note 07) \u2014 the one hard incompatibility `[Documented]`",
+        "9. Is a Settings toggle a \"modification\"? (charter premise)",
+        "10. Decision matrix & recommendation",
+        "Sources",
+        "Open questions / follow-ups",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Gantry, capture and physical input"
+        },
+        {
+          "team": "Blue Team",
+          "category": "Interaction signals and accessibility controls"
+        }
+      ]
+    },
+    {
+      "path": "research/Robotics/iOS Control \u2014 AssistiveTouch Pointer Mechanics.md",
+      "sha256": "c49dd4bd480c98434ae226224ae08eee238101aa247ba21e3bf37bb4db564b36",
+      "bytes": 13908,
+      "title": "iOS Control \u2014 AssistiveTouch Pointer Mechanics",
+      "sections_reviewed": [
+        "01 \u2014 AssistiveTouch pointer mechanics (iOS 13\u219226), in depth",
+        "Question",
+        "Key findings",
+        "1. Enablement \u2014 a one-time on-device toggle, and it persists",
+        "2. The pointer itself \u2014 a grey disc, and acceleration you can't kill",
+        "3. Clicking, dwell, drag, long-press, scroll",
+        "4. Button \u2192 action mapping (the lever for the robot)",
+        "5. AssistiveTouch menu & reachable system gestures",
+        "6. Custom Gestures \u2014 recorded, repositionable multi-touch macros",
+        "7. Lock screen, passcode, Face ID",
+        "8. App observability \u2014 and the limit of it",
+        "Implications for iPhone-Ian",
+        "Sources",
+        "Open questions / follow-ups",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Gantry, capture and physical input"
+        },
+        {
+          "team": "Blue Team",
+          "category": "Interaction signals and accessibility controls"
+        }
+      ]
+    },
+    {
+      "path": "research/Robotics/iOS Control \u2014 Exposing Device Controls to the Agent.md",
+      "sha256": "34a0ebdf6c8a21e5e2cd57f3b96f8de45ebc87da975e2e4c0c67f2ac112240b3",
+      "bytes": 12138,
+      "title": "iOS Control \u2014 Exposing Device Controls to the Agent",
+      "sections_reviewed": [
+        "13 \u2014 Exposing device controls to the model/agent",
+        "Question",
+        "Key findings",
+        "1. The field has converged on a tiny action vocabulary",
+        "2. Proposed action API (backend-agnostic \u2014 this is the deliverable)",
+        "3. Coordinate pipeline \u2014 two independent homographies",
+        "4. GRBL motion backend over serial `[Documented]`",
+        "5. Tool-calling / MCP exposure",
+        "6. Safety",
+        "7. Feedback / verification",
+        "8. Software-side alternative \u2014 drive a STOCK iPhone with NO gantry",
+        "Sources",
+        "Open questions / follow-ups",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Gantry, capture and physical input"
+        }
+      ]
+    },
+    {
+      "path": "research/Robotics/iOS Control \u2014 Raspberry Pi HID Input Converter.md",
+      "sha256": "6082c3677c7291c9c3351494f439166696d3db3d4017bd258ea0361ef5084f08",
+      "bytes": 12734,
+      "title": "iOS Control \u2014 Raspberry Pi HID Input Converter",
+      "sections_reviewed": [
+        "15 \u2014 Raspberry Pi \"input converter\" between host and device",
+        "Question",
+        "TL;DR recommendation (lazy senior-dev)",
+        "The decisive constraint: iOS pointers are RELATIVE only `[Documented]`",
+        "Option 1 \u2014 Pi as network\u2192serial bridge to GRBL",
+        "Option 2 \u2014 Pi / ESP32 as USB HID gadget to the iPhone",
+        "Option 3 \u2014 Bluetooth HID (no cable to the phone)",
+        "Option 4 \u2014 reuse existing projects",
+        "Latency, power, connectors",
+        "Calibration: dead-reckoning a relative cursor",
+        "Recommended BOM + minimal software stack",
+        "Key takeaways",
+        "Sources",
+        "Open questions / follow-ups",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Gantry, capture and physical input"
+        }
+      ]
+    },
+    {
+      "path": "research/Robotics/iOS Control \u2014 Relative Cursor Calibration and Visual Servoing.md",
+      "sha256": "6ed94497af5329560c6a7cd83a88453a1a99884294fb90cbd75cfea8f330b719",
+      "bytes": 12330,
+      "title": "iOS Control \u2014 Relative Cursor Calibration and Visual Servoing",
+      "sections_reviewed": [
+        "03 \u2014 Closed-loop cursor control with a RELATIVE-only iOS pointer",
+        "Question",
+        "Key findings",
+        "1. The core problem: relative pointer + hidden, accelerated mapping",
+        "2. iOS tuning: flatten, don't disable (you cannot fully disable it)",
+        "3. Method A \u2014 Corner/edge reset (homing a relative pointer) `[Community]`",
+        "4. Method B \u2014 Linearize the acceleration curve (calibrate px-per-unit) `[Benchmark]`-plan",
+        "5. Method C \u2014 Camera visual-servoing (the robust path) `[Community]`",
+        "6. Prior art & KVM-over-IP relative-mode lessons",
+        "7. Latency & accuracy per tap vs the gantry `[Benchmark]`-estimate (not yet benched on our rig)",
+        "Sources",
+        "Open questions / follow-ups",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Red Team",
+          "category": "Gantry, capture and physical input"
+        }
+      ]
+    },
+    {
+      "path": "research/Sports Analytics/Analysis \u2014 EPL Poisson Model and Benter Holdout.md",
+      "sha256": "d2ac9b40c91155d193cc244eca113f76514b2e75ecea33b95b20a59cd8b64ea8",
+      "bytes": 3841,
+      "title": "Analysis \u2014 EPL Poisson Model and Benter Holdout",
+      "sections_reviewed": [
+        "Analysis \u2014 EPL Poisson Model and Benter Holdout",
+        "Reproduce",
+        "Benter (fit 2223\u20132324, n=760 home outcomes)",
+        "Holdout 2425 (380 matches) \u2014 home win only",
+        "Calibration by edge (Poisson \u2212 close, holdout, bets with edge \u22653pp)",
+        "Implications for tennis / Polymarket work",
+        "Pitch in",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Sportsbook fixtures, market context and evaluation"
+        }
+      ]
+    },
+    {
+      "path": "research/Sports Analytics/Analysis \u2014 Premier League Closing-Odds Calibration.md",
+      "sha256": "110503fef6318b441ac3724d8f320dacc2573112c5a1741195f998ef0ef089fe",
+      "bytes": 3133,
+      "title": "Analysis \u2014 Premier League Closing-Odds Calibration",
+      "sections_reviewed": [
+        "Analysis \u2014 Premier League Closing-Odds Calibration",
+        "How to refresh",
+        "Global scores (reproduced 2026-10-08)",
+        "Favourite vs underdog (closing line, per match)",
+        "Reliability by implied-probability bin",
+        "Pitch in",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Sportsbook fixtures, market context and evaluation"
+        }
+      ]
+    },
+    {
+      "path": "research/Sports Analytics/Betting \u2014 Account-Level Behavior Models.md",
+      "sha256": "d2f753eade4d30af6b8ecba8e9169cd8bffbe2b3c6045b1590ded26c463fa0d7",
+      "bytes": 4760,
+      "title": "Betting \u2014 Account-Level Behavior Models",
+      "sections_reviewed": [
+        "Betting \u2014 Account-Level Behavior Models",
+        "1. Risk profiling: winners get limited",
+        "2. Harm detection: required by regulators",
+        "3. Open data for modeling",
+        "Pitch in (sports analytics people)",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Blue Team",
+          "category": "Synthetic financial and account workloads"
+        }
+      ]
+    },
+    {
+      "path": "research/Sports Analytics/Data \u2014 Open Sports Datasets Beyond Tennis.md",
+      "sha256": "89da9aa8725982714d2bcf9327b53bc7780a5453eda4783d7667cb794072dd21",
+      "bytes": 3498,
+      "title": "Data \u2014 Open Sports Datasets Beyond Tennis",
+      "sections_reviewed": [
+        "Data \u2014 Open Sports Datasets Beyond Tennis",
+        "Sources by sport",
+        "A practice project for newcomers",
+        "CV crossover",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Sportsbook fixtures, market context and evaluation"
+        }
+      ]
+    },
+    {
+      "path": "research/Sports Analytics/State of \u2014 Sports Analytics.md",
+      "sha256": "735bc736ff1c1910d07b6a40821e3746e43de173f5204ddb9935f8baf6f03186",
+      "bytes": 3569,
+      "title": "State of \u2014 Sports Analytics",
+      "sections_reviewed": [
+        "State of \u2014 Sports Analytics",
+        "Current best answers",
+        "Decisions made",
+        "Where sources disagree or we're unsure",
+        "Open questions",
+        "Next actions",
+        "Changelog",
+        "Other summaries"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Research overviews"
+        }
+      ]
+    },
+    {
+      "path": "research/Sports Analytics/Tennis \u2014 In-Play Market Research.md",
+      "sha256": "c0bf1686affb8a33ad07bcbb7a0f71c67f503585c194a76ee0d7dc643c4b2d05",
+      "bytes": 13452,
+      "title": "Tennis \u2014 In-Play Market Research",
+      "sections_reviewed": [
+        "Freddy Kruger \u2014 Tennis In-Play Research & Checklist",
+        "1. The core inefficiency (why this market, quantified)",
+        "2. How tennis win-probability models are built (the prior)",
+        "3. What tennis data/stats are tracked",
+        "4. Strategy-mapping \u2014 USE / DON'T USE each approach we discussed",
+        "5. The creative-tech frontier (what makes this YOURS, ranked by value \u00d7 feasibility)",
+        "6. RESEARCH CHECKLIST",
+        "A. Validate the core inefficiency (make-or-break, do first)",
+        "B. Build the prior (the fair-value model)",
+        "C. Data pipeline",
+        "D. Creative signal R&D (the fun part \u2014 prove each adds lift over the pure model)",
+        "E. Strategy & risk",
+        "F. Creative moonshots to scope (if the base works)",
+        "7. Why this is the right creative project",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Sportsbook fixtures, market context and evaluation"
+        }
+      ]
+    },
+    {
+      "path": "research/Sports Analytics/Tennis \u2014 Player and Matchup Modeling.md",
+      "sha256": "d336cca896076201af2f7fcbe9a3f21a9f55e4039fd76e2243fca01dc9e473ac",
+      "bytes": 28949,
+      "title": "Tennis \u2014 Player and Matchup Modeling",
+      "sections_reviewed": [
+        "Freddy Kruger \u2014 Player & Matchup Modeling Notes",
+        "0. The one-paragraph mental model",
+        "1. The stat taxonomy \u2014 everything players/analysts track",
+        "1a. The single most predictive stat: Dominance Ratio (DR) **[PRIOR]**",
+        "1b. Serve stats",
+        "1c. Return stats",
+        "1d. Pressure / clutch stats **[SIGNAL] [FILTER]**",
+        "1e. Rally / shot-quality stats",
+        "1f. Noise (market reacts, we resist)",
+        "2. What separates elite from average \u2014 and best-in-category from great",
+        "2a. Serve \u2014 best-in-category",
+        "2b. Return \u2014 best-in-category **[interesting, novel-signal-adjacent]**",
+        "2c. Movement \u2014 best-in-category",
+        "2d. Mental / clutch \u2014 best-in-category",
+        "2e. Consistency (the underrated one)",
+        "3. Why some matchups are lopsided and others a formality",
+        "3a. The lefty effect (the cleanest, most modelable interaction)",
+        "3b. Head-to-head persistence beyond ranking",
+        "3c. Stylistic rock-paper-scissors",
+        "3d. Surface as a matchup modifier (huge) **[PRIOR] [FILTER]**",
+        "4. Variance vs. Fatigue \u2014 the two player fingerprints (the heart of the fade)",
+        "4a. Shot-placement variance as a player trait **[PRIOR][FILTER]**",
+        "4b. Stamina / fatigue-resistance as a player trait **[PRIOR][FILTER]**",
+        "4c. Live variance vs. live fatigue \u2014 the in-match discriminator **[SIGNAL]**",
+        "4d. Modifiers that scale the fatigue drift",
+        "4e. Why this framing is powerful",
+        "5. New modeling ideas this session surfaced (ranked by edge \u00d7 feasibility)",
+        "6. Factor triage \u2014 model / risk / research (avoiding the \"too many factors\" trap)",
+        "7. Open questions to chase next session",
+        "Sources (this session)",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Sportsbook fixtures, market context and evaluation"
+        }
+      ]
+    },
+    {
+      "path": "research/System Design/State of \u2014 System Design.md",
+      "sha256": "5db4e1b3d404d1e64aec74535faea199014b5e82c5dd729b4aba1219f5bec1e3",
+      "bytes": 3536,
+      "title": "State of \u2014 System Design",
+      "sections_reviewed": [
+        "State of \u2014 System Design",
+        "Current best answers",
+        "Decisions made",
+        "Where sources disagree or we're unsure",
+        "Open questions",
+        "Next actions",
+        "Changelog",
+        "Other summaries"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Operations, isolation and reliability"
+        },
+        {
+          "team": "Red Team",
+          "category": "Vision, OCR and workflow planning"
+        }
+      ]
+    },
+    {
+      "path": "research/System Design/System Design \u2014 Bare-Minimum iPhone Setup (MVP).md",
+      "sha256": "3ed79cc26d24bcc2419ac9da1f51f3500154dfe2b9b6f348559f7152d88aab2f",
+      "bytes": 4540,
+      "title": "System Design \u2014 Bare-Minimum iPhone Setup (MVP)",
+      "sections_reviewed": [
+        "System Design \u2014 Bare-Minimum iPhone Setup (MVP)",
+        "Bill of materials, two tiers",
+        "Phone prep checklist",
+        "Software, minimum viable (in this order)",
+        "Day-by-day",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Operations, isolation and reliability"
+        },
+        {
+          "team": "Red Team",
+          "category": "Vision, OCR and workflow planning"
+        }
+      ]
+    },
+    {
+      "path": "research/System Design/System Design \u2014 Card-Playing Gantry Rig Architecture.md",
+      "sha256": "b5b238186f2f093cb75f03614beb614dea81b50c7a68988cd9cb93e5698eead7",
+      "bytes": 4684,
+      "title": "System Design \u2014 Card-Playing Gantry Rig Architecture",
+      "sections_reviewed": [
+        "System Design \u2014 Card-Playing Gantry Rig Architecture",
+        "The loop",
+        "Interfaces (keep them typed and logged)",
+        "Design principles",
+        "Latency budget (Solitaire move)",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Operations, isolation and reliability"
+        },
+        {
+          "team": "Red Team",
+          "category": "Vision, OCR and workflow planning"
+        }
+      ]
+    },
+    {
+      "path": "research/System Design/System Design \u2014 Drag, Tap and Verify Primitives for Card Moves.md",
+      "sha256": "1439b59fdf613d0d8a8cb6258b1b345ce038104f613dd8fb6fab378237bf2e8d",
+      "bytes": 4098,
+      "title": "System Design \u2014 Drag, Tap and Verify Primitives for Card Moves",
+      "sections_reviewed": [
+        "System Design \u2014 Drag, Tap and Verify Primitives for Card Moves",
+        "Primitive definitions (screen px in, G-code out)",
+        "Making drags work on a gantry",
+        "Verify after every primitive",
+        "Measure",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Operations, isolation and reliability"
+        },
+        {
+          "team": "Red Team",
+          "category": "Vision, OCR and workflow planning"
+        }
+      ]
+    },
+    {
+      "path": "research/System Design/System Design \u2014 Game State and Decision Engines for Card Games.md",
+      "sha256": "fe067a76007107976e9b6cdbfbf7d59db95d4924bdfc9cb85c783e07638e152a",
+      "bytes": 4620,
+      "title": "System Design \u2014 Game State and Decision Engines for Card Games",
+      "sections_reviewed": [
+        "System Design \u2014 Game State and Decision Engines for Card Games",
+        "State tracking comes first",
+        "Engines by game type",
+        "Why this split matters for the rig",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Operations, isolation and reliability"
+        },
+        {
+          "team": "Red Team",
+          "category": "Vision, OCR and workflow planning"
+        }
+      ]
+    },
+    {
+      "path": "research/System Design/System Design \u2014 Reading Cards from the Screen.md",
+      "sha256": "cfdef7b6375218fd247e4fbff190f6135421badfd134412d4fa3ac91246f1446",
+      "bytes": 4181,
+      "title": "System Design \u2014 Reading Cards from the Screen",
+      "sections_reviewed": [
+        "System Design \u2014 Reading Cards from the Screen",
+        "Options",
+        "Gotchas specific to card UIs",
+        "Validation",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Operations, isolation and reliability"
+        },
+        {
+          "team": "Red Team",
+          "category": "Vision, OCR and workflow planning"
+        }
+      ]
+    },
+    {
+      "path": "research/System Design/System Design \u2014 Related Work - Robots and Bots that Play Games.md",
+      "sha256": "aab638822052184c27fa7b61bb7d6900363006f6ad4270620e6fd9933a03b00f",
+      "bytes": 5969,
+      "title": "System Design \u2014 Related Work - Robots and Bots that Play Games",
+      "sections_reviewed": [
+        "System Design \u2014 Related Work: Robots and Bots that Play Games",
+        "1. Physical device-testing robots",
+        "2. Software game bots (no robot)",
+        "3. Physical robots playing board games",
+        "4. Where not to go: real-money online card rooms",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Operations, isolation and reliability"
+        },
+        {
+          "team": "Red Team",
+          "category": "Vision, OCR and workflow planning"
+        }
+      ]
+    },
+    {
+      "path": "research/System Design/System Design \u2014 Reliability, Error Recovery and Testing Harness.md",
+      "sha256": "5b4bbfee30c30631d011ed44a0471c1c4ce378dff2aaaf997d12670b36516182",
+      "bytes": 4530,
+      "title": "System Design \u2014 Reliability, Error Recovery and Testing Harness",
+      "sections_reviewed": [
+        "System Design \u2014 Reliability, Error Recovery and Testing Harness",
+        "Controller state machine",
+        "Failure catalogue (and the detector for each)",
+        "Test pyramid",
+        "Metrics dashboard",
+        "Pitch in",
+        "Sources",
+        "Related"
+      ],
+      "groups": [
+        {
+          "team": "Shared",
+          "category": "Operations, isolation and reliability"
+        },
+        {
+          "team": "Red Team",
+          "category": "Vision, OCR and workflow planning"
+        }
+      ]
+    }
+  ]
+}
